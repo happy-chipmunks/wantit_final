@@ -6,10 +6,13 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	Hello world!
 </h1>
 
-<P>  The time on the server is ${serverTime}.  ${contextPath }</P>
+<P>
+	The time on the server is ${serverTime}.  ${contextPath }
+	권진환 바보멍청
+</P>
 
 </body>
 </html>
