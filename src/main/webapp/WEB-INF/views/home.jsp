@@ -10,5 +10,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}.  ${contextPath }</P>
+<p>안녕하세요 반가워요</p>
 </body>
 </html>
