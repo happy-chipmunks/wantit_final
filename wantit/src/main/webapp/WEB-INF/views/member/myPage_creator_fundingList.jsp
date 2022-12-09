@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>마이페이지 서포터(펀딩)</title>
+<title>마이페이지 크리에이터(펀딩)</title>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <!-- Bootstrap v5.1.3 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -111,7 +111,7 @@
 				<li style="width: 200px;"><img src="resources/기본프로필.png" style="width: 150px; height: 150px;">
 	   				<h4><b>닉네임</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
-	   				서포터<br>
+	   				크리에이터<br>
 	   				<button class="btn btn-sm" style="background-color: lightgray;">로그아웃</button>
 	   				</p>
    				</li>
@@ -119,10 +119,7 @@
    					<p><button class="btn button"><b>내 정보</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button"><b>원팅</b></button></p>
-   				</li>
-   				<li>
-   					<p><button class="btn button"><b>찜</b></button></p>
+   					<p><button class="btn button"><b>펀딩</b></button></p>
    				</li>
    				<li>
    					<p><button class="btn button"><b>문의</b></button></p>
@@ -134,13 +131,13 @@
    					<p><button class="btn button"><b>팔로우</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button"><b>구매이력</b></button></p>
+   					<p><button class="btn button"><b>광고 의뢰</b></button></p>
    				</li>
 			</ul>
    		</div>
    	
    		<div class="col-8">
-		<h4 align="left">나의 원팅 | 원팅 내역</h4>
+		<h4 align="left">나의 펀딩 | 진행 중인 펀딩</h4>
 	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 	        <div class="col">
 	          <div class="card shadow-sm">

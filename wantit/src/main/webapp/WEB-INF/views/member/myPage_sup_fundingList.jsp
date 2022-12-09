@@ -111,7 +111,7 @@
 				<li style="width: 200px;"><img src="resources/기본프로필.png" style="width: 150px; height: 150px;">
 	   				<h4><b>닉네임</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
-	   				서포터/크리에이터<br>
+	   				서포터<br>
 	   				<button class="btn btn-sm" style="background-color: lightgray;">로그아웃</button>
 	   				</p>
    				</li>

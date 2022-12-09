@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>마이페이지 서포터(알림)</title>
+<title>마이페이지 크리에이터</title>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <!-- Bootstrap v5.1.3 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -39,6 +38,10 @@
 			width: 550px;
 		}
 		
+		textarea{
+			height: 150px;
+		}
+		
 		p{
 			font-size: 15px;
 		}
@@ -53,16 +56,7 @@
 			transition: background 0.7s ease-in-out;
 		}
 		
-		.button2:hover{
-			background-color: #E0FFFF;
-			transition: background 0.7s ease-in-out;
-		}
-		
-		.alarm{
-			height: 60px;
-		}
-		
-		ul{list-style: none; text-align: center;}
+		ul{text-align: center; list-style: none;}
 		
     </style>
 
@@ -124,7 +118,7 @@
 				<li style="width: 200px;"><img src="resources/기본프로필.png" style="width: 150px; height: 150px;">
 	   				<h4><b>닉네임</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
-	   				서포터<br>
+	   				크리에이터<br>
 	   				<button class="btn btn-sm" style="background-color: lightgray;">로그아웃</button>
 	   				</p>
    				</li>
@@ -132,10 +126,7 @@
    					<p><button class="btn button"><b>내 정보</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button"><b>원팅</b></button></p>
-   				</li>
-   				<li>
-   					<p><button class="btn button"><b>찜</b></button></p>
+   					<p><button class="btn button"><b>펀딩</b></button></p>
    				</li>
    				<li>
    					<p><button class="btn button"><b>문의</b></button></p>
@@ -147,85 +138,57 @@
    					<p><button class="btn button"><b>팔로우</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button"><b>구매이력</b></button></p>
+   					<p><button class="btn button"><b>광고 의뢰</b></button></p>
    				</li>
 			</ul>
    		</div>
-   	
-   	<div class="col-8">
-   		<h4 align="left" style="display: inline;"><b>알림</b> | </h4>
-    	<button class="btn button2">공지/이벤트</button>
-		<button class="btn button2">오픈예정</button>
-		<button class="btn button2">팔로잉</button>
-		<hr>			
-		<div class="container">			
-			<table class="table">
-				<tr class="alarm">
-					<td>1</td>
+   		<div class="col-8">
+			<table align="center" style="text-align: center; height: 100%;" class="table">
+				<tr>
+					<th>아이디</th>
+					<td colspan="2">아이디</td>
 				</tr>
-				<tr class="alarm">
-					<td>1</td>
+				<tr>
+					<th>비밀번호</th>
+					<td colspan="2"><button class="btn btn-outline-secondary btn-sm">변경하기</button></td>
 				</tr>
-				<tr class="alarm">
-					<td>1</td>
+				<tr>
+					<th>이름</th>
+					<td colspan="2">이름</td>
 				</tr>
-				<tr class="alarm">
-					<td>1</td>
+				<tr>
+					<th>닉네임</th>
+					<td colspan="2">닉네임</td>
 				</tr>
-				<tr class="alarm">
-					<td>1</td>
+				<tr>
+					<th>생년월일</th>
+					<td colspan="2">생년월일</td>
 				</tr>
-				<tr class="alarm">
-					<td>1</td>
+				<tr>
+					<th>전화번호</th>
+					<td colspan="2">전화번호</td>
 				</tr>
-				<tr class="alarm">
-					<td>1</td>
+				<tr>
+					<th>이메일</th>
+					<td colspan="2">이메일</td>
 				</tr>
-				<tr class="alarm">
-					<td>1</td>
+				<tr>
+					<th>주소</th>
+					<td colspan="2">주소</td>
 				</tr>
-				<tr class="alarm">
-					<td>1</td>
-				</tr>
-				<tr class="alarm">
-					<td>1</td>
+				<tr>
+					<td colspan="2">
+					<td>
+						<button class="btn btn-secondary btn-sm">수정하기</button>
+						<button class="btn btn-secondary btn-sm">탈퇴하기</button>
+					</td>
 				</tr>
 			</table>
-		</div>
-					<nav aria-label="Standard pagination example" class="nav justify-content-center">
-			        	<ul class="pagination">
-				            <li class="page-item">
-				            	<c:url var="goBack" value="${ loc }">
-				            		<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
-				            	</c:url>
-				            	<a class="page-link" href="${ goBack }" aria-label="Previous">
-				            		<span aria-hidden="true">&laquo;</span>
-				              	</a>
-				            </li>
-				            <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-				            	<c:url var="goNum" value="${ loc }">
-				            		<c:param name="page" value="${ p }"></c:param>
-				            	</c:url>
-				            	<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
-				            </c:forEach>
-				            <li class="page-item">
-				            	<c:url var="goNext" value="${ loc }">
-				            		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
-				            	</c:url>
-				            	<a class="page-link" href="${ goNext }" aria-label="Next">
-				            		<span aria-hidden="true">&raquo;</span>
-				            	</a>
-				            </li>
-				    	</ul>
-			        </nav>
- 			</div>
- 		</div>
+	    </div>
+    	<hr>
+    </div>
+    
     <br>
 	
-	
-
-	<script>
-	</script>
-
 </body>
 </html>
