@@ -1,0 +1,260 @@
+.creatorImage{
+    background-color: #e8acef;
+    height: 550px;
+    width: 70%;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.creatorInfo{
+    background-color: #1a1e1f;
+    width: 70%;
+    box-sizing: border-box;
+    padding: 30px;
+    position: relative;
+    top: -40px;
+    border-radius: 20px;
+}
+
+.creatorName{
+    font-size: 35px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.shareIcon:hover{
+    cursor: pointer;
+}
+
+.shareIcon{
+    position: absolute;
+    right: 0;
+    padding-right: 40px;
+}
+
+.allInfo{
+    background-color: #1a1e1f;
+}
+
+.creatorCate{
+    background-color: #343332;
+    font-size: 12px;
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 2px;
+    border-radius: 3px;
+    color: dimgray;
+}
+
+.creatorContent{
+    width: 100%;
+    word-wrap: break-word;
+    padding-top: 20px;
+    font-size: 12px;
+}
+
+.creator-statistics{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+}
+
+.following{
+    background-color: #e8acef;
+}
+
+.following:hover{
+    background-color: #e8acef;
+}
+
+.followEtc{
+    right: 0;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #e9ecef;
+}
+
+.creator-other{
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    padding-bottom: 40px;
+}
+
+.creator-others{
+    padding-top: 40px;
+    border-bottom: 1px solid dimgray;
+    
+}
+
+.goFunding, .endFunding{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.fundListCount{
+    position: absolute;
+    right: 0;
+    padding-top: 10px;
+    padding-right: 30px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.gf2, .ef2, .ff{
+    display: inline;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 30px;
+}
+
+.gfImage{
+    width: 90%;
+    height: 300px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e8acef;
+    border-radius: 15px;
+}
+
+.gfTitle{
+    padding-top: 5px;
+    padding-left: 30px;
+    margin: 5px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+}
+
+.gfPercent{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 15px;
+    padding-left: 35px;
+    color: #e8acef;
+}
+
+.gfMoney{
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: dimgray;
+}
+
+.gfRemainDate{
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: dimgray;
+    right: 0;
+    position: absolute;
+    padding-right: 50px;
+}
+
+.efTitle{
+    padding-top: 5px;
+    margin: 10px;
+    margin-left: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+}
+
+.efPercent{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 13px;
+    padding-left: 20px;
+    color: #e8acef;
+}
+
+.efMoney{
+    font-size: 12px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: dimgray;
+    
+}
+
+.efList{
+    padding: 0;
+}
+
+.efImage{
+    width: 95%;
+    height: 250px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e8acef;
+    border-radius: 15px;
+}
+
+.fInfo{
+    background-color: #1a1e1f;
+    width: 70%;
+    box-sizing: border-box;
+    padding: 70px;
+    position: relative;
+    
+    border-radius: 20px;
+}
+
+.ffCount{
+    font-family: 'Noto Sans KR', sans-serif;
+    color: dimgray;
+}
+
+.totalStar{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 25px;
+    position: relative;
+    right: 0;
+    
+    
+}
+
+.starAvg{
+    color: #e8acef;
+    font-size: 40px;
+}
+
+.fList{
+    margin: 40px;
+    padding-top: 30px;
+}
+
+.fv{
+    background-color: #2f3231;
+    border-radius: 15px;
+    width:95%;
+    height: 100%;
+    padding: 20px;
+    margin-bottom: 40px;
+    
+    
+}
+
+.fvTitle{
+    font-family: 'Do Hyeon', sans-serif;
+    color: dimgray;
+}
+
+.fvContent{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.star{
+    color: #e8acef;
+    font-size: 20px;
+}
+
+.fvImage{
+    background-color: #e8acef;
+    
+}
+
+.gotoAllfv{
+    text-align: end;
+    margin-right: 50px;
+    font-family: 'Do Hyeon', sans-serif;
+    color: #e8acef;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.searchForm{
+	margin-bottom: 20px;
+}
+
+

@@ -1,0 +1,38 @@
+th, td{
+    padding: 8px;
+}
+
+th{
+    font-family: 'Do Hyeon', sans-serif;
+    color: dimgray;
+}
+
+td{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.cInfoContent{
+    padding-top: 30px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.cInfoTitle{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 30px;
+    color: #e8acef;
+}
+
+.cInfoTeam{
+    padding-top: 40px;
+}
+
+.cTeamImage{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #e8acef;
+}
+
+.ctMember{
+    padding-top: 8px;
+}
