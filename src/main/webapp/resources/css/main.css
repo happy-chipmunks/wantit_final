@@ -1,0 +1,185 @@
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+  .b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+  }
+
+  .b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+  }
+
+  .bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+  }
+
+  .nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+  }
+
+  .nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .carousel-item {
+    height: 500px;
+  }
+
+  #myCarousel{
+    height: 500px;
+  }
+
+  .carousel-control-prev {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 350px;
+    left: 1400px;
+    background-color: black;
+    opacity: 0.4;
+  }
+
+  .carousel-control-next {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 350px;
+    left: 1450px;
+    background-color: black;
+    opacity: 0.4;
+  }
+  
+  .col-md-8{
+    border-right: 1px solid white;
+  }
+
+  /* .fundinglist{
+    height: 400px;
+    width: 250px;
+  } */
+
+  .wantingList{
+    height: 150px;
+  }
+
+  strong{
+    font-family: 'Do Hyeon', sans-serif;
+  }
+
+  .card-text{
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  .wanting-text{
+    font-family: 'Noto Sans KR', sans-serif;
+    display: block;
+    word-wrap: break-word;
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .wanting-writer{
+    text-align: end;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  .fundinglist{
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  .wanting-other{
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  .fundingMore{
+    text-align: end;
+    font-size: 20px;
+    padding: 10px;
+    font-family: 'Do Hyeon', sans-serif;
+    cursor: pointer;
+  }
+
+  .goWanting{
+    width: 100%;
+    height: 80px;
+    font-size: 30px;
+    font-family: 'Do Hyeon', sans-serif;
+    background-color: #e8acef;
+  }
+
+  .goWanting:hover{
+    background-color: #e8acef;
+  }
+
+  .likeIcon::before{
+    /* margin-bottom: 30px; */
+    padding-bottom: 20px;
+  }
+  
+  .mainTitle{
+    color: #e8acef;
+  }
+ 
+  .cateAndName{
+    font-size: 12px;
+    padding-bottom: 10px;
+  }
+
+  .cate, .fundName {
+    color: dimgrey;
+  }
+
+  .cate {
+    border-right: 1px solid dimgrey;
+    padding-right: 5px;
+  }
+
+  .remainDate{
+    text-align: end;
+    padding-left: 25px;
+    color: dimgrey;
+  }
+
+  .remainWantingDate{
+    text-align: end;
+    padding-left: 45px;
+    color: dimgrey;
+  }
+
+  .remainOpenDate{
+    text-align: end;
+    padding-left: 20px;
+    color: dimgrey;
+  }
+
+  i{
+    color: #e8acef;
+  }

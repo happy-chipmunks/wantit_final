@@ -1,0 +1,134 @@
+#searchIcon::before{
+    position: absolute;
+    width: 17px;
+    top: 10px;
+    right: 14px;
+    margin: 0;
+    color: white;
+
+}
+
+#searchForm {
+    width: 300px;
+    position: relative;
+}
+
+.searchText {
+    border: 0;
+    padding: 4px;
+    border-radius: 50px;
+    width: 300px;
+    margin: 0;
+    line-height: inherit;
+}
+
+.searchForm{
+    background: #fff;
+    border: 1px solid rgba(34, 34, 34, 0.3);
+    pad: 5px 10px;
+    position: relative;
+    border-radius: 50px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+}
+
+.searchBtn{
+    position: absolute;
+    height: 33px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: 0;
+    font-size: 16px;
+    padding: 0 25px;
+    margin: -1px;
+    background: #ff0000;
+    color: #fff;
+    transition: 0.3s;
+    border-radius: 50px;
+    line-height: 0;
+    cursor: pointer;
+    /* margin-left: 10px; */
+    /* margin-right: 10px; */
+    background-color: #e8acef;
+}
+
+#loginBtn{
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #e8acef;
+    border-color: #e8acef;
+}
+
+#loginBtn:hover{
+    color: white;
+    background-color: #e8acef;
+}
+
+
+.myInfo{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #ff0000;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+#alarmIcon{
+    font-size: 2rem;
+    margin-left: 10px;
+    transform: translateX(-70%);
+}
+
+#alarmIcon::before{
+	margin-top: 10px;
+}
+
+.myAlarm{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background: #fff;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.nav-item {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: 'Do Hyeon', sans-serif;
+
+}
+
+.navbar-nav{
+    font-size: 25px;
+}
+
+.navbar-brand{
+    font-size: 25px;
+}
+
+#askManager{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #e8acef;
+}
+
+#openProject{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #e8acef;
+}
+
+.brandName{
+	font-size: 25px;
+}
+

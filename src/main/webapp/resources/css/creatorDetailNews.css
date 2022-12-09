@@ -1,0 +1,77 @@
+.cNews{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 50px;
+}
+
+.newsTitle{
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.newsCate, .newsDate{
+    font-size: 13px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: dimgray;
+    
+}
+
+.newsContent{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: lighter;
+    line-height: 30px;
+}
+
+.newsImage{
+    width: 100%;
+    background-color: dimgray;
+    height: 600px;
+    border-radius: 20px;
+}
+
+.likeAreaItem{
+    background-color: #343332;
+    border-radius: 30%;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    cursor: pointer;
+}
+
+.newsReply{
+    position: absolute;
+    right: 0;
+    padding-right: 50px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.pfImage{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #e8acef;
+}
+
+.pfWriter{
+    margin-top: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.pfContent{
+    margin-top: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+}
+
+.pfEdit, .pfDelete{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    background-color: #2f3231;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
