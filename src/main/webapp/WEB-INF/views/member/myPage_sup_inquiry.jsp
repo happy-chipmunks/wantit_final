@@ -105,8 +105,8 @@
     	</div>
     	<hr>
     	<div class="text-end">
-          <button type="button" class="btn btn-secondary">서포터</button>
-          <button type="button" class="btn btn-secondary">크리에이터</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSuppoterInquiry.me'">서포터</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreatorInquiry.me'">크리에이터</button>
         </div>
        
     </div>
