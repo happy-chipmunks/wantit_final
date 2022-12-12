@@ -1,0 +1,33 @@
+@charset "EUC-KR";
+.to-list {
+    font-size: 15px;
+    color: gray;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 5px;
+    outline: none;
+    padding: 3px 15px;
+}
+.notice-header {
+    padding: 10px 0;
+    border-bottom: 1px solid #c0c0c0;
+}
+.notice-category {
+    font-size: 13px;
+    font-weight: 400;
+    color: grey;
+}
+.notice-title {
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+.notice-date {
+    font-size: 12px;
+    font-weight: 400;
+    color: grey;
+}
+.notice-content-img {
+    width: 100%;
+    
+}
