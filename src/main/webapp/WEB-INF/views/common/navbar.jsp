@@ -63,14 +63,15 @@
           
             
           </form>
+          <button type="button" class="btn" onclick="location.href='${contextPath}/admin.ad'">관리자로</button>
          <button type="button" class="btn btn-outline-warning" id="loginBtn" onclick="location.href='${ contextPath }/loginenroll.me'">로그인/회원가입</button>
           <span class="myInfo"></span>
           <span class="myAlarm">
             <i class="bi bi-bell" id="alarmIcon"></i>
           </span>
-          <button type="button" class="btn" id="askManager" onclick="location.href=''">관리자 문의</button>
+          <button type="button" class="btn" id="askManager" onclick="location.href='${contextPath}/'">관리자 문의</button>
           <button type="button" class="btn" id="openProject" onclick="location.href='${contextPath}/fundingWrite.fund'">프로젝트 오픈 신청</button>
-
+		  
         </div>
       </nav>
       

@@ -852,6 +852,52 @@
     <h2 class="ttable1" style="color: black; font-weight: bold;">회원가입</h2>
 
     <div class="tttable">
+    	<div class="input-group mb-3">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="idInput" required>
+              <label for="idInput">*아이디 입력</label>
+            </div>
+            <button type="button" class="btn btn-primary">
+                <span>
+                    <span class="">중복확인</span>
+                </span>
+            </button>
+        </div>
+        <br>
+    	<div class="input-group mb-3">
+            <div class="form-floating">
+              <input type="password" class="form-control" id="passwordInput" required>
+              <label for="passwordInput">*비밀번호 </label>
+            </div>
+        </div>
+        <br>
+        <div class="input-group mb-3">
+            <div class="form-floating">
+              <input type="password" class="form-control" id="passwordCheckInput" required>
+              <label for="passwordCheckInput">*비밀번호 확인</label>
+            </div>
+        </div>
+        <br>
+    	<div class="input-group mb-3">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="nameInput" required>
+              <label for="nameInput">*이름 입력</label>
+            </div>
+        </div>
+        <br>
+    	<div class="input-group mb-3">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="nicknameInput" required>
+              <label for="nicknameInput">*닉네임 입력</label>
+            </div>
+            <button type="button" class="btn btn-primary">
+                <span>
+                    <span class="">중복확인</span>
+                </span>
+            </button>
+        </div>
+        <br>
+    	
         <div class="input-group mb-3">
             <div class="form-floating">
               <input type="text" class="form-control" id="phoneInput" required>
@@ -878,30 +924,6 @@
         <br>
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="idInput" required>
-              <label for="idInput">*아이디 입력</label>
-            </div>
-            <button type="button" class="btn btn-primary">
-                <span>
-                    <span class="">중복확인</span>
-                </span>
-            </button>
-        </div>
-        <br>
-        <div class="input-group mb-3">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="nicknameInput" required>
-              <label for="nicknameInput">*닉네임 입력</label>
-            </div>
-            <button type="button" class="btn btn-primary">
-                <span>
-                    <span class="">중복확인</span>
-                </span>
-            </button>
-        </div>
-        <br>
-        <div class="input-group mb-3">
-            <div class="form-floating">
               <input type="text" class="form-control" id="addressInput1" required>
               <label for="addressInput1">*주소 입력</label>
             </div>
@@ -911,17 +933,11 @@
               </div>
         </div>
         <br>
+        
         <div class="input-group mb-3">
             <div class="form-floating">
               <input type="email" class="form-control" id="emailInput" required>
               <label for="emailInput">*이메일 입력</label>
-            </div>
-        </div>
-        <br>
-        <div class="input-group mb-3">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="nameInput" required>
-              <label for="nameInput">*이름 입력</label>
             </div>
         </div>
         <br>
@@ -939,27 +955,6 @@
             </div>
         </div>
         <br>
-        <div class="input-group mb-3">
-            <div class="form-floating">
-              <input type="password" class="form-control" id="passwordInput" required>
-              <label for="passwordInput">*비밀번호 </label>
-            </div>
-        </div>
-        <br>
-        <div class="input-group mb-3">
-            <div class="form-floating">
-              <input type="password" class="form-control" id="passwordCheckInput" required>
-              <label for="passwordCheckInput">*비밀번호 확인</label>
-            </div>
-        </div>
-        <br>
-        <select class="form-select" aria-label="Default select example">
-		  <option selected>관심있는 카테고리</option>
-		  <option value="1">One</option>
-		  <option value="2">Two</option>
-		  <option value="3">Three</option>
-		</select>
-		<br>
         <button type="button" class="btn btn-primary">
             <span>
                 <span class="">가입하기</span>
