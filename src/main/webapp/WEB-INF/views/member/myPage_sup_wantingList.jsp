@@ -143,7 +143,7 @@
    		</div>
    	
    		<div class="col-8">
-		<h4 align="left">나의 원팅 | 원팅 내역</h4>
+		<h4 align="left">나의 원팅 | 원팅 내역 <button onclick="location.href='${contextPath}/wantingWrite.want'"type="button" class="btn" style="align: right; background-color: #D6C7ED;">원팅 신청</button></h4>
 	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 	        <div class="col">
 	          <div class="card shadow-sm">
