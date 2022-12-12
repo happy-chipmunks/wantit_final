@@ -854,9 +854,9 @@
     <div class="tttable">
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="email" class="form-control" id="emailInput" required>
-              <label for="emailInput">*이메일 입력</label>
-            </div>
+              <input type="text" class="form-control" id="phoneInput" required>
+              <label for="phoneInput">*전화번호 입력</label>
+            </div>            
             <button type="button" class="btn btn-primary">
                 <span>
                     <span class="">인증하기</span>
@@ -913,8 +913,8 @@
         <br>
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="phoneInput" required>
-              <label for="phoneInput">*전화번호 입력</label>
+              <input type="email" class="form-control" id="emailInput" required>
+              <label for="emailInput">*이메일 입력</label>
             </div>
         </div>
         <br>
