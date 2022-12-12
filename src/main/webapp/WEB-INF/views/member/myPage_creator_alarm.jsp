@@ -108,7 +108,7 @@
     <div class="container">
     	<div>
     		<h1 style="display: inline;"><b>마이페이지</b></h1>&nbsp;&nbsp;&nbsp;
-    		<img src="resources/메시지.png" style="width: 40px; height: 40px;">
+    		<button class="btn" onclick="openPopup()"><img src="resources/메시지.png" style="width: 40px; height: 40px;"></button>
     	</div>
     	<hr>
     	<div class="text-end">
@@ -225,6 +225,9 @@
 	
 
 	<script>
+		function openPopup(){
+			window.open("myPage_sup_message.jsp", "index4", "width=500 height=300");
+		}
 	</script>
 
 </body>
