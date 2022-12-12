@@ -58,4 +58,9 @@ public class HomeController {
 	public String wantingList() {
 		return "wantingListView";
 	}
+	
+	@RequestMapping("/fundingWrite.fund")
+	public String fundingWrite() {
+		return "fundingWrite";
+	}
 }
