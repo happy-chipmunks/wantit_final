@@ -155,6 +155,102 @@
   </div>
 </div>
 
+
+<!-- 찜하기 완료 -->
+<div class="modal fade" id="dibs-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-funding-right">
+          <p class="dibs-message">
+            찜하기가 완료되었습니다.<br>
+            마이페이지 찜하기 모아보기에서 확인하실 수 있습니다.
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer modal-dibs-footer">
+        <div class="container">
+          <div class="row g-2">
+            <div class="col-sm-4">
+              <button type="button" class="modal-funding-btn">다른 펀딩 둘러보기</button>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="modal-funding-btn">내 찜 목록보기</button>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 공유하기 완료 -->
+<div class="modal fade" id="share-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-funding-right">
+          <p class="dibs-message">
+            공유하기는 버튼이 떠야하나<br>
+            카카오 / 네이버 / 페이스북 이런거
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer modal-dibs-footer">
+        <div class="container">
+          <div class="row g-2">
+            <div class="col-sm-4">
+              <button type="button" class="modal-funding-btn">다른 펀딩 둘러보기</button>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="modal-funding-btn">내 찜 목록보기</button>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 신고하기 완료 -->
+<div class="modal fade" id="report-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-funding-right">
+          <p class="dibs-message">
+            신고가 완료되었습니다.<br>
+            ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer modal-dibs-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- 공유하기 완료 -->
 <div class="modal fade" id="share-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -184,9 +280,10 @@
               <button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button>
             </div>
           </div>
+     	</div>
       </div>
-    </div>
-  </div>
+   </div>
+ </div>
 </div>
 
 <!-- 신고하기 완료 -->
