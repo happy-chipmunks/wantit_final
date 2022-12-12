@@ -77,8 +77,8 @@
         <br>
         <div>
             &nbsp;&nbsp;&nbsp;  아직 회원이 아니신가요?
-        <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/myPage_enroll'">회원가입하기</button>
-        </div>
+        <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/memberenroll.me'">회원가입하기</button>
+        </div>									   	
     </div>
     
     <div class="h4 pb-2 mb-4 text-danger border-bottom" style="color: lightgray;"></div>

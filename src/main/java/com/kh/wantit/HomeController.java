@@ -63,4 +63,8 @@ public class HomeController {
 	public String fundingWrite() {
 		return "fundingWrite";
 	}
+	@RequestMapping("/loginenroll.me")
+	public String loginenroll() {
+		return "myPage_login";
+	}
 }

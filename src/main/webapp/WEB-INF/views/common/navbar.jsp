@@ -63,7 +63,7 @@
           
             
           </form>
-          <button type="button" class="btn btn-outline-warning" id="loginBtn" onclick="location.href=''">로그인/회원가입</button>
+         <button type="button" class="btn btn-outline-warning" id="loginBtn" onclick="location.href='${ contextPath }/loginenroll.me'">로그인/회원가입</button>
           <span class="myInfo"></span>
           <span class="myAlarm">
             <i class="bi bi-bell" id="alarmIcon"></i>

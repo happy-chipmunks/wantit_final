@@ -968,7 +968,7 @@
         <br>
         <div>
             &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  이미 회원이신가요?
-        <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/myPage_login'">로그인하기</button>
+        <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/loginenroll.me'">로그인하기</button>
         </div>
     </div>
     
