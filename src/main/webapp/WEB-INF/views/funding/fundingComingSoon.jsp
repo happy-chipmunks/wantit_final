@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="fundingComingSoon.css">
+<link rel="stylesheet" href="resources/css/fundingComingSoon.css">
 </head>
 <body>
     <!--배너광고, 이벤트-->
@@ -70,7 +70,7 @@
                     <div class="col-1 cateItemArea"></div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-home-appliance-3659944.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-home-appliance-3659944.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>테크<br>가전</p>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-fashion-7417634.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-fashion-7417634.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>패션<br>잡화</p>
@@ -87,7 +87,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-cosmetics-3501241.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-cosmetics-3501241.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>뷰티</p>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-ozoni-3736059.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-ozoni-3736059.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>음식</p>
@@ -103,7 +103,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/living-room.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/living-room.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>홈<br>리빙</p>
@@ -111,7 +111,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-tourism-8171604.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-tourism-8171604.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>여행<br>레저</p>
@@ -119,7 +119,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-sports-4163736.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-sports-4163736.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>스포츠</p>
@@ -127,7 +127,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-character-1577156.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-character-1577156.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>캐릭터<br>굿즈</p>
@@ -141,7 +141,7 @@
 
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-baby-2234018.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-baby-2234018.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>베이비<br>키즈</p>
@@ -149,7 +149,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-dog-2272310.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-dog-2272310.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>반려동물</p>
@@ -157,7 +157,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-game-controller-2331852.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-game-controller-2331852.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>게임</p>
@@ -165,7 +165,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/painting.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/painting.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>컬쳐<br>아티스트</p>
@@ -173,7 +173,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-books-2702069.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-books-2702069.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>출판</p>
@@ -181,7 +181,7 @@
                     </div>
                     <div class="col-1 cateItemArea">
                         <div class="cateItem">
-                            <img src="image/free-icon-elearning-2704382.png" class="cateImage" alt="">
+                            <img src="${ contextPath }/resources/cateImage/free-icon-elearning-2704382.png" class="cateImage" alt="">
                         </div>
                         <div class="cateItemName">
                             <p>클래스<br>컨설팅</p>

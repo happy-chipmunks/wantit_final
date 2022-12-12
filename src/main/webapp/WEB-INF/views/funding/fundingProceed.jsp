@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="fundingProceed.css">
+<link rel="stylesheet" href="resources/css/fundingProceed.css">
 </head>
 <body>
     <!--배너광고, 이벤트-->

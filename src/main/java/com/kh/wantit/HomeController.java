@@ -44,5 +44,18 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("/fundingList.fund") 
+		public String fundingList() {
+			return "fundingProceed";
+		}
 	
+	@RequestMapping("/fundingComingSoon.fund")
+	public String fundingComingSoon() {
+		return "fundingComingSoon";
+	}
+	
+	@RequestMapping("/wantingList.want")
+	public String wantingList() {
+		return "wantingListView";
+	}
 }

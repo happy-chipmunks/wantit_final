@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="wantingListView.css">
+<link rel="stylesheet" href="resources/css/wantingListView.css">
 </head>
 <body>
      <!-- ======= Specials Section ======= -->

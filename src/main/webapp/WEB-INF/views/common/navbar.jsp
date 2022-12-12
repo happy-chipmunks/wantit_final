@@ -26,20 +26,20 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
         <div class="container-fluid">
-          <a class="navbar-brand brandName" href="#">WANT IT</a>
+          <a class="navbar-brand brandName" href="${ contextPath }/home.do">WANT IT</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link mx-3" aria-current="page" href="#">원팅</a>
+                <a class="nav-link mx-3" aria-current="page" href="${ contextPath }/wantingList.want">원팅</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-3" href="#">펀딩</a>
+                <a class="nav-link mx-3" href="${ contextPath }/fundingList.fund">펀딩</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-3" href="#" >펀딩예정</a>
+                <a class="nav-link mx-3" href="${ contextPath }/fundingComingSoon.fund" >펀딩예정</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle mx-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
