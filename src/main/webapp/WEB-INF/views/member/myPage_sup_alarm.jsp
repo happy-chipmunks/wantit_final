@@ -129,28 +129,28 @@
 	   				</p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>내 정보</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporter.me"><b>내 정보</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>펀딩</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterFunding.me"><b>펀딩</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>원팅</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterWanting.me"><b>원팅</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>찜</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterDibs.me"><b>찜</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>문의</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterInquiry.me"><b>문의</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>알림</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterAlarm.me"><b>알림</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>팔로우</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterFollow.me"><b>팔로우</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>구매이력</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterPayList.me"><b>구매이력</b></button></p>
    				</li>
 			</ul>
    		</div>

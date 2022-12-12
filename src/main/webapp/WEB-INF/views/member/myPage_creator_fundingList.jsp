@@ -116,22 +116,22 @@
 	   				</p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>내 정보</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageCreator.me"><b>내 정보</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>펀딩</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageCreatorFunding.me"><b>펀딩</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>문의</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageCreatorInquiry.me"><b>문의</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>알림</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageCreatorAlarm.me"><b>알림</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>팔로우</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageCreatorFollow.me"><b>팔로우</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>광고 의뢰</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageCreatorAds.me"><b>광고의뢰</b></button></p>
    				</li>
 			</ul>
    		</div>

@@ -102,7 +102,7 @@
     <div class="container">
     	<div>
     		<h1 style="display: inline;"><b>마이페이지</b></h1>&nbsp;&nbsp;&nbsp;
-    		<button class="btn" onclick="openPopup()"><img src="resources/메시지.png" style="width: 40px; height: 40px;"></button>
+    		<button class="btn" onclick="openPopup()"><img src="${ contextPath }/resources/myPageImage/메시지.png" style="width: 40px; height: 40px;"></button>
     	</div>
     	<hr>
     	<div class="text-end">
@@ -115,7 +115,7 @@
 	<div class="row">
 		<div class="col-3">
 			<ul>
-				<li style="width: 200px;"><img src="resources/기본프로필.png" style="width: 150px; height: 150px;">
+				<li style="width: 200px;"><img src="${ contextPath }/resources/myPageImage/기본프로필.png" style="width: 150px; height: 150px;">
 	   				<h4><b>닉네임</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
 	   				서포터<br>
@@ -123,28 +123,28 @@
 	   				</p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>내 정보</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporter.me"><b>내 정보</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>펀딩</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterFunding.me"><b>펀딩</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>원팅</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterWanting.me"><b>원팅</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>찜</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterDibs.me"><b>찜</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>문의</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterInquiry.me"><b>문의</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>알림</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterAlarm.me"><b>알림</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>팔로우</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterFollow.me"><b>팔로우</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/"><b>구매이력</b></button></p>
+   					<p><button class="btn button" onclick="${contextPath}/myPageSupporterPayList.me"><b>구매이력</b></button></p>
    				</li>
 			</ul>
    		</div>
