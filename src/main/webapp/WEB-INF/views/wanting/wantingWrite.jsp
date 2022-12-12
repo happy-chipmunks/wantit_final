@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<jsp:include page="../common/navbar.jsp"></jsp:include>
 <title>펀딩 등록하기</title>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <!-- Bootstrap v5.1.3 -->
