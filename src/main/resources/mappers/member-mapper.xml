@@ -2,6 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 
-	
+	  <resultMap type="Member" id="memberResultSet">
+		<id column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_PWD" property="memberPwd"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICKNAME" property="memberNickname "/>
+		<result column="MEMBER_PHONE" property="memberPhone"/>
+		 <result column="MEMBER_POSTCODE" property="postcode"/> 
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="MEMBER_ENROLL_DATE" property="memberEnrolldate"/>
+		<result column="MEMBER_GENDER" property="memberGender"/>
+		<result column="MEMBER_TYPE" property="memberType"/>
+		<result column="MEMBER_INTRODUCE" property="memberIntroduce"/>
+		<result column="MEMBER_CATE" property="memberCate"/>
+		<result column="MEMBER_STATUS" property="memberStatus"/>
+	</resultMap>
 
+
+	<insert id="enroll" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES(#{memberId}, #{memberPwd},#{memberName},#{memberNickname},#{memberPhone},#{postcode},#{memberAddress},#{memberEmail},
+		sysdate,null,null,null,null,default) 
+	</insert>
 </mapper>

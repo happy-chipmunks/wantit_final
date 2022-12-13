@@ -1,13 +1,21 @@
 package com.kh.wantit.member.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.wantit.member.Service.MemberService;
+import com.kh.wantit.member.exception.memberException;
+import com.kh.wantit.member.vo.Member;
 
 @Controller
 public class MemberController {
 	
+	@Autowired
 	private MemberService mService;
 
 	@RequestMapping("/memberenroll.me")
@@ -84,4 +92,31 @@ public class MemberController {
 	public String myPageCreatorAds() {
 		return "myPage_creator_ads";
 	}
-}
+	
+	
+	@RequestMapping("/loginfinished.me")
+	public String enroll(@ModelAttribute("Member") Member member,@RequestParam("memberPwd2")String memberPwd2) {
+		
+		System.out.println(member);
+		System.out.println(memberPwd2);
+		
+		
+		member.setPostcode("testpostcode");
+		System.out.println(member);
+		int a = mService.enroll(member);
+		
+		System.out.println(a);
+		return "redirect:/";
+	}
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+

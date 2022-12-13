@@ -850,45 +850,41 @@
 <body>
       
     <h2 class="ttable1" style="color: black; font-weight: bold;">회원가입</h2>
-
+	<form action="${contextPath}/loginfinished.me" method="post">
     <div class="tttable">
     	<div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="idInput" required>
-              <label for="idInput">*아이디 입력</label>
+              <input type="text" class="form-control" id="memberId" name="memberId" required>
+              <label for="checkUsername">*아이디 입력해주세요</label>
             </div>
-            <button type="button" class="btn btn-primary">
-                <span>
-                    <span class="">중복확인</span>
-                </span>
-            </button>
+            
         </div>
         <br>
     	<div class="input-group mb-3">
             <div class="form-floating">
-              <input type="password" class="form-control" id="passwordInput" required>
-              <label for="passwordInput">*비밀번호 </label>
+              <input type="password" class="form-control" id="memberPwd" name="memberPwd" required>
+              <label for="memberPwd">*비밀번호 </label>
             </div>
         </div>
         <br>
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="password" class="form-control" id="passwordCheckInput" required>
-              <label for="passwordCheckInput">*비밀번호 확인</label>
+              <input type="password" class="form-control" id="memberPwd2" name="memberPwd2" required>
+              <label for="memberPwd2">*비밀번호 확인</label>
             </div>
         </div>
         <br>
     	<div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="nameInput" required>
-              <label for="nameInput">*이름 입력</label>
+              <input type="text" class="form-control" id="memberName" name="memberName"required>
+              <label for="memberName">*이름 입력</label>
             </div>
         </div>
         <br>
     	<div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="nicknameInput" required>
-              <label for="nicknameInput">*닉네임 입력</label>
+              <input type="text" class="form-control" id="memberNickname" name="memberNickname" required>
+              <label for="memberNickname">*닉네임 입력</label>
             </div>
             <button type="button" class="btn btn-primary">
                 <span>
@@ -900,8 +896,8 @@
     	
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="phoneInput" required>
-              <label for="phoneInput">*전화번호 입력</label>
+              <input type="text" class="form-control" id="memberPhone"  name="memberPhone"required>
+              <label for="memberPhone">*전화번호 입력</label>
             </div>            
             <button type="button" class="btn btn-primary">
                 <span>
@@ -912,8 +908,8 @@
         <br>
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="confirmNumber1" required>
-              <label for="confirmNumber1">*인증번호</label>
+              <input type="text" class="form-control" id="memberPhone2" name="memberPhone2" required>
+              <label for="memberPhone2">*인증번호</label>
             </div>
             <button type="button" class="btn btn-primary">
                 <span>
@@ -924,20 +920,20 @@
         <br>
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="addressInput1" required>
-              <label for="addressInput1">*주소 입력</label>
+              <input type="text" class="form-control" id="memberAddress"  name="memberAddress" required>
+              <label for="memberAddress">*주소 입력</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="addressInput2" >
-                <label for="addressInput2">상세주소 입력</label>
+                <input type="text" class="form-control" id="memberAddress2" name="memberAddress2" >
+                <label for="memberAddress2">상세주소 입력</label>
               </div>
         </div>
         <br>
         
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="email" class="form-control" id="emailInput" required>
-              <label for="emailInput">*이메일 입력</label>
+              <input type="email" class="form-control" id="memberEmail" name="memberEmail" required>
+              <label for="memberEmail">*이메일 입력</label>
             </div>
         </div>
         <br>
@@ -945,27 +941,29 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                <label class="form-check-label" for="inlineRadio1">남자</label>
+                <input class="form-check-input" type="radio" name="memberGender1" id="memberGender1" value="M">
+                <label class="form-check-label" for="memberGender">남자</label>
             </div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                <label class="form-check-label" for="inlineRadio2">여자</label>
+                <input class="form-check-input" type="radio" name="memberGender2" id="memberGender2" value="G">
+                <label class="form-check-label" for="memberGender2">여자</label>
             </div>
         </div>
         <br>
-        <button type="button" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary" >
             <span>
                 <span class="">가입하기</span>
             </span>
         </button>
+       </form>
         <br>
         <div>
             &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  이미 회원이신가요?
         <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/loginenroll.me'">로그인하기</button>
         </div>
     </div>
+    
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
@@ -1102,6 +1100,46 @@
         requestAnimationFrame(petalCreator);
     };
 }(jQuery));
+        
+        //아이디 중복 체크 
+        const userName = document.getElementById('idInput');
+ 			const checkId = document.getElementById('checkUsername');
+ 			
+ 			userName.addEventListener('blur',function(){
+ 				
+ 				const regUserName = /^[a-z0-9]{5,12}$/g;
+ 				
+ 				const val = this.value.trim();
+ 				
+ 				if(val == ''){
+ 					checkId.style.color = 'black';
+ 					checkId.innerText = '아이디를 입력해주세요.';
+ 				} else{
+ 					const checked = regUserName.test(val);
+ 					$.ajax({
+ 						url: '${contextPath}/checkUesrname.me',
+ 						data: {userName:val},
+ 						success: (data)=>{
+ 							if(data=='yes'){
+ 								checkId.style.color = 'red';
+ 								checkId.innerText = '이미 사용중인 아이디 입니다.';
+ 							} else if(data=='no'){
+ 								if(!checked){
+ 									checkId.style.color ='red';
+ 									checkId.innerText ='아이디가 적합하지 않습니다.';
+ 								} else{
+ 									checkId.style.color = 'green';
+ 									checkId.innerText = '사용 가능한 아이디 입니다.';
+ 								}
+ 							}
+ 						},
+ 						error: (data) =>{
+ 							console.log(data);
+ 						}
+ 					});
+ 				}
+ 			});
+ 			
     </script>
     
 
