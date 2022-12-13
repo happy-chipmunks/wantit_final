@@ -1,5 +1,6 @@
 package com.kh.wantit.member.vo;
 
+<<<<<<< HEAD
 import java.sql.Date;
 
 import lombok.AllArgsConstructor;
@@ -27,4 +28,8 @@ public class Member {
 	private char memberGender;
 	private String memberType;
 	private char memberStatus;
+=======
+public class Member {
+
+>>>>>>> ae3803c (Revert "중간 커밋")
 }
