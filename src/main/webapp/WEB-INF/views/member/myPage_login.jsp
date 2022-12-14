@@ -54,26 +54,28 @@
 </head>
 <body>
     <h2 class="ttable" style="color: black; font-weight: bold;">로그인</h2>
+    <form action="${contextPath}/login.me" method="POST">
     <div class="tttable">
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+              <input type="text" class="form-control" id="floatingInputGroup1" name="memberId" placeholder="Username">
               <label for="floatingInputGroup1">아이디 입력</label>
             </div>
         </div>
         <br>
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+              <input type="password" class="form-control" id="floatingInputGroup1" name="memberPwd" placeholder="Username">
               <label for="floatingInputGroup1">비밀번호 입력</label>
             </div>
         </div>
         <br>
-        <button type="button" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary">
             <span>
                 <span class="">로그인</span>
             </span>
         </button>
+        </form>
         <br>
         <div>
             &nbsp;&nbsp;&nbsp;  아직 회원이 아니신가요?

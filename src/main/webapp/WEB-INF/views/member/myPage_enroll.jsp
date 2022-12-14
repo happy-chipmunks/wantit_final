@@ -846,18 +846,23 @@
 	crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/i18n/defaults-ko_KR.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/css/bootstrap-select.min.css">
+    	<!-- jQuery -->
+	  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	  <!-- iamport.payment.js -->
+	  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js"></script>
 </head>
 <body>
       
     <h2 class="ttable1" style="color: black; font-weight: bold;">회원가입</h2>
 	<form action="${contextPath}/loginfinished.me" method="post">
     <div class="tttable">
+    	 <label for="memberId" id="checkUsername" class="check">*아이디 입력해주세요</label>
     	<div class="input-group mb-3">
             <div class="form-floating">
               <input type="text" class="form-control" id="memberId" name="memberId" required>
-              <label for="checkUsername">*아이디 입력해주세요</label>
+              <label for="memberId">*아이디</label>
             </div>
-            
+             
         </div>
         <br>
     	<div class="input-group mb-3">
@@ -881,46 +886,47 @@
             </div>
         </div>
         <br>
+        <label for="memberNickname" id="checkUsernickname" class="check">*닉네임을 입력해주세요</label>
     	<div class="input-group mb-3">
             <div class="form-floating">
               <input type="text" class="form-control" id="memberNickname" name="memberNickname" required>
               <label for="memberNickname">*닉네임 입력</label>
             </div>
-            <button type="button" class="btn btn-primary">
-                <span>
-                    <span class="">중복확인</span>
-                </span>
-            </button>
         </div>
         <br>
-    	
+    	<span class="point successPhoneChk">*휴대폰 번호 입력후 인증번호 보내기를 해주십시오.</span>
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="memberPhone"  name="memberPhone"required>
-              <label for="memberPhone">*전화번호 입력</label>
+              <input type="text" class="form-control" id="memberPhone"  name="memberPhone" required>
+              <label for="memberPhone" >*전화번호 입력</label>
             </div>            
             <button type="button" class="btn btn-primary">
                 <span>
-                    <span class="">인증하기</span>
+                    <span id="phoneChk"  class="doubleChk">인증번호 보내기</span>
                 </span>
             </button>
         </div>
+         
         <br>
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="memberPhone2" name="memberPhone2" required>
+              <input type="text" class="form-control" id="memberPhone2" name="memberPhone2"  disabled required>
               <label for="memberPhone2">*인증번호</label>
             </div>
             <button type="button" class="btn btn-primary">
                 <span>
-                    <span class="">인증확인</span>
+                    <span  id="phoneChk2" class="doubleChk">본인인증</span>
                 </span>
             </button>
+            <input type="hidden" id="phoneDoubleChk"/>
         </div>
         <br>
+        
         <div class="input-group mb-3">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="memberAddress"  name="memberAddress" required>
+        	<!-- <input type="text" class="form-control" id="memberAddress"  name="memberAddress" style="height: 20px;" required>
+              <label for="memberAddress">*주소 입력</label> -->
+            <div class="form-floating">	
+              <input type="text" class="form-control" id="memberAddress"  name="memberAddress" onclick="openAddress();" required readonly="readonly">
               <label for="memberAddress">*주소 입력</label>
             </div>
             <div class="form-floating">
@@ -941,12 +947,12 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="memberGender1" id="memberGender1" value="M">
+                <input class="form-check-input" type="radio" name="memberGender" id="memberGender1" checked value="M">
                 <label class="form-check-label" for="memberGender">남자</label>
             </div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="memberGender2" id="memberGender2" value="G">
+                <input class="form-check-input" type="radio" name="memberGender" id="memberGender2" value="F">
                 <label class="form-check-label" for="memberGender2">여자</label>
             </div>
         </div>
@@ -1101,8 +1107,9 @@
     };
 }(jQuery));
         
+        
         //아이디 중복 체크 
-        const userName = document.getElementById('idInput');
+            const userName = document.getElementById('memberId');
  			const checkId = document.getElementById('checkUsername');
  			
  			userName.addEventListener('blur',function(){
@@ -1140,8 +1147,78 @@
  				}
  			});
  			
+ 			
+ 		 //닉네임 중복체크
+ 			 const nickName = document.getElementById('memberNickname');
+ 			const checkNickName = document.getElementById('checkUsernickname');
+			
+ 			nickName.addEventListener('change',function(){
+ 				if(this.value.trim() == ''){
+ 					checkNickName.style.color = 'black';
+					checkNickName.innerText = '닉네임을 입력해주세요.';
+				}else{
+ 					$.ajax({
+ 						url: '${contextPath}/checkNickName.me',
+						data: {nickName:this.value},
+ 						success: (data)=>{
+ 							if(data=='yes'){
+ 								checkNickName.style.color = 'red';
+ 								checkNickName.innerText = '이미 사용중인 닉네임 입니다.';
+ 							} else if(data=='no'){
+ 								checkNickName.style.color = 'green';
+ 								checkNickName.innerText = '사용 가능한 닉네임 입니다.';
+ 							}
+ 						},
+						error: (data) =>{
+ 							console.log(data);
+ 						}
+ 					});
+ 				}
+ 			});
     </script>
-    
+    <!-- 회원가입 시 주소 검색 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+			const searchAddress = document.getElementById('memberAddress');
+			
+	    	const openAddress = function(){
+	    		new daum.Postcode({
+	    			oncomplete: function(data){
+	    				searchAddress.value = data.address;
+	    			}
+	    			
+	    			}).open({
+	    				 popupTitle: '주소 검색'
+	    			})
+	    	};
+	    	
+	 <!--휴대폰 인증 JS-->
+	 var code2 = "";
+	 $("#phoneChk").click(function(){
+	 	alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주십시오.");
+	 	var memberphone = $("#memberPhone").val();
+	 	$.ajax({
+	         type:"GET",
+	         url:"http://localhost:8087${contextPath}/phoneCheck?phone=" + memberPhone,
+	         cache : false,
+	         success:function(data){
+	         	if(data == "error"){
+	         		alert("휴대폰 번호가 올바르지 않습니다.")
+	 				$(".successPhoneChk").text("유효한 번호를 입력해주세요.");
+	 				$(".successPhoneChk").css("color","red");
+	 				$("#memberPhone").attr("autofocus",true);
+	         	}else{	        		
+	         		$("#memberPhone2").attr("disabled",false);
+	         		$("#phoneChk2").css("display","inline-block");
+	         		$(".successPhoneChk").text("인증번호를 입력한 뒤 본인인증을 눌러주십시오.");
+	         		$(".successPhoneChk").css("color","green");
+	         		$("#memberPhone").attr("readonly",true);
+	         		code2 = data;
+	         	}
+	         }
+	     });
+	 });
+    </script>
 
 </body>
 </html>

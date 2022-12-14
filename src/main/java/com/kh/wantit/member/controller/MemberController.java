@@ -3,13 +3,16 @@ package com.kh.wantit.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.wantit.member.Service.MemberService;
-import com.kh.wantit.member.exception.memberException;
+import com.kh.wantit.member.exception.MemberException;
 import com.kh.wantit.member.vo.Member;
 
 @Controller
@@ -17,7 +20,11 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService mService;
-
+	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
+	
+	//회원가입페이지 이동
 	@RequestMapping("/memberenroll.me")
 	public String enroll() {
 		return "myPage_enroll";
@@ -93,24 +100,76 @@ public class MemberController {
 		return "myPage_creator_ads";
 	}
 	
-	
+	// 중복검사 결과 확인 메서드
+		public String getResult(int count) {
+			String result = count>0 ? "yes" : "no";
+			return result;
+		}
+	//회원가입 메소드 
 	@RequestMapping("/loginfinished.me")
-	public String enroll(@ModelAttribute("Member") Member member,@RequestParam("memberPwd2")String memberPwd2) {
+	public String enroll(@ModelAttribute("Member") Member member,@RequestParam("memberPwd2")String memberPwd2,
+						@RequestParam("memberAddress") String add1,@RequestParam("memberAddress2") String add2) {
+		if(!member.getMemberPwd().equals(memberPwd2)) {
+			throw new MemberException("비밀번호가 일치하지 않습니다.");
+		}
+		String enPwd = bcrypt.encode(member.getMemberPwd());
+		member.setMemberPwd(enPwd);
+		String alladd = add1.concat(" ").concat(add2);
+		member.setMemberAddress(alladd);
 		
-		System.out.println(member);
-		System.out.println(memberPwd2);
+		int result = mService.enroll(member);
+		
+		if(result>0){
+			return "redirect:/";
+		} else {
+			throw new MemberException("회원가입에 실패했습니다.");
+		}
 		
 		
-		member.setPostcode("testpostcode");
-		System.out.println(member);
-		int a = mService.enroll(member);
-		
-		System.out.println(a);
-		return "redirect:/";
 	}
-	
+	//로그인 메소드
+	@RequestMapping("/login.me")
+	public String login(@ModelAttribute("Member")Member member,HttpSession session) {
+		Member loginUser = mService.login(member);
+		
+		String rawPwd = member.getMemberPwd();
+		String enPwd = loginUser.getMemberPwd();
+		
+		if(bcrypt.matches(rawPwd, enPwd)) {
+			session.setMaxInactiveInterval(1800);
+			session.setAttribute("loginUser", loginUser);
+			return "redirect:/";
+		} else {
+			throw new MemberException("로그인에 실패 하셨습니다.");
+		}
+		
 	
 	}
+	// 아이디 중복 검사 메서드
+		@RequestMapping("checkUesrname.me")
+		@ResponseBody
+		public String checkUserName(@RequestParam("userName")String userName){
+			int count = mService.checkUserName(userName);
+			return getResult(count);
+		}
+		// 닉네임 중복 검사 메서드
+		@RequestMapping("checkNickName.me")
+		@ResponseBody
+		public String checkNickName(@RequestParam("nickName")String nickName){
+			int count = mService.checkNickName(nickName);
+			return getResult(count);
+		}
+		//회원가입 문자인증 로직
+		@RequestMapping(value ="/phoneCheck", method = RequestMethod.GET)
+		@ResponseBody
+		public String sendSMS(@RequestParam("memberPhone") String userPhoneNumber) { // 휴대폰 문자보내기
+			int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);//난수 생성
+
+			mService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
+			
+			return Integer.toString(randomNumber);
+		}
+}
 	
 	
 	
