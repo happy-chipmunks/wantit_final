@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.wantit.funding.model.dao.FundingDAO;
 
-@Service
-public class FundingServiceImpl {
+@Service("fService")
+public class FundingServiceImpl implements FundingService{
 
 	@Autowired
 	private FundingDAO fDAO;

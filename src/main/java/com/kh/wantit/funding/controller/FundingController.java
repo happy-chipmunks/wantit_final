@@ -16,4 +16,6 @@ public class FundingController {
 	public String insertFundingBoard() {
 		return "insertFundingBoard";
 	}
+	
+	
 }
