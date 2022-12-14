@@ -20,11 +20,12 @@ public class Member {
 	private String memberName;
 	private String memberNickname;
 	private String memberPhone;
-	private String postcode;
 	private String memberAddress;
 	private String memberEmail;
 	private Date memberEnrolldate;
 	private char memberGender;
 	private String memberType;
+	private String memberIntroduce;
+	private String memberCate;
 	private char memberStatus;
 }

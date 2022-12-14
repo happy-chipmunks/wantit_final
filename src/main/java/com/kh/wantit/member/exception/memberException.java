@@ -1,10 +1,9 @@
 package com.kh.wantit.member.exception;
 
-public class memberException extends RuntimeException{
-	public memberException() {
-		super();
-	}
-	public memberException(String msg) {
+public class MemberException extends RuntimeException {
+	public MemberException() {}
+	public MemberException(String msg) {
 		super(msg);
 	}
 }
+
