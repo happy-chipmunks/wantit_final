@@ -12,7 +12,9 @@ public interface MemberService {
 
 	int checkNickName(String nickName);
 
-	void certifiedPhoneNumber(String userPhoneNumber, int randomNumber); 
+	void certifiedmemberPhone(String Phone, String numStr);
+
+	
 
 	
 

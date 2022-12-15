@@ -45,34 +45,31 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-	public void certifiedPhoneNumber(String userPhoneNumber, int randomNumber) {
-		String api_key = "NCSKLJRIR9IZZHP3";
-	    String api_secret = "XSPJQ0B9GHI3EVERY17R34Q5IS2BODYHI";
-	    Message coolsms = new Message(api_key, api_secret);
-
-	   
-	    HashMap<String, String> params = new HashMap<String, String>();
-	    params.put("to", "01072211074");    // 수신전화번호
-	    params.put("from", "01072211074");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
-	    params.put("type", "SMS");
-	    params.put("text", "[TEST] 인증번호는" + "["+randomNumber+"]" + "입니다."); // 문자 내용 입력
-	    params.put("app_version", "test app 1.2"); // application name and version
-
-	    try {
-	        JSONObject obj = (JSONObject) coolsms.send(params);
-	        System.out.println(obj.toString());
-	      } catch (CoolsmsException e) {
-	        System.out.println(e.getMessage());
-	        System.out.println(e.getCode());
-	      }
-	     
+	@Override
+	public void certifiedmemberPhone(String Phone, String numStr) {
 		
+		String api_key= "NCSREFNZBR3HJR61";
+		String api_secret = "0LSG4VVE0E4OGEPECFFPEMDTOCCJG7NY";
+		Message coolsms = new Message(api_key, api_secret);
+		
+		HashMap<String, String> params = new  HashMap<String, String>();
+		params.put("to", Phone);
+		params.put("from", "01072211074");
+		params.put("type", "SMS");
+		params.put("text", "[WANTIT] 회원가입 인증번호는" + "["+numStr+"]" + "입니다.");
+		params.put("app_version", "test app 1.2");
+		
+		try {
+			JSONObject obj =(JSONObject) coolsms.send(params);
+			System.out.println(obj.toString());
+		}catch (CoolsmsException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getCode());
+		}
+			
 	}
 
+ 
 
-
-	
-	  
-	 
 
 }
