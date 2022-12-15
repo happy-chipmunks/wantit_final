@@ -6,7 +6,7 @@
 		<id column="MEMBER_ID" property="memberId"/>
 		<result column="MEMBER_PWD" property="memberPwd"/>
 		<result column="MEMBER_NAME" property="memberName"/>
-		<result column="MEMBER_NICKNAME" property="memberNickname "/>
+		<result column="MEMBER_NICKNAME" property="memberNickname"/>
 		<result column="MEMBER_PHONE" property="memberPhone"/>
 		<result column="MEMBER_ADDRESS" property="memberAddress"/>
 		<result column="MEMBER_EMAIL" property="memberEmail"/>

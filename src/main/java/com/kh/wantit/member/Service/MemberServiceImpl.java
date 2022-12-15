@@ -56,7 +56,7 @@ public class MemberServiceImpl implements MemberService {
 		params.put("to", Phone);
 		params.put("from", "01072211074");
 		params.put("type", "SMS");
-		params.put("text", "[WANTIT] 회원가입 인증번호는" + "["+numStr+"]" + "입니다.");
+		params.put("text", "[WANTIT] WANTIT 회원 인증번호"+ "["+numStr+"]"+"를 입력해주세요.");
 		params.put("app_version", "test app 1.2");
 		
 		try {

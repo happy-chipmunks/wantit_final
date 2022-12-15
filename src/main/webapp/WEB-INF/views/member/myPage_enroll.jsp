@@ -1216,11 +1216,32 @@
 	         		$(".successPhoneChk").css("color","green");
 	         		$("#memberPhone").attr("readonly",true);
 	         		code2 = data;
+	         		
+	         		
+	         		//휴대폰 인증번호 대조
+	         		 $("#phoneChk2").click(function(){
+	         		 	if($("#memberPhone2").val() == code2){
+	         		 		$(".successPhoneChk").text("인증번호가 일치합니다.");
+	         		 		$(".successPhoneChk").css("color","green");
+	         		 		$("#phoneDoubleChk").val("true");
+	         		 		$("#memberPhone2").attr("disabled",true);
+	         		 	}else{
+	         		 		$(".successPhoneChk").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다.");
+	         		 		$(".successPhoneChk").css("color","red");
+	         		 		$("#phoneDoubleChk").val("false");
+	         		 		$(this).attr("autofocus",true);
+	         		 	}
+	         		 });
+	         		
+	         		
+	         		
+	         		
 	         	}
 	         }
 	     });
 	 }); 
 	 
+	
 	 
 	 
 	 

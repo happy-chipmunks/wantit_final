@@ -180,6 +180,12 @@ public class MemberController {
 			
 			return numStr;
 		}
+		// 로그아웃 메서드
+		@RequestMapping("/logout.me")
+		public String logout(HttpSession session) {
+			session.invalidate();
+			return "redirect:/";
+		}
 		
 		
 }
