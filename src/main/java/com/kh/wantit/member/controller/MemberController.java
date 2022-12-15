@@ -1,5 +1,7 @@
 package com.kh.wantit.member.controller;
 
+import java.util.Random;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,16 +161,27 @@ public class MemberController {
 			int count = mService.checkNickName(nickName);
 			return getResult(count);
 		}
-		//회원가입 문자인증 로직
-		@RequestMapping(value ="/phoneCheck", method = RequestMethod.GET)
+		
+		
+		
+		//회원가입 문자인증 로직 
+		@RequestMapping("/sendSMS1.me")
 		@ResponseBody
-		public String sendSMS(@RequestParam("memberPhone") String userPhoneNumber) { // 휴대폰 문자보내기
-			int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);//난수 생성
-
-			mService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
+		public String sendSMS(String Phone) {
 			
-			return Integer.toString(randomNumber);
+			Random rand = new Random();
+			String numStr = "";
+			for(int i=0; i<4; i++) {
+				String ran = Integer.toString(rand.nextInt(10));
+				numStr+=ran;
+			}
+			
+			mService.certifiedmemberPhone(Phone,numStr);
+			
+			return numStr;
 		}
+		
+		
 }
 	
 	

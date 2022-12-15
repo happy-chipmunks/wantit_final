@@ -1192,14 +1192,16 @@
 	    			})
 	    	};
 	    	
+	    	
 	 <!--휴대폰 인증 JS-->
 	 var code2 = "";
 	 $("#phoneChk").click(function(){
 	 	alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주십시오.");
-	 	var memberphone = $("#memberPhone").val();
+	 	var Phone = $("#memberPhone").val();
 	 	$.ajax({
 	         type:"GET",
-	         url:"http://localhost:8087${contextPath}/phoneCheck?phone=" + memberPhone,
+	         url:"/wantit/sendSMS1.me?",
+	         data:{Phone},		 
 	         cache : false,
 	         success:function(data){
 	         	if(data == "error"){
@@ -1217,7 +1219,11 @@
 	         	}
 	         }
 	     });
-	 });
+	 }); 
+	 
+	 
+	 
+	 
     </script>
 
 </body>
