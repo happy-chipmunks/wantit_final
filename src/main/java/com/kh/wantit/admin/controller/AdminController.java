@@ -16,5 +16,32 @@ public class AdminController {
 		return "adminMainpage";
 	}
 	
-	
+	@RequestMapping("/projectManage.ad")
+	public String projectManage() {
+		return "adminPageProject";
+	}
+	@RequestMapping("/reviewManage.ad")
+	public String reviewManage() {
+		return "adminReportManagement";
+	}
+	@RequestMapping("/noticeManage.ad")
+	public String noticeManage() {
+		return "adminNotice";
+	}
+	@RequestMapping("/inquiryManage.ad")
+	public String inquiryManage() {
+		return "adminInquiryManagement";
+	}
+	@RequestMapping("/adManage.ad")
+	public String adManage() {
+		return "adminAdManagement";
+	}
+	@RequestMapping("/memberManage.ad")
+	public String memberManage() {
+		return "adminMemberManage";
+	}
+	@RequestMapping("/noticeMake.ad")
+	public String noticeMake() {
+		return "adminNoticeMake";
+	}
 }
