@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!Doctype html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,7 +44,6 @@
 		    width: 100%;
     	}
       .form-floating{
-      	width: 500px;
         margin-left: 30px;
       }
       .bd-placeholder-img {
@@ -131,18 +131,14 @@
 
       .right{
         float: right;
-        margin-right: 30px;
-        margin-left: 30px;
+        margin-right: 400px;
+        margin-left: 100px;
         line-height: 50px;
         text-align: center;
         border-radius: 20px;  
-        width: 130px;
+        width: 150px;
       }
-
-      .cancel{
-        margin-right: 100px;
-      }
-		  .table{
+	    .table{
     vertical-align: middle;
     text-align: center;
   }
@@ -173,7 +169,7 @@
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position" style="height:1000px;">
-		<ul class="nav flex-column" >
+                <ul class="nav flex-column" >
           <li class="nav-item">
           	<a class="nav-link" href="${ contextPath }/admin.ad">
               <span data-feather="home" class="align-text-bottom"></span>
@@ -224,135 +220,129 @@
             </a>
           </li>
         </ul>
-
       </div>
     </nav>
     	
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">신고관리</h1>
+        <h1 class="h2">공지사항 관리</h1>
         
       </div>
       <table class="table" style="height: auto;">
         <thead>
           <tr>
-            <th scope="col">구분</th>
-            <th scope="col">아이디</th>
-            <th scope="col">신고항목</th>
-            <th scope="col">신고아이디</th>
+            <th scope="col">번호</th>
+            <th scope="col">공지사항 / 이벤트</th>
+            <th scope="col">제목</th>
+            <th scope="col">아이디</th>            
             <th scope="col">날짜</th>
             <th scope="col">상태</th>
-            <th scope="col">결과</th>
+            
           </tr>
         </thead>
         <tbody class="table-group-divider">
           <tr>
-            <th scope="row">&nbsp;1</th>
-            <td>음식</td>
+            <th scope="row">&nbsp;</th>
+            <td>이벤트</td>
             <td>벽돌해피푸드 마라샹궈</td>
             <td>권마유시</td>
             <td>2022. 12. 08</td>
             <td><button class="btn btn-primary" type="button">미처리</button></td>
-            <td>불구속기소</td>
+          </tr>
+          <tr>
+            <th scope="row">&nbsp;1</th>
+            <td>공지사항</td>
+            <td>벽돌해피푸드 마라샹궈</td>
+            <td>권마유시</td>
+            <td>2022. 12. 08</td>
+            <td><button class="btn btn-primary" type="button">미처리</button></td>
+            
           </tr>
           <tr>
             <th scope="row">&nbsp;2</th>
-            <td>옷</td>
+            <td>이벤트</td>
             <td>paf</td>
             <td>권마유시</td>
             <td>2022. 12. 08</td>
             <td>처리완료</td>
-            <td>불구속기소</td>
+            
           </tr>
           <tr>
             <th scope="row">&nbsp;3</th>
-            <td>술이나 마시던가</td>
+            <td>이벤트</td>
             <td>뭐시여</td>
             <td>권마유시</td>
             <td>2022. 12. 08</td>
             <td>처리완료</td>
-            <td>불구속기소</td>
+            
           </tr>
           <tr>
             <th scope="row">&nbsp;4</th>
-            <td>술이나 마시던가</td>
+            <td>공지사항</td>
             <td>뭐시여</td>
             <td>권마유시</td>
             <td>2022. 12. 08</td>
             <td><button class="btn btn-primary" type="button">미처리</button></td>
-            <td>불구속기소</td>
-          </tr>
-          <tr>
-            <th scope="row">&nbsp;5</th>
-            <td>술이나 마시던가</td>
-            <td>뭐시여</td>
-            <td>권마유시</td>
-            <td>2022. 12. 08</td>
-            <td>처리완료</td>
-            <td>불구속기소</td>
+            
           </tr>
         </tbody>
        </table>
        <div class="shadow p-3 mb-5 bg-body rounded" id="myForm">
         <form action="result.html" method="post">
          <fieldset>
-            <h1><br>&nbsp;&nbsp;&nbsp;&nbsp;회원 처리</h1>
-	
-            <div style="display: inline-block;">
-                <div class="form-floating" style="display: inline-block;">
+            <h1><br>&nbsp;&nbsp;&nbsp;&nbsp;공지사항 처리</h1>
+            <br>
+            <div class="input-group mb-3">
+                <div class="form-floating">
                   <input type="text" class="form-control" id="nameInput">
-                  <label>구분 </label>
+                  <label>공지사항 제목 </label>
                 </div>
-                <div class="form-floating" style="display: inline-block;">
-                  <input class="form-control" id="nameInput" style="">
-                  <label>구분항목 </label>
-                </div>
-                
             </div>
             <br>
-            
-            <br>
-            <div class="">
-              <div class="form-floating" style="width: 300px;">
+            <div class="input-group mb-3">
+              <div class="form-floating">
                 <input type="text" class="form-control" id="nameInput">
-                <label>아이디 </label>
-             </div>
-                <button type="button" class="btn cancel btn-primary btn-lg right modbtn">Close</button>
-                <button type="submit" class="btn btn-primary btn-lg right modbtn">바로가기</button>
-                <button type="submit" class="btn btn-primary btn-lg right modbtn">제출</button>
-                
+                <label>광고 의뢰 금액 </label>
               </div>
+          </div>
+          
             <br>
-           
-            
-          </fieldset>
-          </form>
-        </div>
-      </main>
-     </div>
+            <div class="input-group mb-3">
+                <div class="form-floating">
+                  <textarea type="text" class="form-control" id="nameInput" style="height: 100px;"></textarea>
+                  <label>광고 의뢰 내용.. </label>
+                </div>
+            </div>
+            <br>
+            <button type="button" class="btn cancel btn-primary btn-lg right modbtn">Close</button>
+            <button type="button" class="btn btn-primary btn-lg right modbtn">작성하기</button>
+         </fieldset>
+        </form>
+       </div>
+     </main>
     </div>
-
-    
-
-  <script>
-	  $(document).ready(function(){
-	      $('#myForm').hide();
-	  });
-	
-	  $('.btn').click(function(){
-	      $('#myForm').show();
-	  });
-	
-	  $('label').css('display','inline-block');
-
-	  $('button').click(function(){
- 		 $('#myForm').css('display', 'block');
-  	  });
-
-	  $('.cancel').click(function(){
-  		$('#myForm').hide();
-  	  });
-</script>
+  </div>
+          
+          
+          <script>
+              $(document).ready(function(){
+                  $('#myForm').hide();
+              });
+            
+              $('.btn').click(function(){
+                  $('#myForm').show();
+              });
+            
+              $('label').css('display','inline-block');
+          
+              $('button').click(function(){
+                $('#myForm').css('display', 'block');
+                });
+          
+              $('.cancel').click(function(){
+                $('#myForm').hide();
+                });
+          </script>
 
   
   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>

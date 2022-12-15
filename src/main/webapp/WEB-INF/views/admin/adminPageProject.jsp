@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!Doctype html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,7 +44,6 @@
 		    width: 100%;
     	}
       .form-floating{
-      	width: 500px;
         margin-left: 30px;
       }
       .bd-placeholder-img {
@@ -131,18 +131,14 @@
 
       .right{
         float: right;
-        margin-right: 30px;
-        margin-left: 30px;
+        margin-right: 400px;
+        margin-left: 100px;
         line-height: 50px;
         text-align: center;
         border-radius: 20px;  
-        width: 130px;
+        width: 150px;
       }
-
-      .cancel{
-        margin-right: 100px;
-      }
-		  .table{
+	    .table{
     vertical-align: middle;
     text-align: center;
   }
@@ -156,6 +152,26 @@
   .wiwidth{
     width: 400px;
   }
+  .image-box {
+    width:400px;
+    height:250px;
+    overflow:hidden;
+    margin:0 auto;
+    float: left;
+    margin-left: 25px;
+}
+
+.image-thumbnail {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+.content{
+	float: right;
+	width: 700px;
+	height: 250px;
+	margin-right: 200px;
+}
     </style>
 
     
@@ -173,7 +189,7 @@
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position" style="height:1000px;">
-		<ul class="nav flex-column" >
+                <ul class="nav flex-column" >
           <li class="nav-item">
           	<a class="nav-link" href="${ contextPath }/admin.ad">
               <span data-feather="home" class="align-text-bottom"></span>
@@ -224,23 +240,21 @@
             </a>
           </li>
         </ul>
-
       </div>
     </nav>
     	
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">신고관리</h1>
+        <h1 class="h2">프로젝트 관리</h1>
         
       </div>
       <table class="table" style="height: auto;">
         <thead>
           <tr>
-            <th scope="col">구분</th>
+            <th scope="col">번호</th>
             <th scope="col">아이디</th>
-            <th scope="col">신고항목</th>
-            <th scope="col">신고아이디</th>
-            <th scope="col">날짜</th>
+            <th scope="col">프로젝트 명</th>
+            <th scope="col">구분</th>
             <th scope="col">상태</th>
             <th scope="col">결과</th>
           </tr>
@@ -248,111 +262,103 @@
         <tbody class="table-group-divider">
           <tr>
             <th scope="row">&nbsp;1</th>
-            <td>음식</td>
+            <td>user01</td>
             <td>벽돌해피푸드 마라샹궈</td>
-            <td>권마유시</td>
-            <td>2022. 12. 08</td>
+            <td>원팅</td>
+            <td>승인대기</td>
             <td><button class="btn btn-primary" type="button">미처리</button></td>
-            <td>불구속기소</td>
+            
           </tr>
           <tr>
             <th scope="row">&nbsp;2</th>
-            <td>옷</td>
-            <td>paf</td>
-            <td>권마유시</td>
-            <td>2022. 12. 08</td>
+            <td>user01</td>
+            <td>벽돌해피푸드 마라샹궈</td>
+            <td>프로젝트</td>
+            <td>완료</td>
             <td>처리완료</td>
-            <td>불구속기소</td>
+            
           </tr>
           <tr>
             <th scope="row">&nbsp;3</th>
-            <td>술이나 마시던가</td>
-            <td>뭐시여</td>
-            <td>권마유시</td>
-            <td>2022. 12. 08</td>
+            <td>user01</td>
+            <td>벽돌해피푸드 마라샹궈</td>
+            <td>원팅</td>
+            <td>승인대기</td>
             <td>처리완료</td>
-            <td>불구속기소</td>
+            
           </tr>
           <tr>
             <th scope="row">&nbsp;4</th>
-            <td>술이나 마시던가</td>
-            <td>뭐시여</td>
-            <td>권마유시</td>
-            <td>2022. 12. 08</td>
+            <td>user01</td>
+            <td>벽돌해피푸드 마라샹궈</td>
+            <td>원팅</td>
+            <td>승인대기</td>
             <td><button class="btn btn-primary" type="button">미처리</button></td>
-            <td>불구속기소</td>
+            
           </tr>
           <tr>
             <th scope="row">&nbsp;5</th>
-            <td>술이나 마시던가</td>
-            <td>뭐시여</td>
-            <td>권마유시</td>
-            <td>2022. 12. 08</td>
+            <td>user01</td>
+            <td>벽돌해피푸드 마라샹궈</td>
+            <td>원팅</td>
+            <td>승인대기</td>
             <td>처리완료</td>
-            <td>불구속기소</td>
+            
           </tr>
         </tbody>
        </table>
        <div class="shadow p-3 mb-5 bg-body rounded" id="myForm">
         <form action="result.html" method="post">
          <fieldset>
-            <h1><br>&nbsp;&nbsp;&nbsp;&nbsp;회원 처리</h1>
-	
-            <div style="display: inline-block;">
-                <div class="form-floating" style="display: inline-block;">
-                  <input type="text" class="form-control" id="nameInput">
-                  <label>구분 </label>
+            <h1><br>&nbsp;&nbsp;&nbsp;&nbsp;프로젝트 명</h1>
+            <br>
+            <div class="image-box">
+				<img class="image-thumbnail">
+		    </div>
+		    <br>
+		    <div class="content">
+		    	내용 들어갈 제목<br>
+		    블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라</div>
+            
+            <br>
+         	
+            <div class="input-group mb-3">
+            
+                <div class="form-floating">
+                  <textarea type="text" class="form-control" id="nameInput" style="height: 100px;"></textarea>
+                  <label>프로젝트 미승인 사유.. </label>
                 </div>
-                <div class="form-floating" style="display: inline-block;">
-                  <input class="form-control" id="nameInput" style="">
-                  <label>구분항목 </label>
-                </div>
-                
             </div>
             <br>
-            
-            <br>
-            <div class="">
-              <div class="form-floating" style="width: 300px;">
-                <input type="text" class="form-control" id="nameInput">
-                <label>아이디 </label>
-             </div>
-                <button type="button" class="btn cancel btn-primary btn-lg right modbtn">Close</button>
-                <button type="submit" class="btn btn-primary btn-lg right modbtn">바로가기</button>
-                <button type="submit" class="btn btn-primary btn-lg right modbtn">제출</button>
-                
-              </div>
-            <br>
-           
-            
-          </fieldset>
-          </form>
-        </div>
-      </main>
-     </div>
+            <button type="button" class="btn btn-primary btn-lg right modbtn">미승인</button>
+            <button type="button" class="btn btn-primary btn-lg right modbtn">승인</button>
+         </fieldset>
+        </form>
+       </div>
+     </main>
     </div>
-
-    
-
-  <script>
-	  $(document).ready(function(){
-	      $('#myForm').hide();
-	  });
-	
-	  $('.btn').click(function(){
-	      $('#myForm').show();
-	  });
-	
-	  $('label').css('display','inline-block');
-
-	  $('button').click(function(){
- 		 $('#myForm').css('display', 'block');
-  	  });
-
-	  $('.cancel').click(function(){
-  		$('#myForm').hide();
-  	  });
-</script>
+  </div>
+          
+          
+          <script>
+              $(document).ready(function(){
+                  $('#myForm').hide();
+              });
+            
+              $('.btn').click(function(){
+                  $('#myForm').show();
+              });
+            
+              $('label').css('display','inline-block');
+          
+              $('button').click(function(){
+                $('#myForm').css('display', 'block');
+                });
+          
+              $('.cancel').click(function(){
+                $('#myForm').hide();
+                });
+          </script>
 
   
   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>

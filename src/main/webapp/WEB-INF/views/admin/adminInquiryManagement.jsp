@@ -133,6 +133,20 @@
           margin-left: 10px;
           
         }
+          .table{
+    vertical-align: middle;
+    text-align: center;
+  }
+  .find-btn{
+	text-align: center;
+  }
+  .find-btn1{
+    display :inline-block;
+  }
+
+  .wiwidth{
+    width: 400px;
+  }
       </style>
 
       
@@ -142,70 +156,66 @@
     </head>
     <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script> 
-  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">WANTIT</a>
-  
-    <div class="navbar-nav">
-      <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" href="#">Sign out</a>
-      </div>
-    </div>
-  </header>
+<header>
+	<jsp:include page="../common/navbar.jsp"></jsp:include>
+</header>
 
   <div class="container-fluid" >
     <div class="row">
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position" style="height:1000px;">
-          <ul class="nav flex-column" >
-            <li class="nav-item">
-                <span data-feather="home" class="align-text-bottom"></span>
-                <br><br>
-                사이트 관리
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file" class="align-text-bottom"></span>
-                <br><br>
-                프로젝트
-                승인 / 거절
+		 <ul class="nav flex-column" >
+          <li class="nav-item">
+          	<a class="nav-link" href="${ contextPath }/admin.ad">
+              <span data-feather="home" class="align-text-bottom"></span>
+              <br><br>
+              사이트 관리
               </a>
-            </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${ contextPath }/projectManage.ad">
+              <span data-feather="file" class="align-text-bottom"></span>
+              <br><br>
+              프로젝트
+              승인 / 거절
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${ contextPath }/reviewManage.ad">
+              <span data-feather="shopping-cart" class="align-text-bottom"></span>
+              <br><br>
+              리뷰 신고 관리
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${ contextPath }/noticeManage.ad">
+              <span data-feather="users" class="align-text-bottom"></span>
+              <br><br>
+              공지사항 관리
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${ contextPath }/inquiryManage.ad">
+              <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+              <br><br>
+              문의 관리
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${ contextPath }/adManage.ad">
+              <span data-feather="layers" class="align-text-bottom"></span>
+              <br><br>
+              광고의뢰 관리
+            </a>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="shopping-cart" class="align-text-bottom"></span>
-                <br><br>
-                리뷰 신고 관리
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="users" class="align-text-bottom"></span>
-                <br><br>
-                공지사항 관리
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="bar-chart-2" class="align-text-bottom"></span>
-                <br><br>
-                문의 관리
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="layers" class="align-text-bottom"></span>
-                <br><br>
-                광고의뢰 관리
-              </a>
-              <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="layers" class="align-text-bottom"></span>
-                <br><br>
-                회원 관리
-              </a>
-            </li>
-          </ul>
-        </div>
+            <a class="nav-link" href="${ contextPath }/memberManage.ad">
+              <span data-feather="layers" class="align-text-bottom"></span>
+              <br><br>
+              회원 관리
+            </a>
+          </li>
+        </ul>
+       </div>
       </nav>
         
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
