@@ -1,3 +1,4 @@
+@charset "UTF-8";
 
 /* ==================== 아코디언 - 리뷰페이지 ==================== */
 .accordion {
@@ -259,6 +260,7 @@
     z-index: var(--bs-backdrop-zindex);
     width: 100vw;
     height: 100vh;
+    background-color: none;
     background-color: var(--bs-backdrop-bg)
 }
 

@@ -1,4 +1,4 @@
-@charset "EUC-KR";
+@charset "UTF-8";
 
 ul {list-style: none;}
 a {color: #787878; text-decoration: none;}
@@ -6,7 +6,7 @@ p {margin: 0;}
 .container {padding: 0;}
 
 
-/* ==================== ���⑤� ==================== */
+/* ==================== 상단부 ==================== */
 .funding-header {
     padding: 60px 0 55px;
     overflow: hidden;
@@ -65,7 +65,7 @@ p {margin: 0;}
 
 
 
-/* ==================== �쇱そ ==================== */
+/* ==================== 왼쪽 ==================== */
 .left-content {
     margin: 12px 12px 0 0;
     padding-right: 12px;
@@ -114,9 +114,9 @@ p {margin: 0;}
     display: block;
     cursor: pointer;
     border: none;
-    /* 踰��� ����由� ����湲� */
+    /* 버튼 테두리 없애기 */
     padding: 0;
-    /* 踰��� 怨듬갚 ����湲� */
+    /* 버튼 공백 없애기 */
     text-decoration: underline;
     color: #495057;
 }
@@ -137,7 +137,7 @@ p {margin: 0;}
 
 
 
-/* ==================== �ㅻⅨ履� ==================== */
+/* ==================== 오른쪽 ==================== */
 .state-box {
     margin-top: 16px;
     padding-top: 10px;
@@ -221,7 +221,7 @@ p {margin: 0;}
 
 
 
-/* ==================== 紐⑤�� - ���⑸��� ==================== */
+/* ==================== 모달 - 펀딩버튼 ==================== */
 .modal-body {
     margin: 0 50px 15px;
 }
@@ -272,16 +272,17 @@ p {margin: 0;}
 
 
 
-/* ==================== 紐⑤�� - 李�踰��� ==================== */
+/* ==================== 모달 - 찜버튼 ==================== */
 .modal-footer.modal-dibs-footer {
     border-top: none;
 }
 
-/* ==================== 紐⑤�� - 怨듭��踰��� ==================== */
+/* ==================== 모달 - 공유버튼 ==================== */
 
 
-/* ==================== 遺��몄�ㅽ�몃�� 而⑦���대�� ==================== */
-/* .container,
+/* ==================== 부트스트랩 컨테이너 ==================== */
+/*
+.container,
 .container-fluid,
 .container-lg,
 .container-md,
@@ -295,8 +296,7 @@ p {margin: 0;}
     padding-left: calc(var(--bs-gutter-x) * .5);
     margin-right: auto;
     margin-left: auto
-} */
-/* 
+}
 @media (min-width:576px) {
 
     .container,
@@ -345,4 +345,5 @@ p {margin: 0;}
     .container-xxl {
         max-width: 850px
     }
-} */
+}
+*/

@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+.wanting-write {
+    width:700px;
+}
+.wanting-title-detail {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 350;
+    color: #00b2b0;
+}
+.wanting-guide-title {
+    margin: 40px 0 5px;
+    font-size: 20px;
+    font-weight: 450;
+}
+.wanting-guide-detail {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 350;
+    color: #818181;
+}
+.wanting-write-input {
+    padding-left: 10px;
+    height: 48px;
+    line-height: 1.2em;
+    font-size: 17px;
+    width: 100%;
+    border: 1px solid rgba(0,0,0,.15);
+    word-break: break-all;
+}
+.wanting-write-input:hover {
+    transition-duration: .2s;
+    border: 1px solid;
+}
+.wanting-write-input:focus {
+    border: none;
+    outline: 1px solid #00b2b0;
+} 
+/* .wanting-write-input::-webkit-input-placeholder { color: #f00; }  */
+/* *{-webkit-tap-highlight-color: transparent};  */
+
+
+/* ==================== 파일 ==================== */
+.file-btn{
+    margin-right: 10px;
+    padding: 5px 25px;
+    background-color:#9F9F9F;
+    vertical-align: middle;
+    vertical-align: middle;
+    border-radius: 4px;
+    outline: none;
+    font-size: 13px;
+    font-weight: 330;
+    color: white;
+    cursor: pointer;
+}
+.file-btn:hover{
+    background-color:#818181;
+    font-weight: 330;
+}
+#file-name {
+    font-size: 14px;
+    font-weight: 350;
+}
+
+
+/* ==================== 가게 ==================== */
+.wanting-shop {
+    font-size: 14px;
+    font-weight: 350;
+    line-height: 3.5em;
+}
+.shop-input {
+    margin-left: 10px;
+    height: 38px;
+    width: 88%;
+}
+
+
+/* ==================== 하단버튼 ==================== */
+.btn-wanting {
+    margin-top: 10px;
+    margin-bottom: 100px;
+    background-color: #00c4c4;
+    border: none;
+    color: #fff;
+    width: 100%;
+    height: 48px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.btn-wanting:hover {
+    background-color: #00b2b0;
+    transition-duration: .2s;
+}
+
+
+
+/* ==================== 메모 ==================== */
+.icon-help {
+    pointer-events: auto!important;
+    cursor: pointer;
+    line-height: 1;
+    color: rgba(0,0,0,.54);
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.icon-help-msg {
+    min-width: 350px; left: 0px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: none;
+    --vh: 6.74px;
+    font-family: roboto,"Noto Sans KR",-apple-system,dotum,sans-serif;
+    overflow-wrap: break-word;
+    pointer-events: auto!important;
+    letter-spacing: -.3px;
+    font-style: normal;
+    cursor: default;
+    -webkit-appearance: none;
+    margin: 0;
+    position: absolute;
+    top: 2em;
+    transition: opacity .2s;
+    z-index: 5;
+    border: 1px solid #e6eaed;
+    padding: 12px;
+    max-width: 90vw;
+    text-align: left;
+    line-height: 16px;
+    word-break: keep-all;
+    white-space: normal;
+    font-size: 12px;
+    font-weight: 400;
+    box-sizing: border-box;
+    border-radius: 2px;
+    border-color: #44484b;
+    box-shadow: unset;
+    background: #44484b;
+    color: #fff;
+    display: block;
+    opacity: 1;
+    min-width: 350px;
+    left: 0px;    
+}
+.input {
+    overflow-wrap: break-word;
+    font-weight: 400;
+    transition-property: border-color,height,padding-right,color;
+    transition-duration: .2s,0s;
+    border: 1px solid rgba(0,0,0,.15);
+    background: #fff;
+    width: 100%;
+    vertical-align: middle;
+    color: rgba(0,0,0,.84);
+    height: 48px;
+    line-height: 1.2em;
+    font-size: 17px;
+    font-family: roboto,"Noto Sans KR",-apple-system,dotum,sans-serif;
+}

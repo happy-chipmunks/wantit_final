@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wantingMapper">
+
+	<resultMap type="Wanting" id="wantingResultSet">
+		<id column="WANTING_NUM" property="wantingNum"/>
+		<result column="WRITER" property="wantingWriter"/>
+		<result column="WANTING_TITLE" property="wantingTitle"/>
+		<result column="WANTING_CONTENT" property="wantingContent"/>
+		<result column="SHOP_LOCATION" property="wantingShopLocation"/>
+		 <result column="SHOP_NAME" property="wantingShopName"/> 
+		<result column="WANTING_LEVEL" property="wantingLevel"/>
+		<result column="WANTING_STATUS" property="wantingStatus"/>
+	</resultMap>
+
+	<insert id="insertWanting">
+		insert into wanting
+		values(wanting_seq.nextval, #{wantingWriter}, #{wantingTitle}, #{wantingContent},
+				#{wantingShopLocation}, #{wantingShopName}, #{wantingLevel}, default)
+	</insert>
+	
+</mapper>
