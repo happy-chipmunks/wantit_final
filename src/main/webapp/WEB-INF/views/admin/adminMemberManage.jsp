@@ -240,7 +240,8 @@ pageEncoding="UTF-8"%>
         <th scope="col">주소</th>
         <th scope="col">핸드폰번호</th>
         <th scope="col">회원상태</th>
-
+        <th scope="col">상태</th>
+		
       </tr>
     </thead>
     <tbody class="table-group-divider">
@@ -253,7 +254,14 @@ pageEncoding="UTF-8"%>
         <td>경기도 과천시 향교말길8 123동 902호</td>
         <td>010-9009-2936</td>
        
-        <td><button class="btn btn-primary" type="button">관리</button></td>
+        <td>
+        	<select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+			  <option selected>회원 상태</option>
+			  <option value="1">회원</option>
+			  <option value="2">탈퇴	</option>
+			</select>
+        </td>
+       <td>회원</td>	
       </tr>
       <tr>
         <th scope="row">&nbsp;1</th>
@@ -264,7 +272,14 @@ pageEncoding="UTF-8"%>
         <td>경기도 과천시 향교말길8 123동 902호</td>
         <td>010-9009-2936</td>
                
-        <td><button class="btn btn-primary" type="button">관리</button></td>
+       <td>
+        	<select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+			  <option selected>회원 상태</option>
+			  <option value="1">회원</option>
+			  <option value="2">탈퇴	</option>
+			</select>
+        </td>
+        <td>회원</td>
       </tr>
       <tr>
         <th scope="row">&nbsp;1</th>
@@ -275,7 +290,14 @@ pageEncoding="UTF-8"%>
         <td>경기도 과천시 향교말길8 123동 902호</td>
         <td>010-9009-2936</td>
         
-        <td><button class="btn btn-primary" type="button">관리</button></td>
+        <td>
+        	<select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+			  <option selected>회원 상태</option>
+			  <option value="1">회원</option>
+			  <option value="2">탈퇴	</option>
+			</select>
+        </td>
+        <td>회원</td>
       </tr>
       <tr>
         <th scope="row">&nbsp;1</th>
@@ -286,7 +308,14 @@ pageEncoding="UTF-8"%>
         <td>경기도 과천시 향교말길8 123동 902호</td>
         <td>010-9009-2936</td>
         
-        <td><button class="btn btn-primary" type="button">관리</button></td>
+        <td>
+        	<select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+			  <option selected>회원 상태</option>
+			  <option value="1">회원</option>
+			  <option value="2">탈퇴	</option>
+			</select>
+        </td>
+        <td>회원</td>
       </tr>
       <tr>
         <th scope="row">&nbsp;1</th>
@@ -297,7 +326,14 @@ pageEncoding="UTF-8"%>
         <td>경기도 과천시 향교말길8 123동 902호</td>
         <td>010-9009-2936</td>
         
-        <td><button class="btn btn-primary" type="button">관리</button></td>
+        <td>
+        	<select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+			  <option selected>회원 상태</option>
+			  <option value="1">회원</option>
+			  <option value="2">탈퇴	</option>
+			</select>
+        </td>
+        <td>회원</td>
       </tr>
     </tbody>
   </table>
