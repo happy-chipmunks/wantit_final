@@ -23,9 +23,9 @@ public class Member {
 	private String memberAddress;
 	private String memberEmail;
 	private Date memberEnrolldate;
-	private char memberGender;
+	private String memberGender;
 	private String memberType;
 	private String memberIntroduce;
 	private String memberCate;
-	private char memberStatus;
+	private String memberStatus;
 }

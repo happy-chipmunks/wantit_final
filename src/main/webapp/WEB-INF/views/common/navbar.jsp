@@ -43,8 +43,7 @@
 
 </style>
 <body>
-	<nav
-		class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
 		<div class="container-fluid">
 			<a class="navbar-brand brandName" href="${ contextPath }/home.do">WANT
 				IT</a>
@@ -72,7 +71,6 @@
 							<li><a class="dropdown-item" href="#">이벤트</a></li>
 						</ul>
 				</ul>
-
 			</div>
 
 			<form class="searchForm">
@@ -93,7 +91,7 @@
 				onclick="location.href='${ contextPath }/loginenroll.me'">로그인/회원가입</button>
 				</c:if>
 				<c:if test="${ loginUser != null}">
-						<a href="/blog/user?cmd=profileUpload"> 
+						<a href= "${contextPath}/myPageinfo.me"><!-- "/blog/user?cmd=profileUpload" -->   
 							<img style="border-radius: 20px" onerror="this.src='/blog/image/userProfile.png'"
 								src="https://github.com/mdo.png" width="40px" height="40px" />
 						</a>

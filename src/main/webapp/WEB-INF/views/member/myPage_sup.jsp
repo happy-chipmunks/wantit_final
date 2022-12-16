@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+	<jsp:include page="../common/navbar.jsp"/>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,29 +12,60 @@
 <!-- Bootstrap v5.1.3 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+	<!-- ------------------------------- -->
+	<link href="/blog/css/styles.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="resources/css/navbar.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
+	
+	
+	
+	<!-- ------------------------------- -->
 	<style>
-		@font-face {
+		 @font-face {
 		    font-family: 'NanumSquareNeo-Variable';
 		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
 		    font-weight: normal;
 		    font-style: normal;
-		}
+		} 
 		
-		*{font-family: 'NanumSquareNeo-Variable';}
+		 .table{font-family: 'NanumSquareNeo-Variable';}
 		
-		header{
-			background: black;
-		}
 		
-		.container{
+		
+		 .container{
 			border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
-		}
+		} 
 		
-		div>ul>li{
+		  div>ul>li{
 			margin: auto;
-		}
+			margin-left: 10px;
+		    margin-right: 10px;
+		    font-family: 'Do Hyeon', sans-serif;
+		} 
 		
-		h1{display: inline;}
+		  h1{display: inline;}
 		
 		input, textarea{
 			width: 550px;
@@ -58,47 +91,12 @@
 		
 		ul{text-align: center; list-style: none;}
 		
+		
     </style>
 
 </head>
 <body>
-	<header class="p-3 text-bg-dark">
-	    <div class="container" style="background: black;">
-	      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-	        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-	          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-	        </a>
-	
-	        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-	         <!--  <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">About</a></li> -->
-	        </ul>
-	
-	        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-	          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-	        </form>
-	
-	        <div class="text-end">
-	          <button type="button" class="btn btn-outline-light me-2">Login</button>
-	          <button type="button" class="btn btn-secondary">Sign-up</button>
-	        </div>
-	      </div>
-	    </div>
-	</header>
-	<br>
-	<div class="container" style="background: black;">
-    	<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-auto">
-          <li><a href="#" class="nav-link px-2 text-white">진행중인 펀딩</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">오픈예정 펀딩</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">원팅</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">프로젝트 오픈 신청</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">관리자 문의</a></li>
-        </ul>
-    </div>
-    <br><br><br>
+     <br><br><br>
     <div class="container">
     	<div>
     		<h1 style="display: inline;"><b>마이페이지</b></h1>&nbsp;&nbsp;&nbsp;
@@ -111,11 +109,11 @@
         </div>
        
     </div>
-
-	<div class="row">
-		<div class="col-3">
+	
+	<div class="row" >
+		<div class="col-3" style="align-self;">
 			<ul>
-				<li style="width: 200px;"><img src="${ contextPath }/resources/myPageImage/기본프로필.png" style="width: 150px; height: 150px;">
+				<li style="width: 200px; margin: auto;"><img src="${ contextPath }/resources/myPageImage/기본프로필.png" style="width: 150px; height: 150px;">
 	   				<h4><b>닉네임</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
 	   				서포터<br>
@@ -148,8 +146,11 @@
    				</li>
 			</ul>
    		</div>
+   		
+   		
    		<div class="col-8">
-			<table align="center" style="text-align: center; height: 100%;" class="table">
+   			<form action="#">
+			<table  style="text-align: center; align= center; height: 700px;"  class="table">
 				<tr>
 					<th>아이디</th>
 					<td colspan="2">아이디</td>
@@ -205,17 +206,23 @@
 						<button class="btn btn-secondary btn-sm">탈퇴하기</button>
 					</td>
 				</tr>
+				
 			</table>
+			</form>
 	    </div>
+	    
     	<hr>
     </div>
-    
     <br>
 	
-	<script>
+	
+	 <script>
 		function openPopup(){
 			window.open("myPage_sup_message.jsp", "message", "width=500 height=300");
 		}
-	</script>
+	</script> 
+	
+	
+	
 </body>
 </html>

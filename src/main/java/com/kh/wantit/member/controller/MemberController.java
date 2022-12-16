@@ -188,6 +188,11 @@ public class MemberController {
 		}
 		
 		
+		@RequestMapping("/myPageinfo.me")
+		public String myPageinfo() {
+			return "myPage_sup";
+		}
+		
 }
 	
 	
