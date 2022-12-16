@@ -114,7 +114,7 @@
 		<div class="col-3" style="align-self;">
 			<ul>
 				<li style="width: 200px; margin: auto;"><img src="${ contextPath }/resources/myPageImage/기본프로필.png" style="width: 150px; height: 150px;">
-	   				<h4><b>닉네임</b>님</h4>
+	   				<h4><b>${ loginUser.memberName }</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
 	   				서포터<br>
 	   				<button class="btn btn-sm" style="background-color: lightgray;">로그아웃</button>
@@ -153,7 +153,7 @@
 			<table  style="text-align: center; align= center; height: 700px;"  class="table">
 				<tr>
 					<th>아이디</th>
-					<td colspan="2">아이디</td>
+					<td colspan="2">${ loginUser.memberId }</td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
@@ -161,43 +161,43 @@
 				</tr>
 				<tr>
 					<th>이름</th>
-					<td colspan="2">이름</td>
+					<td colspan="2">${ loginUser.memberName }</td>
 				</tr>
 				<tr>
 					<th>닉네임</th>
-					<td colspan="2">닉네임</td>
-				</tr>
-				<tr>
-					<th>생년월일</th>
-					<td colspan="2">생년월일</td>
+					<td colspan="2">${ loginUser.memberNickname }</td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td colspan="2">전화번호</td>
+					<td colspan="2">${ loginUser.memberPhone }</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td colspan="2">이메일</td>
+					<td colspan="2">${ loginUser.memberEmail }</td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td colspan="2">주소</td>
+					<td colspan="2">${ loginUser.memberAddress }</td>
 				</tr>
-				<tr>
-					<th colspan="3">배송지</th>
-				</tr>
+				<!-- <tr>
+					<th colspan="3">dd</th>
+				</tr> -->
 				<tr>
 					<td>
 						<select class="form-select" style="width: 70%;">
-							<option>집</option>
-							<option>회사</option>
+							<option value="home">집</option>
+							<option value="company">회사</option>
 						</select>
 					</td>
-					<td>수령인 이름</td>
-					<td style="width: 300px;">수령인 전화번호</td>
+					<td>수령인 이름<br><br>
+					${ loginUser.memberName }</td>
+					<td style="width: 300px;">수령인 전화번호<br><br>
+					${ loginUser.memberPhone }</td>
 				</tr>
 				<tr>
-					<td colspan="3">주소</td>
+					<td>배송받을 주소</td>
+					<td colspan="3">
+					${ loginUser.memberAddress }</td>
 				</tr>
 				<tr>
 					<td colspan="2">
