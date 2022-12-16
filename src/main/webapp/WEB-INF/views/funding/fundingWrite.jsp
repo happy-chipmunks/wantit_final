@@ -28,10 +28,6 @@
 			border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
 		}
 		
-		div>ul>li{
-			margin: auto;
-		}
-		
 		h1{display: inline;}
 		
 		.fileRegiBtn label {
@@ -59,8 +55,10 @@
 			border: 0;
 		}
 		
+		.fileRegiBtn{ display: inline; }
+		
 		input, textarea{
-			width: 550px;
+			width: 700px;
 		}
 		
 		textarea{
@@ -97,16 +95,23 @@
 	<form>
 		<div class="container shadow" style="background-color: #F5F5F5;">
 			<div class="container"><br>
-		    	<table align="center">
+		    	<table align="center" class="table">
 		    		<tr>
 		    			<td style="width: 300px;"><h5 class="shadow-sm" style="background-color: white;">프로젝트 기본 정보</h5></td>
-		    			<td style="width: 600px;"></td>
+		    			<td style="width: 700px;"></td>
 		    		</tr>
 		    		<tr>
 		    			<td>*프로젝트 카테고리</td>
 		    			<td>카테고리<br>
 		    				<select style="border: none; width: 200px;" class="shadow-sm">
-		    					<option>야옹</option>
+		    					<option>테크·가전</option>
+		    					<option>패션·잡화</option>
+		    					<option>뷰티</option>
+		    					<option>음식</option>
+		    					<option>홈·리빙</option>
+		    					<option>여행·레저</option>
+		    					<option>스포츠</option>
+		    					<option>캐릭터·굿즈</option>
 		    				</select>
 		    			</td>
 		    		</tr>
@@ -119,9 +124,7 @@
 		    		<tr>
 		    			<td>*프로젝트 요약</td>
 		    			<td>요약 내용<br>
-		    				<textarea style="border: none; resize: none;" class="shadow-sm" required>
-		    					
-		    				</textarea>
+		    				<textarea style="border: none; resize: none;" class="shadow-sm" required></textarea>
 		    			</td>
 		    		</tr>
 		    		<tr>
@@ -132,7 +135,7 @@
 							</div>
 		    				
 		    				<div class="form-group" style="margin: 8px 0 8px;">
-								<input id="fileName" class="form-control" value="파일선택" disabled="disabled" style="width:50%; display: inline;">
+								<input id="fileName" class="form-control" value="파일선택" disabled="disabled" style="width:40%; display: inline;">
 										<div class="fileRegiBtn">
 											<label for="myFileUp">파일등록하기</label>
 											<input type="file" id="myFileUp">
@@ -145,10 +148,10 @@
 		    </div>
 		    
 		    <div class="container">
-		    	<table align="center">
+		    	<table align="center" class="table">
 		    		<tr>
 		    			<td style="width: 300px;"><h5 class="shadow-sm" style="background-color: white;">프로젝트 계획</h5></td>
-		    			<td style="width: 550px; text-align: right;"><button class="btn btn-outline-info">★ 작성 가이드</button></td>
+		    			<td style="width: 700px; text-align: right;"><button class="btn btn-outline-info">★ 작성 가이드</button></td>
 		    		</tr>
 		    		<tr>
 		    			<td>*프로젝트 소개</td>
@@ -171,9 +174,7 @@
 		    		<tr>
 		    			<td>*프로젝트 설명</td>
 		    			<td>설명<br>
-		    				<textarea style="border: none; resize: none;" class="shadow-sm" required>
-		    					
-		    				</textarea>
+		    				<textarea style="border: none; resize: none;" class="shadow-sm" required></textarea>
 					    </td>
 		    		</tr>
 		    	</table>
@@ -181,64 +182,57 @@
 		    </div>
 		    
 		    <div class="container">
-		    	<table align="center">
+		    	<table align="center" class="table">
 		    		<tr>
 		    			<td style="width: 300px;"><h5 class="shadow-sm" style="background-color: white;">선물 구성</h5></td>
-		    			<td style="width: 550px; text-align: right;"><button class="btn btn-outline-info">★ 작성 가이드</button></td>
+		    			<td style="width: 700px; text-align: right;"><button class="btn btn-outline-info">★ 작성 가이드</button></td>
 		    		</tr>
 		    		<tr>
-		    			<td>*선물 만들기</td>
+		    			<td>*선물 만들기<br><br><button id="addItem" class="btn" style="background-color: #CEF279;" onclick="$('#giftAdd').modal('show')">선물 추가하기</button></td>
 		    			<td>
-		    				<table style="background-color: #F5F5F5; width: 550px;" class="table table-borderless">
-		    					<tr>
-		    						<td>
-		    							선물 아이템(선택)<br>
-		    							<input type="text" style="border: none;" class="shadow-sm">
-		    						</td>
-		    					</tr>
-		    					<tr>
-		    						<td>
-		    							선물 설명(선택)<br>
-		    							<input type="text" style="border: none;" class="shadow-sm">
-		    						</td>
-		    					</tr>
-		    					<tr>
-		    						<td>
-		    							*수량 제한<br>
-		    							<div class="form-check form-check-inline" style="background-color: #F5F5F5; width: 100px;">
-										  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-										  <label class="form-check-label" for="inlineRadio1">있음</label>
-										</div>
-										<div class="form-check form-check-inline" style="background-color: #F5F5F5; width: 100px;">
-										  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-										  <label class="form-check-label" for="inlineRadio2">없음</label>
-										</div>
-		    						</td>
-		    					</tr>
-		    					<tr>
-		    						<td>
-		    							예상 전단일<br>
-		    							<input type="date" style="border: none;" class="shadow-sm">
-		    						</td>
-		    					</tr>
-		    					<tr>
-		    						<td>
-		    							최소 후원 금액<br>
-		    							<input type="number" style="border: none;" class="shadow-sm">
-		    						</td>
-		    					</tr>
-		    				</table>
+							<table id="giftTable" class="table">
+								<tr>
+									<td>선물 아이템</td>
+									<td>선물 설명</td>
+									<td>수량 제한</td>
+									<td>예상 전단일</td>
+									<td>최소 후원 금액</td>
+									<td></td>
+								</tr>
+							</table>
 		    			</td>
 		    		</tr>
 		    	</table>
 		    	<hr>
 		    </div>
 		    
+		    <div class="modal fade" id="giftAdd" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+			  <div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+				  	<div class="modal-header">
+				        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">GIFT ADD</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				    </div>
+				 	<div class="modal-body" style="text-align: left">
+					    	선물 아이템<input type="text" class="form-control input" id="gift-name" name="giftTitle">
+					    	선물 설명<input class="form-control input" style="height: 100px" name="giftContent">
+					      	수량 제한<input type="number" class="form-control input" id="gift-quantity" name="giftQuantity">
+					      	예상 전단일<input type="date" class="form-control input" id="gift-postingDate" name="giftPostingDate">
+					      	최소 후원 금액<input type="number" class="form-control input" id="gift-donationPrice" name="giftDonationPrice">
+					 </div>
+					 <div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="sendBtn">보내기</button>
+				      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					 </div>
+		    	</div> 
+			  </div>
+			</div>
+		    
 		    <div class="container">
-		    	<table align="center">
+		    	<table align="center" class="table">
 		    		<tr>
 		    			<td style="width: 300px;"><h5 class="shadow-sm" style="background-color: white;">창작자 정보</h5></td>
-		    			<td style="width: 550px; text-align: right;"><button class="btn btn-outline-info">★ 작성 가이드</button></td>
+		    			<td style="width: 700px; text-align: right;"><button class="btn btn-outline-info">★ 작성 가이드</button></td>
 		    		</tr>
 		    		<tr>
 		    			<td>*창작자 이름</td>
@@ -249,25 +243,39 @@
 		    		<tr>
 		    			<td>*창작자 소개</td>
 		    			<td>소개<br>
-		    				<textarea style="border: none; resize: none;" class="shadow-sm">
-		    					
-		    				</textarea>
+		    				<textarea style="border: none; resize: none;" class="shadow-sm"></textarea>
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td>*본인 인증</td>
+		    			<td>*사업자 등록번호</td>
 		    			<td>
-		    				<input type="text" style="border: none; width: 460px;" class="shadow-sm">
-		    				<button type="button" class="btn btn-outline-secondary btn-sm"><img src="${ contextPath }/resources/myPageImage/메시지.png" style="width: 10px; height: 10px; display: inline;"> 인증하기</button>
-		    			</td>
+		    				<input type="text" style="border: none; width: 700px;" class="shadow-sm">
+					    </td>
+		    		</tr>
+		    		<tr>
+		    			<td>*사업자 등록증</td>
+		    			<td>
+		    				<div class="selectCover" style="padding-left: 0;">
+							 	<img id="cover2" style="width: 200px; height: 200px;" src="${ contextPath }/resources/myPageImage/대체이미지.png"/>
+							</div>
+		    				
+		    				<div class="form-group" style="margin: 8px 0 8px;">
+								<input id="fileName2" class="form-control" value="파일선택" disabled="disabled" style="width:40%; display: inline;">
+										<div class="fileRegiBtn">
+											<label for="businessLisence">파일등록하기</label>
+											<input type="file" id="businessLisence">
+										</div>
+							</div>
+					    </td>
 		    		</tr>
 		    		<tr>
 		    			<td>*입금 계좌</td>
 		    			<td>
-		    				<input type="text" style="border: none; width: 460px;" class="shadow-sm">
+		    				<input type="text" style="border: none; width: 610px;" class="shadow-sm">
 		    				<button type="button" class="btn btn-outline-secondary btn-sm"><img src="${ contextPath }/resources/fundingWriteImage/자물쇠.png" style="width: 10px; height: 10px; display: inline;"> 계좌입력</button>
 					    </td>
 		    		</tr>
+		    		
 		    	</table>
 		    	<hr>
 		    </div>
@@ -297,6 +305,45 @@
 		$("#myFileUp").change(function(){
 	        readURL(this);
 	    });
+		
+		function readURL2(input) {
+	        if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	                $('#cover2').attr('src', e.target.result);        //cover src로 붙여지고
+	                $('#fileName2').val(input.files[0].name);    //파일선택 form으로 파일명이 들어온다
+	            }
+	          reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+	
+		$("#businessLisence").change(function(){
+	        readURL2(this);
+	    });
+		
+		
+		// 선물 추가
+		$(document).ready(function(){
+			$('#sendBtn').click(function(){
+				var title = $('#giftAdd').find('input[name="giftTitle"]').val();
+				var content = $('#giftAdd').find('input[name="giftContent"]').val();
+				var quantity = $('#giftAdd').find('input[name="giftQuantity"]').val();
+				var postingDate = $('#giftAdd').find('input[name="giftPostingDate"]').val();
+				var donationPrice = $('#giftAdd').find('input[name="giftDonationPrice"]').val();
+				$('#giftTable').append("<tr><td>" + title + "</td><td>" + content + "</td><td>" + quantity + "</td><td>" + postingDate + "</td><td>" + donationPrice + "</td><td><input type='button' value='삭제' onclick='deleteRow(0)' style='width:70px;'><td></tr>");
+				$('#giftAdd').modal('hide');
+			});
+		});
+		
+		// 선물 삭제
+		function deleteRow(rownum){
+			const table = document.getElementById('giftTable');
+			
+			// 행 삭제
+			const newRow = table.deleteRow(rownum);
+		}
+		
+		const form = document.getElementByName('')
 	</script>
 
 </body>
