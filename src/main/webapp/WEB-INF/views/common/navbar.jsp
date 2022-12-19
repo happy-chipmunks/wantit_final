@@ -70,7 +70,9 @@
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<li><a class="dropdown-item" href="#">공지사항</a></li>
 							<li><a class="dropdown-item" href="#">이벤트</a></li>
+							
 						</ul>
+					</li>
 				</ul>
 
 			</div>
@@ -85,31 +87,35 @@
 
 
 			</form>
-			<button type="button" class="btn" id="adminBtn"
-				onclick="location.href='${contextPath}/admin.ad'">관리자로</button>
 				
 				<c:if test="${ loginUser == null }">
-			<button type="button" class="btn btn-outline-warning" id="loginBtn"
+				<button type="button" class="btn btn-outline-warning" id="loginBtn"
 				onclick="location.href='${ contextPath }/loginenroll.me'">로그인/회원가입</button>
 				</c:if>
-				<c:if test="${ loginUser != null}">
-						<a href="/blog/user?cmd=profileUpload"> 
+				<c:if test="${ loginUser != null  && loginUser.memberNickname != '관리자'}">
+						<a href="/blog/user?cmd=profile	Upload"> 
 							<img style="border-radius: 20px" onerror="this.src='/blog/image/userProfile.png'"
 								src="https://github.com/mdo.png" width="40px" height="40px" />
 						</a>
+						<button type="button" class="btn" id="askManager"
+							onclick="location.href='${contextPath}/'">관리자 문의</button>
+						<button type="button" class="btn" id="openProject"
+							onclick="location.href='${contextPath}/fundingWrite.fund'">프로젝트
+							오픈 신청</button>	
 						&nbsp;&nbsp;
+							<button type="button" class="btn" id="logoutBtn"
+								onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
+				</c:if>
+				<c:if test="${ loginUser != null  && loginUser.memberNickname == '관리자' }">
+					<button type="button" class="btn" id="adminBtn"
+						onclick="location.href='${contextPath}/admin.ad'">관리자페이지</button>
 						<button type="button" class="btn" id="logoutBtn"
-							onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
+								onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
 				</c:if>
 				
 			<!-- <span class="myInfo"></span> <span class="myAlarm"> <i
 				class="bi bi-bell" id="alarmIcon"></i>
 			</span> -->
-			<button type="button" class="btn" id="askManager"
-				onclick="location.href='${contextPath}/'">관리자 문의</button>
-			<button type="button" class="btn" id="openProject"
-				onclick="location.href='${contextPath}/fundingWrite.fund'">프로젝트
-				오픈 신청</button>
 
 		</div>
 	</nav>

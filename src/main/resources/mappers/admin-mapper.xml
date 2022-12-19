@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper">
+		
+	
+	<select id="selectAllMember" resultMap="memberResultSet">
+		select *
+		from member
+		order by member_enroll_date desc
+	</select>
+	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from member
+	</select>
+	
+	<update id="deleteMember">
+		update member
+		set member_status='N'
+		where member_id=#{id}
+	</update>
+	
+	<resultMap type="Member" id="memberResultSet">
+		<id column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_PWD" property="memberPwd"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICKNAME" property="memberNickname"/>
+		<result column="MEMBER_PHONE" property="memberPhone"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="MEMBER_ENROLL_DATE" property="memberEnrolldate"/>
+		<result column="MEMBER_GENDER" property="memberGender"/>
+		<result column="MEMBER_TYPE" property="memberType"/>
+		<result column="MEMBER_INTRODUCE" property="memberIntroduce"/>
+		<result column="MEMBER_CATE" property="memberCate"/>
+		<result column="MEMBER_STATUS" property="memberStatus"/>
+	</resultMap>
+	  
+</mapper>
