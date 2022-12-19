@@ -56,19 +56,19 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link mx-3"
-						aria-current="page" href="${ contextPath }/wantingList.want">?�팅</a>
+						aria-current="page" href="${ contextPath }/wantingList.want">원팅</a>
 					</li>
 					<li class="nav-item"><a class="nav-link mx-3"
-						href="${ contextPath }/fundingList.fund">?�??</a></li>
+						href="${ contextPath }/fundingList.fund">펀딩</a></li>
 					<li class="nav-item"><a class="nav-link mx-3"
-						href="${ contextPath }/fundingComingSoon.fund">?�?�예??</a></li>
+						href="${ contextPath }/fundingComingSoon.fund">펀딩예정</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle mx-3" href="#" id="navbarDropdown"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							?�보�? </a>
+							더보기 </a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">공�??�항</a></li>
-							<li><a class="dropdown-item" href="#">?�벤??</a></li>
+							<li><a class="dropdown-item" href="#">공지사항</a></li>
+							<li><a class="dropdown-item" href="#">이벤트</a></li>
 							
 						</ul>
 					</li>
@@ -88,31 +88,32 @@
 				
 				<c:if test="${ loginUser == null }">
 				<button type="button" class="btn btn-outline-warning" id="loginBtn"
-				onclick="location.href='${ contextPath }/loginenroll.me'">로그??/?�원가??</button>
+				onclick="location.href='${ contextPath }/loginenroll.me'">로그인/회원가입</button>
 				</c:if>
-				<c:if test="${ loginUser != null}">
-						<a href="/blog/user?cmd=profileUpload"> 
+<<<<<<< HEAD
 				<c:if test="${ loginUser != null}">
 						<a href= "${contextPath}/myPageinfo.me"><!-- "/blog/user?cmd=profileUpload" -->   
+=======
 				<c:if test="${ loginUser != null  && loginUser.memberNickname != '관리자'}">
 						<a href="/blog/user?cmd=profile	Upload"> 
+>>>>>>> 아내돈
 							<img style="border-radius: 20px" onerror="this.src='/blog/image/userProfile.png'"
 								src="https://github.com/mdo.png" width="40px" height="40px" />
 						</a>
 						<button type="button" class="btn" id="askManager"
 							onclick="location.href='${contextPath}/'">관리자 문의</button>
 						<button type="button" class="btn" id="openProject"
-							onclick="location.href='${contextPath}/fundingWrite.fund'">?�로?�트
-							?�픈 ?�청</button>	
+							onclick="location.href='${contextPath}/fundingWrite.fund'">프로젝트
+							오픈 신청</button>	
 						&nbsp;&nbsp;
 							<button type="button" class="btn" id="logoutBtn"
-								onclick="location.href='${ contextPath }/logout.me'">로그?�웃</button>
+								onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
 				</c:if>
 				<c:if test="${ loginUser != null  && loginUser.memberNickname == '관리자' }">
 					<button type="button" class="btn" id="adminBtn"
-						onclick="location.href='${contextPath}/admin.ad'">관리자?�이지</button>
+						onclick="location.href='${contextPath}/admin.ad'">관리자페이지</button>
 						<button type="button" class="btn" id="logoutBtn"
-								onclick="location.href='${ contextPath }/logout.me'">로그?�웃</button>
+								onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
 				</c:if>
 				
 			<!-- <span class="myInfo"></span> <span class="myAlarm"> <i
