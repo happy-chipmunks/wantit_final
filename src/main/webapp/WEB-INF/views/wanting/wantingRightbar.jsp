@@ -8,11 +8,8 @@
   <title>원팅 오른쪽 사이드바</title>
   <!-- CSS Files -->
   <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="resources/css/fundingMain.css" />
   <link rel="stylesheet" href="resources/css/bootstrap-custom.css" />
-  
-  <!-- other -->
-  <script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
+  <link rel="stylesheet" href="resources/css/wantingMain.css" />
   
   
 </head>

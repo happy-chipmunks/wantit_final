@@ -1,0 +1,349 @@
+@charset "UTF-8";
+
+ul {list-style: none;}
+a {color: #787878; text-decoration: none;}
+p {margin: 0;}
+.container {padding: 0;}
+
+
+/* ==================== 상단부 ==================== */
+.funding-header {
+    padding: 60px 0 55px;
+    overflow: hidden;
+}
+/* .background {
+    display: block;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    bottom: -20px;
+    left: -20px;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-position: 50% 30%;
+    background-size: cover;
+    overflow: hidden;
+    background-image: url("https://cdn.wadiz.kr/ft/images/green001/2022/1118/20221118111401032_38.png/wadiz/format/jpg/quality/80/optimize");
+}
+.background::before {
+    content: "";
+ position: absolute;;
+ width: 100%;
+ height: 100%;
+ backdrop-filter: blur(10px);
+} */
+.title-info {
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: lightblue;
+    font-size: 16px;
+    font-weight: 400;
+}
+.title {
+    position: relative;
+    /* z-index: 3; */
+    padding-right: 30px;
+    padding-left: 30px;
+    text-align: center;
+    line-height: 42px;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.funding-category {
+    padding: 12px 0;
+    /* margin: 10px 0; */
+    border-top: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+    font-size: 15px;
+}
+.funding-category a {
+    padding: 12px;
+    /* border-bottom: 2px solid #00b2b2; */
+}
+
+
+
+/* ==================== 왼쪽 ==================== */
+.left-content {
+    margin: 12px 12px 0 0;
+    padding-right: 12px;
+    border-right: 1px solid #c0c0c0;
+}
+.left-content img {
+    object-fit: cover;
+    width: 100%;
+}
+
+.notification {
+    margin-top: 12px;
+    padding: 16px;
+    background: rgba(0, 196, 196, 0.1);
+    border-radius: 8px;
+}
+.notification p:nth-of-type(1) {
+    color: #00b2b2;
+    font-size: 15px;
+    line-height: 20px;
+    margin-bottom: 6px;
+}
+.notification p:nth-of-type(2) {
+    color: #60656a;
+    font-size: 12px;
+    line-height: 18px;
+}
+.about-funding {
+    margin-top: 12px;
+    padding: 16px;
+
+    border-radius: 8px;
+    background-color: #f2f4f6;
+
+    line-height: 28px;
+    letter-spacing: -.3px;
+    font-size: 16px;
+    font-weight: 600;
+    font-style: normal;
+    color: #212529;
+}
+.about-funding button {
+    line-height: 18px;
+    font-size: 12px;
+    font-weight: 400;
+    display: block;
+    cursor: pointer;
+    border: none;
+    /* 버튼 테두리 없애기 */
+    padding: 0;
+    /* 버튼 공백 없애기 */
+    text-decoration: underline;
+    color: #495057;
+}
+.icon {
+    /* display: inline-block; */
+    float: right;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNSI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBmaWxsPSIjRkZDRkNBIiBkPSJNMjYuOTkgMjkuMDI1aC00di04Ljk2M2EyIDIgMCAwMTMuOTk5IDB2OC45NjN6bTMuOTk4IDBIMjYuOTl2LTguOTYzYzAtMS4wOTYuOS0xLjk5MiAyLTEuOTkyYTIgMiAwIDAxMS45OTggMS45OTJ2OC45NjN6Ii8+PHBhdGggZmlsbD0iI0ZGQ0ZDQSIgZD0iTTI2LjkgMzMuMDkybC0xLjU4MS0xLjU3NSA3LjI3LTcuMjQzYTIuMDEgMi4wMSAwIDAxMi44MjggMCAxLjk5MiAxLjk5MiAwIDAxMCAyLjgxNmwtNi4wMjUgNi4wMDJhMS43NjYgMS43NjYgMCAwMS0yLjQ5MiAwIi8+PHBhdGggZmlsbD0iI0ZGQ0ZDQSIgZD0iTTI0Ljk5MSAzNWMtMy4zMTIgMC01Ljk5OC0yLjY3Ni01Ljk5OC01Ljk3NXYtMi45ODhIMzAuOTl2Mi45ODhjMCAzLjMtMi42ODYgNS45NzUtNS45OTggNS45NzVNOS4wMSAyOS4wMjVoMy45OTl2LTguOTYzYTIgMiAwIDAwLTMuOTk5IDB2OC45NjN6bS0zLjk5OCAwSDkuMDF2LTguOTYzYzAtMS4wOTYtLjktMS45OTItMS45OTktMS45OTItMS4xIDAtMiAuODk2LTIgMS45OTJ2OC45NjN6Ii8+PHBhdGggZmlsbD0iI0ZGQ0ZDQSIgZD0iTTkuMSAzMy4wOTJsMS41ODEtMS41NzUtNy4yNy03LjI0M2EyLjAxIDIuMDEgMCAwMC0yLjgyOCAwIDEuOTkyIDEuOTkyIDAgMDAwIDIuODE2bDYuMDI1IDYuMDAyYTEuNzY2IDEuNzY2IDAgMDAyLjQ5MiAwIi8+PHBhdGggZmlsbD0iI0ZGQ0ZDQSIgZD0iTTExLjAxIDM1YzMuMzEyIDAgNS45OTctMi42NzYgNS45OTctNS45NzV2LTIuOTg4SDUuMDF2Mi45ODhjMCAzLjMgMi42ODYgNS45NzUgNS45OTggNS45NzUiLz48cGF0aCBmaWxsPSIjMDg5QjlGIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0zMC4wNzIgMTYuNTUyYzAtNS4wNzEtMy4xNTYtOS40LTcuNjE0LTExLjE2N2wtNC40NTMgNy42ODQtNC40NTMtNy42ODRjLTQuNDU4IDEuNzY3LTcuNjE0IDYuMDk2LTcuNjE0IDExLjE2NyAwIDMuOTM3IDEuOTA3IDcuNDIxIDQuODQ0IDkuNjE0aDE0LjQ0NmMyLjkzNi0yLjE5MyA0Ljg0NC01LjY3NyA0Ljg0NC05LjYxNCIvPjxwYXRoIGZpbGw9IiMwODlCOUYiIGZpbGwtcnVsZT0ibm9uemVybyIgZD0iTTIyLjQ1OCA1LjM4NmMtLjAyNC0uMDEtLjA1LS4wMTgtLjA3My0uMDI3aC04Ljc2Yy0uMDI0LjAwOS0uMDQ5LjAxNy0uMDczLjAyN2w0LjQ1MyA3LjY4MyA0LjQ1My03LjY4M3oiLz48cGF0aCBmaWxsPSIjMEU3QzgxIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0xMy42MjUgNS4zNTlhMTIuMDY0IDEyLjA2NCAwIDAxNC4zOC0uODNjMS41NDcgMCAzLjAyLjMwMiA0LjM4LjgzaC4wODhMMjUuNTc4IDBIMTAuNDMxbDMuMDkzIDUuMzM1LjAxMy4wMjRoLjA4OHoiLz48cGF0aCBmaWxsPSIjMEU3QzgxIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0xMy42MjUgNS4zNTloOC43NmExMi4wNjggMTIuMDY4IDAgMDAtNC4zOC0uODNjLTEuNTQ3IDAtMy4wMjEuMzAyLTQuMzguODMiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMjQuMDI4IDE2LjU1NGgtMS4zMjFsLjk4MS0yLjg4MWgtMS43MjZsLTEuNTU0IDUuMDYxLTEuNjgzLTUuMDgyaC0xLjQxNGwtMS42ODMgNS4wODItMS41NTQtNS4wNjFoLTEuNzY4bC45OCAyLjg4MWgtMS4yNzR2MS41NzNoMS44MWwxLjA0NSAzLjA3M2gxLjQzNmwxLjY5NC00Ljg5IDEuNjkzIDQuODloMS40MzdsMS4wNDUtMy4wNzNoMS44NTZ6Ii8+PC9nPjwvc3ZnPg==);
+    background-repeat: no-repeat;
+    background-size: 46px 45px;
+    width: 46px;
+    height: 45px;
+}
+.funding-detail p {
+    margin: 12px 0;
+    padding: 16px;
+    border-bottom: 1px solid #c0c0c0;
+}
+
+
+
+/* ==================== 오른쪽 ==================== */
+.state-box {
+    margin-top: 16px;
+    padding-top: 10px;
+}
+.state-box p {
+    margin-bottom: 14px;
+    color: #4a4a4a;
+    font-size: 15px;
+    line-height: 36px;
+}
+.state-box strong {
+    padding-right: 5px;
+    font-size: 22px;
+    font-weight: 500;
+}
+.rate-bar {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: #c0c0c0;
+    overflow: hidden;
+}
+.rate-bar em {
+    display: block;
+    background: #00c4c4;
+    height: 3px;
+    width: 26%;
+    overflow: hidden;
+}
+.goal-box {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #c0c0c0;
+}
+.goal-box p {
+    color: #4a4a4a;
+    font-size: 12px;
+    margin: 0;
+}
+.goal-box strong {
+    font-size: 12px;
+    font-weight: 200;
+    place-items: center;
+}
+.btn-funding {
+    background-color: #00c4c4;
+    border: none;
+    color: #fff;
+    width: 100%;
+    height: 48px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.btn-funding:hover {
+    background-color: #00b2b0;
+    transition-duration: .2s;
+}
+.btn-funding-small {
+    height: 38px;
+    width: 100%;
+    line-height: 38px;
+    color: #4a4a4a;
+    background: #fff;
+    border: 1px solid #dadce0;
+    font-size: 13px;
+    font-weight: 350;
+    text-align: center;
+    vertical-align: center;
+    margin-top: 5px;
+}
+.btn-funding-small img {
+    height: 14px;
+    margin-right: 5px;
+}
+.btn-funding-small:hover {
+    background-color: #F2F2F2;
+    transition-duration: .2s;
+}
+
+
+
+/* ==================== 모달 - 펀딩버튼 ==================== */
+.modal-body {
+    margin: 0 50px 15px;
+}
+.modal-footer {
+    margin: 0 50px 35px;
+}
+.thumbnail {
+    width: 100%;
+}
+.modal-funding-right {
+    margin-left: 15px;
+}
+.modal-funding-title {
+    font-size: 15px;
+    font-weight: 400;
+}
+.modal-funding-store {
+    font-size: 13px;
+    font-weight: 400;
+    color: grey;
+    margin: 6px 0;
+}
+.modal-funding-status {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+}
+.modal-funding-btn {
+    background-color: #00c4c4;
+    border: none;
+    color: #fff;
+    width: 100%;
+    height: 38px;
+    font-size: 14px;
+    font-weight: 350;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 0.1rem;
+    cursor: pointer;
+}
+.modal-funding-btn:hover {
+    background-color: #00b2b0;
+    transition-duration: .2s;
+}
+.modal-footer.modal-funding-footer {
+    border-top: none;
+}
+
+
+
+/* ==================== 모달 - 찜버튼 ==================== */
+.modal-footer.modal-dibs-footer {
+    border-top: none;
+}
+
+/* ==================== 모달 - 공유버튼 ==================== */
+
+
+/* ==================== 부트스트랩 컨테이너 ==================== */
+/*
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    margin-left: auto
+}
+@media (min-width:576px) {
+
+    .container,
+    .container-sm {
+        max-width: 540px
+    }
+}
+
+@media (min-width:768px) {
+
+    .container,
+    .container-md,
+    .container-sm {
+        max-width: 720px
+    }
+}
+
+@media (min-width:992px) {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm {
+        max-width: 850px
+    }
+}
+
+@media (min-width:1200px) {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl {
+        max-width: 850px
+    }
+}
+
+@media (min-width:1400px) {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 850px
+    }
+}
+*/

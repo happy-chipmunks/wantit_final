@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.breadcrumb li {
+    cursor: pointer; /*왜 안됨*/
+}
+
 .wanting-write {
     width:700px;
 }

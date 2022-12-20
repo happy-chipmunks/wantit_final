@@ -959,7 +959,7 @@
         <br>
         <button type="submit" class="btn btn-primary" >
             <span>
-                <span class="">가입하기</span>
+                <span class="enroll">가입하기</span>
             </span>
         </button>
        </form>
@@ -1246,6 +1246,15 @@
 	 
 	 
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
+  	<script>
+	const jsConfetti = new JSConfetti()
+	function wowConfetti() {
+		jsConfetti.addConfetti({
+		});
+	}
+	document.querySelector('.btn-funding').addEventListener('click', wowConfetti)
+  	</script>
 
 </body>
 </html>

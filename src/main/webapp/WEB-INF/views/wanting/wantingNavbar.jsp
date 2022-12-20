@@ -8,8 +8,8 @@
   <title>원팅 상단바</title>
   <!-- CSS Files -->
   <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="resources/css/fundingMain.css" />
   <link rel="stylesheet" href="resources/css/bootstrap-custom.css" />
+  <link rel="stylesheet" href="resources/css/wantingMain.css" />
   <!-- icons fonts -->
 
 </head>

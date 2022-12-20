@@ -1,5 +1,7 @@
 package com.kh.wantit.wanting.model.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +22,5 @@ public class Wanting {
 	private String wantingShopName;
 	private int wantingLevel;
 	private String wantingStatus;
+	private Date wantingCreateDate;
 }

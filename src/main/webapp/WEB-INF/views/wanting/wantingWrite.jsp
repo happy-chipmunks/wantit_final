@@ -10,7 +10,7 @@
 
   <!-- CSS Files -->
   <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="resources/css/fundingMain.css" />
+  <link rel="stylesheet" href="resources/css/wantingMain.css" />
   <link rel="stylesheet" href="resources/css/wantingWrite.css" />
 
   <!-- summer note -->
@@ -25,24 +25,28 @@
 </head>
 
 <body>
+<form class="" action="${ contextPath }/insertWanting.want" method="POST" enctype="multipart/form-data" id="wantingForm"> <!-- enctype : 이미지나 파일을 건낼 수 있음 -->
 <div class="container wanting-write">
 	<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 		<ol class="breadcrumb">
-		  <li class="breadcrumb-item"><a href="#">마이페이지</a></li>
+		  <li class="breadcrumb-item"><a href="#" onclick="location.href='${ contextPath }/myPageSupporter.me'">마이페이지</a></li>
 		  <li class="breadcrumb-item active" aria-current="page">원팅등록</li>
 		</ol>
 	</nav>
-
+		<input placeholder="" type="file"  name="wanting-file">
+		<input placeholder="" type="file"  name="wanting-file">
+	
+	
 	<h4 class="">원팅 등록하기</h4>
 	<div class="wanting-title-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	
 	<h5 class="wanting-guide-title">원팅 제목</h5>
 	<div class="wanting-guide-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	<i class="icon-help" aria-hidden="true"></i>
-	<input class="wanting-write-input" placeholder="제목을 입력해 주세요" maxlength="40" name="title" type="text" value="">
+	<input class="wanting-write-input" placeholder="제목을 입력해 주세요" maxlength="40" name="wantingTitle" type="text" value="" name="wantingTitle">
 
 	<h5 class="wanting-guide-title">대표이미지</h5>
-	<input accept="image/JPG,image/JPEG,image/GIF,image/PNG" name="uploadFile" placeholder="" type="file" id="wanting-file" style="display:none">
+	<input accept="image/JPG,image/JPEG,image/GIF,image/PNG" name="wanting-file" placeholder="" type="file" id="wanting-file" style="display:none">
 	<div class="wanting-guide-detail">
 		원팅 맨 위에서 가장 먼저 보여 주고 싶은 영상이나 사진을 등록해주세요.
 		<br>2MB 이하의 JPG, JPEG, GIF, PNG 파일이 등록됩니다. 여러 장 등록돼요.
@@ -53,17 +57,18 @@
 	<h5 class="wanting-guide-title">가게 소개</h5>
 	<div class="wanting-guide-detail">원팅 대상이 되는 가게 정보를 입력해주세요</div>
 	<div class="wanting-shop">
-		가게 이름<input class="wanting-write-input shop-input" placeholder="가게 이름을 입력해 주세요" maxlength="40" name="title" type="text" value="" id="wanting-input" height="10"><br>
-		가게 주소<input class="wanting-write-input shop-input" placeholder="가게 주소를 입력해 주세요" maxlength="40" name="title" type="text" value="" id="wanting-input">
+		가게 이름<input class="wanting-write-input shop-input" placeholder="가게 이름을 입력해 주세요" maxlength="40" name="wantingShopName" type="text" value="" id="wanting-input" height="10"><br>
+		가게 주소<input class="wanting-write-input shop-input" placeholder="가게 주소를 입력해 주세요" maxlength="40" name="wantingShopLocation" type="text" value="" id="wanting-input">
 	</div>
 
 	<h5 class="wanting-guide-title">원팅 스토리 작성</h5>
 	<div class="wanting-guide-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
-    <div id="summernote"></div>
+    <textarea id="summernote" name="wantingContent"></textarea>
 
-	<button class="btn-wanting" data-bs-toggle="modal" data-bs-target="#wanting-modal">원팅 제출</button>
+	<button class="btn-wanting" data-bs-toggle="modal" data-bs-target="#wanting-modal" id="btn-submit">원팅 제출</button>
 
 </div>
+</form>
 
 	<!-- 펀딩하기 완료 -->
 	<div class="modal fade" id="wanting-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -111,9 +116,10 @@
 		</div>
 		</div>
 	</div>
-
+	
 	
 <script>
+// 	파일 선택시 문구 변경
 	document.getElementById('wanting-file').addEventListener('change', function(){
 		var filename = document.getElementById('file-name');
 		if(this.files[0] == undefined){
@@ -123,6 +129,23 @@
 		filename.innerText = this.files[0].name;
 	});
 	
+// 	파일 선택시 사진 들어가기
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+	        reader.onload = function (e) {
+	                $('#cover').attr('src', e.target.result);        //cover src로 붙여지고
+	                $('#fileName').val(input.files[0].name);    //파일선택 form으로 파일명이 들어온다
+	            }
+	          reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+	
+		$("#myFileUp").change(function(){
+	        readURL(this);
+	});
+
+// 	써머 노트
 	$('#summernote').summernote({
 		lang: "ko-KR", // default: 'en-US'
 		placeholder: '<br><h5>안녕하세요. 스토리 작성을 시작한 회원님을 환영해요!</h5><br>여기에는 안내문구를 적을 예정이에요. 누가? 내가 나중에',
@@ -139,11 +162,48 @@
         ]
      });
 	
-	window.onload = function() {
-		
-	}
+// 	파일 전송
+	const form = document.getElementById('wantingForm');
+	document.getElementById('btn-submit').addEventListener('click', () => {
+		form.submit();
+		/* const files = document.getElementsByName('wanting-file');
+		let isEmpty = true;
+		for(const f of files) {
+			if(f.value != '') {
+				isEmpty = false;
+			}
+		}
+		if(isEmpty) {
+			$('#modalChoice').modal('show');
+		} else {
+			form.submit();
+		} */
+	});
 	
 </script>
-	
+
+
+<!-- 빵빠레 스크립트 -->
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
+<script>
+	const jsConfetti = new JSConfetti()
+	window.onload = function() {
+		jsConfetti.addConfetti({
+			confettiRadius: 8,
+			confettiNumber: 600,
+//  			confettiRadius: 5,
+// 			confettiNumber: 60,
+// 			emojis: ['김잔환', '바보', '멍청이', '바보'],
+		});
+	}
+	function wowConfetti() {
+		jsConfetti.addConfetti({
+			confettiNumber: 600,
+		});
+	}
+	document.querySelector('.btn-wanting').addEventListener('click', wowConfetti)
+</script>
+
+
 </body>
 </html>
