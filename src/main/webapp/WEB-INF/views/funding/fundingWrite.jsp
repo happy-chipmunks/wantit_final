@@ -68,6 +68,10 @@
 		
 		#i-style{ font-size : 14px; }
 		
+		.h4{
+			 background-color: #ffccff;
+		}
+		
     </style>
 
 </head>
@@ -75,12 +79,11 @@
 	<header>
 	    <jsp:include page="../common/navbar.jsp"></jsp:include>
 	</header>
-	<br>
-    <br><br><br>
+    <br><br>
     <div class="container div-style">
 			<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 				<ol class="breadcrumb">
-				  <li class="breadcrumb-item"><a href="#" style="text-decoration: none; color: gray;">마이페이지</a></li>
+				  <li class="breadcrumb-item"><a href="${ contextPath }/myPage_creator.me" style="text-decoration: none; color: gray;">마이페이지</a></li>
 				  <li class="breadcrumb-item active" aria-current="page">펀딩등록</li>
 				</ol>
 			</nav>
@@ -92,16 +95,15 @@
           <button type="button" class="btn btn-secondary">··· 미리보기</button>
           <button type="button" class="btn btn-secondary">기획 중 - 0%</button>
         </div>
-        <hr>
     </div>
 	
 	<form action="${ contextPath }/insertFunding.fund" method="POST" enctype="multipart/form-data">
 		<div class="row">
-			<div class="container col-6">
-				<h4 class="pb-1">펀딩 기본 정보</h4>
+			<div class="container col-6" style="text-align: center;">
+				<h4 class="pb-1 h4">펀딩 기본 정보</h4><br>
 				
-				<h5 class="fundingH5">펀딩 카테고리</h5>&nbsp;<span class="essential">*</span><br>
-				<select name="category" style="border: none; width: 200px;" class="funding-style shadow">
+				<h5 class="fundingH5" style="display: inline;">펀딩 카테고리</h5>&nbsp;<span class="essential">*</span><br>
+				<select name="category" style="border: none; width: 200px;" class="funding-style shadow-sm">
    					<option>테크·가전</option>
    					<option>패션·잡화</option>
    					<option>뷰티</option>
@@ -114,11 +116,11 @@
 				<br><br>
 				
 				<h5 class="fundingH5">펀딩 제목</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style shadow" placeholder="제목을 입력해 주세요" maxlength="40" name="title" type="text" style="border: none; width: 300px;">
+				<input class="funding-style shadow-sm" placeholder="제목을 입력해 주세요" maxlength="40" name="title" type="text" style="border: none; width: 300px;">
 				<br><br>
 				
 				<h5 class="fundingH5">펀딩 요약</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style shadow" placeholder="펀딩을 간단히 요약해 주세요" maxlength="40" name="summary" type="text" style="border: none; width: 300px;">
+				<input class="funding-style shadow-sm" placeholder="펀딩을 간단히 요약해 주세요" maxlength="40" name="summary" type="text" style="border: none; width: 300px;">
 				<br><br>
 				
 				<h5 class="fundingH5">펀딩 대표이미지</h5>
@@ -134,20 +136,21 @@
 							</div>
 				</div>
 				
-				<hr>
-				
-				<h4 class="pb-1">펀딩 스토리</h4>
+				<br>
+				<h4 class="pb-1 h4">펀딩 스토리</h4><br>
 				<h5 class="fundingH5">펀딩 소개</h5>&nbsp;<span class="essential">*</span><br>
 				<div>회원님의 펀딩 프로젝트를 소개해주세요.</div>
-			    <div id="summernote" name="fundingContent"></div><br>
+			    <div>
+			    	<textarea id="summernote" name="fundingContent"></textarea>
+			    </div><br>
 			    
 			    <h5 class="fundingH5">펀딩 목표금액</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style shadow" maxlength="40" name="targetAmount" type="number" style="border: none; width: 300px;">
+				<input class="funding-style shadow-sm" maxlength="40" name="targetAmount" type="number" style="border: none; width: 300px;">
 				<br><br>
 				
 				<h5 class="fundingH5">펀딩 최소 후원 금액</h5>&nbsp;<br>
 				<i style="color: gray;" id="i-style">기본 최소 후원 금액은 1,000원 입니다.</i><br>
-				<input class="funding-style shadow" maxlength="40" min="1000" step="10" name="minimumAmount" list="amountList" type="number" style="border: none; width: 300px;">
+				<input class="funding-style shadow-sm" maxlength="40" min="1000" step="10" name="minimumAmount" list="amountList" type="number" style="border: none; width: 300px;">
 				<br><br>
 				
 				<datalist id="amountList">
@@ -159,17 +162,17 @@
 				</datalist>
 				
 				<h5 class="fundingH5">펀딩 종료일</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style shadow" maxlength="40" id="endDate" name="endDate" type="date" style="border: none; width: 300px;">
+				<input class="funding-style shadow-sm" maxlength="40" id="endDate" name="endDate" type="date" style="border: none; width: 300px;">
 				<br>
 				
-				<hr>
-				
-				<h4 class="pb-1" style="display: inline">펀딩 리워드 구성</h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<br>
+				<h4 class="pb-1 h4">펀딩 리워드 구성</h4><br>
 				<button id="addReward" class="btn btn-outline-primary" onclick="$('#rewardAdd').modal('show')">리워드 추가</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button id="delReward" class="btn btn-outline-secondary" onclick="delRow()">선택한 리워드 삭제</button>
 				<!-- <input type='button' id='delBtn' value='삭제' onclick='deleteRow(this)' style='width:70px;'> -->
+				<br>
 				
-				<table id="rewardTable" class="table">
+				<table id="rewardTable" class="table" style="display: none;">
 					<tr>
 						<th style="width: 70px;"></th>
 						<th>리워드 아이템</th>
@@ -177,6 +180,7 @@
 						<th>수량 제한</th>
 						<th>발송 시작일</th>
 						<th>금액</th>
+						<th>배송비</th>
 					</tr>
 				</table>
 				
@@ -194,6 +198,7 @@
 						      	수량 제한<input type="number" class="form-control input" id="reward-quantity" name="rewardQuantity">
 						      	발송 시작일<input type="date" class="form-control input" id="reward-shipmentDate" name="rewardShipmentDate">
 						      	금액<input type="number" class="form-control input" id="reward-donationPrice" name="rewardDonationPrice">
+						      	배송비<input type="number" class="form-control input" id="reward-deliveryCharge" name="rewardDeliveryCharge">
 						 </div>
 						 <div class="modal-footer">
 							<button type="button" class="btn btn-primary" id="sendBtn">보내기</button>
@@ -232,12 +237,14 @@
 		// 리워드 추가
 		$(document).ready(function(){
 			$('#sendBtn').click(function(){
-				var title = $('#rewardAdd').find('input[name="rewardTitle"]').val();
+				$('#rewardTable').show();
+				var title = $('#rewardAdd').find('input[name="rewardName"]').val();
 				var content = $('#rewardAdd').find('input[name="rewardContent"]').val();
 				var quantity = $('#rewardAdd').find('input[name="rewardQuantity"]').val();
 				var postingDate = $('#rewardAdd').find('input[name="rewardPostingDate"]').val();
 				var donationPrice = $('#rewardAdd').find('input[name="rewardDonationPrice"]').val();
-				$('#rewardTable').append("<tr><td><input type='checkbox' name='checkBox'></td><td>" + title + "</td><td>" + content + "</td><td>" + quantity + "</td><td>" + postingDate + "</td><td>" + donationPrice);
+				var deliveryCharge = $('#rewardDeliveryCharge').find('input[name="rewardDeliveryCharge"]').val();
+				$('#rewardTable').append("<tr><td><input type='checkbox' name='checkBox'></td><td>" + title + "</td><td>" + content + "</td><td>" + quantity + "</td><td>" + postingDate + "</td><td>" + donationPrice + "</td><td>" + deliveryCharge + "</td>");
 				$('#rewardAdd').modal('hide');
 			});
 		});
@@ -262,21 +269,45 @@
 	          ['table', ['table']],
 	          ['insert', ['link', 'picture', 'video']],
 	          ['view', ['fullscreen', 'codeview', 'help']]
-	        ]
-	      });
+	        ],
+	        callbacks: {
+	        	onImageUpload : function(files, editor, welEditable){
+	        		// 파일 업로드(다중 업로드를 위해 반복문 사용)
+	        		for(var i = files.length - 1; i >= 0; i--){
+	        			uploadSummernoteImageFile(files[i], this);
+	        		}
+	        	}
+	        };
+	        
+	        function uploadSummernoteImageFile(file, el){
+	        	data = new FormData();
+	        	data.append("file", file);
+	        	$.ajax({
+	        		data: data,
+	        		type: "POST",
+	        		url: "uploadSummernoteImageFile",
+	        		contentType: false,
+	        		enctype: 'multipart/form-data',
+	        		processData: false,
+	        		success: function(data){
+	        			$(el).summernote('editor.insertImage', data.url);
+	        		}
+	        	});
+	        }
 	      
 	      // 오늘 날짜 가져오기 (펀딩 종료일 설정)
-	      var now_utc = Date.now();
+    	  var now_utc = Date.now();
 	      var timeOff = new Date().getTimezoneOffset()*60000;
 	      var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
 	      
 	      document.getElementById('endDate').setAttribute("min", today);
+	      console.log(today);
 	      
-	      // 발송 시작일 (펀딩 종료일보다 늦게 고를 수 있어야 함)
+	      // 발송 시작일 (펀딩 종료일보다 뒷 날로 고를 수 있어야 함)
 	      $('#endDate').change(function(){
 	    	  var end = $('#endDate').val();
 	    	  
-	    	  $('#gift-shipmentDate').attr("min", end);
+	    	  $('#reward-shipmentDate').attr("min", end);
 	      });
 	      
 	      // table tr값 넘기기
@@ -285,7 +316,7 @@
 	    		  var dataArrayToSend = [];
 	    		  var dataArrayToSend1 = [];
 	    		  
-	    		  $('#rewardTable' tr).each(function(){
+	    		  $('#rewardTable tr').each(function(){
 	    			  var length = $(this).find('td').length;
 	    			  
 	    			  for(var i = 0; i < length; i++){
