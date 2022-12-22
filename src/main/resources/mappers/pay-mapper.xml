@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="payMapper">
+
+	<resultMap type="TestMember" id="testMemberResultSet">
+		<id column="MEMBER_ID" property="id"/>
+		<result column="MEMBER_PWD" property="pwd"/>
+		<result column="MEMBER_NAME" property="name"/>
+		<result column="MEMBER_NICKNAME" property="nickName"/>
+		<result column="MEMBER_PHONE" property="phone"/>
+		<result column="MEMBER_POSTCODE" property="postCode"/>
+		<result column="MEMBER_ADDRESS" property="address"/>
+		<result column="MEMBER_EMAIL" property="email"/>
+		<result column="MEMBER_ENROLL_DATE" property="enrollDate"/>
+		<result column="MEMBER_GENDER" property="gender"/>
+		<result column="MEMBER_TYPE" property="type"/>
+		<result column="MEMBER_INTRODUCE" property="introduce"/>
+		<result column="MEMBER_CATE" property="cate"/>
+		<result column="MEMBER_STATUS" property="status"/>
+	</resultMap>
+	
+	<resultMap type="Reward"  id="rewardResultSet">
+		<id column="REWARD_NUM" property="rewardNum"/>
+		<result column="FUNDING_NUM" property="fundingNum"/>
+		<result column="REWARD_TITLE" property="rewardTitle"/>
+		<result column="REWARD_CONTENT" property="rewardContent"/>
+		<result column="REWARD_PRICE" property="price"/>
+		<result column="REWARD_SHIPPING" property="shipping"/>
+		<result column="REWARD_LIMIT" property="rewardLimit"/>
+		<result column="REWARD_SELLCOUNT" property="rewardSellCount"/>
+		<result column="REWARD_EXPECT_DATE" property="rewardExpectDate"/>
+	</resultMap>
+	
+	<resultMap type="PaySchedule" id="payScheduleResultSet">
+		<result column="CUSTOMER_UID" property="customerUId"/>
+		<result column="MERCHANT_UID" property="merchantUId"/>
+		<result column="MERCHANT_NAME" property="merchantName"/>
+		<result column="BUYER_NAME" property="buyerName"/>
+		<result column="BUYER_TEL" property="buyerTel"/>
+		<result column="BUYER_ADDR" property="buyerAddr"/>
+		<result column="SCHEDULE_STATUS" property="scheduleStatus"/>
+		<result column="PAYMENT_STATUS" property="paymentStatus"/>
+		<result column="REWARD_BUY_LIST" property="rewardBuyList"/>
+	</resultMap>
+	
+	<select id="testLogin" resultMap="testMemberResultSet">
+		select * from member where member_id = 'admin'
+	</select>
+	
+	<select id="getRewardList" resultMap="rewardResultSet">
+		select * from reward where funding_num = #{fundingNum}
+	</select>
+	
+	<select id="getFundingTitle" resultType="string">
+		select funding_title from funding where funding_num = #{fundingNum}
+	</select>
+	
+	<update id="changeRewardSellCount" parameterType="map">
+		update reward set reward_sellcount = reward_sellcount + #{rewardCount} where reward_num = #{rewardNum}
+	</update>
+	
+	<select id="selectMerchantSequence" resultType="_int">
+		select merchant_code_seq.nextval from dual
+	</select>
+	
+	<insert id="insertPaySchedule" parameterType="map">
+		insert into payschedule values(#{customer_uid}, #{merchant_uid}, #{merchant_name}, #{buyer_name}, #{buyer_tel}, #{buyer_addr}, #{schedule_status}, #{payment_status}, #{reward_buy_list})
+	</insert>
+
+
+
+</mapper>
