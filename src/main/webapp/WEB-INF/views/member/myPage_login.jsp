@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,36 +45,52 @@
     border: 0;
     outline: 0;
 }
-
+.login-warn{
+ margin-top: 30px;
+ text-align: center;
+ color : red;
+}
 </style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 <body>
     <h2 class="ttable" style="color: black; font-weight: bold;">로그인</h2>
+    <form action="${contextPath}/login.me" method="POST" id="frmLogin">
     <div class="tttable">
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+              <input type="text" class="form-control" id="floatingInputGroup1" name="memberId" placeholder="Username">
               <label for="floatingInputGroup1">아이디 입력</label>
             </div>
         </div>
         <br>
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+              <input type="password" class="form-control" id="floatingInputGroup2" name="memberPwd" placeholder="Username">
               <label for="floatingInputGroup1">비밀번호 입력</label>
             </div>
         </div>
+        <%-- <c:if test = "${loginUser == 0 }">
+        <div class="login-warn">사용자ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
+        </c:if> --%>
         <br>
-        <button type="button" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary" id="submit1" >
             <span>
                 <span class="">로그인</span>
             </span>
         </button>
+        <input type="hidden" name="beforeURL">
+        </form>
+         <c:if test = "${msg != null }">
+        <div class="login-warn">사용자ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
+        </c:if>
+         
         <br>
         <div>
             &nbsp;&nbsp;&nbsp;  아직 회원이 아니신가요?
@@ -96,6 +113,38 @@
             <span style="font-weight: bold;">구글로 시작하기</span>
         </button>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!--  model  -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
     
+   
 </body>
 </html>

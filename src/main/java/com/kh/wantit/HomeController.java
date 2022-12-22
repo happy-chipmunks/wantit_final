@@ -55,15 +55,11 @@ public class HomeController {
 		return "fundingComingSoon";
 	}
 	
-	@RequestMapping("/wantingList.want")
-	public String wantingList() {
-		return "wantingListView";
-	}
-	
 	@RequestMapping("/fundingWrite.fund")
 	public String fundingWrite() {
 		return "fundingWrite";
 	}
+	//로그인 페이지
 	@RequestMapping("/loginenroll.me")
 	public String loginenroll() {
 		return "myPage_login";

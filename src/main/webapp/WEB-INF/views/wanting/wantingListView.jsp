@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <jsp:include page="../common/navbar.jsp"></jsp:include>
@@ -128,15 +129,24 @@
         <div class="col-md-1"></div>
         <div class="col-md-10" style="padding: 30px;">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            
+            <c:forEach items="${ wantingList }" var="w">
                 <div class="col">
                     <div class="card shadow-sm fundinglist" onclick="location.href='${ contextPath }/wantingMain.want'">
-                      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><!-- <rect width="100%" height="100%" fill="#55595c"/> -->
+							<c:forEach items="${ imageList }" var="i">
+								<c:if test="${ w.wantingNum == i.imageBoardId and i.imageLevel == 0}">
+									<img src="${ contextPath }/resources/wanting/${i.imageRename}"
+										class="card-img-top" alt="...">
+								</c:if>
+							</c:forEach>				
+						</svg>
           
                       <div class="card-body">
                           <div style="padding-bottom: 10px;">
               
                           </div>
-                          <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
+                          <p class="card-text">${ w.wantingTitle }</p>
                           <div class="d-flex justify-content-between align-items-center">
                             <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
                           </div>
@@ -145,71 +155,25 @@
                           <span class="remainCount">45명 / 100명</span>
                           <span class="remainDate">15일 지났어요</span>
                           <br>
-                          <p class="wantingWriter">작성자</p>
+                          <p class="wantingWriter">${ w.wantingWriter }</p>
                       </div>
                     </div>
                  </div>
-                <div class="col">
-                    <div class="card shadow-sm fundinglist">
-                      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          
-                      <div class="card-body">
-                          <div style="padding-bottom: 10px;">
-                              
-                          </div>
-                          <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                                <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-                            </div>
-                            <span class="remainCount">45명 / 100명</span>
-                            <span class="remainDate">15일 남음</span>
-                            <br>
-                          <p class="wantingWriter">작성자</p>
-                      </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm fundinglist">
-                      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          
-                      <div class="card-body">
-                          <div style="padding-bottom: 10px;">
-                              
-                          </div>
-                          <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                                <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-                            </div>
-                            <span class="remainCount">45명 / 100명</span>
-                            <span class="remainDate">15일 남음</span>
-                            <br>
-                          <p class="wantingWriter">작성자</p>
-                      </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm fundinglist">
-                      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          
-                      <div class="card-body">
-                          <div style="padding-bottom: 10px;">
-                              
-                          </div>
-                          <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                                <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-                            </div>
-                            <span class="remainCount">45명 / 100명</span>
-                            <span class="remainDate">15일 남음</span>
-                            <br>
-                          <p class="wantingWriter">작성자</p>
-                      </div>
-                    </div>
-                </div>
+            </c:forEach>
+                
             </div>
         </div>
     </div>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
+  	<script>
+	const jsConfetti = new JSConfetti()
+	function wowConfetti() {
+		jsConfetti.addConfetti({
+		});
+	}
+	document.querySelector('.btn').addEventListener('click', wowConfetti)
+ 	</script>
 </body>
 </html>

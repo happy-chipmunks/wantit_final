@@ -1,15 +1,36 @@
 package com.kh.wantit.member.controller;
 
+import java.util.Random;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.wantit.member.Service.MemberService;
+import com.kh.wantit.member.exception.MemberException;
+import com.kh.wantit.member.vo.Member;
 
 @Controller
 public class MemberController {
 	
+	@Autowired
 	private MemberService mService;
-
+	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
+	
+	//회원가입페이지 이동
 	@RequestMapping("/memberenroll.me")
 	public String enroll() {
 		return "myPage_enroll";
@@ -22,12 +43,12 @@ public class MemberController {
 	
 	@RequestMapping("/myPageSupporterFunding.me")
 	public String myPageSupporterFunding() {
-		return "myPage_sup_funding";
+		return "myPage_sup_fundingList";
 	}
 	
 	@RequestMapping("/myPageSupporterWanting.me")
 	public String myPageSupporterWanting() {
-		return "myPage_sup_wanting";
+		return "myPage_sup_wantingList";
 	}
 	
 	@RequestMapping("/myPageSupporterDibs.me")
@@ -37,7 +58,7 @@ public class MemberController {
 	
 	@RequestMapping("/myPageSupporterInquiry.me")
 	public String myPageSupporterInquiry() {
-		return "myPageSupporterInquiry";
+		return "myPage_sup_inquiry";
 	}
 	
 	@RequestMapping("/myPageSupporterAlarm.me")
@@ -62,7 +83,7 @@ public class MemberController {
 	
 	@RequestMapping("/myPageCreatorFunding.me")
 	public String myPageCreatorFunding() {
-		return "myPage_creator_funding";
+		return "myPage_creator_fundingList";
 	}
 	
 	@RequestMapping("/myPageCreatorInquiry.me")
@@ -84,4 +105,153 @@ public class MemberController {
 	public String myPageCreatorAds() {
 		return "myPage_creator_ads";
 	}
+	
+	// 중복검사 결과 확인 메서드
+		public String getResult(int count) {
+			String result = count>0 ? "yes" : "no";
+			return result;
+		}
+	//회원가입 메소드 
+	@RequestMapping("/loginfinished.me")
+	public String enroll(@ModelAttribute("Member") Member member,@RequestParam("memberPwd2")String memberPwd2,
+						@RequestParam("memberAddress") String add1,@RequestParam("memberAddress2") String add2) {
+		if(!member.getMemberPwd().equals(memberPwd2)) {
+			throw new MemberException("비밀번호가 일치하지 않습니다.");
+		}
+		String enPwd = bcrypt.encode(member.getMemberPwd());
+		member.setMemberPwd(enPwd);
+		String alladd = add1.concat(" ").concat(add2);
+		member.setMemberAddress(alladd);
+		
+		int result = mService.enroll(member);
+		
+		if(result>0){
+			return "redirect:/";
+		} else {
+			throw new MemberException("회원가입에 실패했습니다.");
+		}
+		
+		
+	}
+	//로그인 메소드
+	
+	@RequestMapping("/login.me")
+	public String login(@ModelAttribute("Member")Member member,HttpSession session,Model model,
+						@RequestParam("beforeURL") String beforeURL)  {
+		
+		Member loginUser = mService.login(member);
+		
+		String rawPwd = member.getMemberPwd();
+		String enPwd = loginUser.getMemberPwd();
+		if(bcrypt.matches(rawPwd, enPwd)) {
+			session.setAttribute("loginUser", loginUser);
+			
+			 if(beforeURL.equals("")) {
+				   return "redirect:home.do";    
+			   }else {
+				   return "redirect:"+ beforeURL;   
+			   }
+		   }else {
+			   model.addAttribute("msg","ID 또는 password를 확인해주세요.");
+			   model.addAttribute("loginUser1",loginUser);
+			  
+			   return "myPage_login";
+		   }
+	}
+	// 아이디 중복 검사 메서드
+		@RequestMapping("checkUesrname.me")
+		@ResponseBody
+		public String checkUserName(@RequestParam("userName")String userName){
+			int count = mService.checkUserName(userName);
+			return getResult(count);
+		}
+		// 닉네임 중복 검사 메서드
+		@RequestMapping("checkNickName.me")
+		@ResponseBody
+		public String checkNickName(@RequestParam("nickName")String nickName){
+			int count = mService.checkNickName(nickName);
+			return getResult(count);
+		}
+		
+		
+		
+		//회원가입 문자인증 로직 
+		@RequestMapping("/sendSMS1.me")
+		@ResponseBody
+		public String sendSMS(String Phone) {
+			
+			Random rand = new Random();
+			String numStr = "";
+			for(int i=0; i<4; i++) {
+				String ran = Integer.toString(rand.nextInt(10));
+				numStr+=ran;
+			}
+			
+			mService.certifiedmemberPhone(Phone,numStr);
+			
+			return numStr;
+		}
+		// 로그아웃 메서드
+		@RequestMapping("/logout.me")
+		public String logout(HttpSession session) {
+			session.invalidate();
+			return "redirect:/";
+		}
+		
+		
+		@RequestMapping("/myPageinfo.me")
+		public String myPageinfo() {
+			return "myPage_sup";
+		}
+		//회원수정사이트로 이동
+		@RequestMapping("/updatemyinfo.me")
+		public String updatemyinfo() {
+			return "myPage_updatemyinfo";
+		}
+		
+		//회원수정 메소드
+		@RequestMapping("/updatemember.me")
+		public String updatemember(@ModelAttribute Member member,@RequestParam("memberPwd2")String memberPwd2,HttpSession session,
+								   @RequestParam("memberAddress") String add1,@RequestParam("memberAddress2") String add2) {
+			if(!member.getMemberPwd().equals(memberPwd2)) {
+				throw new MemberException("비밀번호가 일치하지 않습니다.");
+			}
+			String rawPwd = member.getMemberPwd();
+			String enPwd = bcrypt.encode(rawPwd);
+			member.setMemberPwd(enPwd);
+			
+			int result = mService.updateInfo(member);
+			
+			System.out.println(member);
+			if(result>0) {
+				return "redirect:/myPageinfo.me";
+			} else {
+				throw new MemberException("회원 정보 수정에 실패하셨습니다.");
+			}
+			
+		}
+		
+		// 회원 탈퇴 메서드
+		@RequestMapping("/deleteMember.me")
+		public String deleteMember(HttpSession session) {
+			String userName = ((Member)session.getAttribute("loginUser")).getMemberId();
+			int result = mService.deleteMember(userName);
+			
+			if(result>0) {
+				session.invalidate();
+				return "redirect:/";
+			} else {
+				throw new MemberException("회원 탈퇴 실패");
+			}
+		}
+		
 }
+	
+	
+	
+	
+	
+	
+	
+	
+

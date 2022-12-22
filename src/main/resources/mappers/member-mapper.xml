@@ -2,6 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 
-	
+	  <resultMap type="Member" id="memberResultSet">
+		<id column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_PWD" property="memberPwd"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICKNAME" property="memberNickname"/>
+		<result column="MEMBER_PHONE" property="memberPhone"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="MEMBER_ENROLL_DATE" property="memberEnrolldate"/>
+		<result column="MEMBER_GENDER" property="memberGender"/>
+		<result column="MEMBER_TYPE" property="memberType"/>
+		<result column="MEMBER_INTRODUCE" property="memberIntroduce"/>
+		<result column="MEMBER_CATE" property="memberCate"/>
+		<result column="MEMBER_STATUS" property="memberStatus"/>
+	</resultMap>
 
+
+	<insert id="enroll" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES(#{memberId}, #{memberPwd},#{memberName},#{memberNickname},#{memberPhone},#{memberAddress},#{memberEmail},
+		sysdate,#{memberGender},null,null,null,default) 
+	</insert>
+	
+	
+	
+	<select id="login" parameterType="Member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_ID=#{memberId} AND MEMBER_STATUS = 'Y'
+	</select>
+	
+	<!-- 아이디 중복확인  -->
+	<select id="checkUsername" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<!--닉네임 중복확인  -->
+	<select id="checkNickName" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_NICKNAME = #{memberNickname}
+	</select>
+	
+	 <update id="updateInfo">
+		UPDATE MEMBER
+		SET MEMBER_PWD = #{memberPwd}, MEMBER_NICKNAME=#{memberNickname},MEMBER_NAME=#{memberName}, 
+		MEMBER_PHONE=#{memberPhone}, MEMBER_EMAIL=#{memberEmail},
+		MEMBER_ADDRESS = #{memberAddress}
+		WHERE MEMBER_ID = #{memberId}
+	</update> 
+	
+	 <update id="deleteMember">
+		UPDATE MEMBER
+		SET MEMBER_STATUS = 'N'
+		WHERE MEMBER_ID = #{memberId}
+	</update>
+	
 </mapper>

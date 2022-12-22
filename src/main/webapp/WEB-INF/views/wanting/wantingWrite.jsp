@@ -2,314 +2,137 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="../common/navbar.jsp"></jsp:include>
-<title>펀딩 등록하기</title>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<!-- Bootstrap v5.1.3 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	<style>
-		@font-face {
-		    font-family: 'NanumSquareNeo-Variable';
-		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
-		    font-weight: normal;
-		    font-style: normal;
-		}
-		
-		*{font-family: 'NanumSquareNeo-Variable';}
-		
-		header{
-			background: black;
-		}
-		
-		.container{
-			border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
-		}
-		
-		div>ul>li{
-			margin: auto;
-		}
-		
-		h1{display: inline;}
-		
-		.fileRegiBtn label {
-			display: inline-block; 
-			padding: .5em .75em; 
-			color: #ffffff; 
-			font-size: inherit; 
-			line-height: normal; 
-			vertical-align: middle; 
-			background-color: #6495ED; 
-			cursor: pointer; 
-			border: 1px solid #ebebeb; 
-			border-bottom-color: #e2e2e2; 
-			border-radius: .25em;
-		}
-		
-		.fileRegiBtn input[type="file"]{
-			position: absolute; 
-			width: 1px; 
-			height: 1px; 
-			padding: 0; 
-			margin: -1px; 
-			overflow: hidden; 
-			clip:rect(0,0,0,0); 
-			border: 0;
-		}
-		
-		input, textarea{
-			width: 550px;
-		}
-		
-		textarea{
-			height: 150px;
-		}
-		
-    </style>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>원팅 작성하기</title>
 
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="resources/css/wantingMain.css" />
+  <link rel="stylesheet" href="resources/css/wantingWrite.css" />
+
+  <!-- summer note -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<!--   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>  -->
+  
+  <link rel="stylesheet" href="resources/css/summernote-lite.min.css">
+  <script src="resources/css/summernote-lite.min.js"></script>
+  <script src="resources/css/summernote-ko-KR.js"></script>
+  
 </head>
+
 <body>
-	<header class="p-3 text-bg-dark">
-	    <div class="container" style="background: black;">
-	      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-	        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-	          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-	        </a>
+<form class="" action="${ contextPath }/insertWanting.want" method="POST" enctype="multipart/form-data" id="wantingForm"> <!-- enctype : 이미지나 파일을 건낼 수 있음 -->
+<div class="container wanting-write">
+	<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+		<ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="#" onclick="location.href='${ contextPath }/myPageSupporter.me'">마이페이지</a></li>
+		  <li class="breadcrumb-item active" aria-current="page">원팅등록</li>
+		</ol>
+	</nav>
+		<input placeholder="" type="file"  name="wanting-file">
+		<input placeholder="" type="file"  name="wanting-file">
 	
-	        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-	         <!--  <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">About</a></li> -->
-	        </ul>
 	
-	        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-	          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-	        </form>
+	<h4 class="">원팅 등록하기</h4>
+	<div class="wanting-title-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	
-	        <div class="text-end">
-	          <button type="button" class="btn btn-outline-light me-2">Login</button>
-	          <button type="button" class="btn btn-secondary">Sign-up</button>
-	        </div>
-	      </div>
-	    </div>
-	</header>
-	<br>
-	<div class="container" style="background: black;">
-    	<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-auto">
-          <li><a href="#" class="nav-link px-2 text-white">진행중인 펀딩</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">오픈예정 펀딩</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">원팅</a></li>
-          <li><a href="#" class="nav-link px-2 text-secondary">프로젝트 오픈 신청</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">관리자 문의</a></li>
-        </ul>
-    </div>
-    <br><br><br>
-    <div class="container">
-    	<h1><b>프로젝트 기획</b></h1>
-    	<div class="text-end">
-          <button type="button" class="btn btn-secondary">··· 미리보기</button>
-          <button type="button" class="btn btn-secondary">기획 중 - 0%</button>
-        </div>
-        <hr>
-    </div>
+	<h5 class="wanting-guide-title">원팅 제목</h5>
+	<div class="wanting-guide-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
+	<i class="icon-help" aria-hidden="true"></i>
+	<input class="wanting-write-input" placeholder="제목을 입력해 주세요" maxlength="40" name="wantingTitle" type="text" value="" name="wantingTitle">
 
-	<form>
-		<div class="container shadow" style="background-color: #F5F5F5;">
-			<div class="container"><br>
-		    	<table align="center">
-		    		<tr>
-		    			<td style="width: 300px;"><h5 class="shadow-sm" style="background-color: white;">프로젝트 기본 정보</h5></td>
-		    			<td style="width: 600px;"></td>
-		    		</tr>
-		    		<tr>
-		    			<td>*프로젝트 카테고리</td>
-		    			<td>카테고리<br>
-		    				<select style="border: none; width: 200px;" class="shadow-sm">
-		    					<option>야옹</option>
-		    				</select>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td>*프로젝트 제목</td>
-		    			<td>제목<br>
-		    				<input type="text" style="border: none;" class="shadow-sm" required>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td>*프로젝트 요약</td>
-		    			<td>요약 내용<br>
-		    				<textarea style="border: none; resize: none;" class="shadow-sm" required>
-		    					
-		    				</textarea>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td>*프로젝트 대표 이미지</td>
-		    			<td>
-		    				<div class="selectCover" style="padding-left: 0;">
-							 	<img id="cover" style="width: 200px; height: 200px;" src="resources/대체이미지.png"/>
-							</div>
-		    				
-		    				<div class="form-group" style="margin: 8px 0 8px;">
-								<input id="fileName" class="form-control" value="파일선택" disabled="disabled" style="width:50%; display: inline;">
-										<div class="fileRegiBtn">
-											<label for="myFileUp">파일등록하기</label>
-											<input type="file" id="myFileUp">
-										</div>
-							</div>
-					    </td>
-		    		</tr>
-		    	</table>
-		    	<hr>
-		    </div>
-		    
-		    <div class="container">
-		    	<table align="center">
-		    		<tr>
-		    			<td style="width: 300px;"><h5 class="shadow-sm" style="background-color: white;">프로젝트 계획</h5></td>
-		    			<td style="width: 550px; text-align: right;"><button class="btn btn-outline-info">★ 작성 가이드</button></td>
-		    		</tr>
-		    		<tr>
-		    			<td>*프로젝트 소개</td>
-		    			<td>소개<br>
-		    				<input type="text" style="border: none;" class="shadow-sm" placeholder="Q.무엇을 만들기 위한 프로젝트인가요?" required>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td>*프로젝트 예산</td>
-		    			<td>예산<br>
-		    				<input type="text" style="border: none;" class="shadow-sm" placeholder="Q.목표 금액은 아래의 지출 항목으로..." required>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td>*프로젝트 일정</td>
-		    			<td>일정<br>
-		    				<input type="text" style="border: none;" class="shadow-sm" placeholder="작업 일정을 구체적인 날짜와 함께 작성" required>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td>*프로젝트 설명</td>
-		    			<td>설명<br>
-		    				<textarea style="border: none; resize: none;" class="shadow-sm" required>
-		    					
-		    				</textarea>
-					    </td>
-		    		</tr>
-		    	</table>
-		    	<hr>
-		    </div>
-		    
-		    <div class="container">
-		    	<table align="center">
-		    		<tr>
-		    			<td style="width: 300px;"><h5 class="shadow-sm" style="background-color: white;">선물 구성</h5></td>
-		    			<td style="width: 550px; text-align: right;"><button class="btn btn-outline-info">★ 작성 가이드</button></td>
-		    		</tr>
-		    		<tr>
-		    			<td>*선물 만들기</td>
-		    			<td>
-		    				<table style="background-color: #F5F5F5; width: 550px;" class="table table-borderless">
-		    					<tr>
-		    						<td>
-		    							선물 아이템(선택)<br>
-		    							<input type="text" style="border: none;" class="shadow-sm">
-		    						</td>
-		    					</tr>
-		    					<tr>
-		    						<td>
-		    							선물 설명(선택)<br>
-		    							<input type="text" style="border: none;" class="shadow-sm">
-		    						</td>
-		    					</tr>
-		    					<tr>
-		    						<td>
-		    							*수량 제한<br>
-		    							<div class="form-check form-check-inline" style="background-color: #F5F5F5; width: 100px;">
-										  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-										  <label class="form-check-label" for="inlineRadio1">있음</label>
-										</div>
-										<div class="form-check form-check-inline" style="background-color: #F5F5F5; width: 100px;">
-										  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-										  <label class="form-check-label" for="inlineRadio2">없음</label>
-										</div>
-		    						</td>
-		    					</tr>
-		    					<tr>
-		    						<td>
-		    							예상 전단일<br>
-		    							<input type="date" style="border: none;" class="shadow-sm">
-		    						</td>
-		    					</tr>
-		    					<tr>
-		    						<td>
-		    							최소 후원 금액<br>
-		    							<input type="number" style="border: none;" class="shadow-sm">
-		    						</td>
-		    					</tr>
-		    				</table>
-		    			</td>
-		    		</tr>
-		    	</table>
-		    	<hr>
-		    </div>
-		    
-		    <div class="container">
-		    	<table align="center">
-		    		<tr>
-		    			<td style="width: 300px;"><h5 class="shadow-sm" style="background-color: white;">창작자 정보</h5></td>
-		    			<td style="width: 550px; text-align: right;"><button class="btn btn-outline-info">★ 작성 가이드</button></td>
-		    		</tr>
-		    		<tr>
-		    			<td>*창작자 이름</td>
-		    			<td>이름<br>
-		    				<input type="text" style="border: none;" class="shadow-sm" required>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td>*창작자 소개</td>
-		    			<td>소개<br>
-		    				<textarea style="border: none; resize: none;" class="shadow-sm">
-		    					
-		    				</textarea>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td>*본인 인증</td>
-		    			<td>
-		    				<input type="text" style="border: none; width: 460px;" class="shadow-sm">
-		    				<button type="button" class="btn btn-outline-secondary btn-sm"><img src="resources/메시지.png" style="width: 10px; height: 10px; display: inline;"> 인증하기</button>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td>*입금 계좌</td>
-		    			<td>
-		    				<input type="text" style="border: none; width: 460px;" class="shadow-sm">
-		    				<button type="button" class="btn btn-outline-secondary btn-sm"><img src="resources/자물쇠.png" style="width: 10px; height: 10px; display: inline;"> 계좌입력</button>
-					    </td>
-		    		</tr>
-		    	</table>
-		    	<hr>
-		    </div>
-			
-			<div class="container" align="center">
-				<button type="submit" class="btn btn-primary">작성하기</button>
+	<h5 class="wanting-guide-title">대표이미지</h5>
+	<input accept="image/JPG,image/JPEG,image/GIF,image/PNG" name="wanting-file" placeholder="" type="file" id="wanting-file" style="display:none">
+	<div class="wanting-guide-detail">
+		원팅 맨 위에서 가장 먼저 보여 주고 싶은 영상이나 사진을 등록해주세요.
+		<br>2MB 이하의 JPG, JPEG, GIF, PNG 파일이 등록됩니다. 여러 장 등록돼요.
+	</div>
+	<label for="wanting-file" class="file-btn">등록하기</label>
+	<span id="file-name">선택된 파일없음</span>
+
+	<h5 class="wanting-guide-title">가게 소개</h5>
+	<div class="wanting-guide-detail">원팅 대상이 되는 가게 정보를 입력해주세요</div>
+	<div class="wanting-shop">
+		가게 이름<input class="wanting-write-input shop-input" placeholder="가게 이름을 입력해 주세요" maxlength="40" name="wantingShopName" type="text" value="" id="wanting-input" height="10"><br>
+		가게 주소<input class="wanting-write-input shop-input" placeholder="가게 주소를 입력해 주세요" maxlength="40" name="wantingShopLocation" type="text" value="" id="wanting-input">
+	</div>
+
+	<h5 class="wanting-guide-title">원팅 스토리 작성</h5>
+	<div class="wanting-guide-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
+    <textarea id="summernote" name="wantingContent"></textarea>
+
+	<button class="btn-wanting" data-bs-toggle="modal" data-bs-target="#wanting-modal" id="btn-submit">원팅 제출</button>
+
+</div>
+</form>
+
+	<!-- 펀딩하기 완료 -->
+	<div class="modal fade" id="wanting-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<br>
+			<div class="modal-body">
+			<div class="container-fluid g-0">
+				<div class="row g-0">
+				<div class="col-md-5">
+					<img class="thumbnail" src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=768,574"/>
+				</div>
+				<div class="col-md-7">
+					<div class="modal-funding-right">
+					<h5>원팅이 완료되었습니다 !</h5>
+					<p class="modal-funding-title">[서울시 용답동] 나정순 할매 쭈꾸미 택배 전국 배송</p>
+					<p class="modal-funding-store">업체이름(가게이름)</p>
+					<div class="modal-funding-status">
+						현재 <span class="modal-funding-goal">100</span>명 중 <span class="modal-funding-amount">45</span>명이 모였어요.
+						원팅 달성 시 알림이 갑니다.
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			</div>
+			<div class="modal-footer modal-funding-footer">
+			<div class="container">
+				<div class="row g-2">
+				<div class="col-sm-4">
+					<button type="button" class="modal-funding-btn">다른 원팅 둘러보기</button>
+				</div>
+				<div class="col-sm-4">
+					<button type="button" class="modal-funding-btn">내 원팅 목록보기</button>
+				</div>
+				<div class="col-sm-4">
+					<button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button>
+				</div>
+				</div>
+			</div>
+			</div>
 		</div>
-	</form>
-    <br>
+		</div>
+	</div>
 	
 	
-
-	<script>
-		function readURL(input) {
-	        if (input.files && input.files[0]) {
-	        var reader = new FileReader();
+<script>
+// 	파일 선택시 문구 변경
+	document.getElementById('wanting-file').addEventListener('change', function(){
+		var filename = document.getElementById('file-name');
+		if(this.files[0] == undefined){
+			filename.innerText = '선택된 파일없음';
+			return;
+		}
+		filename.innerText = this.files[0].name;
+	});
+	
+// 	파일 선택시 사진 들어가기
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
 	        reader.onload = function (e) {
 	                $('#cover').attr('src', e.target.result);        //cover src로 붙여지고
 	                $('#fileName').val(input.files[0].name);    //파일선택 form으로 파일명이 들어온다
@@ -320,8 +143,67 @@
 	
 		$("#myFileUp").change(function(){
 	        readURL(this);
-	    });
-	</script>
+	});
+
+// 	써머 노트
+	$('#summernote').summernote({
+		lang: "ko-KR", // default: 'en-US'
+		placeholder: '<br><h5>안녕하세요. 스토리 작성을 시작한 회원님을 환영해요!</h5><br>여기에는 안내문구를 적을 예정이에요. 누가? 내가 나중에',
+        tabsize: 2,
+        height: 300,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+     });
+	
+// 	파일 전송
+	const form = document.getElementById('wantingForm');
+	document.getElementById('btn-submit').addEventListener('click', () => {
+		form.submit();
+		/* const files = document.getElementsByName('wanting-file');
+		let isEmpty = true;
+		for(const f of files) {
+			if(f.value != '') {
+				isEmpty = false;
+			}
+		}
+		if(isEmpty) {
+			$('#modalChoice').modal('show');
+		} else {
+			form.submit();
+		} */
+	});
+	
+</script>
+
+
+<!-- 빵빠레 스크립트 -->
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
+<script>
+	const jsConfetti = new JSConfetti()
+	window.onload = function() {
+		jsConfetti.addConfetti({
+			confettiRadius: 8,
+			confettiNumber: 600,
+//  			confettiRadius: 5,
+// 			confettiNumber: 60,
+// 			emojis: ['김잔환', '바보', '멍청이', '바보'],
+		});
+	}
+	function wowConfetti() {
+		jsConfetti.addConfetti({
+			confettiNumber: 600,
+		});
+	}
+	document.querySelector('.btn-wanting').addEventListener('click', wowConfetti)
+</script>
+
 
 </body>
 </html>
