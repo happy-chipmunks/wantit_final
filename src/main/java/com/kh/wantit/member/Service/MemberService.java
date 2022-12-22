@@ -14,6 +14,10 @@ public interface MemberService {
 
 	void certifiedmemberPhone(String Phone, String numStr);
 
+	 int updateInfo(Member member);
+
+	int deleteMember(String userName); 
+
 	
 
 	

@@ -122,22 +122,28 @@
 	   				</p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/myPageCreator.me"><b>내 정보</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporter.me'"><b>내 정보</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/myPageCreatorFunding.me"><b>펀딩</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterFunding.me'"><b>펀딩</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/myPageCreatorInquiry.me"><b>문의</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterWanting.me'"><b>원팅</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/myPageCreatorAlarm.me"><b>알림</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterDibs.me'"><b>찜</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/myPageCreatorFollow.me"><b>팔로우</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterInquiry.me'"><b>문의</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="${contextPath}/myPageCreatorAds.me"><b>광고의뢰</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterAlarm.me'"><b>알림</b></button></p>
+   				</li>
+   				<li>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterFollow.me'"><b>팔로우</b></button></p>
+   				</li>
+   				<li>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterPayList.me'"><b>구매이력</b></button></p>
    				</li>
 			</ul>
    		</div>
