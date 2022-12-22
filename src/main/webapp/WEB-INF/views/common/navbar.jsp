@@ -112,7 +112,7 @@
 				</c:if>
 				<c:if test="${ loginUser != null  && loginUser.memberNickname == '관리자' }">
 					<button type="button" class="btn" id="adminBtn"
-						onclick="location.href='${contextPath}/admin.ad'">관리자페이지이지</button>
+						onclick="location.href='${contextPath}/admin.ad'">관리자페이지</button>
 						<button type="button" class="btn" id="logoutBtn"
 								onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
 				</c:if>

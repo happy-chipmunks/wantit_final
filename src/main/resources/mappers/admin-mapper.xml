@@ -20,6 +20,33 @@
 		where member_id=#{id}
 	</update>
 	
+	<select id="selectAllInquiry" resultMap="inquiryResultSet">
+		select *
+		from admin_inquiry
+		order by create_date desc
+	</select>
+	
+	<update id="answerContent">
+		update admin_inquiry
+		set answer_content = #{reply}, inquiry_status = 'Y'
+		where inquiry_code = #{code}
+	</update>
+	
+	<select id="selectAllAds" resultMap="adsResultSet">
+		select *
+		from ads
+			 join funding using (funding_num)
+			 join
+		order by ads_num desc
+	</select>
+
+	
+	
+	
+	
+	
+	
+	
 	<resultMap type="Member" id="memberResultSet">
 		<id column="MEMBER_ID" property="memberId"/>
 		<result column="MEMBER_PWD" property="memberPwd"/>
@@ -35,5 +62,28 @@
 		<result column="MEMBER_CATE" property="memberCate"/>
 		<result column="MEMBER_STATUS" property="memberStatus"/>
 	</resultMap>
-	  
+	 
+	<resultMap type="AdminInquiry" id="inquiryResultSet">
+		<id column="INQUIRY_CODE" property="inquiryCode"/>
+		<result column="WRITER" property="writer"/>
+		<result column="INQUIRY_CATE" property="inquiryCate"/>
+		<result column="INQUIRY_TITLE" property="inquiryTitle"/>
+		<result column="INQUIRY_CONTENT" property="inquiryContent"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="INQUIRY_STATUS" property="inquiryStatus"/>
+		<result column="ANSWER_CONTENT" property="answerContent"/>
+		<result column="ANSWER_DATE" property="answerDate"/>
+	</resultMap>
+	
+	<resultMap type="Ads" id="adsResultSet">
+		<id column="ADS_NUM" property="adsNum"/>
+		<result column="FUNDING_NUM" property="fundingNum"/>
+		<result column="ADS_PRICE" property="adsPrice"/>
+		<result column="ADS_STATUS" property="adsStatus"/>
+		<result column="CONFIRM" property="confirm"/>
+		<result column="ADS_START" property="adsStart"/>
+		<result column="ADS_END" property="adsEnd"/>
+		<result column="ADS_CREATE_DATE" property="adsCreateDate"/>
+		<result column="FUNDING_TITLE" property="fundingTitle"/>		
+	</resultMap>
 </mapper>
