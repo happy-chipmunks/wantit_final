@@ -33,7 +33,7 @@
 	font-style: normal;
 }
 
-* {
+#body {
 	font-family: 'NanumSquareNeo-Variable';
 }
 
@@ -175,7 +175,7 @@
 <!-- Custom styles for this template -->
 <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
-<body>
+<body id="body">
 	
 	<header>
 		<jsp:include page="../common/navbar.jsp"></jsp:include>

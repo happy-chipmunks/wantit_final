@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.wantit.admin.model.exception.AdminException;
 import com.kh.wantit.admin.model.service.AdminService;
+import com.kh.wantit.admin.model.vo.AdminInquiry;
+import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
+import com.kh.wantit.admin.model.vo.Reply;
+import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.member.vo.Member;
 
 @Controller
@@ -28,20 +32,75 @@ public class AdminController {
 	public String projectManage() {
 		return "adminPageProject";
 	}
+	
 	@RequestMapping("/reviewManage.ad")
 	public String reviewManage() {
 		return "adminReportManagement";
 	}
+	
 	@RequestMapping("/noticeManage.ad")
 	public String noticeManage() {
 		return "adminNotice";
 	}
+	
+	//문의 관리
 	@RequestMapping("/inquiryManage.ad")
-	public String inquiryManage() {
+	public String inquiryManage(@RequestParam(value="page", required=false) Integer page, Model model, @RequestParam(value="reply", required=false) String reply, @RequestParam(value="code", required=false) String code) {
+		
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = aService.getListCount(1);
+		
+		Reply reeply = new Reply();
+		reeply.setCode(code);
+		reeply.setReply(reply);
+		
+		if(reply != null) {
+			System.out.println(reply);
+			int result = aService.answerContent(reeply);
+			System.out.println(code);
+		}
+		
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		 
+		ArrayList<AdminInquiry> mList = aService.selectAllInquiry(pi, 1);
+		ArrayList<Integer> rCountList = new ArrayList<Integer>();
+		int count = mList.size();
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("mList", mList);
+		model.addAttribute("mCount", count);
+		model.addAttribute("rCountList", rCountList);
+		model.addAttribute("Reply", reply);
+		model.addAttribute("code", code);		
 		return "adminInquiryManagement";
 	}
+	
+	//광고 관리
 	@RequestMapping("/adManage.ad")
-	public String adManage() {
+	public String adManage(@RequestParam(value="page", required=false) Integer page, Model model) {
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = aService.getListCount(1);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		
+		
+		ArrayList<Ads> mList = aService.selectAllAds(pi, 1);
+		ArrayList<Integer> rCountList = new ArrayList<Integer>();
+		int count = mList.size();
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("mList", mList);
+		model.addAttribute("mCount", count);
+		model.addAttribute("rCountList", rCountList);
 		return "adminAdManagement";
 	}
 	
@@ -68,6 +127,8 @@ public class AdminController {
 		model.addAttribute("rCountList", rCountList);
 		return "adminMemberManage";
 	}
+	
+	//모달
 	@RequestMapping("/noticeMake.ad")
 	public String noticeMake() {
 		return "adminNoticeMake";

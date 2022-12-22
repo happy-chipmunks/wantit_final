@@ -3,6 +3,8 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.kh.wantit.wanting.model.vo.Wanting" alias="Wanting"/>
+		<typeAlias type="com.kh.wantit.admin.model.vo.AdminInquiry" alias="AdminInquiry"/>
+		<typeAlias type="com.kh.wantit.admin.model.vo.Ads" alias="Ads"/>
 		<typeAlias type="com.kh.wantit.member.vo.Member" alias="Member"/>
 		
 	</typeAliases>
