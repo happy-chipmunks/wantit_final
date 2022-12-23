@@ -41,6 +41,9 @@
 		<result column="SCHEDULE_STATUS" property="scheduleStatus"/>
 		<result column="PAYMENT_STATUS" property="paymentStatus"/>
 		<result column="REWARD_BUY_LIST" property="rewardBuyList"/>
+		<result column="CARD_NUMBER" property="cardNumber"/>
+		<result column="CARD_NAME" property="cardName"/>
+		<result column="IMP_UID" property="impUId"/>
 	</resultMap>
 	
 	<select id="testLogin" resultMap="testMemberResultSet">
@@ -64,8 +67,12 @@
 	</select>
 	
 	<insert id="insertPaySchedule" parameterType="map">
-		insert into payschedule values(#{customer_uid}, #{merchant_uid}, #{merchant_name}, #{buyer_name}, #{buyer_tel}, #{buyer_addr}, #{schedule_status}, #{payment_status}, #{reward_buy_list})
+		insert into payschedule values(#{customer_uid}, #{merchant_uid}, #{merchant_name}, #{buyer_name}, #{buyer_tel}, #{buyer_addr}, #{schedule_status}, #{payment_status}, #{reward_buy_list}, #{card_number}, #{card_name}, #{imp_uid})
 	</insert>
+	
+	<select id="checkScheduled" resultType="_int">
+		select count(*) from payschedule where merchant_uid = #{merchantUId} and customer_uid = #{customerUId} and buyer_name = #{buyerName}
+	</select>
 
 
 

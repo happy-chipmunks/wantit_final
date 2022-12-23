@@ -72,6 +72,20 @@ public class PayController {
 		return "payView";
 	}
 	
+	@RequestMapping("cancelPaySchedule.pay")
+	public String cancelPaySchedule(@RequestParam("customerUId") String customerUId, 
+			@RequestParam("merchantUId") String merchantUId, @RequestParam("buyerName") String buyerName) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("customerUId", customerUId);
+		map.put("merchantUId", merchantUId);
+		map.put("buyerName", buyerName);
+		
+		int checkScheduled = pService.checkScheduled(map);
+		
+		return null;
+	}
+	
 	@RequestMapping("loginTest.pay")
 	public String loginTest(Model model) {
 		
@@ -129,17 +143,12 @@ public class PayController {
 			
 			//아임포트 결제예약
 			scheduleMap = paySchedule(fundingTitle, date, totalAmount, buyerName, buyerTel, buyerFullAddress, accessToken, billingMap.get("customer_uid"));
-			
 			System.out.println(scheduleMap.toString());
+			System.out.println(buyerName);
 			
 			if(scheduleMap.containsKey("message")) {
 				//결제예약 에러처리
 			} else {
-				scheduleMap.put("reward_buy_list", sb.toString());
-				pService.insertPaySchedule(scheduleMap);
-				
-				ps = new PaySchedule(scheduleMap);
-				
 				for(int i=0 ; i<rewardCount.length ; i++) {
 					if(rewardCount[i] != 0) {
 						Map<String, Integer> map = new HashMap<String, Integer>();
@@ -155,9 +164,26 @@ public class PayController {
 						pService.changeRewardSellCount(map);
 					}
 				}
+				scheduleMap.put("reward_buy_list", sb.toString());
+				scheduleMap.put("card_name", billingMap.get("card_name"));
+				scheduleMap.put("card_number", billingMap.get("card_number"));
+				pService.insertPaySchedule(scheduleMap);
+				
+				ps = new PaySchedule(scheduleMap);
+				
 			}
 		}
-		return null;
+		
+		int totalCount = 0;
+		model.addAttribute("paySchedule", ps);
+		model.addAttribute("rewardTitles", rewardTitle);
+		model.addAttribute("totalAmount", totalAmount);
+		for(int i=0 ; i<rewardCount.length; i++) {
+			totalCount += rewardCount[i];
+		}
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("rewardCount", rewardCount);
+		return "payReceiptView";
 	}
 
 	/*
@@ -243,6 +269,8 @@ public class PayController {
 						break;
 					case "payment_status": scheduleResultMap.put("payment_status", resultResponseNode.get(nodeKey).asText());
 						break;
+					case "imp_uid": scheduleResultMap.put("imp_uid", resultResponseNode.get(nodeKey).asText());
+					break;
 					default: break;
 					}
 				}
@@ -268,6 +296,8 @@ public class PayController {
 																				String cardBirth, String cardPwd, String accessToken) {
 		String customerId = "";
 		String responseMessage = "";
+		String cardNumber = "";
+		String cardName = "";
 		String reName = buyerName + "_";
 		CloseableHttpClient client = HttpClientBuilder.create().build();
 		LocalDate tempDate = LocalDate.now();
@@ -304,6 +334,8 @@ public class PayController {
 				responseMessage = rootNode.get("message").asText();
 			} else {
 				customerId = resNode.get("customer_uid").asText();
+				cardName = resNode.get("card_name").asText();
+				cardNumber = resNode.get("card_number").asText();
 			}
 			
 		} catch (Exception e) {
@@ -320,6 +352,8 @@ public class PayController {
 		Map<String, String> resultMap = new HashMap<String, String>();
 		if(responseMessage.equals("")) {
 			resultMap.put("customer_uid", customerId);
+			resultMap.put("card_name", cardName);
+			resultMap.put("card_number", cardNumber);
 		} else {
 			resultMap.put("responseMessage", responseMessage);
 		}

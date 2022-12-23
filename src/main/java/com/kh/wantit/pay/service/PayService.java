@@ -43,4 +43,8 @@ public class PayService {
 	public void insertPaySchedule(Map<String, String> scheduleMap) {
 		pDAO.insertPaySchedule(sqlSession, scheduleMap);
 	}
+
+	public int checkScheduled(Map<String, String> map) {
+		return pDAO.checkScheduled(sqlSession, map);
+	}
 }

@@ -170,12 +170,12 @@
 	                    <div class="col-6 infoArea">
 	                        <p class="payInfo">구매자 정보</p>
 	                        <span class="onlyFont">이름</span>
-	                        <span class="onlyFont" style="float: right;">${ loginUser.id }</span>
-	                        <input type="hidden" value="${ loginUser.id }" name="buyerName">
+	                        <span class="onlyFont" style="float: right;">${ loginUser.memberName }</span>
+	                        <input type="hidden" value="${ loginUser.memberName }" name="buyerName">
 	                        <br><br>
 	                        <span class="onlyFont">휴대폰 번호</span>
-	                        <span class="onlyFont" style="float: right;">${ loginUser.phone }</span>
-	                        <input type="hidden" value="${ loginUser.phone }" name="buyerTel">
+	                        <span class="onlyFont" style="float: right;">${ loginUser.memberPhone }</span>
+	                        <input type="hidden" value="${ loginUser.memberPhone }" name="buyerTel">
 	                        <hr>
 	                        <br>
 	                        <span class="onlyFont">배송지 선택</span>
