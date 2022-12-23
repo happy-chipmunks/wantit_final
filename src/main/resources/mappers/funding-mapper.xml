@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="fundingMapper">
-
-
+	
+	<insert id="insertFunding">
+		insert into funding
+		values(seq_funding.nextval, ${creatorNum}, ${fundingCate}, ${fundingTitle}, ${fundingContent}, ${fundingCount}, sysdate, ${fundingEnd}, ${currentMoney}, ${targetMoney}, default, sysdate, default, default, ${creatorNickname})
+	</insert>
+	
+	<insert id="insertImage">
+		insert into image
+		values(seq_image.nextval, ${imageForm}, ${originName}, ${imageRename}, ${imageSrc}, default, default, ${imageLevel}, ${imageBoardCate}, ${imageBoardId})
+	</insert>
 
 
 </mapper>
