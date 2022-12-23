@@ -61,4 +61,15 @@
 		WHERE MEMBER_ID = #{memberId}
 	</update>
 	
+	<select id="findmemberId" parameterType="Member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_NAME= #{memberName} 
+		 AND MEMBER_PHONE= #{memberPhone}
+		 AND MEMBER_EMAIL= #{memberEmail}  
+	</select>
+	
+	
+	
+	
 </mapper>

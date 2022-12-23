@@ -82,6 +82,14 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.deleteMember(sqlSession,userName);
 	}
 
+	//ID 찾는 로직
+	@Override
+	public Member findmemberId(Member member) {
+		return mDAO.findmemberId(sqlSession,member);
+	}
+
+	
+
 
 	
 	

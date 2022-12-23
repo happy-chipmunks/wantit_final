@@ -28,4 +28,5 @@ public class Funding {
 	private Date createDate;
 	private Date modifyDate;
 	private char FundingStatus;
+	private String creatorNickname;
 }

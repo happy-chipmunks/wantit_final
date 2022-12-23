@@ -894,7 +894,7 @@
             </div>
         </div>
         <br>
-    	<span class="point successPhoneChk">*휴대폰 번호 입력후 인증번호 보내기를 해주십시오.</span>
+    	<span class="point successPhoneChk">*휴대폰 번호 입력후 인증번호 보내기를 해주십시오(-포함).</span>
         <div class="input-group mb-3">
             <div class="form-floating">
               <input type="text" class="form-control" id="memberPhone"  name="memberPhone" required>
@@ -969,7 +969,7 @@
         <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/loginenroll.me'">로그인하기</button>
         </div>
     </div>
-    
+   
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>

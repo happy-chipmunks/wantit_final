@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-	<jsp:include page="../common/navbar.jsp"/>
+<%-- 	<jsp:include page="../common/navbar.jsp"/> --%>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,7 +74,9 @@
 		
 		ul{text-align: center; list-style: none;}
 		
-		
+		#insertCreator{
+			background-color: #D1B2FF;
+		}
     </style>
 
 </head>
@@ -127,47 +130,100 @@
 			</ul>
    		</div>
    		<div class="col-8">
-			<table align="center" style="text-align: center; height: 100%;" class="table">
-				<tr>
-					<th>아이디</th>
-					<td colspan="2">아이디</td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td colspan="2"><button class="btn btn-outline-secondary btn-sm">변경하기</button></td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td colspan="2">이름</td>
-				</tr>
-				<tr>
-					<th>닉네임</th>
-					<td colspan="2">닉네임</td>
-				</tr>
-				<tr>
-					<th>생년월일</th>
-					<td colspan="2">생년월일</td>
-				</tr>
-				<tr>
-					<th>전화번호</th>
-					<td colspan="2">전화번호</td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td colspan="2">이메일</td>
-				</tr>
-				<tr>
-					<th>주소</th>
-					<td colspan="2">주소</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-					<td>
-						<button class="btn btn-secondary btn-sm">수정하기</button>
-						<button class="btn btn-secondary btn-sm">탈퇴하기</button>
-					</td>
-				</tr>
-			</table>
+   			<c:if test="">
+	   			<form action="" id="">
+		   			<div class="mt-5 pt-5" style="text-align: center;">
+		   				<div id="insertBtn" class="mt-5 pt-5">
+				   			아직 크리에이터 등록을 하지 않으셨군요?<br><br>
+				   			<button id="insertCreator" class="btn" type="button">크리에이터 등록하기</button><br>
+		   				</div>
+			   			<div id="hideDiv" style="display: none;">
+			   				<div class="p-2 row">
+			   					<label for="" class="col-sm-2 col-form-label">사업자 등록번호</label>
+								<div class="col-sm-10">
+									<input class="form-control" type="text" placeholder="ex) 000-00-00000" aria-label="default input example" required>
+								</div>
+							</div>
+							<div class="p-2 row">
+								<label for="" class="col-sm-2 col-form-label">사업자 등록증</label>
+								<div class="col-sm-10">
+									<input class="form-control" id="businessLicense" type="file" accept="image/*" placeholder="Default input" aria-label="default input example">
+								</div>
+							</div>
+							<hr>
+							<div class="p-2 row">
+								<label for="" class="col-sm-2 col-form-label">대표자 명</label>
+								<div class="col-sm-10">
+									<input class="form-control" type="text" aria-label="default input example">
+								</div>
+							</div>
+							<div class="p-2 row">
+								<label for="" class="col-sm-2 col-form-label">대표자 전화번호</label>
+								<div class="col-sm-10">
+									<input class="form-control" type="text" aria-label="default input example">
+								</div>
+							</div>
+							<div class="p-2 row">
+								<label for="" class="col-sm-2 col-form-label">대표자 이메일</label>
+								<div class="col-sm-10">
+									<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+								</div>
+							</div>
+							<hr>
+							<div class="p-2 row">
+								<label for="" class="col-sm-2 col-form-label">크리에이터 명</label>
+								<div class="col-sm-10">
+									<input class="form-control" type="text" aria-label="default input example">
+								</div>
+							</div><br>
+							<button id="approvalRequest" class="btn btn-primary">승인 요청</button>
+						</div>
+		   			</div>
+	   			</form>
+   			</c:if>
+   			<c:if test="">
+				<table align="center" style="text-align: center; height: 100%;" class="table">
+					<tr>
+						<th>아이디</th>
+						<td colspan="2">아이디</td>
+					</tr>
+					<tr>
+						<th>비밀번호</th>
+						<td colspan="2"><button class="btn btn-outline-secondary btn-sm">변경하기</button></td>
+					</tr>
+					<tr>
+						<th>이름</th>
+						<td colspan="2">이름</td>
+					</tr>
+					<tr>
+						<th>닉네임</th>
+						<td colspan="2">닉네임</td>
+					</tr>
+					<tr>
+						<th>생년월일</th>
+						<td colspan="2">생년월일</td>
+					</tr>
+					<tr>
+						<th>전화번호</th>
+						<td colspan="2">전화번호</td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+						<td colspan="2">이메일</td>
+					</tr>
+					<tr>
+						<th>주소</th>
+						<td colspan="2">주소</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+						<td>
+							<button class="btn btn-secondary btn-sm">수정하기</button>
+							<button class="btn btn-secondary btn-sm">탈퇴하기</button>
+						</td>
+					</tr>
+				</table>
+			</c:if>
 	    </div>
     	<hr>
     </div>
@@ -178,6 +234,34 @@
 	    function openPopup(){
 			window.open("myPage_sup_message.jsp", "message", "width=500 height=300");
 		}
+	    
+	    const fileInput = document.getElementById("businessLicense");
+	    fileInput.onchange = () =>{
+	    	const selectedFile = fileInput.files[0];
+	    	console.log(selectedFile);
+	    };
+	    
+	    
+	    
+	    $('#insertCreator').on('click', function(){
+// 	    	$('#insertBtn').css("display", "none");
+// 	    	$('#hideDiv').css("display", "block");
+			const insertBtn = document.getElementById('insertBtn');
+			const hideDiv = document.getElementById('hideDiv');
+			
+			insertBtn.style.display = "none";
+			hideDiv.style.display = "";
+	    });
+	    
+	    const form = document.getElementById('creator');
+	    document.getElementById('approvalRequest').addEventListener('click', ()=>{
+	    	const file = document.getElementById('businessLicense');
+	    	if(file.value != ''){
+	    		form.submit();
+	    	}else{
+	    		alert('사업자 등록증 이미지가 첨부되지 않았습니다.');
+	    	}
+	    });
     </script>
 	
 </body>
