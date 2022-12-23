@@ -38,4 +38,8 @@ public class PayDAO {
 		
 	}
 
+	public int checkScheduled(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.selectOne("payMapper.checkScheduled", map);
+	}
+
 }

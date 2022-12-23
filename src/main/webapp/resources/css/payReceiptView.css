@@ -1,0 +1,59 @@
+.receiptMain{
+    height: 900px;
+    background-color: #343332;
+    padding: 0;
+    border-radius: 20px;
+    
+}
+
+.receiptTop{
+    background-color: #1a1e1f;
+    height: 70px;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.receiptContent{
+    margin: 20px;
+}
+
+.fontOnly{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.line{
+    color: #1a1e1f;
+}
+
+.totalPrice{
+    float: right;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.dohyeonFont{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 30px;
+    color: #e8acef;
+}
+
+.cardName, .cardNumber{
+    font-family: 'Noto Sans KR', sans-serif;
+    float: right;
+    margin-left: 10px;
+}
+
+.btnPayCancel{
+    border: 1px solid #e8acef;
+    color: #e8acef;
+    border-radius: 0;
+    width: 100%;
+}
+
+.btnPayCancel:hover{
+    border-radius: 0;
+    border: 1px solid #e8acef;
+    color: white;
+    background-color: #e8acef;
+}

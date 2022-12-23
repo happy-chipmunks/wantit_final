@@ -68,8 +68,7 @@
             <div class="col-md-8">
                 <strong class="d-inline-block mb-2 mainTitle" style="font-size: 35px; color: #e8acef; padding-left: 20px;">인기있는 펀딩<a href="${ contextPath }/payView.pay?fundingNum=9999"> 결제테스트</a></strong>
 <!-- 			테스트 구간 -->
-                <a href="${ contextPath }/loginTest.pay">동준로그인테스트</a><span>${ loginUser.id }</span>
-                <c:set value="${ pageContext.servletContext.contextPath }" var="contextPath" scope="application"></c:set>
+
                 
 <!--                 테스트구간 -->
                 
