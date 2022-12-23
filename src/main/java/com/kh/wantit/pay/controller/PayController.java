@@ -26,7 +26,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.ibatis.reflection.SystemMetaObject;
-import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +56,7 @@ public class PayController {
 	private final static String RESTAPI_GET_TOKEN = "https://api.iamport.kr/users/getToken";
 	private final static String RESTAPI_GET_BILLINGKEY = "https://api.iamport.kr/subscribe/customers/";
 	private final static String RESTAPI_TRY_PAY_SCHEDULE = "https://api.iamport.kr/subscribe/payments/schedule";
+	private final static String RESTAPI_TRY_PAY_UNSCHEDULE = "https://api.iamport.kr/subscribe/payments/unschedule";
 	
 	@Autowired
 	private PayService pService;
@@ -82,7 +82,41 @@ public class PayController {
 		map.put("buyerName", buyerName);
 		
 		int checkScheduled = pService.checkScheduled(map);
+		String access_token = getAccessToken();
 		
+		if(checkScheduled == 1) {
+			CloseableHttpClient client = HttpClientBuilder.create().build();
+			HttpPost post = new HttpPost(RESTAPI_TRY_PAY_UNSCHEDULE);
+			post.setHeader("Authorization", access_token);
+			
+			Map<String, String> unscheduleMap = new HashMap<String, String>();
+			map.put("customer_uid", customerUId);
+			map.put("merchant_uid", merchantUId);
+			
+			
+			try {
+				post.setEntity(new UrlEncodedFormEntity(convertParameter(unscheduleMap)));
+				
+				HttpResponse response = client.execute(post);
+				ObjectMapper mapper = new ObjectMapper();
+				String body = EntityUtils.toString(response.getEntity());
+				JsonNode rootNode = mapper.readTree(body);
+				
+				if(rootNode.get("code").asInt() != 0) {
+					//에러 처리
+					String responseMessage = rootNode.get("message").asText();
+					
+				} else {
+					JsonNode resNode = rootNode.get("response");
+					JsonNode resultNode = resNode.get(0);
+					
+				}
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return null;
 	}
 	
