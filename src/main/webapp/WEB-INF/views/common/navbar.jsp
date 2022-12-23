@@ -89,15 +89,10 @@
 				<button type="button" class="btn btn-outline-warning" id="loginBtn"
 				onclick="location.href='${ contextPath }/loginenroll.me'">로그인/회원가입</button>
 				</c:if>
-				<c:if test="${ loginUser != null}">
-						<a href="/blog/user?cmd=profileUpload"></a>
-				</c:if>
-				<c:if test="${ loginUser != null}">
-						<a href= "${contextPath}/myPageinfo.me"></a>
-				</c:if><!-- "/blog/user?cmd=profileUpload" -->
+				
 				&nbsp;&nbsp;&nbsp;   
 				<c:if test="${ loginUser != null  && loginUser.memberNickname != '관리자'}">
-						<a href="/blog/user?cmd=profile	Upload"> 
+						<a href="${contextPath}/myPageinfo.me"> 
 							<img style="border-radius: 20px" onerror="this.src='/blog/image/userProfile.png'"
 								src="https://github.com/mdo.png" width="40px" height="40px" />
 						</a>
