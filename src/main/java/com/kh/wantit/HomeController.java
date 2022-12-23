@@ -44,20 +44,6 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping("/fundingList.fund") 
-		public String fundingList() {
-			return "fundingProceed";
-		}
-	
-	@RequestMapping("/fundingComingSoon.fund")
-	public String fundingComingSoon() {
-		return "fundingComingSoon";
-	}
-	
-	@RequestMapping("/fundingWrite.fund")
-	public String fundingWrite() {
-		return "fundingWrite";
-	}
 	//로그인 페이지
 	@RequestMapping("/loginenroll.me")
 	public String loginenroll() {

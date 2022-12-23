@@ -4,12 +4,13 @@
 	<typeAliases>
 		<typeAlias type="com.kh.wantit.wanting.model.vo.Wanting" alias="Wanting"/>
 		<typeAlias type="com.kh.wantit.member.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.wantit.funding.model.vo.Funding" alias="Funding"/>
 		
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/admin-mapper.xml"/>
-		
+		<mapper resource="mappers/funding-mapper.xml"/>
 	</mappers>
 </configuration>
