@@ -36,6 +36,14 @@ public class MemberDAO {
 	public int deleteMember(SqlSessionTemplate sqlSession, String userName) {
 		return sqlSession.update("memberMapper.deleteMember", userName);
 	}
+
+
+	public Member findmemberId(SqlSessionTemplate sqlSession, Member member) {
+		return sqlSession.selectOne("memberMapper.findmemberId",member);
+	}
+
+
+	
 	 
 	 
 	

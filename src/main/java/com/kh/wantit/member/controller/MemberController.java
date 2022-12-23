@@ -2,20 +2,22 @@ package com.kh.wantit.member.controller;
 
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import com.kh.wantit.member.Service.MemberService;
 import com.kh.wantit.member.exception.MemberException;
@@ -141,20 +143,28 @@ public class MemberController {
 		
 		Member loginUser = mService.login(member);
 		
+		if(loginUser == null ) {
+			model.addAttribute("msg", "사용자 ID 또는 비밀번호를 잘못 입력했습니다.<br>"
+					                  + "입력하신 내용을 다시 확인해주세요.");
+			return "myPage_login";
+		}
+		
 		String rawPwd = member.getMemberPwd();
 		String enPwd = loginUser.getMemberPwd();
+		
+		
 		if(bcrypt.matches(rawPwd, enPwd)) {
 			session.setAttribute("loginUser", loginUser);
-			
+			System.out.println(loginUser);
 			 if(beforeURL.equals("")) {
 				   return "redirect:home.do";    
-			   }else {
+			   }else{
+				   System.out.println(beforeURL);
 				   return "redirect:"+ beforeURL;   
 			   }
-		   }else {
-			   model.addAttribute("msg","ID 또는 password를 확인해주세요.");
-			   model.addAttribute("loginUser1",loginUser);
-			  
+		   }else{
+			   session.setAttribute("msg","ID 또는 password를 확인해주세요.");
+			   
 			   return "myPage_login";
 		   }
 	}
@@ -245,6 +255,44 @@ public class MemberController {
 			}
 		}
 		
+		//아이디 찾기 페이지이동
+		@RequestMapping("/checkId.me")
+		public String checkId() {
+			return "checkid";
+		}
+		
+		
+		@RequestMapping("/findcheckid.me")
+		public String findcheckid(@RequestParam("checkname")String checkname,@RequestParam("memberPhone")String memberPhone,
+								@RequestParam("memberEmail")String memberEmail,Model model) {
+			
+			
+			
+			Member memberFind = new Member();
+			memberFind.setMemberName(checkname);
+			memberFind.setMemberPhone(memberPhone);
+			memberFind.setMemberEmail(memberEmail);
+			
+			Member resultMember = mService.findmemberId(memberFind);  
+			System.out.println(resultMember);
+			model.addAttribute("chechIdresult", resultMember);
+			
+			return "Result_checkid";
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		//비밀번호 찾기
+		@RequestMapping("/checkPwd.me")
+		public String checkPwd() {
+			return "checkpwd";
+		}
 }
 	
 	

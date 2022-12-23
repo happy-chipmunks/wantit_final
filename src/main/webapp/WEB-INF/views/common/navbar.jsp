@@ -82,9 +82,8 @@
 						<i class="bi bi-search" id="searchIcon"></i>
 					</button>
 				</div>
-
-
 			</form>
+				
 				
 				<c:if test="${ loginUser == null }">
 				<button type="button" class="btn btn-outline-warning" id="loginBtn"
@@ -95,7 +94,8 @@
 				</c:if>
 				<c:if test="${ loginUser != null}">
 						<a href= "${contextPath}/myPageinfo.me"></a>
-				</c:if><!-- "/blog/user?cmd=profileUpload" -->   
+				</c:if><!-- "/blog/user?cmd=profileUpload" -->
+				&nbsp;&nbsp;&nbsp;   
 				<c:if test="${ loginUser != null  && loginUser.memberNickname != '관리자'}">
 						<a href="/blog/user?cmd=profile	Upload"> 
 							<img style="border-radius: 20px" onerror="this.src='/blog/image/userProfile.png'"

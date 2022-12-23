@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +62,7 @@
 </head>
 <body>
     <h2 class="ttable" style="color: black; font-weight: bold;">로그인</h2>
-    <form action="${contextPath}/login.me" method="POST" id="frmLogin">
+    <form action="${contextPath}/login.me" method="POST" id="frmLogin" name="loginForm">
     <div class="tttable">
         <div class="input-group mb-3">
             <div class="form-floating">
@@ -69,27 +70,31 @@
               <label for="floatingInputGroup1">아이디 입력</label>
             </div>
         </div>
-        <br>
         <div class="input-group mb-3">
             <div class="form-floating">
               <input type="password" class="form-control" id="floatingInputGroup2" name="memberPwd" placeholder="Username">
               <label for="floatingInputGroup1">비밀번호 입력</label>
             </div>
         </div>
-        <%-- <c:if test = "${loginUser == 0 }">
-        <div class="login-warn">사용자ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
-        </c:if> --%>
+        <input type="hidden" name="beforeURL">
         <br>
-        <button type="submit" class="btn btn-primary" id="submit1" >
+        <button type="button" class="btn btn-primary" id="submit1" onclick="loginCheck()">
             <span>
                 <span class="">로그인</span>
             </span>
         </button>
-        <input type="hidden" name="beforeURL">
         </form>
-         <c:if test = "${msg != null }">
-        <div class="login-warn">사용자ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
+        <c:if test = "${msg != null}">
+        <div class="login-warn" id="reset1">${msg}</div>
         </c:if>
+        <br>
+        <div>
+        <button type="button" class="btn btn-primary" style="width: 150px; text-align: center; display: inline-block;"
+        onclick="location.href='${contextPath}/checkId.me'">아이디찾기</button>
+        <button type="button" class="btn btn-primary" style="width: 150px; text-align: center; display: inline-block;"
+        onclick="location.href='${contextPath}/checkPwd.me'">비밀번호찾기</button>
+        </div>
+         
          
         <br>
         <div>
@@ -144,7 +149,49 @@
     </div>
   </div>
 </div>
+    <script type="text/javascript">
     
+		function reset2(){
+			
+		}
+		
+    
+    
+    
+    
+    
+    
+     function loginCheck(){
+    	let loginForm = document.loginForm;
+    	let mb_id = document.getElementById('floatingInputGroup1').value;
+    	let mb_pwd = document.getElementById('floatingInputGroup2').value;
+    	
+    	
+    	
+    	
+    	if(mb_id == "" || mb_id == null){
+    		alert("아이디를 입력해주세요.");
+    	} else if (mb_pwd == "" || mb_pwd == null){
+    		alert("비밀번호를 입력해주세요.");
+    	} else {
+    		loginForm.submit();
+    	}
+    		
+    		 
+    }
+    
+     
+    
+       
+   
+    
+    
+    /* document.getElementById('loginForm').addEventListener('click',function(){
+    if('${msg}' == null)
+        alert("사용자ID 또는 비밀번호가 존재하지않습니다.");
+    )}; */
+    
+    </script>
    
 </body>
 </html>
