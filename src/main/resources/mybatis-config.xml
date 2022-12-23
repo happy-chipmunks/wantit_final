@@ -3,13 +3,17 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.kh.wantit.wanting.model.vo.Wanting" alias="Wanting"/>
+		<typeAlias type="com.kh.wantit.pay.vo.TestMember" alias="TestMember"/>
+		<typeAlias type="com.kh.wantit.pay.vo.Reward" alias="Reward"/>
+		<typeAlias type="com.kh.wantit.pay.vo.PaySchedule" alias="PaySchedule"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.AdminInquiry" alias="AdminInquiry"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.Ads" alias="Ads"/>
 		<typeAlias type="com.kh.wantit.member.vo.Member" alias="Member"/>
-		
 	</typeAliases>
 	
 	<mappers>
+		
+		<mapper resource="mappers/pay-mapper.xml"/>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/admin-mapper.xml"/>
 		

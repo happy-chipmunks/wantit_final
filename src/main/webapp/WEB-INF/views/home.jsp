@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <html>
 	<jsp:include page="common/navbar.jsp"></jsp:include>
 <head>
@@ -65,7 +66,12 @@
       <div class="container" style="margin-top: 20px; border-bottom: 1px solid white; padding-bottom: 20px;">
         <div class="row">
             <div class="col-md-8">
-                <strong class="d-inline-block mb-2 mainTitle" style="font-size: 35px; color: #e8acef; padding-left: 20px;">인기있는 펀딩</strong>
+                <strong class="d-inline-block mb-2 mainTitle" style="font-size: 35px; color: #e8acef; padding-left: 20px;">인기있는 펀딩<a href="${ contextPath }/payView.pay?fundingNum=9999"> 결제테스트</a></strong>
+<!-- 			테스트 구간 -->
+                <a href="${ contextPath }/loginTest.pay">동준로그인테스트</a><span>${ loginUser.id }</span>
+                <c:set value="${ pageContext.servletContext.contextPath }" var="contextPath" scope="application"></c:set>
+                
+<!--                 테스트구간 -->
                 
             </div>
             <div class="col-md-4">
