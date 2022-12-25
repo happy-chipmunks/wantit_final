@@ -89,7 +89,7 @@
 				<button type="button" class="btn btn-outline-warning" id="loginBtn"
 				onclick="location.href='${ contextPath }/loginenroll.me'">로그인/회원가입</button>
 				</c:if>
-				
+				 
 				&nbsp;&nbsp;&nbsp;   
 				<c:if test="${ loginUser != null  && loginUser.memberNickname != '관리자'}">
 						<a href="${contextPath}/myPageinfo.me"> 

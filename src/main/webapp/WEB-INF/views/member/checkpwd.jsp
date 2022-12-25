@@ -898,46 +898,32 @@
 <body>
     <h2 class="ttable" style="color: black; font-weight: bold;">비밀번호찾기</h2>
     
-    <form action="${contextPath}/findcheckid.me" method="POST" id="findfrom" name="findfrom">
+    <h3 style="text-align: center;">비밀번호를 찾고자하는 아이디를 입력해주세요.</h3>
+    <form action="${contextPath}/findcheckPwd.me" method="POST" id="findfrom" name="findfrom">
     <div class="tttable">
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="checkname" name="checkname">
-              <label for="floatingInputGroup1">이름 입력</label>
+              <input type="text" class="form-control" id="checkId" name="checkId">
+              <label for="floatingInputGroup1">아이디 입력</label>
             </div>
         </div>
-        <br>
-        <div class="input-group mb-3">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="memberPhone" name="memberPhone">
-              <label for="floatingInputGroup1">핸드폰 번호 입력(-포함)</label>
-            </div>
-        </div>
-        <br>
-        <div class="input-group mb-3">
-            <div class="form-floating">
-              <input type="email" class="form-control" id="memberEmail" name="memberEmail">
-              <label for="floatingInputGroup1">이메일 입력</label>
-            </div>
-        </div>
+       
         <br>
         <button type="button" class="btn btn-primary" id="submit1" onclick="memberCheck()">
             <span>
-                <span class="">확인</span>
+                <span class="">다음</span>
             </span>
         </button>
         <input type="hidden" name="beforeURL">
         </form>
-        
         <br>
-        
-        
-         
         <br>
         <div>
-            &nbsp;&nbsp;&nbsp;  아직 회원이 아니신가요?
-        <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/memberenroll.me'">회원가입하기</button>
-        <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/home.do'">홈으로 돌아가기</button>
+            &nbsp;&nbsp;&nbsp;  아이디가 기억나지 않는다면?
+         <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/checkId.me'">아이디 찾기</button>   
+            
+        <%-- <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/memberenroll.me'">회원가입하기</button>
+        <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/home.do'">홈으로 돌아가기</button> --%>
         </div>									   	
     </div>
     
