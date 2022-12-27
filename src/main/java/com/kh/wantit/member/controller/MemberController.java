@@ -278,21 +278,15 @@ public class MemberController {
 			model.addAttribute("chechIdresult", resultMember);
 			
 			return "Result_checkid";
-			
-			
-			
-			
 		}
-		
-		
-		
-		
-		
 		//비밀번호 찾기
 		@RequestMapping("/checkPwd.me")
 		public String checkPwd() {
 			return "checkpwd";
 		}
+		
+		
+		
 }
 	
 	
