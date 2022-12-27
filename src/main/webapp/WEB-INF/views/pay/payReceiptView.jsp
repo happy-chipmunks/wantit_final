@@ -59,8 +59,17 @@
                     <form action="${ contextPath }/cancelPaySchedule.pay" method="post">
                         <input type="hidden" name="customerUId" id="" value="${ paySchedule.customerUId }">
                         <input type="hidden" name="merchantUId" id="" value="${ paySchedule.merchantUId }">
-                        <input type="hidden" name="buyerName" id="${ paySchedule.buyerName }">
-                        <button type="button" class="btn btn-outline btnPayCancel">결제 예약 취소하기</button>
+                        <input type="hidden" name="buyerName" value="${ paySchedule.buyerName }">
+                        <button  class="btn btn-outline btnPayCancel">결제 예약 취소하기</button>
+                    </form>
+                    
+                    <form action="${ contextPath }/payAgain.pay" method="post">
+                        <input type="hidden" name="customerUId" id="" value="${ paySchedule.customerUId }">
+                        <input type="hidden" name="merchantUId" id="" value="${ paySchedule.merchantUId }">
+                        <input type="hidden" name="buyerName" value="${ paySchedule.buyerName }">
+                        <input type="hidden" name="merchantName">
+                        <input type="hidden" name="amount" value="${ paySchedule.amount }">
+                        <button  class="btn btn-outline btnPayCancel">재결제 테스트</button>
                     </form>
                     
                 </div>

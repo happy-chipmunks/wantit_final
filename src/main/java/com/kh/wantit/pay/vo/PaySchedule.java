@@ -25,7 +25,7 @@ public class PaySchedule {
 	private String rewardBuyList;
 	private String cardNumber;
 	private String cardName;
-	private String impUId;
+	private int amount;
 	
 	public PaySchedule(Map<String, String> scheduleMap) {
 		this.customerUId = scheduleMap.get("customer_uid");
@@ -39,7 +39,8 @@ public class PaySchedule {
 		this.rewardBuyList = scheduleMap.get("reward_buy_list");
 		this.cardNumber = scheduleMap.get("card_number");
 		this.cardName = scheduleMap.get("card_name");
-		this.impUId = scheduleMap.get("imp_uid");
+		this.amount = Integer.parseInt(scheduleMap.get("amount"));
+		
 	}
 	
 }

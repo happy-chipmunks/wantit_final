@@ -2,6 +2,8 @@ package com.kh.wantit.pay.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,12 +20,18 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.params.HttpClientParams;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParamConfig;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.json.JSONArray;
@@ -31,6 +39,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -41,6 +50,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.google.gson.JsonObject;
+import com.kh.wantit.pay.exception.PayException;
 import com.kh.wantit.pay.service.PayService;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
@@ -48,7 +58,6 @@ import com.kh.wantit.pay.vo.TestMember;
 
 
 @Controller
-@SessionAttributes("loginUser")
 public class PayController {
 	
 	private final static String IMP_KEY = "4048636354863648";
@@ -57,6 +66,9 @@ public class PayController {
 	private final static String RESTAPI_GET_BILLINGKEY = "https://api.iamport.kr/subscribe/customers/";
 	private final static String RESTAPI_TRY_PAY_SCHEDULE = "https://api.iamport.kr/subscribe/payments/schedule";
 	private final static String RESTAPI_TRY_PAY_UNSCHEDULE = "https://api.iamport.kr/subscribe/payments/unschedule";
+	private final static String RESTAPI_SEARCH_PAYLIST = "https://api.iamport.kr/payments";
+	private final static String RESTAPI_SEARCH_PAY_ONE = "https://api.iamport.kr/subscribe/payments/schedule/";
+	private final static String RESTAPI_PAY_AGAIN = "https://api.iamport.kr/subscribe/payments/again";
 	
 	@Autowired
 	private PayService pService;
@@ -68,56 +80,156 @@ public class PayController {
 		String fundingTitle = pService.getFundingTitle(fundingNum);
 		model.addAttribute("rewardList", rewardList);
 		model.addAttribute("fundingTitle", fundingTitle);
-		
+		model.addAttribute("fundingNum", fundingNum);
 		return "payView";
+	}
+	
+	@RequestMapping("payStatusRenewal.pay")
+	public String payStatusRenewal(@RequestParam("fundingNum") int fundingNum, Model model) {
+		
+		ArrayList<String> merchantUIdList = pService.getMerchantUId(fundingNum);
+		String[] merchant_uid = new String[merchantUIdList.size()];
+		for(int i=0 ; i<merchant_uid.length ; i++) {
+			merchant_uid[i] = merchantUIdList.get(i);
+		}
+		String accessToken = getAccessToken();
+		
+		CloseableHttpClient client = HttpClientBuilder.create().build();
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(RESTAPI_SEARCH_PAYLIST).append("?");
+		for(int i=0 ; i<merchantUIdList.size() ; i++) {
+			System.out.println(i);
+			if(i != 0 && i != merchantUIdList.size()) {
+				sb.append("&");
+			}
+			sb.append("merchant_uid[]=" + merchantUIdList.get(i));
+			System.out.println(sb.toString());
+			
+		}
+		String replace = sb.toString().replaceAll(" ", "%20");
+		System.out.println(replace);
+		HttpGet get = new HttpGet(replace);
+		get.setHeader("Authorization", accessToken);
+		
+		ArrayList<String> responseMerchantUId = new ArrayList<String>();
+		ArrayList<String> responseStatus = new ArrayList<String>();
+		try {
+			
+			HttpResponse res = client.execute(get);
+			ObjectMapper mapper = new ObjectMapper();
+			String body = EntityUtils.toString(res.getEntity());
+			JsonNode rootNode = mapper.readTree(body);
+			JsonNode resNode = rootNode.get("response");
+			System.out.println(resNode);
+			
+			for(int i=0 ; i<resNode.size() ; i++) {
+				responseMerchantUId.add(resNode.get(i).get("merchant_uid").asText());
+				responseStatus.add(resNode.get(i).get("status").asText());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				get.releaseConnection();
+				client.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		for(int i=0 ; i<responseMerchantUId.size() ; i++) {
+			Map<String, String> updateStatusMap = new HashMap<String, String>();
+			updateStatusMap.put("mUId", responseMerchantUId.get(i));
+			updateStatusMap.put("payStatus", responseStatus.get(i));
+			
+			System.out.println(updateStatusMap.toString());
+			
+			int updateStatus = pService.updatePayStatus(updateStatusMap);
+		
+			System.out.println("updateStatus : " + updateStatus);
+			
+//			if(updateStatus < 0) {
+//				throw new PayException("paystatus update failed.");
+//			}
+		}
+		
+
+		return "";
 	}
 	
 	@RequestMapping("cancelPaySchedule.pay")
 	public String cancelPaySchedule(@RequestParam("customerUId") String customerUId, 
-			@RequestParam("merchantUId") String merchantUId, @RequestParam("buyerName") String buyerName) {
+			@RequestParam("merchantUId") String merchantUId, @RequestParam("buyerName") String buyerName, Model model) {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("customerUId", customerUId);
 		map.put("merchantUId", merchantUId);
 		map.put("buyerName", buyerName);
 		
+		System.out.println(map.toString());
+		
 		int checkScheduled = pService.checkScheduled(map);
 		String access_token = getAccessToken();
+		System.out.println(access_token);
+		System.out.println(checkScheduled);
 		
 		if(checkScheduled == 1) {
 			CloseableHttpClient client = HttpClientBuilder.create().build();
 			HttpPost post = new HttpPost(RESTAPI_TRY_PAY_UNSCHEDULE);
 			post.setHeader("Authorization", access_token);
+			System.out.println(post.toString());
 			
-			Map<String, String> unscheduleMap = new HashMap<String, String>();
-			map.put("customer_uid", customerUId);
-			map.put("merchant_uid", merchantUId);
-			
+			Map<String, String> entityMap = new HashMap<String, String>();
+			entityMap.put("customer_uid", customerUId);
+			entityMap.put("merchant_uid", merchantUId);
+			System.out.println(entityMap.toString());
 			
 			try {
-				post.setEntity(new UrlEncodedFormEntity(convertParameter(unscheduleMap)));
-				
-				HttpResponse response = client.execute(post);
+				post.setEntity(new UrlEncodedFormEntity(convertParameter(entityMap), "UTF-8"));
+				HttpResponse res = client.execute(post);
 				ObjectMapper mapper = new ObjectMapper();
-				String body = EntityUtils.toString(response.getEntity());
+				String body = EntityUtils.toString(res.getEntity());
 				JsonNode rootNode = mapper.readTree(body);
-				
-				if(rootNode.get("code").asInt() != 0) {
-					//에러 처리
-					String responseMessage = rootNode.get("message").asText();
-					
+				int resCode = rootNode.get("code").asInt();
+				String message = rootNode.get("message").asText();
+				System.out.println("message : " + message);
+				System.out.println("resCode : " + resCode);
+				if(resCode != 0) {
+					throw new PayException(message);
 				} else {
 					JsonNode resNode = rootNode.get("response");
-					JsonNode resultNode = resNode.get(0);
-					
+					System.out.println("unscheduled resNode : " + resNode.toString());
+					String schedule_status = resNode.get(0).get("schedule_status").asText();
+					System.out.println("schedule_status : " + schedule_status);
+					if(schedule_status.equals("revoked")) {
+						Map<String, String> unscheduleMap = new HashMap<String, String>();
+						unscheduleMap.put("customer_uid", customerUId);
+						unscheduleMap.put("merchant_uid", merchantUId);
+						unscheduleMap.put("buyer_name", buyerName);
+						
+						int updateScheduleStatus = pService.updateScheduleStatus(unscheduleMap);
+						System.out.println(updateScheduleStatus);
+						model.addAttribute("cancelPayScuccess", "cancelPayScuccess");
+					}
 				}
-				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
+			} finally {
+				try {
+					post.releaseConnection();
+					client.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
+
+		} else {
+			throw new PayException("해당 결제정보가 존재하지 않습니다.");
 		}
-		return null;
+		return "../home";
 	}
 	
 	@RequestMapping("loginTest.pay")
@@ -136,7 +248,7 @@ public class PayController {
 												@RequestParam("cardPwd") String cardPwd, @RequestParam("cardBirth") String cardBirth,
 												@RequestParam("buyerName") String buyerName, @RequestParam("buyerTel") String buyerTel,
 												@RequestParam("buyerAddr") String[] buyerAddr, @RequestParam("postReq") String postReq,
-												@RequestParam("rewardExpectDate") Date[] rewardExpectDate, 
+												@RequestParam("rewardExpectDate") Date[] rewardExpectDate,  @RequestParam("fundingNum") int fundingNum,
 												@RequestParam("rewardTitle") String[] rewardTitle, Model model) {
 		
 		StringBuilder sb = new StringBuilder();
@@ -171,7 +283,8 @@ public class PayController {
 		PaySchedule ps = null;
 		Map<String, String> scheduleMap = new HashMap<String, String>();
 		if(billingMap.containsKey("responseMessage")) {
-			//빌링키 발급 에러처리
+			throw new PayException(billingMap.get("responseMessage"));
+			
 		} else if(billingMap.containsKey("customer_uid")) {
 			System.out.println(billingMap.get("customer_uid"));
 			
@@ -181,7 +294,7 @@ public class PayController {
 			System.out.println(buyerName);
 			
 			if(scheduleMap.containsKey("message")) {
-				//결제예약 에러처리
+				throw new PayException(scheduleMap.get("message"));
 			} else {
 				for(int i=0 ; i<rewardCount.length ; i++) {
 					if(rewardCount[i] != 0) {
@@ -201,6 +314,7 @@ public class PayController {
 				scheduleMap.put("reward_buy_list", sb.toString());
 				scheduleMap.put("card_name", billingMap.get("card_name"));
 				scheduleMap.put("card_number", billingMap.get("card_number"));
+				scheduleMap.put("fundingNum", String.valueOf(fundingNum));
 				pService.insertPaySchedule(scheduleMap);
 				
 				ps = new PaySchedule(scheduleMap);
@@ -218,6 +332,68 @@ public class PayController {
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("rewardCount", rewardCount);
 		return "payReceiptView";
+	}
+	
+	/*
+	 * 빌링키 이용 재결제
+	 */
+	@RequestMapping("payAgain.pay")
+	public String payAgain(@ModelAttribute PaySchedule paySchedule, Model model) {
+		
+		String accessToken = getAccessToken();
+		
+		CloseableHttpClient client = HttpClientBuilder.create().build();
+		
+		HttpPost post = new HttpPost(RESTAPI_PAY_AGAIN);
+		post.setHeader("Authorization", accessToken);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("customer_uid", paySchedule.getCustomerUId());
+		map.put("merchant_uid", paySchedule.getMerchantUId());
+		map.put("amount", String.valueOf(paySchedule.getAmount()));
+		map.put("name", paySchedule.getMerchantName());
+		
+		try {
+			post.setEntity(new UrlEncodedFormEntity(convertParameter(map), "UTF-8"));
+			HttpResponse res = client.execute(post);
+			ObjectMapper mapper = new ObjectMapper();
+			String body = EntityUtils.toString(res.getEntity());
+			JsonNode rootNode = mapper.readTree(body);
+			System.out.println(rootNode.toString());
+
+			int resCode = rootNode.get("code").asInt();
+			if(resCode != 0) {
+				String resMessage = rootNode.get("message").asText();
+				throw new PayException(resMessage);
+			} else {
+				JsonNode resNode = rootNode.get("response");
+				System.out.println(resNode.toString());
+				String status = resNode.get("status").asText();
+				if(status.equals("paid")) {
+					Map<String, String> uMap = new HashMap<String, String>();
+					uMap.put("payStatus", status);
+					uMap.put("mUId", resNode.get("merchant_uid").asText());
+					
+					pService.updatePayStatus(uMap);
+					
+				}
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				post.releaseConnection();
+				client.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return "";
+		
 	}
 
 	/*
@@ -303,7 +479,7 @@ public class PayController {
 						break;
 					case "payment_status": scheduleResultMap.put("payment_status", resultResponseNode.get(nodeKey).asText());
 						break;
-					case "imp_uid": scheduleResultMap.put("imp_uid", resultResponseNode.get(nodeKey).asText());
+					case "amount": scheduleResultMap.put("amount", resultResponseNode.get(nodeKey).asText());
 					break;
 					default: break;
 					}

@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.wantit.pay.dao.PayDAO;
+import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
 import com.kh.wantit.pay.vo.TestMember;
+
 
 @Service
 public class PayService {
@@ -47,4 +49,20 @@ public class PayService {
 	public int checkScheduled(Map<String, String> map) {
 		return pDAO.checkScheduled(sqlSession, map);
 	}
+
+	public int updateScheduleStatus(Map<String, String> map) {
+		return pDAO.updateScheduleStatus(sqlSession, map);
+	}
+
+	public ArrayList<String> getMerchantUId(int fundingNum) {
+		return pDAO.getMerchantUId(sqlSession, fundingNum);
+	}
+
+	public int updatePayStatus(Map<String, String> updateStatusMap) {
+		return pDAO.updatePayStatus(sqlSession, updateStatusMap);
+	}
+
+//	public int updatePayStatus(PaySchedule ps) {
+//		return pDAO.updatePayStatus(sqlSession, ps);
+//	}
 }

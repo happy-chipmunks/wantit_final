@@ -7,8 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.wantit.pay.service.PayService;
+import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
 import com.kh.wantit.pay.vo.TestMember;
+
 
 @Repository
 public class PayDAO {
@@ -41,5 +43,22 @@ public class PayDAO {
 	public int checkScheduled(SqlSessionTemplate sqlSession, Map<String, String> map) {
 		return sqlSession.selectOne("payMapper.checkScheduled", map);
 	}
+
+	public int updateScheduleStatus(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.update("payMapper.updateScheduleStatus", map);
+	}
+
+	public ArrayList<String> getMerchantUId(SqlSessionTemplate sqlSession, int fundingNum) {
+		return (ArrayList)sqlSession.selectList("payMapper.getMerchantUId", fundingNum);
+	}
+
+	public int updatePayStatus(SqlSessionTemplate sqlSession, Map<String, String> updateStatusMap) {
+		System.out.println("dao map : " + updateStatusMap.toString());
+		return sqlSession.update("payMapper.updatePayStatus", updateStatusMap);
+	}
+
+//	public int updatePayStatus(SqlSessionTemplate sqlSession, PaySchedule ps) {
+//		return sqlSession.update("payMapper.updatePayStatus", ps);
+//	}
 
 }

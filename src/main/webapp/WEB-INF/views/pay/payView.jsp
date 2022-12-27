@@ -198,6 +198,7 @@
 	                        <hr>
 	                        <p class="onlyFont">배송 시 요청사항(선택)</p>
 	                        <input type="text" class="deliveryRequire" placeholder="ex)부재 시 경비실에 보관해주세요." name="postReq">
+	                        <input type="hidden" name="fundingNum" value="${ fundingNum }">
 	                        
         </form>
 	                        <button type="button" id="payReservation">결제 예약하기</button>
@@ -235,6 +236,34 @@
 					
 // 				}
 // 			});
+			
+			const addrRadio1 = document.getElementById('inlineRadio1');
+			const addrRadio2 = document.getElementById('inlineRadio2');
+			
+			addrRadio1.addEventListener('click', function() {
+				const postBtn = document.getElementById('searchPostCode');
+				const firstAddress = document.getElementById('firstAddress');
+				const secondAddress = document.getElementById('secondAddress');
+				
+				const fullAddr = '${ loginUser.memberAddress }';
+				const addrArray = fullAddr.split(" // ");
+				
+				postBtn.style.display = "none";
+				firstAddress.value = addrArray[0];
+				secondAddress.value = addrArray[1];
+				secondAddress.readOnly = "readOnly";
+				
+			});
+			
+			addrRadio2.addEventListener('click', function() {
+				const postBtn = document.getElementById('searchPostCode');
+				const firstAddress = document.getElementById('firstAddress');
+				const secondAddress = document.getElementById('secondAddress');
+				
+				postBtn.style.display = "";
+				firstAddress.value = "";
+				secondAddress.value = "";
+			});
 			
             
             
@@ -427,7 +456,6 @@
             		}
             	}
             	
-            	//ajax로 카드정보 유효한지 확인해야 함
             	console.log("아웃2");
             	
             	const cardDateInput = document.getElementsByClassName('cardDateInput');

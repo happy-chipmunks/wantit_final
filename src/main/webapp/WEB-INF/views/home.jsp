@@ -6,7 +6,7 @@
 <head>
 	<title>Home</title>
 	<link rel="stylesheet" href="resources/css/main.css">
-	
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body>
     <!--배너광고, 이벤트-->
@@ -66,7 +66,7 @@
       <div class="container" style="margin-top: 20px; border-bottom: 1px solid white; padding-bottom: 20px;">
         <div class="row">
             <div class="col-md-8">
-                <strong class="d-inline-block mb-2 mainTitle" style="font-size: 35px; color: #e8acef; padding-left: 20px;">인기있는 펀딩<a href="${ contextPath }/payView.pay?fundingNum=9999"> 결제테스트</a></strong>
+                <strong class="d-inline-block mb-2 mainTitle" style="font-size: 35px; color: #e8acef; padding-left: 20px;">인기있는 펀딩<a href="${ contextPath }/payView.pay?fundingNum=9999"> 결제테스트</a><a href="${ contextPath }/payStatusRenewal.pay?fundingNum=9999">결제상태갱신</a> </strong>
 <!-- 			테스트 구간 -->
 
                 
@@ -381,7 +381,30 @@
         <p class="text-center text-muted">&copy; 2022 Company, Inc</p>
       </footer>
       
-    
-
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-dialog-centered">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<h5 class="modal-title" id="exampleModalLabel"></h5>
+      			</div>
+      		<div class="modal-footer">
+       		 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalCloseBtn">닫기</button>
+      	</div>
+    </div>
+  </div>
+</div>
+    <script type="text/javascript">
+    	window.onload=()=> {
+    		const payScheduleSuccessMessage = '${ cancelPayScuccess }';
+    		console.log(payScheduleSuccessMessage);
+    		if(payScheduleSuccessMessage != '') {
+    			const exampleModalLabel = document.getElementById('exampleModalLabel');
+    			exampleModalLabel.innerText = "결제가 취소되었습니다 !";
+    			
+    			$('#exampleModal').modal('show');
+    		}
+    	}
+    </script>
+<% request.removeAttribute("cancelPayScuccess"); %>
 </body>
 </html>

@@ -122,7 +122,7 @@ public class MemberController {
 		}
 		String enPwd = bcrypt.encode(member.getMemberPwd());
 		member.setMemberPwd(enPwd);
-		String alladd = add1.concat(" ").concat(add2);
+		String alladd = add1 + " // " + add2;
 		member.setMemberAddress(alladd);
 		
 		int result = mService.enroll(member);

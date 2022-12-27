@@ -43,7 +43,7 @@
 		<result column="REWARD_BUY_LIST" property="rewardBuyList"/>
 		<result column="CARD_NUMBER" property="cardNumber"/>
 		<result column="CARD_NAME" property="cardName"/>
-		<result column="IMP_UID" property="impUId"/>
+		<result column="AMOUNT" property="amount"/>
 	</resultMap>
 	
 	<select id="testLogin" resultMap="testMemberResultSet">
@@ -67,13 +67,24 @@
 	</select>
 	
 	<insert id="insertPaySchedule" parameterType="map">
-		insert into payschedule values(#{customer_uid}, #{merchant_uid}, #{merchant_name}, #{buyer_name}, #{buyer_tel}, #{buyer_addr}, #{schedule_status}, #{payment_status}, #{reward_buy_list}, #{card_number}, #{card_name}, #{imp_uid})
+		insert into payschedule values(#{customer_uid}, #{merchant_uid}, #{merchant_name}, #{buyer_name}, #{buyer_tel}, #{buyer_addr}, #{schedule_status}, #{payment_status}, #{reward_buy_list}, #{card_number}, #{card_name}, #{fundingNum},  #{amount})
 	</insert>
 	
 	<select id="checkScheduled" resultType="_int">
 		select count(*) from payschedule where merchant_uid = #{merchantUId} and customer_uid = #{customerUId} and buyer_name = #{buyerName}
 	</select>
 
-
+	<update id="updateScheduleStatus" parameterType="map">
+		update payschedule set schedule_status = 'revoked' where merchant_uid = #{merchant_uid} and customer_uid = #{customer_uid} and buyer_name = #{buyer_name}
+	</update>
+	
+	<select id="getMerchantUId" resultType="string">
+		select merchant_uid from payschedule where funding_num = #{fundingNum}
+	</select>
+	
+	<update id="updatePayStatus" >
+		update payschedule set payment_status = #{payStatus} where merchant_uid = #{mUId}
+		
+	</update>
 
 </mapper>

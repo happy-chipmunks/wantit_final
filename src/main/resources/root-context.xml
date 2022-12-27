@@ -12,6 +12,8 @@
 		<property name="password" value="wantit"></property>
 	</bean>	
 	
+
+	
 	<!-- SqlSessionTemplate Bean 등록 -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
