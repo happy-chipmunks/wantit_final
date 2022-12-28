@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.wantit.member.dao.MemberDAO;
+import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
 import net.nurigo.java_sdk.api.Message;
@@ -86,6 +87,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member findmemberId(Member member) {
 		return mDAO.findmemberId(sqlSession,member);
+	}
+
+
+	@Override
+	public int creatorInsert(Creator c) {
+		return mDAO.creatorInsert(c, sqlSession);
 	}
 
 	

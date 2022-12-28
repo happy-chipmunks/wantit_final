@@ -15,7 +15,8 @@ import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.admin.model.vo.Reply;
-import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
 @Controller
@@ -143,5 +144,21 @@ public class AdminController {
 		} else {
 			throw new AdminException("회원 강퇴에 실패하였습니다.");
 		}
+	}
+	
+	// 크리에이터 승인 팝업
+	@RequestMapping("adminCreatorApproval.ad")
+	public String adminCreatorApproval(Model model) {
+		ArrayList<Creator> cList = aService.creatorApproval();
+		ArrayList<Image> iList = aService.businessImage();
+		
+		if(cList != null && iList != null) {
+			model.addAttribute(cList);
+			model.addAttribute(iList);
+			return "adminCreatorApproval";
+		}else {
+			throw new AdminException("크리에이터 승인 팝업 불러오는 것에 실패하였습니다.");
+		}
+		
 	}
 }

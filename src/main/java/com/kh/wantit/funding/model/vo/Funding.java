@@ -22,8 +22,8 @@ public class Funding {
 	private int fundingCount;
 	private Date fundingStart;
 	private Date fundingEnd;
-	private int currentMoney;
-	private int targetMoney;
+	private long currentMoney;
+	private long targetMoney;
 	private char confirm;
 	private Date createDate;
 	private Date modifyDate;

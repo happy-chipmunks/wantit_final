@@ -69,6 +69,10 @@
 		 AND MEMBER_EMAIL= #{memberEmail}  
 	</select>
 	
+	<insert id="creatorInsert">
+		insert into creator
+		values(seq_creator.nextval, #{creator}, default, #{businessNumber}, #{managerName}, #{managePhone}, #{managerEmail}, #{creatorName})
+	</insert>
 	
 	
 	
