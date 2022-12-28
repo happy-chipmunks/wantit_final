@@ -1,9 +1,11 @@
 package com.kh.wantit;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.wantit.funding.model.service.FundingService;
+import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.wanting.model.service.WantingService;
 import com.kh.wantit.wanting.model.vo.Wanting;
 
@@ -27,6 +31,8 @@ public class HomeController {
 	
 	@Autowired
 	private WantingService wService;
+	@Autowired
+	private FundingService fService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -37,15 +43,27 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+//		ArrayList<Wanting> wantingList = wService.selectWantingList();
+		ArrayList<Funding> fundingList = fService.fundingList();
 		
-		String formattedDate = dateFormat.format(date);
+		ArrayList<Funding> fundingComingSoonList = new ArrayList<Funding>();
+		ArrayList<Funding> fundingProceedList = new ArrayList<Funding>();
 		
-		ArrayList<Wanting> wantingList = wService.selectWantingList();
+		Date now = new Date();
 		
-		model.addAttribute("wantingList", wantingList);
-		model.addAttribute("serverTime", formattedDate );
+		for(Funding f : fundingList) {
+			if(now.compareTo(f.getFundingStart()) == -1) {
+				fundingComingSoonList.add(f);
+			} else {
+				fundingProceedList.add(f);
+			}
+		}
+
+		model.addAttribute("fundingComingSoonList", fundingComingSoonList);
+		model.addAttribute("fundingProceedList", fundingProceedList);
+		
+		
+//		model.addAttribute("wantingList", wantingList);
 		
 		
 		return "home";
