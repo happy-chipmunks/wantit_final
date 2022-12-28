@@ -11,6 +11,9 @@ import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
+import com.kh.wantit.common.model.vo.CreatorImage;
+import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
 @Service("aService")
@@ -52,6 +55,14 @@ public class AdminService {
 
 	public ArrayList<Ads> selectAllAds(PageInfo pi, int i) {
 		return aDAO.selectAllAds(sqlSession, pi, i);
+	}
+
+	public ArrayList<Creator> creatorApproval() {
+		return aDAO.creatorApproval(sqlSession);
+	}
+
+	public ArrayList<Image> businessImage() {
+		return aDAO.businessImage(sqlSession);
 	}
 
 

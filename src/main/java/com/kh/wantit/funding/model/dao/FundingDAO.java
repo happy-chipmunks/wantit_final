@@ -1,5 +1,7 @@
 package com.kh.wantit.funding.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +17,10 @@ public class FundingDAO {
 
 	public int insertImage(Image i, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("fundingMapper.insertImage", i);
+	}
+
+	public ArrayList<Funding> fundingList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.fundingList");
 	}
 	
 	

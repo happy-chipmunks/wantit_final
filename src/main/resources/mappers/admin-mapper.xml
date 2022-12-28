@@ -40,8 +40,18 @@
 		order by ads_num desc
 	</select>
 
+	<select id="creatorApproval" resultMap="creatorResultSet">
+		select *
+		from creator
+		order by creator_num desc
+	</select>
 	
-	
+	<select id="businessImage" resultMap="imageResultSet">
+		select *
+		from image join creator_image using(image_num)
+		where image_level='5' and image_detail='1'
+		order by image_num desc
+	</select>
 	
 	
 	
@@ -85,5 +95,34 @@
 		<result column="ADS_END" property="adsEnd"/>
 		<result column="ADS_CREATE_DATE" property="adsCreateDate"/>
 		<result column="FUNDING_TITLE" property="fundingTitle"/>		
+	</resultMap>
+	
+	<resultMap type="Creator" id="creatorResultSet">
+		<id column="creator_num" property="creatorNum"/>
+		<result column="creator" property="creator"/>
+		<result column="business_type" property="businessType"/>
+		<result column="business_number" property="businessNumber"/>
+		<result column="manager_name" property="managerName"/>
+		<result column="manager_phone" property="managerPhone"/>
+		<result column="manager_email" property="managerEmail"/>
+		<result column="creator_name" property="creatorName"/>
+	</resultMap>
+	
+	<resultMap type="Image" id="imageResultSet">
+		<id column="image_num" property="imageNum"/>
+		<result column="image_form" property="imageForm"/>
+		<result column="origin_name" property="originName"/>
+		<result column="image_rename" property="imageRename"/>
+		<result column="image_src" property="imageSrc"/>
+		<result column="upload_date" property="uploadDate"/>
+		<result column="image_status" property="imageStatus"/>
+		<result column="image_level" property="imageLevel"/>
+		<result column="image_board_cate" property="imageBoardCate"/>
+		<result column="image_board_id" property="imageBoardId"/>
+	</resultMap>
+	
+	<resultMap type="CreatorImage" id="creatorImageResultSet">
+		<id column="image_num" property="imageNum"/>
+		<result column="image_detail" property="imageDetail"/>
 	</resultMap>
 </mapper>

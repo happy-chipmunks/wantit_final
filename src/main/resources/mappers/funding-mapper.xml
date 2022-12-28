@@ -12,5 +12,27 @@
 		values(seq_image.nextval, ${imageForm}, ${originName}, ${imageRename}, ${imageSrc}, default, default, ${imageLevel}, ${imageBoardCate}, ${imageBoardId})
 	</insert>
 
+	<select id="fundingList" resultMap="fundingResultSet">
+		select *
+		from funding
+		where funding_status='Y'
+	</select>
 
+	<resultMap type="Funding" id="fundingResultSet">
+		<id column="funding_num" property="fundingNum"/>
+		<result column="creator_num" property="creatorNum"/>
+		<result column="funding_cate" property="fundingCate"/>
+		<result column="funding_title" property="fundingTitle"/>
+		<result column="funding_content" property="fundingContent"/>
+		<result column="funding_count" property="fundingCount"/>
+		<result column="funding_start" property="fundingStart"/>
+		<result column="funding_end" property="fundingEnd"/>
+		<result column="current_money" property="currentMoney"/>
+		<result column="target_money" property="targetMoney"/>
+		<result column="confirm" property="confirm"/>
+		<result column="create_date" property="createDate"/>
+		<result column="modify_date" property="modifyDate"/>
+		<result column="funding_status" property="fundingStatus"/>
+		<result column="creator_name" property="creatorNickname"/>
+	</resultMap>
 </mapper>

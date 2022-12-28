@@ -10,6 +10,9 @@ import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
+import com.kh.wantit.common.model.vo.CreatorImage;
+import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
 @Repository("aDAO")
@@ -52,6 +55,14 @@ public class AdminDAO {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("adminMapper.selectAllAds", i, rowBounds);
+	}
+
+	public ArrayList<Creator> creatorApproval(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.creatorApproval");
+	}
+
+	public ArrayList<Image> businessImage(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.businessImage");
 	}
 
 }

@@ -3,6 +3,7 @@ package com.kh.wantit.member.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
 @Repository("mDAO")
@@ -40,6 +41,10 @@ public class MemberDAO {
 
 	public Member findmemberId(SqlSessionTemplate sqlSession, Member member) {
 		return sqlSession.selectOne("memberMapper.findmemberId",member);
+	}
+
+	public int creatorInsert(Creator c, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("memberMapper.creatorInsert", c);
 	}
 
 

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<%-- 	<jsp:include page="../common/navbar.jsp"/> --%>
+ 	<jsp:include page="../common/navbar.jsp"/>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,7 +33,7 @@
 		    font-style: normal;
 		} 
 		
-		 .table{font-family: 'NanumSquareNeo-Variable';}
+		 .col-8{font-family: 'NanumSquareNeo-Variable';}
 		
 		
 		
@@ -86,7 +86,7 @@
     <div class="container">
     	<div>
     		<h1 style="display: inline;"><b>마이페이지</b></h1>&nbsp;&nbsp;&nbsp;
-    		<button class="btn" onclick="openPopup()"><img src="resources/메시지.png" style="width: 40px; height: 40px;"></button>
+    		<button class="btn" onclick="openPopup()"><img src="${ contextPath }/resources/myPageImage/메시지.png" style="width: 40px; height: 40px;"></button>
     	</div>
     	<hr>
     	<div class="text-end">
@@ -99,7 +99,7 @@
 	<div class="row">
 		<div class="col-3" style="align-self;">
 			<ul>
-				<li style="width: 200px; margin: auto;"><img src="resources/기본프로필.png" style="width: 150px; height: 150px;">
+				<li style="width: 200px; margin: auto;"><img src="${ contextPath }/resources/myPageImage/기본프로필.png" style="width: 150px; height: 150px;">
 	   				<h4><b>닉네임</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
 	   				크리에이터<br>
@@ -130,8 +130,8 @@
 			</ul>
    		</div>
    		<div class="col-8">
-   			<c:if test="">
-	   			<form action="" id="">
+   			<%-- <c:if test=""> --%>
+	   			<form action="${ contextPath }/creatorInsert.me" id="creatorInsertForm">
 		   			<div class="mt-5 pt-5" style="text-align: center;">
 		   				<div id="insertBtn" class="mt-5 pt-5">
 				   			아직 크리에이터 등록을 하지 않으셨군요?<br><br>
@@ -141,46 +141,46 @@
 			   				<div class="p-2 row">
 			   					<label for="" class="col-sm-2 col-form-label">사업자 등록번호</label>
 								<div class="col-sm-10">
-									<input class="form-control" type="text" placeholder="ex) 000-00-00000" aria-label="default input example" required>
+									<input class="form-control" name="businessNumber" type="text" placeholder="ex) 000-00-00000" aria-label="default input example" required>
 								</div>
 							</div>
 							<div class="p-2 row">
 								<label for="" class="col-sm-2 col-form-label">사업자 등록증</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="businessLicense" type="file" accept="image/*" placeholder="Default input" aria-label="default input example">
+									<input class="form-control" id="businessLicense" name="file" type="file" accept="image/*" placeholder="Default input" aria-label="default input example">
 								</div>
 							</div>
 							<hr>
 							<div class="p-2 row">
 								<label for="" class="col-sm-2 col-form-label">대표자 명</label>
 								<div class="col-sm-10">
-									<input class="form-control" type="text" aria-label="default input example">
+									<input class="form-control" name="managerName" type="text" aria-label="default input example">
 								</div>
 							</div>
 							<div class="p-2 row">
 								<label for="" class="col-sm-2 col-form-label">대표자 전화번호</label>
 								<div class="col-sm-10">
-									<input class="form-control" type="text" aria-label="default input example">
+									<input class="form-control" name="managerPhone" type="text" aria-label="default input example">
 								</div>
 							</div>
 							<div class="p-2 row">
 								<label for="" class="col-sm-2 col-form-label">대표자 이메일</label>
 								<div class="col-sm-10">
-									<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+									<input type="email" name="managerEmail" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
 								</div>
 							</div>
 							<hr>
 							<div class="p-2 row">
 								<label for="" class="col-sm-2 col-form-label">크리에이터 명</label>
 								<div class="col-sm-10">
-									<input class="form-control" type="text" aria-label="default input example">
+									<input class="form-control" name="creatorName" type="text" aria-label="default input example">
 								</div>
 							</div><br>
 							<button id="approvalRequest" class="btn btn-primary">승인 요청</button>
 						</div>
 		   			</div>
 	   			</form>
-   			</c:if>
+   			<%-- </c:if> --%>
    			<c:if test="">
 				<table align="center" style="text-align: center; height: 100%;" class="table">
 					<tr>
@@ -241,11 +241,7 @@
 	    	console.log(selectedFile);
 	    };
 	    
-	    
-	    
 	    $('#insertCreator').on('click', function(){
-// 	    	$('#insertBtn').css("display", "none");
-// 	    	$('#hideDiv').css("display", "block");
 			const insertBtn = document.getElementById('insertBtn');
 			const hideDiv = document.getElementById('hideDiv');
 			
@@ -262,6 +258,20 @@
 	    		alert('사업자 등록증 이미지가 첨부되지 않았습니다.');
 	    	}
 	    });
+	    
+	    // 사업자 등록증 저장
+		 const form = document.getElementByid('creatorInsertForm');
+		 document.getElementById('approvalRequest').addEventListener('click', ()=>{
+			 const files = document.getElementByName('file');
+			 let isEmpty = true;
+			 for(const f of files){
+				 if(f.value != ''){
+					 isEmpty = false;
+				 }
+			 }
+			 form.submit();
+		 });
+	  
     </script>
 	
 </body>
