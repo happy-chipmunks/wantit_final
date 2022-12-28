@@ -1,5 +1,8 @@
 package com.kh.wantit.member.controller;
 
+import java.io.File;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.wantit.member.Service.MemberService;
 import com.kh.wantit.member.exception.MemberException;
+import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
 @Controller
@@ -285,7 +289,47 @@ public class MemberController {
 			return "checkpwd";
 		}
 		
+		// 마이페이지-크리에이터 등록
+		@RequestMapping("/creatorInsert.me")
+		public String creatorInsert(HttpSession session, @ModelAttribute Creator c) {
+			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+			
+			c.setCreator(id);
+			
+			int result = mService.creatorInsert(c);
+			
+			return "redirect:myPage_creator";
+		}
 		
+		// 파일 저장
+		public String[] saveFile(MultipartFile file, HttpServletRequest request) {
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "\\member";
+			
+			File folder = new File(savePath);
+			if(!folder.exists()) {
+				folder.mkdirs();
+			}
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+			int ranNum = (int)(Math.random()*100000);
+			String originFileName = file.getOriginalFilename();
+			String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + ranNum
+														+ originFileName.substring(originFileName.lastIndexOf("."));
+			
+			String renamePath = folder + "\\" + renameFileName;
+			try {
+				file.transferTo(new File(renamePath));
+			} catch (Exception e) {
+				System.out.println("파일 전송 에러 : " + e.getMessage());
+			}
+			
+			String[] returnArr = new String[2];
+			returnArr[0] = savePath;
+			returnArr[1] = renameFileName;
+			
+			return returnArr;
+		}
 		
 }
 	

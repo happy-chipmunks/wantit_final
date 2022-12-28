@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +37,16 @@ public class FundingController {
 	
 	// 펀딩 글 목록
 	@RequestMapping("fundingList.fund") 
-	public String fundingList() {
-		return "fundingProceed";
+	public String fundingList(Model model) {
+		ArrayList<Funding> fundingList = fService.fundingList();
+		
+		if(fundingList != null) {
+			model.addAttribute("fundingList", fundingList);
+			return "fundingProceed";
+		}else {
+			throw new FundingException("펀딩 목록 불러오기 실패");
+		}
+		
 	}
 	
 	// 펀딩 작성 페이지 이동
@@ -83,7 +93,7 @@ public class FundingController {
 	
 	public String[] saveFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\uploadFiles";
+		String savePath = root + "\\funding";
 		
 		File folder = new File(savePath);
 		if(!folder.exists()) {

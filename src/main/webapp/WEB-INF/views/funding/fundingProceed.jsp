@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <jsp:include page="../common/navbar.jsp"></jsp:include>
@@ -203,7 +204,7 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
-                <span class="cateTitleOrAll">전체</span>
+                <span class="cateTitleOrAll">전체</span> <button onclick="location.href='${contextPath}/insertFundingBoard.fund'">펀딩작성</button>
                 <ul class="sortList">
                     <li class="sortType">최신순</li>
                     <li class="sortType">
@@ -232,82 +233,27 @@
             <div class="col-md-1"></div>
             <div class="col-md-10" style="padding: 30px;">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col">
-                        <div class="card shadow-sm fundinglist">
-                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-              
-                          <div class="card-body">
-                              <div style="padding-bottom: 10px;">
-                                  <span class="cate">홈/리빙</span>
-                                  <span class="fundName">괄호프로젝트</span>
-                              </div>
-                              <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                              <div class="d-flex justify-content-between align-items-center">
-                                    <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-                                </div>
-                                <span>26%</span>
-                                <span>1,000,000원</span>
-                                <span class="remainDate">15일 남음</span>
-                          </div>
-                        </div>
-                     </div>
-                    <div class="col">
-                        <div class="card shadow-sm fundinglist">
-                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-              
-                          <div class="card-body">
-                              <div style="padding-bottom: 10px;">
-                                  <span class="cate">홈/리빙</span>
-                                  <span class="fundName">괄호프로젝트</span>
-                              </div>
-                              <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                              <div class="d-flex justify-content-between align-items-center">
-                                    <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-                                </div>
-                                <span>26%</span>
-                                <span>1,000,000원</span>
-                                <span class="remainDate">15일 남음</span>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm fundinglist">
-                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-              
-                          <div class="card-body">
-                              <div style="padding-bottom: 10px;">
-                                  <span class="cate">홈/리빙</span>
-                                  <span class="fundName">괄호프로젝트</span>
-                              </div>
-                              <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                              <div class="d-flex justify-content-between align-items-center">
-                                    <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-                                </div>
-                                <span>26%</span>
-                                <span>1,000,000원</span>
-                                <span class="remainDate">15일 남음</span>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm fundinglist">
-                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-              
-                          <div class="card-body">
-                              <div style="padding-bottom: 10px;">
-                                  <span class="cate">홈/리빙</span>
-                                  <span class="fundName">괄호프로젝트</span>
-                              </div>
-                              <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                              <div class="d-flex justify-content-between align-items-center">
-                                    <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-                                </div>
-                                <span>26%</span>
-                                <span>1,000,000원</span>
-                                <span class="remainDate">15일 남음</span>
-                          </div>
-                        </div>
-                    </div>
+                	<c:forEach items="${ fundingList }" var="fl">
+                		<div class="col">
+	                        <div class="card shadow-sm fundinglist">
+	                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+	              					
+	                          <div class="card-body">
+	                              <div style="padding-bottom: 10px;">
+	                                  <span class="cate">${ fl.fundingCate }</span>
+	                                  <span class="fundName">${ fl.fundingTitle }</span>
+	                              </div>
+	                              <p class="card-text">${ fl.fundingContent }더</p>
+	                              <div class="d-flex justify-content-between align-items-center">
+	                                    <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
+	                                </div>
+	                                <span>26%</span>
+	                                <span>${ fl.currentMoney }</span>
+	                                <span class="remainDate">15일 남음</span>
+	                          </div>
+	                        </div>
+	                     </div>
+                	</c:forEach>
                 </div>
             </div>
         </div>
