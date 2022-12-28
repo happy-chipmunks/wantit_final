@@ -1,6 +1,7 @@
 package com.kh.wantit;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.wantit.wanting.model.service.WantingService;
+import com.kh.wantit.wanting.model.vo.Wanting;
+
 
 
 /**
@@ -21,7 +25,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 public class HomeController {
 	
-	
+	@Autowired
+	private WantingService wService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -37,8 +42,9 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
+		ArrayList<Wanting> wantingList = wService.selectWantingList();
 		
-		
+		model.addAttribute("wantingList", wantingList);
 		model.addAttribute("serverTime", formattedDate );
 		
 		

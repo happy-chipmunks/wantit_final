@@ -84,6 +84,9 @@ public class PayController {
 		return "payView";
 	}
 	
+	/*
+	 * 관리자 or 크리에이터 쪽 결제상태 최신화작업
+	 */
 	@RequestMapping("payStatusRenewal.pay")
 	public String payStatusRenewal(@RequestParam("fundingNum") int fundingNum, Model model) {
 		
@@ -605,7 +608,7 @@ public class PayController {
 	}
 	
 	/*
-	 * 
+	 * REST API 송신 데이터 ENTITY작업
 	 */
 	private List<NameValuePair> convertParameter(Map<String, String> map) {
 		List<NameValuePair> paramList = new ArrayList<NameValuePair>();
