@@ -36,12 +36,6 @@ import com.kh.wantit.wanting.model.service.WantingService;
 import com.kh.wantit.wanting.model.vo.Wanting;
 import com.kh.wantit.wanting.model.vo.WantingAttend;
 
-//
-
-import org.apache.commons.lang3.StringUtils;
-//
-
-
 
 @Controller
 public class WantingController {
