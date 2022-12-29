@@ -49,7 +49,7 @@
 	<select id="businessImage" resultMap="imageResultSet">
 		select *
 		from image join creator_image using(image_num)
-		where image_level='5' and image_detail='1'
+		where image_board_cate='5' and image_detail='1'
 		order by image_num desc
 	</select>
 	
