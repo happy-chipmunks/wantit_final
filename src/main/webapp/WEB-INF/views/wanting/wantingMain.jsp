@@ -72,9 +72,9 @@
     <div class="state-box">
       <p class="remaining-day"><strong>${ wanting.wantingDaysCount }일 지났어요</strong></p>
       <div class="rate-bar"><em></em></div>
-      <p class="achievement-rate"><strong>10540</strong>% 달성</p>
-      <p class="total-amount"><strong>52,700,000</strong>원 펀딩</p>
-      <p class="total-supporter"><strong>${ wanting.wantingCount }</strong>명의 서포터</p>
+      <p class="achievement-rate"><strong>${ wanting.wantingCount }</strong>명의 서포터</p>
+      <p class="total-supporter"><strong>${ wanting.wantingCount }</strong>% 달성</p>
+<!--       <p class="total-amount"><strong>52,700,000</strong>원 펀딩</p> -->
     </div>
     
     <div class="container goal-box">
