@@ -1,5 +1,6 @@
 package com.kh.wantit.member.Service;
 
+import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
@@ -22,6 +23,12 @@ public interface MemberService {
 	Member findmemberId(Member member);
 
 	int creatorInsert(Creator c);
+
+	Member creatorCheck(String id);
+
+	int businessLicense(Image i);
+
+	Creator creatorRegistration(String id);
 
 	
 

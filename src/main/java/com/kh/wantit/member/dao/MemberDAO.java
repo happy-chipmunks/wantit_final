@@ -3,6 +3,7 @@ package com.kh.wantit.member.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
@@ -45,6 +46,20 @@ public class MemberDAO {
 
 	public int creatorInsert(Creator c, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("memberMapper.creatorInsert", c);
+	}
+
+
+	public Member creatorCheck(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.creatorCheck", id);
+	}
+
+	public int businessLicense(Image i, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("memberMapper.businessLicense", i);
+	}
+
+
+	public Creator creatorRegistration(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.creatorRegistration", id);
 	}
 
 

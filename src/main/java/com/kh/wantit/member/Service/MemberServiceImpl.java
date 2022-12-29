@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.dao.MemberDAO;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
@@ -93,6 +94,24 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int creatorInsert(Creator c) {
 		return mDAO.creatorInsert(c, sqlSession);
+	}
+
+
+	@Override
+	public Member creatorCheck(String id) {
+		return mDAO.creatorCheck(id, sqlSession);
+	}
+
+
+	@Override
+	public int businessLicense(Image i) {
+		return mDAO.businessLicense(i, sqlSession);
+	}
+
+
+	@Override
+	public Creator creatorRegistration(String id) {
+		return mDAO.creatorRegistration(id, sqlSession);
 	}
 
 	
