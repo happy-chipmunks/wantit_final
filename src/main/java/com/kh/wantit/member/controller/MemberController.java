@@ -1,24 +1,24 @@
 package com.kh.wantit.member.controller;
 
+
+import javax.mail.internet.MimeMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
+
+
+
 import java.util.Random;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
 import com.kh.wantit.member.Service.MemberService;
 import com.kh.wantit.member.exception.MemberException;
 import com.kh.wantit.member.vo.Member;
@@ -31,6 +31,10 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+
 	
 	//회원가입페이지 이동
 	@RequestMapping("/memberenroll.me")
@@ -279,15 +283,154 @@ public class MemberController {
 			
 			return "Result_checkid";
 		}
-		//비밀번호 찾기
+		//비밀번호 페이지 이동(아이디조회)
 		@RequestMapping("/checkPwd.me")
 		public String checkPwd() {
 			return "checkpwd";
 		}
+		//비밀번호 찾기페이지에서 아이디찾기
+		@RequestMapping("/findonecheckPwd.me")
+		public String findcheckPwd(@RequestParam("checkId") String checkId,Model model) {
+			
+			Member findPwd = new Member();
+			findPwd.setMemberId(checkId);
+			System.out.println(checkId);
+			
+			Member PwdMember = mService.findcheckPwd(findPwd);
+			String realemail = PwdMember.getMemberEmail();
+			String eemail1 = realemail.substring(0, 2)+"*****";
+			String eemail2 = realemail.substring(realemail.indexOf("@")+1, realemail.indexOf("@")+2)+"*****";
+			String eemail3 = realemail.substring(realemail.lastIndexOf("."));
+			String eemail = eemail1 + "@" + eemail2 + eemail3;
+			
+			PwdMember.setMemberEmail(eemail);
+			
+			
+			model.addAttribute("findPwdone", PwdMember);
+			
+			
+			return "checkpwd2";
+		}
 		
 		
+	  @RequestMapping("findtwocheckPwd.me")
+	  @ResponseBody
+	  public String findtwocheckPwd(@RequestParam("name") String name ,@RequestParam("email") String email) {
+		    System.out.println("이메일 인증 요청이 들어옴!");
+			System.out.println("이메일 인증 이메일 : " + email);
+			/* System.out.println(memberId); */
+			System.out.println(name);
+			System.out.println(email);
+			
+			Member checkIdemail = new Member();
+			checkIdemail.setMemberName(name); 
+			checkIdemail.setMemberEmail(email);
+			
+			int checkIdEmail2 = mService.checkMember(checkIdemail); 
+			System.out.println(checkIdEmail2);//이값확인하기 
+			
+			if(checkIdEmail2 > 0) {
+				//인증번호(난수) 생성
+				Random random = new Random();
+				int checkNum = random.nextInt(888888) + 111111;
+				
+				
+				    String subject = "[WANTIT] 본인확인 이메일 인증";
+			        String content = "홈페이지에 방문해주셔서 감사합니다.<br>"
+			        				+ "[WANTIT]비밀번호 찾기 인증 이메일입니다.<br>"
+			        				+ "인증번호는"+checkNum+"입니다.<br>"
+			        				+"해당 인증번호를 인증번호 확인란에 기입해주세요.";
+			        String from = "WANTIT<wjdche94@naver.com>";
+			        String to = email;
+			        
+			       
+			        
+			        try {
+			            MimeMessage mail = mailSender.createMimeMessage();
+			            MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
+			            // true는 멀티파트 메세지를 사용하겠다는 의미
+			            
+			            /*
+			             * 단순한 텍스트 메세지만 사용시엔 아래의 코드도 사용 가능 
+			             * MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
+			             */
+			            
+			            mailHelper.setFrom(from);
+			            // 빈에 아이디 설정한 것은 단순히 smtp 인증을 받기 위해 사용 따라서 보내는이(setFrom())반드시 필요
+			            // 보내는이와 메일주소를 수신하는이가 볼때 모두 표기 되게 원하신다면 아래의 코드를 사용하시면 됩니다.
+			            //mailHelper.setFrom("보내는이 이름 <보내는이 아이디@도메인주소>");
+			            mailHelper.setTo(to);
+			            mailHelper.setSubject(subject);
+			            mailHelper.setText(content, true);
+			            // true는 html을 사용하겠다는 의미입니다.
+			            
+			            /*
+			             * 단순한 텍스트만 사용하신다면 다음의 코드를 사용하셔도 됩니다. mailHelper.setText(content);
+			             */
+			            
+			            mailSender.send(mail);
+			            
+			        } catch(Exception e) {
+			            e.printStackTrace();
+			        }
+			        String num = Integer.toString(checkNum);
+			        
+			        return num;
+			    }else {
+					
+			    	return "error";
+			    }
+			}
+			
+			
+			
+	  
+	  //비밀번호 변경창 이동
+	  	@RequestMapping("checkpwdfinal.me")
+	  	public String checkpwdfinal(@RequestParam("memberId") String id,Model model) {
+	  		System.out.println("이동하는값"+id);//사용자아이디 확인
+	  		
+	  		model.addAttribute("memberId",id);
+	  		return "checkpwd3";
+	  	}
+	  
+	  @RequestMapping("checkpwdfinal1.me")
+	  public String checkpwdfinal1(@RequestParam("memberId") String memberId,@RequestParam("memberPwd") String memberPwd) {
+		  System.out.println("가져온값 :"+memberId);
+		  
+		  
+		  Member updatePwd = new Member();
+		  updatePwd.setMemberId(memberId);
+		  updatePwd.setMemberPwd(memberPwd);
+		 System.out.println("새로운 비밀번호 :"+updatePwd.getMemberPwd());
+		  
+		 String newPwd = updatePwd.getMemberPwd();
+		 String newenPwd = bcrypt.encode(newPwd);
+		 updatePwd.setMemberPwd(newenPwd);
+		  
+		  System.out.println(updatePwd);
+		 int result = mService.updateenPwd(updatePwd); 
+		  
+		 System.out.println(result);
+		  if(result > 0) {
+			  return  "redirect:/";
+		  }else {
+			  return null;
+		  }
+		  
 		
-}
+		  
+		  
+	  }
+	  	
+	  
+	  
+}	
+			
+		  
+	  
+
+
 	
 	
 	

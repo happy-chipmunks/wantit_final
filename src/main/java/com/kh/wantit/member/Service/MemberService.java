@@ -20,6 +20,32 @@ public interface MemberService {
 
 	Member findmemberId(Member member);
 
+	Member findcheckPwd(Member findPwd);
+
+	Member selectMember(String email);
+
+	int checkMember(Member checkIdemail);
+
+	int updateenPwd(Member updatePwd);
+
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
 	
 
 	
