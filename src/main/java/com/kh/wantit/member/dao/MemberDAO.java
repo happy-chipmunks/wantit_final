@@ -63,6 +63,34 @@ public class MemberDAO {
 	}
 
 
+	public Member findcheckPwd(SqlSessionTemplate sqlSession, Member findPwd) {
+		return sqlSession.selectOne("memberMapper.findcheckPwd",findPwd);
+	}
+
+
+	public Member selectMember(SqlSessionTemplate sqlSession, String email) {
+		return sqlSession.selectOne("memberMapper.selectMember",email);
+	}
+
+
+	public int checkMember(SqlSessionTemplate sqlSession, Member checkIdemail) {
+		return sqlSession.selectOne("memberMapper.checkMember",checkIdemail);
+	}
+
+
+	public int updateenPwd(SqlSessionTemplate sqlSession, Member updatePwd) {
+		return sqlSession.update("memberMapper.updateenPwd",updatePwd);
+	}
+
+
+
+
+
+	
+
+	
+
+
 	
 	 
 	 

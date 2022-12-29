@@ -903,21 +903,21 @@
         <div class="input-group mb-3">
             <div class="form-floating">
               <input type="text" class="form-control" id="checkname" name="checkname">
-              <label for="floatingInputGroup1">이름 입력</label>
+              <label for="checkname">이름 입력</label>
             </div>
         </div>
         <br>
         <div class="input-group mb-3">
             <div class="form-floating">
               <input type="text" class="form-control" id="memberPhone" name="memberPhone">
-              <label for="floatingInputGroup1">핸드폰 번호 입력(-포함)</label>
+              <label for="memberPhone">핸드폰 번호 입력(-포함)</label>
             </div>
         </div>
         <br>
         <div class="input-group mb-3">
             <div class="form-floating">
               <input type="email" class="form-control" id="memberEmail" name="memberEmail">
-              <label for="floatingInputGroup1">이메일 입력</label>
+              <label for="memberEmail">이메일 입력</label>
             </div>
         </div>
         <br>
@@ -1112,7 +1112,6 @@ $.fn.sakura = function (options) {
     		
     	}else if(!email_rule.test($("input[id='memberEmail']").val())){
     		 alert("이메일 형식에 맞게 입력해주세요.")
-    		 
     	}else{
     		findfrom.submit(); 
     	} 

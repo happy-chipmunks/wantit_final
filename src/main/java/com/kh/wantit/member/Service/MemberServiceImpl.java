@@ -1,4 +1,4 @@
-package com.kh.wantit.member.Service;
+﻿package com.kh.wantit.member.Service;
 
 import java.util.HashMap;
 
@@ -113,6 +113,48 @@ public class MemberServiceImpl implements MemberService {
 	public Creator creatorRegistration(String id) {
 		return mDAO.creatorRegistration(id, sqlSession);
 	}
+
+	public Member findcheckPwd(Member findPwd) {
+		return mDAO.findcheckPwd(sqlSession,findPwd);
+	}
+
+
+	@Override
+	public Member selectMember(String email) {
+		return mDAO.selectMember(sqlSession,email);
+	}
+
+
+	@Override
+	public int checkMember(Member checkIdemail) {
+		return mDAO.checkMember(sqlSession,checkIdemail);
+	}
+
+
+	@Override
+	public int updateenPwd(Member updatePwd) {
+		return mDAO.updateenPwd(sqlSession,updatePwd);
+	}
+
+
+
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+	
+
+
+	
 
 	
 

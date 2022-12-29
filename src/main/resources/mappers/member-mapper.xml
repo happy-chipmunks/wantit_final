@@ -73,6 +73,31 @@
 		insert into creator
 		values(seq_creator.nextval, #{creator}, #{businessType}, #{businessNumber}, #{managerName}, #{managerPhone}, #{managerEmail}, #{creatorName})
 	</insert>
+	<select id="findcheckPwd" parameterType="Member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_ID= #{memberId}  
+	</select>
+	
+	<select id="selectMember" parameterType="Member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_EMAIL= #{memberEmail}  
+	</select>
+	
+	 <select id="checkMember" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_EMAIL= #{memberEmail}
+		 AND  MEMBER_NAME = #{memberName}		  
+	</select> 
+	
+	
+	<update id="updateenPwd">
+		UPDATE MEMBER set MEMBER_PWD=#{memberPwd} where MEMBER_ID=#{memberId}
+	</update>
+	
+	
 	
 	<select id="creatorCheck" resultMap="memberResultSet">
 		select member_type
