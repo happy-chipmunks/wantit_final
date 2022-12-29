@@ -130,12 +130,17 @@
 			</ul>
    		</div>
    		<div class="col-8">
-   			<%-- <c:if test=""> --%>
-	   			<form action="${ contextPath }/creatorInsert.me" id="creatorInsertForm">
+   			<c:if test="${ !check }">
+	   			<form action="${ contextPath }/creatorInsert.me" id="creatorInsertForm" enctype="multipart/form-data" method="POST">
 		   			<div class="mt-5 pt-5" style="text-align: center;">
 		   				<div id="insertBtn" class="mt-5 pt-5">
-				   			아직 크리에이터 등록을 하지 않으셨군요?<br><br>
-				   			<button id="insertCreator" class="btn" type="button">크리에이터 등록하기</button><br>
+				   			<c:if test="${ creatorRegistration == null }">
+				   				아직 크리에이터 등록을 하지 않으셨군요?<br><br>
+				   				<button id="insertCreator" class="btn" type="button">크리에이터 등록하기</button><br>
+				   			</c:if>
+				   			<c:if test="${ creatorRegistration != null }">
+				   				크리에이터 승인 대기 중입니다.
+				   			</c:if>
 		   				</div>
 			   			<div id="hideDiv" style="display: none;">
 			   				<div class="p-2 row">
@@ -148,6 +153,20 @@
 								<label for="" class="col-sm-2 col-form-label">사업자 등록증</label>
 								<div class="col-sm-10">
 									<input class="form-control" id="businessLicense" name="file" type="file" accept="image/*" placeholder="Default input" aria-label="default input example">
+								</div>
+							</div>
+							<div class="p-2 row">
+								<label for="" class="col-sm-2 col-form-label">사업자 구분</label>
+								<div class="col-sm-10">
+									<div class="form-check form-check-inline">
+									  <input class="form-check-input" type="checkbox" value="N" checked onclick='checkOnlyOne(this)' name="check">
+									  <label class="form-check-label" for="inlineCheckbox1">개인</label>
+									</div>
+									<div class="form-check form-check-inline">
+									  <input class="form-check-input" type="checkbox" value="Y" onclick='checkOnlyOne(this)' name="check">
+									  <label class="form-check-label" for="inlineCheckbox2">사업자</label>
+									</div>
+									<input type="hidden" id="type" value="" name="businessType">
 								</div>
 							</div>
 							<hr>
@@ -176,12 +195,12 @@
 									<input class="form-control" name="creatorName" type="text" aria-label="default input example">
 								</div>
 							</div><br>
-							<button id="approvalRequest" class="btn btn-primary">승인 요청</button>
+							<button id="approvalRequest" class="btn btn-primary" onclick='submitBtn(event)'>승인 요청</button>
 						</div>
 		   			</div>
 	   			</form>
-   			<%-- </c:if> --%>
-   			<c:if test="">
+   			</c:if>
+   			<c:if test="${ check }">
 				<table align="center" style="text-align: center; height: 100%;" class="table">
 					<tr>
 						<th>아이디</th>
@@ -249,8 +268,21 @@
 			hideDiv.style.display = "";
 	    });
 	    
+	    //submit
 	    const form = document.getElementById('creator');
 	    document.getElementById('approvalRequest').addEventListener('click', ()=>{
+	    	// 체크박스 선택된 목록 가져오기
+	    	const query = 'input[name="check"]:checked';
+	    	const selectedEls = document.querySelectorAll(query);
+	    	
+	    	//선택된 목록에서 value 찾기
+	    	let result = '';
+	    	selectedEls.forEach((el) =>{
+	    		result += el.value;
+	    	});
+	    	
+	    	document.getElementById('type').setAttribute('value', result);
+	    	
 	    	const file = document.getElementById('businessLicense');
 	    	if(file.value != ''){
 	    		form.submit();
@@ -260,17 +292,33 @@
 	    });
 	    
 	    // 사업자 등록증 저장
-		 const form = document.getElementByid('creatorInsertForm');
+		 const formSubmit = document.getElementByid('creatorInsertForm');
 		 document.getElementById('approvalRequest').addEventListener('click', ()=>{
-			 const files = document.getElementByName('file');
+			 const files = document.getElementsByName('file');
 			 let isEmpty = true;
 			 for(const f of files){
-				 if(f.value != ''){
+				 if(f.value != ' '){
 					 isEmpty = false;
 				 }
 			 }
-			 form.submit();
+			 
+			 if(!isEmpty){
+				 formSubmit.submit();
+			 }
+			
 		 });
+		 
+		 // 개인/사업자 체크박스 하나만 선택되게 하기
+		 function checkOnlyOne(element){
+			 const checkboxes = document.getElementsByName("check");
+			 
+			 checkboxes.forEach((cb) => {
+				 cb.checked = false;
+			 })
+			 
+			 element.checked = true;
+		 }
+		 
 	  
     </script>
 	

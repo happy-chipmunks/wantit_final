@@ -3,25 +3,23 @@ package com.kh.wantit.member.controller;
 import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.Service.MemberService;
 import com.kh.wantit.member.exception.MemberException;
 import com.kh.wantit.member.vo.Creator;
@@ -83,7 +81,23 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/myPageCreator.me")
-	public String myPageCreator() {
+	public String myPageCreator(HttpSession session, Model model) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		Member creatorCheck = mService.creatorCheck(id);
+		Creator creatorRegistration = mService.creatorRegistration(id);
+		
+		
+		boolean check = false;
+		if(creatorCheck.getMemberType() == "creator") {
+			check = true;
+			
+			model.addAttribute("check", check);
+		}else {
+			model.addAttribute("creatorRegistration", creatorRegistration);
+			model.addAttribute("check", check);
+		}
+		
 		return "myPage_creator";
 	}
 	
@@ -291,14 +305,37 @@ public class MemberController {
 		
 		// 마이페이지-크리에이터 등록
 		@RequestMapping("/creatorInsert.me")
-		public String creatorInsert(HttpSession session, @ModelAttribute Creator c) {
-			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
-			
+		public String creatorInsert(HttpServletRequest request, @ModelAttribute Creator c, @RequestParam("file") MultipartFile file, @RequestParam("businessType") char type) {
+			String id = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 			c.setCreator(id);
+			System.out.println(type);
+			if(type == 'N') {
+				c.setBusinessType('N');
+			}else {
+				c.setBusinessType('Y');
+			}
 			
-			int result = mService.creatorInsert(c);
+			System.out.println(file);
+			Image i = new Image();
+			if(!file.getOriginalFilename().equals("")) {
+				String[] returnArr = saveFile(file, request);
+				
+				if(returnArr[1] != null) {
+					i.setImageForm(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
+					i.setOriginName(file.getOriginalFilename());
+					i.setImageRename(returnArr[1]);
+					i.setImageSrc(returnArr[0]);
+				}
+			}
 			
-			return "redirect:myPage_creator";
+			int result1 = mService.creatorInsert(c);
+			int result2 = mService.businessLicense(i);
+			
+			if(result1 > 0 && result2 > 0) {
+				return "redirect:myPageCreator.me";
+			}else {
+				throw new MemberException("크리에이터 등록 실패");
+			}
 		}
 		
 		// 파일 저장

@@ -22,7 +22,7 @@
 	<insert id="enroll" parameterType="Member">
 		INSERT INTO MEMBER
 		VALUES(#{memberId}, #{memberPwd},#{memberName},#{memberNickname},#{memberPhone},#{memberAddress},#{memberEmail},
-		sysdate,#{memberGender},null,null,null,default) 
+		sysdate,#{memberGender},default,null,null,default) 
 	</insert>
 	
 	
@@ -71,9 +71,36 @@
 	
 	<insert id="creatorInsert">
 		insert into creator
-		values(seq_creator.nextval, #{creator}, default, #{businessNumber}, #{managerName}, #{managePhone}, #{managerEmail}, #{creatorName})
+		values(seq_creator.nextval, #{creator}, #{businessType}, #{businessNumber}, #{managerName}, #{managerPhone}, #{managerEmail}, #{creatorName})
 	</insert>
 	
+	<select id="creatorCheck" resultMap="memberResultSet">
+		select member_type
+		from member
+		where member_id=#{id}
+	</select>
 	
+	<insert id="businessLicense">
+		insert all
+		into image values(seq_image.nextval, #{imageForm}, #{originName}, #{imageRename}, #{imageSrc}, sysdate, default, null, 5, null)
+		into creator_image values(seq_image.currval, 1)
+		select * from dual
+	</insert>
 	
+	<select id="creatorRegistration" resultMap="creatorResultSet">
+		select *
+		from creator
+		where creator=#{id}
+	</select>
+	
+	<resultMap type="Creator" id="creatorResultSet">
+		<id column="creator_num" property="creatorNum"/>
+		<result column="creator" property="creator"/>
+		<result column="business_type" property="businessType"/>
+		<result column="business_number" property="businessNumber"/>
+		<result column="manager_name" property="managerName"/>
+		<result column="manager_phone" property="managerPhone"/>
+		<result column="manage_email" property="managerEmail"/>
+		<result column="creator_name" property="creatorName"/>
+	</resultMap>
 </mapper>
