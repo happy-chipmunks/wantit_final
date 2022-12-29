@@ -1,14 +1,8 @@
 package com.kh.wantit.wanting.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -21,14 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.JsonObject;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.wanting.exception.WantingException;
@@ -96,7 +87,7 @@ public class WantingController {
 					img.setImageBoardCate(4);
 					img.setImageBoardId(100);
 					list.add(img); // 받아온 files에 정보를 넣어서 Image list에 넣자
-					System.out.println(upload.getOriginalFilename() + "list넣");
+					System.out.println(upload.getOriginalFilename() + "list넣기");
 				}
 			}
 		}
@@ -242,10 +233,10 @@ public class WantingController {
 	
 	// ==================== 원팅 참여하기 ====================
 	@RequestMapping("attendWanting.want")
-	public String attendWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session) {
+	public String attendWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session, RedirectAttributes redirectAttributes) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		WantingAttend join = new WantingAttend(id, wantingNum);
-		System.out.println("원팅 참여 됐다면 이것 : " + join);
+		System.out.println("원팅 참여한다면 이것 : " + join);
 		
 		int result1 = wService.attendWanting(join);
 		
@@ -262,13 +253,16 @@ public class WantingController {
 		} else if(wantingCount <= 1000) {
 			wantingLevel = 3;
 		} else {
-			wantingLevel = 4;
+			wantingLevel = 9;
 		}
 		w.setWantingLevel(wantingLevel);
+		System.out.println("원팅 참여 업데이트 : " + w);
 		
 		int result2 = wService.updateWantingStatus(w);
+		System.out.println("result1 : " + result1 + "/ result2 : " + result2);
 		
 		if(result1 > 0 && result2 > 0) {
+			redirectAttributes.addAttribute("wantingNum", wantingNum);
 			return "redirect:selectWanting.want";
 		} else {
 			throw new WantingException("원팅하기 실패");
@@ -321,212 +315,6 @@ public class WantingController {
 		out.println("profileUpload/"+email+"/"+str_filename);
 		out.close();
 	}
-	
-	
-	
-	
-	
-//	// ==================== 에디 이미지 ====================
-//	@PostMapping("/uploadEditorImage.want")
-//	@ResponseBody
-//	public String fileUpload(HttpServletRequest request, HttpServletResponse response,
-//			MultipartHttpServletRequest multiFile) throws IOException {
-//	
-//		//Json 객체 생성
-//		JsonObject json = new JsonObject();
-//		// Json 객체를 출력하기 위해 PrintWriter 생성
-//		PrintWriter printWriter = null;
-//		OutputStream out = null;
-//		
-//		//파일을 가져오기 위해 MultipartHttpServletRequest 의 getFile 메서드 사용
-//		MultipartFile file = multiFile.getFile("upload");
-//		//파일이 비어있지 않고(비어 있다면 null 반환)
-//		if (file != null) {
-//			// 파일 사이즈가 0보다 크고, 파일이름이 공백이 아닐때
-//			if (file.getSize() > 0 && StringUtils.isNotBlank(file.getName())) {
-//				if (file.getContentType().toLowerCase().startsWith("image/")) {
-//
-//					try {
-//						//파일 이름 설정
-//						String fileName = file.getName();
-//						//바이트 타입설정
-//						byte[] bytes;
-//						//파일을 바이트 타입으로 변경
-//						bytes = file.getBytes();
-//						//파일이 실제로 저장되는 경로 
-//						String root = request.getSession().getServletContext().getRealPath("resources");
-//
-//						String uploadPath = request.getServletPath().getRealPath("/resources/ckimage/");
-//						//저장되는 파일에 경로 설정
-//						File uploadFile = new File(uploadPath);
-//						if (!uploadFile.exists()) {
-//							uploadFile.mkdirs();
-//						}
-//						//파일이름을 랜덤하게 생성
-//						fileName = UUID.randomUUID().toString();
-//						//업로드 경로 + 파일이름을 줘서  데이터를 서버에 전송
-//						uploadPath = uploadPath + "/" + fileName;
-//						out = new FileOutputStream(new File(uploadPath));
-//						out.write(bytes);
-//						
-//						//클라이언트에 이벤트 추가
-//						printWriter = response.getWriter();
-//						response.setContentType("text/html");
-//						
-//						//파일이 연결되는 Url 주소 설정
-//						String fileUrl = request.getContextPath() + "/resources/ckimage/" + fileName;
-//						
-//						//생성된 jason 객체를 이용해 파일 업로드 + 이름 + 주소를 CkEditor에 전송
-//						json.addProperty("uploaded", 1);
-//						json.addProperty("fileName", fileName);
-//						json.addProperty("url", fileUrl);
-//						printWriter.println(json);
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					} finally {
-//						if(out !=null) {
-//							out.close();
-//						}
-//						if(printWriter != null) {
-//							printWriter.close();
-//						}
-//					}
-//				}
-//			}
-//		}
-//			return null;
-//	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// ==================== 써머노트 이미지 ====================
-//	// summernote 이미지 저장
-//	
-//	/**
-//	 * Method ID : uploadSummernoteImageFile
-//	 * Method 설명 : 글작성 시, 업로드 되는 이미지 AJAX
-//	 * @param multipartFile
-//	 * @return
-//	 */
-//	@ResponseBody
-//	@RequestMapping(value="/uploadSummernoteImageFile", method=RequestMethod.POST, produces = "application/json")
-//	public Object uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
-//	
-//		boolean result = false;
-//		String savedName = "";
-//		Map<String, Object> object = new HashMap<String, Object>();
-//		try {
-//			
-//			savedName = multipartFile.getOriginalFilename();
-//			result = wService.FileUpload(uploadPath, multipartFile);
-//			
-//			if(result)
-//			{
-//				object.put("url", uploadPath + "/" + savedName);
-//				object.put("responseCode", "success");
-//			}
-//
-//		}catch(Exception e) {
-//			object.put("responseCode", "error");
-//			e.printStackTrace();
-//		}
-//		
-//		return object;
-//	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
-//  @ResponseBody
-//  public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
-//     JsonObject jsonObject = new JsonObject();
-//     
-//     System.out.println("reqeust" + request);
-//     System.out.println("multipartfile" + multipartFile);
-//
-//     
-//     //내부 경로로 저장
-//     String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-//     String fileRoot = contextRoot="resources/fileupload/";
-//     String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
-//     String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
-//     String savedFileName = UUID.randomUUID() + extension; // 저장될 파일명
-//     
-//     System.out.println();
-//     
-//     File targetFile = new File(fileRoot + savedFileName);
-//     try {
-//        InputStream fileStream = multipartFile.getInputStream();
-//        FileUtils.copyInputStreamToFile(fileStream, targetFile); // 파일 저장
-//        jsonObject.addProperty("url", "/summernote/resources/fileupload/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-//        jsonObject.addProperty("responseCode", "success");
-//        System.out.println("json" + jsonObject);
-//
-//     } catch (IOException e) {
-//        FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
-//        jsonObject.addProperty("responseCode", "error");
-//        e.printStackTrace();
-//     }
-//     String a = jsonObject.toString();
-//     return a;
-//     
-//  }								
-  
-  
-  
-  
-  
-  
-  
-//  @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
-//  @ResponseBody
-//  public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
-//     JsonObject jsonObject = new JsonObject();
-//     
-//     //내부 경로로 저장
-//     String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-//     String fileRoot = contextRoot="resources/fileupload/";
-//     String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
-//     String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
-//     
-//     // 랜덤 UUID+확장자로 저장될 savedFileName
-//     String savedFileName = UUID.randomUUID() + extension;
-//     
-//     File targetFile = new File(fileRoot + savedFileName);
-//     
-//     try {
-//        InputStream fileStream = multipartFile.getInputStream();
-//        FileUtils.copyInputStreamToFile(fileStream, targetFile);      // 파일 저장
-//        jsonObject.addProperty("url", "/summernoteImage/resources/fileupload/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-//        jsonObject.addProperty("responseCode", "success");
-//     } catch (IOException e) {
-//        FileUtils.deleteQuietly(targetFile);      // 실패 시 저장된 파일 삭제
-//        jsonObject.addProperty("responseCode", "error");
-//        e.printStackTrace();
-//     }
-//     return jsonObject;
-//  }
-	
-	
 	
 	
 	

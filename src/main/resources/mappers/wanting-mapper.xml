@@ -67,7 +67,7 @@
 	
 	<update id="updateWantingStatus">
 		update wanting
-		set wanting_count=#{wantingCount}
+		set wanting_count=#{wantingCount},
 			wanting_level=#{wantingLevel}
 		where wanting_num=#{wantingNum} and wanting_status='Y' 
 	</update>
