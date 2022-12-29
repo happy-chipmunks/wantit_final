@@ -24,20 +24,31 @@
 			<th>크리에이터 명</th>
 			<th>승인 여부</th>
 		</tr>
+		<%-- <c:forEach items="${ cList }" var="c">
+			<tr>
+				<td>${ c.creatorNum }</td>
+				<td>${ c.creator }</td>
+				<td><button class="btn btn-primary" onclick="openPic(${c.businessFileName}, ${ contextPath })">확인</button></td>
+				<td>${ c.businessNumber }</td>
+				<td>${ c.managerName }</td>
+				<td>${ c.managerPhone }</td>
+				<td>${ c.managerEmail }</td>
+				<td>${ c.creatorName }</td>
+				<td></td>
+			</tr>
+		</c:forEach> --%>
 		<c:forEach items="${ cList }" var="c">
-			<c:forEach items="${ iList }" var="i">
-				<tr>
-					<td>${ c.creatorNum }</td>
-					<td>${ c.creator }</td>
-					<td><button class="btn btn-primary" onclick="$('#businessLicense').modal('show')">확인</button></td>
-					<td>${ c.businessNumber }</td>
-					<td>${ c.managerName }</td>
-					<td>${ c.managerPhone }</td>
-					<td>${ c.managerEmail }</td>
-					<td>${ c.creatorName }</td>
-					<td>${ c.creatorStatus }</td>
-				</tr>
-			</c:forEach>
+			<tr>
+				<td>${ c.creatorNum }</td>
+				<td>${ c.creator }</td>
+				<td><button class="btn btn-primary check" value="${ c.businessFileName }" onclick="$('#businessLicense').modal('show');">확인</button></td>
+				<td>${ c.businessNumber }</td>
+				<td>${ c.managerName }</td>
+				<td>${ c.managerPhone }</td>
+				<td>${ c.managerEmail }</td>
+				<td>${ c.creatorName }</td>
+				<td></td>
+			</tr>
 		</c:forEach>
 	</table>
 	
@@ -48,15 +59,39 @@
 		      <div class="modal-header">
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
-		      <div class="modal-body">
-		      	<c:if test="${ c.creatorNum }">
-					<img alt="이미지가 없습니다." src="${ contextPath }/resources/funding/${i.renameName}">		      		
-		      	</c:if>
+		      <div class="modal-body" style="text-align: center;">
+				<img id="img" alt="이미지가 없습니다."> 
 		      </div>
 		    </div>
 		  </div>
 		</div>
 	
-	
+	<script>
+		/* function openPic(fileName, contextPath){
+			var name = contextPath + "/resources/funding/" + fileName;
+			console.log(name);
+			$('#img').attr('src', name);
+			$('#businessLicense').modal('show');
+		} */
+		
+		function getContextPath(){
+			var hostIndex = location.href.indexOf(location.host) + location.host.length;
+			return location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1));
+		}
+		
+		$('.check').on('click', function(){
+			const name = $('.check').val();
+			var contextPath = getContextPath();
+			var src = contextPath + "/resources/member/" + name;
+			
+			console.log(src);
+			console.log(contextPath);
+			/* console.log(getContextPath()); */
+			
+			$('#img').attr('src', src);
+			console.log($('#img').val());
+		});
+		
+	</script>
 </body>
 </html>

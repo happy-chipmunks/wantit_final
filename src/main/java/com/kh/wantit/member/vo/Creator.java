@@ -20,4 +20,5 @@ public class Creator {
 	private String managerPhone;
 	private String managerEmail;
 	private String creatorName;
+	private String businessFileName;
 }

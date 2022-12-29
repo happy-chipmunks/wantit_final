@@ -152,9 +152,15 @@ public class AdminController {
 		ArrayList<Creator> cList = aService.creatorApproval();
 		ArrayList<Image> iList = aService.businessImage();
 		
-		if(cList != null && iList != null) {
-			model.addAttribute(cList);
-			model.addAttribute(iList);
+//		System.out.println(cList);
+//		System.out.println(iList);
+		
+		for(int i = 0; i < cList.size(); i++) {
+			cList.get(i).setBusinessFileName(iList.get(i).getImageRename());
+		}
+		
+		if(cList.size() > 0) {
+			model.addAttribute("cList", cList);
 			return "adminCreatorApproval";
 		}else {
 			throw new AdminException("크리에이터 승인 팝업 불러오는 것에 실패하였습니다.");
