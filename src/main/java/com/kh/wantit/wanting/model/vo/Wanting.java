@@ -16,6 +16,7 @@ import lombok.ToString;
 public class Wanting {
 	private int wantingNum;
 	private String wantingWriter;
+	private String wantingNickname;
 	private String wantingTitle;
 	private String wantingContent;
 	private String wantingShopLocation;
@@ -23,4 +24,6 @@ public class Wanting {
 	private int wantingLevel;
 	private String wantingStatus;
 	private Date wantingCreateDate;
+	private int wantingCount;
+	private int wantingDaysCount;
 }

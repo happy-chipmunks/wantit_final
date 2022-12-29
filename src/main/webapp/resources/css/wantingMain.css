@@ -102,8 +102,8 @@ p {margin: 0;}
 
     line-height: 28px;
     letter-spacing: -.3px;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 400;
     font-style: normal;
     color: #212529;
 }
@@ -129,7 +129,7 @@ p {margin: 0;}
     width: 46px;
     height: 45px;
 }
-.funding-detail p {
+.funding-detail-title {
     margin: 12px 0;
     padding: 16px;
     border-bottom: 1px solid #c0c0c0;
@@ -175,7 +175,7 @@ p {margin: 0;}
 .goal-box p {
     color: #4a4a4a;
     font-size: 12px;
-    margin: 0;
+    margin-right: 10px;
 }
 .goal-box strong {
     font-size: 12px;
@@ -218,7 +218,9 @@ p {margin: 0;}
     background-color: #F2F2F2;
     transition-duration: .2s;
 }
-
+.btn-secondary {
+	margin-right: 10px;
+}
 
 
 /* ==================== 모달 - 펀딩버튼 ==================== */

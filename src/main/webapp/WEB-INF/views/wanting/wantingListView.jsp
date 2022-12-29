@@ -114,7 +114,7 @@
             <div class="col-1"></div>
             <div class="col-10">
                 <span class="cateTitleOrAll">진행중인 원팅</span>
-                <span class="fontOnly">if you wnat it you can get it</span>
+                <span class="fontOnly">if you want it you can get it</span>
                 <ul class="sortList">
                     <li class="sortType">최신순</li>
                     <li class="sortType">인기순</li>
@@ -132,14 +132,14 @@
             
             <c:forEach items="${ wantingList }" var="w">
                 <div class="col">
-                    <div class="card shadow-sm fundinglist" onclick="location.href='${ contextPath }/wantingMain.want'">
-						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><!-- <rect width="100%" height="100%" fill="#55595c"/> -->
+                    <div class="card shadow-sm fundinglist">
+						<svg class="" xmlns="http://www.w3.org/2000/svg" style="height: 0; width: 0;">
 							<c:forEach items="${ imageList }" var="i">
 								<c:if test="${ w.wantingNum == i.imageBoardId and i.imageLevel == 0}">
 									<img src="${ contextPath }/resources/wanting/${i.imageRename}"
-										class="card-img-top" alt="...">
+										class="bd-placeholder-img card-img-top" alt="..." >
 								</c:if>
-							</c:forEach>				
+							</c:forEach>	
 						</svg>
           
                       <div class="card-body">
@@ -148,14 +148,14 @@
                           </div>
                           <p class="card-text">${ w.wantingTitle }</p>
                           <div class="d-flex justify-content-between align-items-center">
-                            <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
+                            <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: ${ w.wantingCount }%;"></span></div>
                           </div>
                           
-                          
-                          <span class="remainCount">45명 / 100명</span>
-                          <span class="remainDate">15일 지났어요</span>
+                          <span class="remainCount">${ w.wantingCount }명 / 100명</span>
+                          <span class="remainDate">${ w.wantingDaysCount }일 지났어요</span>
                           <br>
                           <p class="wantingWriter">${ w.wantingWriter }</p>
+			              <input type="hidden" class="wantingNum" value="${ w.wantingNum }">
                       </div>
                     </div>
                  </div>
@@ -165,6 +165,21 @@
         </div>
     </div>
     </div>
+    
+    <script>
+    window.onload = () => {
+        const divs = document.getElementsByClassName('col');
+        for(const div of divs){
+           div.addEventListener('click',function(){
+        	  const input = this.querySelectorAll('input');
+              const wantingNum=input[0].value;
+        
+              location.href  = '${contextPath}/selectWanting.want?wantingNum='+ wantingNum;
+           });
+        }
+     }
+    
+    </script>
     
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
   	<script>
