@@ -8,17 +8,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Ads {
-	private int adsNum, fundingNum, adsPrice;
-	private String adsStatus, confirm;
-	private Date adsStart, adsEnd, adsCreateDate;
-	private String fundingTitle;
-	private String imageRename;
-	private int imageNum;
+public class Notice {
+	private int noticeNum;
+	private String admin, noticeTitle, noticeContent;
+	private Date noticeCreateDate, noticeModifyDate;
+	private int noticeCount;
+	private String noticeStatus, noticeDivision;
 }

@@ -36,6 +36,15 @@
 	border-bottom: 2px solid #adadad;
 	margin: 30px;
 	padding: 10px 10px;
+	
+}
+.textForm1 {
+	border-bottom: 2px solid #adadad;
+	margin: 30px;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 10px;
+	
 }
 
 .form-popup {
@@ -169,6 +178,9 @@
 .wiwidth {
 	width: 400px;
 }
+.image{
+	margin-left: 50px;
+}
 </style>
 
 
@@ -197,6 +209,11 @@
 							href="${ contextPath }/projectManage.ad"> <span
 								data-feather="file" class="align-text-bottom"></span> <br>
 							<br> 프로젝트 승인 / 거절
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${ contextPath }/fundingManage.ad"> <span
+								data-feather="file" class="align-text-bottom"></span> <br>
+							<br> 펀딩 신고 관리
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/reviewManage.ad"> <span
@@ -238,7 +255,7 @@
 						<tr>
 							<th scope="col">광고번호</th>
 							<th scope="col">펀딩번호</th>
-							<th scope="col">신청자</th>
+							<th scope="col">펀딩제목</th>
 							<th scope="col">날짜</th>
 							<th scope="col">처리상태</th>
 
@@ -247,13 +264,13 @@
 					<tbody class="table-group-divider">
 						<c:forEach var="m" items="${mList }" varStatus="r">
 						<tr>
-							<th scope="row">${ r.count }</th>
+							<th scope="row">${ m.adsNum }</th>
 							<td>${ m.fundingNum }</td>
 							<td>${ m.fundingTitle }</td>
 							<td>${ m.adsCreateDate }</td>
 							<td>
 								<c:if test="${ m.adsStatus == 'Y' }">
-									<button class="btn btn-primary answerBtn" type="button">미처리</button>
+									<button class="btn btn-primary answerBtn" type="button" value="${ r.index }">미처리</button>
 								</c:if>
 								<c:if test="${ m.adsStatus == 'N' }">
 									처리완료
@@ -266,36 +283,48 @@
 				</table>
 				
 				<c:forEach var="m" items="${ mList }" varStatus="r">
-				<div class="shadow p-3 mb-5 bg-body rounded myForm myForm${ r.index }">
-					<form action="${ contextPath }/adManage.ad " method="post" class="answerForm">
+					<div class="shadow p-3 mb-5 bg-body rounded myForm myForm${ r.index }">
+<%-- 						<form action="${contextPath }/adManage.ad" method="post"> --%>
 						<fieldset>
 							<h1>
 								<br>&nbsp;&nbsp;&nbsp;&nbsp;광고 처리
 							</h1>
 							<br>
 								<div class="textForm">
-									<textarea name="adsModal" class="adsModal" readonly>해당 펀딩 제목 : ${ m.fundingTitle }</textarea>
+									<textarea name="adsModal" class="adsModal" style="height: 50px;" readonly>펀딩 제목 : ${ m.fundingTitle }</textarea>
 								</div>
+							<br>
+								<c:forEach var="i" items="${ iList }">
+									<c:if test="${ m.adsNum == i.imageBoardId }">
+										<div class="textForm1">
+											광고 내용<br><br><br>
+												<img src="${ contextPath }/resources/wanting/${ i.imageRename }" width="1400px;" height="700px;">
+										</div>
+									</c:if>									
+								</c:forEach>
+							<br>
+								<div class="textForm">
+									<textarea name="adsModal" class="adsModal" style="height: 50px;" readonly>의뢰 금액 : ${ m.adsPrice }</textarea>
+								</div>
+							
 							<br>
 							
 								<div class="textForm">
-									<textarea name="adsModal" class="adsModal" readonly>의뢰 금액 : ${ m.adsPrice }</textarea>
+									<textarea name="adsModal" class="adsModal" style="height: 50px;" readonly>광고 의뢰 기간 : ${ m.adsStart } ~ ${ m.adsEnd }</textarea>
 								</div>
 							
 							<br>
+							<button type="submit"
+								class="btn cancel btn-primary btn-lg right modbtn cancelBtn" value="${ r.index }">거절</button>
+							<button type="submit" class="btn btn-primary btn-lg right modbtn acceptBtn" value="${ r.index }">승인</button>
+							<input type="hidden" name="cancelDivision" class="cancelDivision"  >
+							<input type="hidden" name="acceptDivision" class="acceptDivision"  >
 							
-								<div class="textForm">
-									<textarea name="adsModal" class="adsModal" readonly>광고 의뢰 기간 : ${ m.adsStart } ~ ${ m.adsEnd }</textarea>
-								</div>
-							
-							<br>
-							<button type="button"
-								class="btn cancel btn-primary btn-lg right modbtn">거절</button>
-							<button type="button" class="btn btn-primary btn-lg right modbtn">승인</button>
 						</fieldset>
 					</form>
 				</div>
-				</c:forEach>
+				</c:forEach>				
+				
 				
 				<nav aria-label="Standard pagination example" style="float: right;">
 					<ul class="pagination">
@@ -321,31 +350,31 @@
 			</main>
 		</div>
 	</div>
-
+	
 
 	<script>
 		$(document).ready(function() {
-			$('#myForm').hide();
+			$('.myForm').hide();
 		});
-
+	
 		$('.answerBtn').click(function() {
 			const num = $(this).val();
 			$('.myForm' + num).show();
 		});
-
+	
 		$('label').css('display', 'inline-block');
-
-		$('button').click(function() {
-			$('#myForm').css('display', 'block');
-		});
-
+	
 		$('.cancel').click(function() {
-			const num = $(this).val();
+			$(this).siblings()[10].value;
+			$(this).siblings('.acceptDivision').val($(this).siblings()[10].value);
+			console.log($(this).siblings()[10].value);
 			$('.myForm' + num).hide();
 		});
+		
+		
 	</script>
 
-
+	
 
 
 </body>

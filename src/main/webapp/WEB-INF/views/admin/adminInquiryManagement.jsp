@@ -15,13 +15,7 @@
 <meta name="generator" content="Hugo 0.104.2">
 <title>Dashboard Template · Bootstrap v5.2</title>
 <link rel="stylesheet" href="resources/css/main.css">
-<link rel="canonical"
-	href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-	crossorigin="anonymous">
+
 
 
 
@@ -189,10 +183,7 @@
 <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body id="body">
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-		crossorigin="anonymous"></script>
+	
 	<header>
 		<jsp:include page="../common/navbar.jsp"></jsp:include>
 	</header>
@@ -211,6 +202,11 @@
 							href="${ contextPath }/projectManage.ad"> <span
 								data-feather="file" class="align-text-bottom"></span> <br>
 								<br> 프로젝트 승인 / 거절
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${ contextPath }/fundingManage.ad"> <span
+								data-feather="file" class="align-text-bottom"></span> <br>
+							<br> 펀딩 신고 관리
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/reviewManage.ad"> <span
@@ -266,12 +262,12 @@
 								<td>${ m.inquiryTitle }</td>
 								<td>${ m.writer }</td>
 								<td>
-									<c:if test="${ m.inquiryStatus =='N' }">
+<%-- 									<c:if test="${ m.inquiryStatus =='N' }"> --%>
 										<button class="btn btn-primary answerBtn" type="button" value="${ r.index }">답변하기</button>
-									</c:if>
-									<c:if test="${ m.inquiryStatus =='Y' }">
-										답변완료
-									</c:if>
+<%-- 									</c:if> --%>
+<%-- 									<c:if test="${ m.inquiryStatus =='Y' }"> --%>
+<!-- 										답변완료 -->
+<%-- 									</c:if> --%>
 								</td>
 								
 							</tr>
@@ -340,35 +336,30 @@
 		});
 
 		$('.answerBtn').click(function() {
-			const num = $(this).val()
-			$('.myForm').show();
+			const num = $(this).val();
+			console.log(num);
+			$('.myForm' + num).show();
 		});
 
 		$('label').css('display', 'inline-block');
 
 		$('.cancel').click(function() {
 			const num = $(this).val();
+
 			$('.myForm' + num).hide();
 		});
 		
 		$('.reply').click(function(){
 			$(this).siblings('.hiddenReply').val($(this).siblings()[3].querySelector('textarea').value);
-			console.log($(this).siblings()[7].value);
 			$(this).siblings('.code').val($(this).siblings()[7].value);
+			console.log($(this).siblings()[7].value);
 			$(this).parent().parent('.answerForm').submit();
 		});
 	</script>
 
 
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dzist/feather.min.js"
-		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-		crossorigin="anonymous"></script>
+	
 	<script src="dashboard.js"></script>
 </body>
 </html>
