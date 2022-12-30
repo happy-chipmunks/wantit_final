@@ -27,5 +27,6 @@ public class Funding {
 	private char confirm;
 	private Date createDate;
 	private Date modifyDate;
-	private char FundingStatus;
+	private String FundingStatus;
+	private String creatorNickname;
 }

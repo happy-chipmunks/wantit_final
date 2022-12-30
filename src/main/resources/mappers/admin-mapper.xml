@@ -1,89 +1,271 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="adminMapper">
-		
-	
+
+
 	<select id="selectAllMember" resultMap="memberResultSet">
 		select *
 		from member
-		order by member_enroll_date desc
+		order
+		by member_enroll_date desc
 	</select>
-	
+
 	<select id="getListCount" resultType="_int">
 		select count(*)
 		from member
 	</select>
 	
+	<select id="getListCountA" resultType="_int">
+		select count(*)
+		from ads
+	</select>
+	
+	<select id="getListCountRR" resultType="_int">
+		select count(*)
+		from review_report
+	</select>
+	
+	<select id="getListCountRF" resultType="_int">
+		select count(*)
+		from funding_report
+	</select>
+	
+	<select id="getListCountI" resultType="_int">
+		select count(*)
+		from admin_inquiry
+	</select>
+	
+	<select id="getListCountN" resultType="_int">
+		select count(*)
+		from notice
+	</select>
+	
 	<update id="deleteMember">
 		update member
 		set member_status='N'
-		where member_id=#{id}
+		where
+		member_id=#{id}
+	</update>
+	
+	<update id="deleteNotice">
+		update notice
+		set notice_status='N'
+		where
+		notice_title=#{id}
 	</update>
 	
 	<select id="selectAllInquiry" resultMap="inquiryResultSet">
 		select *
-		from admin_inquiry
+		from
+		admin_inquiry
 		order by create_date desc
 	</select>
-	
+
 	<update id="answerContent">
 		update admin_inquiry
-		set answer_content = #{reply}, inquiry_status = 'Y'
+		set answer_content = #{reply},
+		inquiry_status = 'Y'
 		where inquiry_code = #{code}
+	</update>
+	
+	<update id="answerContentN">
+			update notice
+			set notice_content = #{reply}, notice_title = #{title}
+			where notice_num = #{code}
 	</update>
 	
 	<select id="selectAllAds" resultMap="adsResultSet">
 		select *
 		from ads
-			 join funding using (funding_num)
-			 join
-		order by ads_num desc
+		join funding
+		using (funding_num)
 	</select>
 
+	<select id="selectAllImage" resultMap="imageResultSet">
+		select *
+		from image
+		where
+		image_board_cate = 8 and image_status = 'Y'
+	</select>
+
+	<!-- <select id="selectAllNotice" resultMap="noticeResultSet"> -->
+	<!-- select * -->
+	<!-- from notice -->
+	<!-- where -->
+	<!-- notice_division = 'N' -->
+	<!-- order by notice_num desc -->
+	<!-- </select> -->
+
+	<!-- <select id="selectAllEvent" resultMap="noticeResultSet"> -->
+	<!-- select * -->
+	<!-- from notice -->
+	<!-- where -->
+	<!-- notice_division = 'E' -->
+	<!-- order by notice_num desc -->
+	<!-- </select> -->
+
+	<select id="selectAllwrite" resultMap="noticeResultSet">
+		select *
+		from notice
+		order by notice_num desc
+	</select>
+	<!-- <update id="getAccept"> -->
+	<!-- update ads -->
+	<!-- set confirm = 'Y' -->
+	<!-- where ads_num = #{acceptDivision} -->
+	<!-- </update> -->
+
+	<insert id="selectNewWrite">
+		insert into notice
+		values(seq_notice.nextval, default, #{noticeTitle}, #{noticeContent}, sysdate, sysdate, default, default, #{noticeDivision} )
+	</insert>
 	
+	<select id="selectReviewReport" resultMap="reviewReportResultSet">
+		select *
+		from review_report
+			join review using(review_num)
+		order by report_num desc
+	</select>
 	
+	<select id="selectFundingReport" resultMap="fundingReportResultSet">
+		select *
+		from funding_report
+			join funding using(funding_num)
+		order by report_num desc
+	</select>
 	
+	<update id="deleteReview">
+		update review
+		set review_status='N'
+		where
+		review_num=#{id}
+	</update>
+	
+	<update id="deleteFunding">
+		update funding
+		set funding_status='N'
+		where
+		funding_num=#{id}
+	</update>
 	
 	
 	
 	
 	<resultMap type="Member" id="memberResultSet">
-		<id column="MEMBER_ID" property="memberId"/>
-		<result column="MEMBER_PWD" property="memberPwd"/>
-		<result column="MEMBER_NAME" property="memberName"/>
-		<result column="MEMBER_NICKNAME" property="memberNickname"/>
-		<result column="MEMBER_PHONE" property="memberPhone"/>
-		<result column="MEMBER_ADDRESS" property="memberAddress"/>
-		<result column="MEMBER_EMAIL" property="memberEmail"/>
-		<result column="MEMBER_ENROLL_DATE" property="memberEnrolldate"/>
-		<result column="MEMBER_GENDER" property="memberGender"/>
-		<result column="MEMBER_TYPE" property="memberType"/>
-		<result column="MEMBER_INTRODUCE" property="memberIntroduce"/>
-		<result column="MEMBER_CATE" property="memberCate"/>
-		<result column="MEMBER_STATUS" property="memberStatus"/>
+		<id column="MEMBER_ID" property="memberId" />
+		<result column="MEMBER_PWD" property="memberPwd" />
+		<result column="MEMBER_NAME" property="memberName" />
+		<result column="MEMBER_NICKNAME" property="memberNickname" />
+		<result column="MEMBER_PHONE" property="memberPhone" />
+		<result column="MEMBER_ADDRESS" property="memberAddress" />
+		<result column="MEMBER_EMAIL" property="memberEmail" />
+		<result column="MEMBER_ENROLL_DATE" property="memberEnrolldate" />
+		<result column="MEMBER_GENDER" property="memberGender" />
+		<result column="MEMBER_TYPE" property="memberType" />
+		<result column="MEMBER_INTRODUCE" property="memberIntroduce" />
+		<result column="MEMBER_CATE" property="memberCate" />
+		<result column="MEMBER_STATUS" property="memberStatus" />
 	</resultMap>
-	 
+
 	<resultMap type="AdminInquiry" id="inquiryResultSet">
-		<id column="INQUIRY_CODE" property="inquiryCode"/>
-		<result column="WRITER" property="writer"/>
-		<result column="INQUIRY_CATE" property="inquiryCate"/>
-		<result column="INQUIRY_TITLE" property="inquiryTitle"/>
-		<result column="INQUIRY_CONTENT" property="inquiryContent"/>
-		<result column="CREATE_DATE" property="createDate"/>
-		<result column="INQUIRY_STATUS" property="inquiryStatus"/>
-		<result column="ANSWER_CONTENT" property="answerContent"/>
-		<result column="ANSWER_DATE" property="answerDate"/>
+		<id column="INQUIRY_CODE" property="inquiryCode" />
+		<result column="WRITER" property="writer" />
+		<result column="INQUIRY_CATE" property="inquiryCate" />
+		<result column="INQUIRY_TITLE" property="inquiryTitle" />
+		<result column="INQUIRY_CONTENT" property="inquiryContent" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="INQUIRY_STATUS" property="inquiryStatus" />
+		<result column="ANSWER_CONTENT" property="answerContent" />
+		<result column="ANSWER_DATE" property="answerDate" />
+	</resultMap>
+
+	<resultMap type="Ads" id="adsResultSet">
+		<id column="ADS_NUM" property="adsNum" />
+		<result column="FUNDING_NUM" property="fundingNum" />
+		<result column="ADS_PRICE" property="adsPrice" />
+		<result column="ADS_STATUS" property="adsStatus" />
+		<result column="CONFIRM" property="confirm" />
+		<result column="ADS_START" property="adsStart" />
+		<result column="ADS_END" property="adsEnd" />
+		<result column="ADS_CREATE_DATE" property="adsCreateDate" />
+		<result column="FUNDING_TITLE" property="fundingTitle" />
+		<result column="FUNDING_TITLE" property="fundingTitle" />
+	</resultMap>
+
+	<resultMap type="Image" id="imageResultSet">
+		<id column="IMAGE_NUM" property="imageNum" />
+		<result column="IMAGE_FORM" property="imageForm" />
+		<result column="ORIGIN_NAME" property="originName" />
+		<result column="IMAGE_RENAME" property="imageRename" />
+		<result column="IMAGE_SRC" property="imageSrc" />
+		<result column="UPLOAD_DATE" property="uploadDate" />
+		<result column="IMAGE_STATUS" property="imageStatus" />
+		<result column="IMAGE_LEVEL" property="imageLevel" />
+		<result column="IMAGE_BOARD_CATE" property="imageBoardCate" />
+		<result column="IMAGE_BOARD_ID" property="imageBoardId" />
+	</resultMap>
+
+	<resultMap type="Notice" id="noticeResultSet">
+		<id column="NOTICE_NUM" property="noticeNum" />
+		<result column="ADMIN" property="admin" />
+		<result column="NOTICE_TITLE" property="noticeTitle" />
+		<result column="NOTICE_CONTENT" property="noticeContent" />
+		<result column="NOTICE_CREATE_DATE" property="noticeCreateDate" />
+		<result column="NOTICE_MODIFY_DATE" property="noticeModifyDate" />
+		<result column="NOTICE_COUNT" property="noticeCount" />
+		<result column="NOTICE_STATUS" property="noticeStatus" />
+		<result column="NOTICE_DIVISION" property="noticeDivision" />
 	</resultMap>
 	
-	<resultMap type="Ads" id="adsResultSet">
-		<id column="ADS_NUM" property="adsNum"/>
-		<result column="FUNDING_NUM" property="fundingNum"/>
-		<result column="ADS_PRICE" property="adsPrice"/>
-		<result column="ADS_STATUS" property="adsStatus"/>
-		<result column="CONFIRM" property="confirm"/>
-		<result column="ADS_START" property="adsStart"/>
-		<result column="ADS_END" property="adsEnd"/>
-		<result column="ADS_CREATE_DATE" property="adsCreateDate"/>
-		<result column="FUNDING_TITLE" property="fundingTitle"/>		
+	<resultMap type="ReviewReport" id="reviewReportResultSet">
+		<id column="REPORT_NUM" property="reportNum" />
+		<result column="REVIEW_NUM" property="reviewNum" />
+		<result column="REPORTER" property="reporter" />
+		<result column="REPORT_CATE" property="reportCate" />
+		<result column="REPORT_DATE" property="reportDate" />
+		<result column="REPORT_CONTENT" property="reportContent" />
+		<result column="REPORT_STATUS" property="reportStatus" />
+		<result column="REPORT_DIVISION" property="reportDivision" />
+		<association property="review" javaType="Review" resultMap="reviewResultSet"></association>
 	</resultMap>
+	
+	<resultMap type="Review" id="reviewResultSet">
+		<id column="REVIEW_NUM" property="reviewNum" />
+		<result column="REVIEWER" property="reviewer" />
+		<result column="FUNDING_NUM" property="fundingNum" />
+		<result column="REVIEW_CONTENT" property="reviewContent" />
+		<result column="REVIEW_STATUS" property="reviewStatus" />
+	</resultMap>
+	
+	<resultMap type="FundingReport" id="fundingReportResultSet">
+		<id column="REPORT_NUM" property="reportNum" />
+		<result column="FUNDING_NUM" property="fundingNum" />
+		<result column="MEMBER_ID" property="memberId" />
+		<result column="REPORT_DATE" property="reportDate" />
+		<result column="REPORT_CATE" property="reportCate" />
+		<result column="REPORT_CONTENT" property="reportContent" />
+		<result column="REPORT_STATUS" property="reportStatus" />
+		<result column="REPORT_DIVISION" property="reportDivision" />
+		<association property="funding" javaType="Funding" resultMap="fundingResultSet"></association>
+	</resultMap>
+	
+	<resultMap type="Funding" id="fundingResultSet">
+      <id column="funding_num" property="fundingNum"/>
+      <result column="creator_num" property="creatorNum"/>
+      <result column="funding_cate" property="fundingCate"/>
+      <result column="funding_title" property="fundingTitle"/>
+      <result column="funding_content" property="fundingContent"/>
+      <result column="funding_count" property="fundingCount"/>
+      <result column="funding_start" property="fundingStart"/>
+      <result column="funding_end" property="fundingEnd"/>
+      <result column="current_money" property="currentMoney"/>
+      <result column="target_money" property="targetMoney"/>
+      <result column="confirm" property="confirm"/>
+      <result column="create_date" property="createDate"/>
+      <result column="modify_date" property="modifyDate"/>
+      <result column="funding_status" property="fundingStatus"/>
+      <result column="creator_name" property="creatorNickname"/>
+   </resultMap>
+	
+		
 </mapper>

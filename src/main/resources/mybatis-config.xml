@@ -5,7 +5,13 @@
 		<typeAlias type="com.kh.wantit.wanting.model.vo.Wanting" alias="Wanting"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.AdminInquiry" alias="AdminInquiry"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.Ads" alias="Ads"/>
+		<typeAlias type="com.kh.wantit.admin.model.vo.Notice" alias="Notice"/>
+		<typeAlias type="com.kh.wantit.common.model.vo.Image" alias="Image"/>
+		<typeAlias type="com.kh.wantit.admin.model.vo.ReviewReport" alias="ReviewReport"/>
+		<typeAlias type="com.kh.wantit.admin.model.vo.FundingReport" alias="FundingReport"/>
 		<typeAlias type="com.kh.wantit.member.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.wantit.funding.model.vo.Review" alias="Review"/>
+		<typeAlias type="com.kh.wantit.funding.model.vo.Funding" alias="Funding"/>
 		
 	</typeAliases>
 	

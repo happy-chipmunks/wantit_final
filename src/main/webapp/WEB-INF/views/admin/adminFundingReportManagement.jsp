@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!Doctype html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,6 +40,34 @@
 #body {
 	font-family: 'NanumSquareNeo-Variable';
 }
+.right {
+	
+	margin-right: 400px;
+	margin-left: 200px;
+	line-height: 50px;
+	text-align: center;
+	border-radius: 20px;
+	width: 150px;
+}
+
+.replyContent {
+	background-color: white;
+	width: 100%;
+	height: 100px;
+	border: none;
+	outline: none;
+	color: #636e72;
+	font-size: 16px;
+}
+.replyContentNope {
+	background-color: white;
+	width: 100%;
+	height: 100px;
+	border: none;
+	outline: none;
+	color: #636e72;
+	font-size: 16px;
+}
 
 .textForm {
 	border-bottom: 2px solid #adadad;
@@ -57,6 +87,7 @@
 }
 
 .form-floating {
+	width: 500px;
 	margin-left: 30px;
 }
 
@@ -152,12 +183,16 @@
 
 .right {
 	float: right;
-	margin-right: 400px;
-	margin-left: 100px;
+	margin-right: 30px;
+	margin-left: 30px;
 	line-height: 50px;
 	text-align: center;
 	border-radius: 20px;
-	width: 150px;
+	width: 130px;
+}
+
+.cancel {
+	margin-right: 100px;
 }
 
 .table {
@@ -175,28 +210,6 @@
 
 .wiwidth {
 	width: 400px;
-}
-
-.image-box {
-	width: 400px;
-	height: 250px;
-	overflow: hidden;
-	margin: 0 auto;
-	float: left;
-	margin-left: 25px;
-}
-
-.image-thumbnail {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-.content {
-	float: right;
-	width: 700px;
-	height: 250px;
-	margin-right: 200px;
 }
 </style>
 
@@ -258,128 +271,152 @@
 							<br> 회원 관리
 						</a></li>
 					</ul>
+
 				</div>
 			</nav>
 
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">프로젝트 관리</h1>
-
+					<h1 class="h2">신고관리</h1>
 				</div>
+
 				<table class="table" style="height: auto;">
 					<thead>
 						<tr>
+						
 							<th scope="col">번호</th>
-							<th scope="col">아이디</th>
-							<th scope="col">프로젝트 명</th>
-							<th scope="col">구분</th>
-							<th scope="col">상태</th>
-							<th scope="col">결과</th>
+							<th scope="col">신고리뷰번호</th>
+							<th scope="col">신고카테고리</th>
+							<th scope="col">신고자</th>
+							<th scope="col">신고접수일</th>
+							<th scope="col">게시글 이동</th>
+							<th scope="col">처리</th>
+							
 						</tr>
 					</thead>
 					<tbody class="table-group-divider">
-						<tr>
-							<th scope="row">&nbsp;1</th>
-							<td>user01</td>
-							<td>벽돌해피푸드 마라샹궈</td>
-							<td>원팅</td>
-							<td>승인대기</td>
-							<td><button class="btn btn-primary" type="button">미처리</button></td>
-
-						</tr>
-						<tr>
-							<th scope="row">&nbsp;2</th>
-							<td>user01</td>
-							<td>벽돌해피푸드 마라샹궈</td>
-							<td>프로젝트</td>
-							<td>완료</td>
-							<td>처리완료</td>
-
-						</tr>
-						<tr>
-							<th scope="row">&nbsp;3</th>
-							<td>user01</td>
-							<td>벽돌해피푸드 마라샹궈</td>
-							<td>원팅</td>
-							<td>승인대기</td>
-							<td>처리완료</td>
-
-						</tr>
-						<tr>
-							<th scope="row">&nbsp;4</th>
-							<td>user01</td>
-							<td>벽돌해피푸드 마라샹궈</td>
-							<td>원팅</td>
-							<td>승인대기</td>
-							<td><button class="btn btn-primary" type="button">미처리</button></td>
-
-						</tr>
-						<tr>
-							<th scope="row">&nbsp;5</th>
-							<td>user01</td>
-							<td>벽돌해피푸드 마라샹궈</td>
-							<td>원팅</td>
-							<td>승인대기</td>
-							<td>처리완료</td>
-
-						</tr>
+					<c:forEach var="f" items="${fList }" varStatus="m">
+					
+						<c:if test="${ f.reportDivision == 'F' }">
+						
+							<tr>
+								<th scope="row">${m.count }</th>
+								<td>${ f.fundingNum }</td>
+								<td>${ f.reportCate }</td>
+								<td>${ f.memberId }</td>
+								<td>${ f.reportDate }</td>
+								<td><a href="${ contextPath }/memberManage.ad" style="color: black; text-decoration-line: none;" class="aa">${ f.reportContent }</a></td>
+								<td>
+									<c:if test="${ f.funding.fundingStatus == 'Y' }">
+										<div class="btn-group">
+											<button type="button"
+												class="btn btn-sm btn-outline-danger dropdown-toggle"
+												data-bs-toggle="dropdown" aria-expanded="false">
+												게시글 상태</button>
+											<ul class="dropdown-menu">
+												<li>
+													<a class="dropdown-item deleteReviewButton"
+														data-bs-toggle="modal" data-bs-target="#deleteMemberModal">
+															게시글 삭제
+														<span style="display: none">${ f.fundingNum }</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</c:if> 
+									<c:if test="${ f.funding.fundingStatus == 'N' }">
+										<button type="button"
+											class="btn btn-sm btn-outline-secondary dropdown-toggle"
+											data-bs-toggle="dropdown" aria-expanded="false" disabled>
+											삭제된 글</button>
+									</c:if>
+								</td>
+								
+							</tr>
+						</c:if>
+					</c:forEach>
 					</tbody>
 				</table>
-				<div class="shadow p-3 mb-5 bg-body rounded" id="myForm">
-					<form action="result.html" method="post">
-						<fieldset>
-							<h1>
-								<br>&nbsp;&nbsp;&nbsp;&nbsp;프로젝트 명
-							</h1>
-							<br>
-							<div class="image-box">
-								<img class="image-thumbnail">
+				
+				<div id="deleteMemberModal" class="modal fade" tabindex="-1">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">게시글 삭제</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
 							</div>
-							<br>
-							<div class="content">
-								내용 들어갈 제목<br>
-								블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라
+							<div class="modal-body">
+								<p>정말 게시글을 삭제시키시겠습니까?</p>
 							</div>
-
-							<br>
-
-							<div class="input-group mb-3">
-
-								<div class="form-floating">
-									<textarea type="text" class="form-control" id="nameInput"
-										style="height: 100px;"></textarea>
-									<label>프로젝트 미승인 사유.. </label>
-								</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-sm btn-outline-secondary"
+									data-bs-dismiss="modal">삭제취소</button>
+								<form action="${contextPath }/deleteFunding.ad" method="post">
+									<input type="hidden" name="id">
+									<button id="modalDeleteReviewButton" type="button"
+										class="btn btn-sm btn-outline-danger">게시글삭제</button>
+								</form>
 							</div>
-							<br>
-							<button type="button" class="btn btn-primary btn-lg right modbtn">미승인</button>
-							<button type="button" class="btn btn-primary btn-lg right modbtn">승인</button>
-						</fieldset>
-					</form>
+						</div>
+					</div>
 				</div>
+				
+				<nav aria-label="Standard pagination example" style="float: right;">
+					<ul class="pagination">
+						<li class="page-item">
+							<c:url var="goBack" value="${ loc }">
+								<c:param name="page" value="${ piF.currentPage-1 }"></c:param>
+							</c:url> 
+							<a class="page-link" href="${ goBack }" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						<c:forEach begin="${ piF.startPage }" end="${ piF.endPage }" var="p">
+							<c:url var="goNum" value="${ loc }">
+								<c:param name="page" value="${ p }"></c:param>
+							</c:url>
+							<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
+						</c:forEach>
+						<li class="page-item"><c:url var="goNext" value="${ loc }">
+								<c:param name="page" value="${ piF.currentPage+1 }"></c:param>
+							</c:url> 
+							
+							<a class="page-link" href="${ goNext }" aria-label="Next"> 
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+				
 			</main>
 		</div>
 	</div>
 
 
+
 	<script>
-		$(document).ready(function() {
-			$('#myForm').hide();
-		});
-
-		$('.btn').click(function() {
-			$('#myForm').show();
-		});
-
-		$('label').css('display', 'inline-block');
-
-		$('button').click(function() {
-			$('#myForm').css('display', 'block');
-		});
-
-		$('.cancel').click(function() {
-			$('#myForm').hide();
+		const trs = $(".review");
+		for(const tr of trs) {
+			// 회원 상세정보 조회
+			tr.addEventListener("click", function(){
+					console.log($(this).find());
+			});
+		}
+		//회원 탈퇴 정보 넘기기
+		const btns = $(".deleteReviewButton");
+		for(const btn of btns) {
+			btn.addEventListener("click", function(){
+				const id = $(this).find("span").text();
+				$("input[name=id]").val(id);
+				console.log($("input[name=id]").val(id));
+			});
+		}
+		
+		// 회원 탈퇴
+		$("#modalDeleteReviewButton").on("click", function(){
+			$("form").submit();
 		});
 	</script>
 
