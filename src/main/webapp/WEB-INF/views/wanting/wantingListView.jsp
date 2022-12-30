@@ -10,62 +10,61 @@
 <link rel="stylesheet" href="resources/css/wantingListView.css">
 </head>
 <body>
-     <!-- ======= Specials Section ======= -->
-     <section id="specials" class="specials" style="background-color: dimgray;">
-        <div class="container" data-aos="fade-up">
-  
-          <div class="section-title">
-            <h2 class="secTitle">원팅성공 - 이제 펀딩으로 만나보세요</h2>
-            <br><br>
-            
-          </div>
-  
-          <div class="row" data-aos="fade-up" data-aos-delay="100">
-            <div class="col-lg-3">
-              <ul class="nav nav-tabs flex-column wantSuccessList">
-				<c:forEach begin="0" end="3" var="i">
-                <li class="nav-item">
-                  <a class="nav-link active show wantNavLink" data-bs-toggle="tab" href="#tab-1">${ wantingList[i].wantingTitle }</a>
-                </li>
-<!--                 <li class="nav-item"> -->
-<!--                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-2">[택배]을지로 노포 할머니 손만두</a> -->
-<!--                 </li> -->
-<!--                 <li class="nav-item"> -->
-<!--                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-3">[밀키트] 성수 샤퀴테리 미니보드</a> -->
-<!--                 </li> -->
-<!--                 <li class="nav-item"> -->
-<!--                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-4">[택배]을지로 노포 할머니 손만두</a> -->
-<!--                 </li> -->
-<!--                 <li class="nav-item"> -->
-<!--                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-5">[밀키트] 을지로 정원 순두부</a> -->
-<!--                 </li> -->
-                </c:forEach>
-              </ul>
-            </div>
-            <div class="col-lg-9 mt-4 mt-lg-0">
-              <div class="tab-content">
-              
-               <c:forEach begin="0" end="0" var="i">
-                <div class="tab-pane active show" id="tab-1">
-                  <div class="row">
-                    <div class="col-lg-8 details order-2 order-lg-1">
-                      <h3 class="tabTitle">Architecto ut aperiam autem id</h3>
-                      <p class="tabContent">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                      <p>${ i } 숫자숫자숫자숫자 영어도 아니어서 마음에 들지 않아요</p>
-                    </div>
-                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                      <img src="assets/img/specials-1.png" alt="" class="img-fluid">
-                    </div>
-                  </div>
-                </div>
-                </c:forEach>
-                
-              </div>
-            </div>
-          </div>
-  
-        </div>
-      </section><!-- End Specials Section -->
+        
+ <!-- ======= Specials Section ======= -->
+      <section id="specials" class="specials" style="background-color: #1E1E1E;">
+         <div class="container" data-aos="fade-up">
+	 		<div class="section-title">
+	          <h2>원팅성공</h2>
+	          <p>이제 펀딩으로 만나보세요</p>
+			</div>           
+
+           <div class="row" data-aos="fade-up" data-aos-delay="100">
+             <div class="col-lg-3">
+               <ul class="nav nav-tabs flex-column wantSuccessList">
+                 <li class="nav-item want-nav">
+                   <a class="nav-link active show wantNavLink" data-bs-toggle="tab" href="#tab-1">${ wantingList[0].wantingTitle }</a>
+                 </li>
+                 <li class="nav-item want-nav">
+                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-2">${ wantingList[1].wantingTitle }</a>
+                 </li>
+                 <li class="nav-item want-nav">
+                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-3">${ wantingList[2].wantingTitle }</a>
+                 </li>
+                 <li class="nav-item want-nav">
+                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-4">${ wantingList[3].wantingTitle }</a>
+                 </li>
+                 <li class="nav-item want-nav">
+                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-5">${ wantingList[4].wantingTitle }</a>
+                 </li>
+               </ul>
+             </div>
+             <div class="col-lg-9 mt-4 mt-lg-0">
+               <div class="tab-content">
+				<c:forEach begin="0" end="4" var="i">
+                 <div class="tab-pane <c:if test="${ i == 0 }">active show</c:if>" id="tab-${ i + 1 }">
+                   <div class="row">
+                     <div class="col-lg-8 details order-2 order-lg-1">
+                       <h3 class="tabTitle"> ${ wantingList[i].wantingTitle } </h3>
+                       <p class="tabContent">${ wantingList[i].wantingContent }</p>
+                     </div>
+                     <div class="col-lg-4 text-center order-1 order-lg-2">
+                       <c:forEach items="${ imageList }" var="image">
+							<c:if test="${ wantingList[i].wantingNum == image.imageBoardId and image.imageLevel == 0}">
+								<img src="${ contextPath }/resources/wanting/${image.imageRename}"
+									class="img-fluid" alt="..." >
+							</c:if>
+					   </c:forEach>	
+                     </div>
+                   </div>
+                 </div>
+				</c:forEach>
+               </div>
+             </div>
+           </div>
+
+         </div>
+       </section><!-- End Specials Section -->
     <div class="container">
       <br><br>
         <div class="row">
@@ -95,7 +94,7 @@
 							<c:forEach items="${ imageList }" var="i">
 								<c:if test="${ w.wantingNum == i.imageBoardId and i.imageLevel == 0}">
 									<img src="${ contextPath }/resources/wanting/${i.imageRename}"
-										class="bd-placeholder-img card-img-top" alt="..." >
+										class="bd-placeholder-img card-img-top" alt="..." style="height: 280px; width: 100%; object-fit: cover;">
 								</c:if>
 							</c:forEach>	
 						</svg>

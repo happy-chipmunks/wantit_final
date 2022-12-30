@@ -26,10 +26,9 @@
 </div>
 <div class="container-fluid text-center funding-category">
   <div class="row">
-    <div class="col-2 offset-2"><a class="tab-link" href="#">정보 </a></div>
-    <div class="col-2"><a class="tab-link" href="#" style="font-weight: 1000px; color:black;" onclick="location.href='${ contextPath }/wantingNotice.want'">새소식 </a></div>
-    <div class="col-2"><a class="tab-link" href="#">리뷰 </a></div>
-    <div class="col-2"><a class="tab-link" href="#">서포터 <span class="count-total">${ wanting.wantingCount }</span></a></div>
+    <div class="col-2 offset-3"><a class="tab-link" href="#">원팅 스토리</a></div>
+    <div class="col-2"><a class="tab-link" href="#">가게 정보</a></div>
+    <div class="col-2"><a class="tab-link" href="#">참여자 <span class="count-total">${ wanting.wantingCount }</span></a></div>
   </div>
 </div>
 
@@ -60,9 +59,11 @@
 
         <!-- 상품 상세설명 -->
         <div class="funding-detail">
+          <p class="funding-detail-title"><strong>가게 정보</strong></p>
+          ${ wanting.wantingShopLocation }
+          <div id="map" style="width:100%; height:400px;"></div>
           <p class="funding-detail-title"><strong>원팅 이야기</strong></p>
-          ${ wanting.wantingContent } 여기는 서머노트 자리.
-          <img src="${ contextPath }/resources/wanting/${thumbnail.imageRename}">
+          ${ wanting.wantingContent }
         </div>
      </div>
      </div>
@@ -98,7 +99,7 @@
 <%-- 		<input type="hidden" class="memberId" value="${ loginUser.memberId }"> --%>
 	  <input type="hidden" id="wantingNum" value="${ wanting.wantingNum }">
 	  <c:if test="${ empty loginUser }">
-	  	<button id="need-login-btn" class="btn-funding" data-bs-toggle="modal" data-bs-target="#login-modal">원팅 참여하기</button>
+	  	<button id="wanting-send-btn" class="btn-funding" data-bs-toggle="modal" data-bs-target="#login-modal">원팅 참여하기</button>
       </c:if>
 	  <c:if test="${ !empty loginUser }">
 	  	<c:if test="${ wantingYN }">
@@ -138,12 +139,12 @@
 	              <img class="thumbnail" src="${ contextPath }/resources/wanting/${thumbnail.imageRename}"/>
 	            </div>
 	            <div class="col-md-7">
-	              <div class="modal-funding-right">
+	              <div class="modal-wanting-right">
 	                <h5>원팅이 완료되었습니다 !</h5>
-	                <p class="modal-funding-title">[서울시 용답동] 나정순 할매 쭈꾸미 택배 전국 배송</p>
-	                <p class="modal-funding-store">업체이름(가게이름)</p>
-	                <div class="modal-funding-status">
-	                  현재 <span class="modal-funding-goal">100</span>명 중 <span class="modal-funding-amount">${ wanting.wantingCount }</span>명이 모였어요.
+	                <p class="modal-wanting-title">[서울시 용답동] 나정순 할매 쭈꾸미 택배 전국 배송</p>
+	                <p class="modal-wanting-store">업체이름(가게이름)</p>
+	                <div class="modal-wanting-status">
+	                  현재 <span class="modal-wanting-goal">100</span>명 중 <span class="modal-wanting-count">${ wanting.wantingCount }</span>명이 모였어요.
 	                  원팅 달성 시 알림이 갑니다.
 	                </div>
 	              </div>
@@ -151,17 +152,17 @@
 	          </div>
 	        </div>
 	      </div>
-	      <div class="modal-footer modal-funding-footer">
+	      <div class="modal-footer modal-wanting-footer">
 	        <div class="container">
 	          <div class="row g-2">
 	            <div class="col-sm-4">
-	              <button type="button" class="modal-funding-btn">다른 원팅 둘러보기</button>
+	              <button type="button" class="modal-wanting-btn">다른 원팅 둘러보기</button>
 	            </div>
 	            <div class="col-sm-4">
-	              <button type="button" class="modal-funding-btn">내 원팅 목록보기</button>
+	              <button type="button" class="modal-wanting-btn">내 원팅 목록보기</button>
 	            </div>
 	            <div class="col-sm-4">
-	              <button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button>
+	              <button type="button" class="modal-wanting-btn" data-bs-dismiss="modal">닫기</button>
 	            </div>
 	          </div>
 	        </div>
@@ -180,40 +181,21 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-	        <div class="modal-funding-right">
-				<ul class="sns">
-				    <li class="facebook">
-				    <a href="#n" onclick="fn_sendFB('facebook');return false;" class="facebook" target="_self" title="페이스북 새창열림"><span class="skip">페이스북</span></a>
-				    </li>
-				    <li class="twitter">
-				    <a href="#n" onclick="fn_sendFB('twitter');return false;" class="twitter" target="_self" title="트위터 새창열림"><span class="skip">트위터</span></a>
-				    </li>
-				    <li class="band">
-				    <a href="#n" onclick="fn_sendFB('band');return false;" class="band" target="_self" title="네이버밴드 새창열림"><span class="skip">네이버밴드</span></a>
-				    </li>
-				</ul>
+	        <div class="modal-wanting-right">
+				<a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();">카카오톡</a>
+				<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();">페이스북</a>
+		        <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
 	        </div>
 	      </div>
 	      <div class="modal-footer modal-dibs-footer">
-	        <div class="container">
-	          <div class="row g-2">
-	            <div class="col-sm-4">
-	              <button type="button" class="modal-funding-btn">다른 펀딩 둘러보기</button>
-	            </div>
-	            <div class="col-sm-4">
-	              <button type="button" class="modal-funding-btn">내 찜 목록보기</button>
-	            </div>
-	            <div class="col-sm-4">
-	              <button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button>
-	            </div>
-	          </div>
-	     	 </div>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='${contextPath}/wantingList.want'">다른 원팅 둘러보기</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 	      </div>
 		</div>
 	  </div>
 	</div>
 	
-	<!-- 신고하기 완료 -->
+	<!-- 로그인 필요합니다 모달 -->
 	<div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
@@ -225,7 +207,7 @@
 	        <div class="container-fluid g-0">
 	          <div class="row g-0">
 	            <div class="col-md-7">
-	              <div class="modal-funding-right">
+	              <div class="modal-wanting-right">
 	                <p class="dibs-message">
 	                  로그인이 필요합니다.<br>
 	                </p>
@@ -245,21 +227,45 @@
     </div>
   </div>
 
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9d6a7c5e2b95f01e1fdfee7c815cc918&libraries=services"></script>
 <script>
+	// 원팅 참여하기
     document.getElementById('wanting-send-btn').addEventListener('click',function(){
     	const wantingNum = parseInt(document.getElementById('wantingNum').value);
-//     	const input = document.querySelectorAll('input');
-// 		const memberId = input[0].value;
-// 		const wantingNum = parseInt(input[0].value);
-		console.log(wantingNum);
-// 		location.href  = '${contextPath}/attendWanting.want?memberId=' + memberId +'wantingNum='+ wantingNum;
+    	//const input = document.querySelectorAll('input');
+		//const memberId = input[0].value;
+		//const wantingNum = parseInt(input[0].value);
+		//console.log(wantingNum);
+		//location.href  = '${contextPath}/attendWanting.want?memberId=' + memberId +'wantingNum='+ wantingNum;
 		location.href = '${contextPath}/attendWanting.want?wantingNum='+ wantingNum;
 	});
     
-    
+    // 원팅 공유하기
+    function shareTwitter() {
+        var sendText = "함께 만들어나가는 원팅! 자세히 알아보기"; // 전달할 텍스트
+        var sendUrl = "http://localhost:8080/wantit/selectWanting.want?wantingNum=" + wantingNum; // 전달할 URL
+        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+    }
+    function shareFacebook() {
+        var sendUrl = "http://localhost:8080/wantit/selectWanting.want?wantingNum=" + wantingNum; // 전달할 URL
+        window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+    }
+	
+    // 원팅 가게 정보 지도
+	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+
+	var options = { //지도를 생성할 때 필요한 기본 옵션
+		center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표 (위도, 경도)
+		level: 3 //지도의 레벨(확대, 축소 정도)
+	};
+	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+	
 </script>
 
 
+
+  <!-- special effect -->
   <!-- cursor -->
   <script type="module">
     import { fairyDustCursor } from 'https://unpkg.com/cursor-effects@latest/dist/esm.js'
@@ -269,6 +275,7 @@
     // new rainbowCursor();
   </script>
 
+  <!-- confetti -->
   <script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
   <script>
 	const jsConfetti = new JSConfetti()
@@ -281,7 +288,6 @@
 	}
 	document.querySelector('.btn-funding').addEventListener('click', wowConfetti)
   </script>
-  
   
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

@@ -1,4 +1,4 @@
-.wantNavLink{
+/* .wantNavLink{
     border-radius: 5px;
     color: white;
 }
@@ -6,9 +6,12 @@
 .wantNavLink:hover{
     color: #e8acef;
 }
-
+ */
+.col img {
+ 	object-fit: cover;
+}
 .secTitle{
-    font-family: 'Do Hyeon', sans-serif;
+    font-family: 'Do Hyeon', sans-serif; */
     font-size: 50px;
 }
 
@@ -17,7 +20,7 @@
 }
 
 .tabTitle{
-    font-family: 'Do Hyeon', sans-serif;
+/*     font-family: 'Do Hyeon', sans-serif; 추가 */
     font-size: 40px;
 }
 
@@ -98,3 +101,121 @@
     width: 1.5rem;
     height: 100vh;
   }
+  
+  
+  
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.section-bg {
+  background-color: #1a1814;
+}
+
+.section-title {
+  padding-bottom: 40px;
+}
+
+.section-title h2 {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0;
+  line-height: 1px;
+  margin: 0 0 5px 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  font-family: "Poppins", sans-serif;
+}
+
+.section-title h2::after {
+  content: "";
+  width: 120px;
+  height: 1px;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 4px 10px;
+}
+
+.section-title p {
+  margin: 0;
+  margin: 0;
+  font-size: 36px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  color: #00c4c4;
+}
+
+/*--------------------------------------------------------------
+# Specials
+--------------------------------------------------------------*/
+.specials {
+  overflow: hidden;
+  font-family: "Jeju Gothic"; /*추가*/
+  
+}
+
+.want-nav {
+  font-family: "Jeju Gothic"; /*추가*/
+  font-weight: 400;
+}
+
+.specials .nav-tabs {
+  border: 0;
+}
+
+.specials .nav-link {
+  border: 0;
+  padding: 12px 15px;
+  transition: 0.3s;
+  color: #fff;
+  border-radius: 0;
+  border-right: 2px solid #00c4c4;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.specials .nav-link:hover {
+  color: #00c4c4;
+}
+
+.specials .nav-link.active {
+  color: #1a1814;
+  background: #00c4c4;
+  border-color: #00c4c4;
+}
+
+.specials .nav-link:hover {
+  border-color: #00c4c4;
+}
+
+.specials .tab-pane.active {
+  -webkit-animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.specials .details h3 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.specials .details p {
+  color: #aaaaaa;
+}
+
+.specials .details p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+  .specials .nav-link {
+    border: 0;
+    padding: 15px;
+  }
+}

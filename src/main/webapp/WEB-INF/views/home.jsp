@@ -128,7 +128,7 @@
 							<c:forEach items="${ wantingImageList }" var="image">
 								<c:if test="${ wantingList[i].wantingNum == image.imageBoardId and image.imageLevel == 0}">
 									<img src="${ contextPath }/resources/wanting/${image.imageRename}"
-										class="bd-placeholder-img card-img-top" alt="..." style="height: 100%; width: 100%; /* object-fit: cover; */">
+										class="bd-placeholder-img card-img-top" alt="..." style="height: 100%; width: 100%; object-fit: cover;">
 								</c:if>
 							</c:forEach>	
 						</svg>
