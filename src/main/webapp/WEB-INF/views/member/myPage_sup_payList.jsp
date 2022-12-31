@@ -87,7 +87,7 @@
     	</div>
     	<hr>
     	<div class="text-end">
-          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSupporterPayList.me'">서포터</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSuppoterPayList.me'">서포터</button>
           <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreator.me'">크리에이터</button>
         </div>
        

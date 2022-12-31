@@ -66,24 +66,27 @@
     <div class="tttable">
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="floatingInputGroup1" name="memberId" placeholder="UserId">
+              <input type="text" class="form-control" id="floatingInputGroup1" name="memberId" placeholder="Username">
               <label for="floatingInputGroup1">아이디 입력</label>
             </div>
         </div>
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="password" class="form-control" id="floatingInputGroup2" name="memberPwd" placeholder="Userpassword">
+              <input type="password" class="form-control" id="floatingInputGroup2" name="memberPwd" placeholder="Username">
               <label for="floatingInputGroup1">비밀번호 입력</label>
             </div>
         </div>
         <input type="hidden" name="beforeURL">
         <br>
-        <button type="button" class="btn btn-primary" id="logincheck" onclick="loginCheck()">  <!--onclick="loginCheck()"  -->
+        <button type="button" class="btn btn-primary" id="submit1" onclick="loginCheck()">
             <span>
-                <span id="logincheck">로그인</span>
+                <span class="">로그인</span>
             </span>
         </button>
         </form>
+        <c:if test = "${msg != null}">
+        <div class="login-warn" id="reset1">${msg}</div>
+        </c:if>
         <br>
         <div>
         <button type="button" class="btn btn-primary" style="width: 150px; text-align: center; display: inline-block;"
@@ -91,8 +94,9 @@
         <button type="button" class="btn btn-primary" style="width: 150px; text-align: center; display: inline-block;"
         onclick="location.href='${contextPath}/checkPwd.me'">비밀번호찾기</button>
         </div>
-        <br><br>
-         <span style="text-align: center; color:red;">${msg}</span><br>
+         
+         
+        <br>
         <div>
             &nbsp;&nbsp;&nbsp;  아직 회원이 아니신가요?
         <button type="button" class="btn btn-link" onclick="location.href='${contextPath}/memberenroll.me'">회원가입하기</button>
@@ -147,64 +151,22 @@
 </div>
     <script type="text/javascript">
     
+		function reset2(){
+			
+		}
+		
     
     
     
     
     
     
-    /* $('#logincheck').click(function(){
-    	var id = $("#floatingInputGroup1").val();
-    	var pwd = $("#floatingInputGroup2").val();
-    	
-    	
-    	$.ajax({
-    		type:"POST",
-    		url:"/wantit/login.me?",
-    		data:{id:id,pwd:pwd},
-    		cache : false,
-    		success:function(data){
-    			if(data == "error"){
-    				alert("사용자ID 와 비밀번호를 다시 확인해주세요.");
-    				$(".successPhoneChk").css("color","red");
-    				$(".successPhoneChk").text("사용자ID 와 비밀번호를 확인해주세요.");
-    			}else{
-    				return "redirect:home.do";
-    			}
-    		}
-    	});
-    }); */
-    
-    
-    
-    
-    
-    /* $("#logincheck").click(function(){
-    	alert("gggg"); */
-    	/* var id = $("#memberId").val();
-	 	var pwd = $("#memberPwd").val();
-	 	$.ajax({
-	 		type :"POST",
-	 		url:"/wantit/login.me?",
-	 		data:{id:id,pwd:pwd},
-	 		cache: false,
-	 		success:function(data){
-	 			if(data == "error"){
-	 				alert("사용자ID 와 비밀번호를 다시 확인해주세요.");
-	 				$(".successPhoneChk").css("color","red");
-	 			}else{
-	 				
-	 			}
-	 		}
-	 	}); */
-    
-    
-    
-    
-      function loginCheck(){
+     function loginCheck(){
     	let loginForm = document.loginForm;
     	let mb_id = document.getElementById('floatingInputGroup1').value;
     	let mb_pwd = document.getElementById('floatingInputGroup2').value;
+    	
+    	
     	
     	
     	if(mb_id == "" || mb_id == null){
@@ -216,7 +178,7 @@
     	}
     		
     		 
-    } 
+    }
     
      
     

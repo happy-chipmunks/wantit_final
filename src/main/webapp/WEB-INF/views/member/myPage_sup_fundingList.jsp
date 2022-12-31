@@ -103,7 +103,7 @@
     	</div>
     	<hr>
     	<div class="text-end">
-          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSupporterFunding.me'">서포터</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSuppoterFunding.me'">서포터</button>
           <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreatorFunding.me'">크리에이터</button>
         </div>
        
