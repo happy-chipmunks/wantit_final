@@ -1,4 +1,4 @@
-package com.kh.wantit.funding.model.vo;
+﻿package com.kh.wantit.funding.model.vo;
 
 import java.sql.Date;
 
@@ -27,6 +27,6 @@ public class Funding {
 	private char confirm;
 	private Date createDate;
 	private Date modifyDate;
-	private char FundingStatus;
+	private String FundingStatus;
 	private String creatorNickname;
 }

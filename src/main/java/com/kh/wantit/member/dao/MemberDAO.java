@@ -3,6 +3,7 @@ package com.kh.wantit.member.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
@@ -46,6 +47,48 @@ public class MemberDAO {
 	public int creatorInsert(Creator c, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("memberMapper.creatorInsert", c);
 	}
+
+
+	public Member creatorCheck(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.creatorCheck", id);
+	}
+
+	public int businessLicense(Image i, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("memberMapper.businessLicense", i);
+	}
+
+
+	public Creator creatorRegistration(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.creatorRegistration", id);
+	}
+
+
+	public Member findcheckPwd(SqlSessionTemplate sqlSession, Member findPwd) {
+		return sqlSession.selectOne("memberMapper.findcheckPwd",findPwd);
+	}
+
+
+	public Member selectMember(SqlSessionTemplate sqlSession, String email) {
+		return sqlSession.selectOne("memberMapper.selectMember",email);
+	}
+
+
+	public int checkMember(SqlSessionTemplate sqlSession, Member checkIdemail) {
+		return sqlSession.selectOne("memberMapper.checkMember",checkIdemail);
+	}
+
+
+	public int updateenPwd(SqlSessionTemplate sqlSession, Member updatePwd) {
+		return sqlSession.update("memberMapper.updateenPwd",updatePwd);
+	}
+
+
+
+
+
+	
+
+	
 
 
 	

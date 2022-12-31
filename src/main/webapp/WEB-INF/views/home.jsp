@@ -129,90 +129,45 @@
 	                        </div>
 	                      </div>
                 	</c:forEach>
-                    
-                     
-
-                    
                   </div>
                   <div class="row">
                         <span class="fundingMore">더보기</span>
                   </div>
-                </div>
+               </div>
+                
+                <!-- 옆에 원팅 -->
                 <div class="col-md-4" style="padding: 30px;">
+                  <c:forEach begin="0" end="3" var="i">
                     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative wantingList">
-                        <div class="col-4 d-none d-lg-block">
-                          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                
-                        </div>
-                        <div class="col-8 p-2 d-flex flex-column position-static">
+                      <div class="col-4 d-none d-lg-block">
+						<svg class="" xmlns="http://www.w3.org/2000/svg" style="height: 0; width: 0;">
+							<c:forEach items="${ wantingImageList }" var="image">
+								<c:if test="${ wantingList[i].wantingNum == image.imageBoardId and image.imageLevel == 0}">
+									<img src="${ contextPath }/resources/wanting/${image.imageRename}"
+										class="bd-placeholder-img card-img-top" alt="..." style="height: 100%; width: 100%; object-fit: cover;">
+								</c:if>
+							</c:forEach>	
+						</svg>
+                      </div>
+          
+                      <div class="col-8 p-2 d-flex flex-column position-static">
                           <strong class="d-inline-block mb-2 mainTitle">제목</strong>
-                          <p class="wanting-text">을지로역 정원순두부 맛있어요 밀키트 원팅</p>
-                          <span class="wanting-writer">작성자</span>
+                          <p class="wanting-text">${ wantingList[i].wantingTitle }</p>
+                          <span class="wanting-writer">${ wantingList[i].wantingWriter }</span>
                           <div style="height: 2px; width: 100%; background-color: gray; margin: 3px;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
                           <div class="d-inline wanting-other">
-                              <span><strong>26</strong>%</span>
-                              <span style="font-size: 15px;">99명 원팅중</span>
-                              <span class="remainWantingDate">15일 남음</span>
+                              <span><strong>${ wantingList[i].wantingCount }</strong>%</span>
+                              <span style="font-size: 15px;">${ wantingList[i].wantingCount }명 원팅중</span>
+                              <span class="remainWantingDate">${ wantingList[i].wantingDaysCount }일 지났어요</span>
 
                           </div>
-                        </div>
+                      </div>
+                      
+			        <input type="hidden" class="wantingNum" value="${ wantingList[i].wantingNum }">
                     </div>
-                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative wantingList">
-                        <div class="col-4 d-none d-lg-block">
-                          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                
-                        </div>
-                        <div class="col-8 p-2 d-flex flex-column position-static">
-                          <strong class="d-inline-block mb-2 mainTitle">제목</strong>
-                          <p class="wanting-text">을지로역 정원순두부 맛있어요 밀키트 원팅</p>
-                          <span class="wanting-writer">작성자</span>
-                          <div style="height: 2px; width: 100%; background-color: gray; margin: 3px;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-                          <div class="d-inline wanting-other">
-                              <span><strong>26</strong>%</span>
-                              <span style="font-size: 15px;">99명 원팅중</span>
-                              <span class="remainWantingDate">15일 남음</span>
+       		     </c:forEach>
 
-                          </div>
-                        </div>
-                    </div>
-                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative wantingList">
-                        <div class="col-4 d-none d-lg-block">
-                          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                
-                        </div>
-                        <div class="col-8 p-2 d-flex flex-column position-static">
-                          <strong class="d-inline-block mb-2 mainTitle">제목</strong>
-                          <p class="wanting-text">을지로역 정원순두부 맛있어요 밀키트 원팅</p>
-                          <span class="wanting-writer">작성자</span>
-                          <div style="height: 2px; width: 100%; background-color: gray; margin: 3px;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-                          <div class="d-inline wanting-other">
-                              <span><strong>26</strong>%</span>
-                              <span style="font-size: 15px;">99명 원팅중</span>
-                              <span class="remainWantingDate">15일 남음</span>
-
-                          </div>
-                        </div>
-                    </div>
-                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative wantingList">
-                        <div class="col-4 d-none d-lg-block">
-                          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                
-                        </div>
-                        <div class="col-8 p-2 d-flex flex-column position-static">
-                          <strong class="d-inline-block mb-2 mainTitle">제목</strong>
-                          <p class="wanting-text">을지로역 정원순두부 맛있어요 밀키트 원팅</p>
-                          <span class="wanting-writer">작성자</span>
-                          <div style="height: 2px; width: 100%; background-color: gray; margin: 3px;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-                          <div class="d-inline wanting-other">
-                              <span><strong>26</strong>%</span>
-                              <span style="font-size: 15px;">99명 원팅중</span>
-                              <span class="remainWantingDate">15일 남음</span>
-
-                          </div>
-                        </div>
-                    </div>
-                    
-                    <button type="button" class="btn goWanting">원팅 하러가기 →</button>
+                    <button type="button" class="btn goWanting" onclick="location.href='${ contextPath }/wantingWrite.want'">원팅 하러가기 →</button>
                 </div>
             </div>
         </div>
@@ -251,7 +206,7 @@
                   
             </div>
         </div>
-      </div>
+<!--       </div> -->
       
       <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -328,5 +283,21 @@
 //     	}
     </script>
 <% request.removeAttribute("cancelPayScuccess"); %>
+
+<script>
+	window.onload = () => {
+	    const divs = document.getElementsByClassName('wantingList');
+   	 console.log(divs);
+
+	    for(const div of divs){
+	       div.addEventListener('click',function(){
+	    	  const input = this.querySelectorAll('input');
+	          const wantingNum=input[0].value;
+
+	          location.href  = '${contextPath}/selectWanting.want?wantingNum='+ wantingNum;
+	       });
+	    }
+	 }
+</script>
 </body>
 </html>

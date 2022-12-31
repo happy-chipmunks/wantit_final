@@ -896,10 +896,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h2 class="ttable" style="color: black; font-weight: bold;">비밀번호찾기</h2>
+    <h2 class="ttable" style="color: black; font-weight: bold;">WANTIT</h2>
     
     <h3 style="text-align: center;">비밀번호를 찾고자하는 아이디를 입력해주세요.</h3>
-    <form action="${contextPath}/findcheckPwd.me" method="POST" id="findfrom" name="findfrom">
+    <form action="${contextPath}/findonecheckPwd.me" method="POST" id="findfrom" name="findfrom">
     <div class="tttable">
         <div class="input-group mb-3">
             <div class="form-floating">
@@ -907,14 +907,12 @@
               <label for="floatingInputGroup1">아이디 입력</label>
             </div>
         </div>
-       
         <br>
-        <button type="button" class="btn btn-primary" id="submit1" onclick="memberCheck()">
+        <button type="button" class="btn btn-primary" id="submit1" onclick="checkfind()">   
             <span>
                 <span class="">다음</span>
             </span>
         </button>
-        <input type="hidden" name="beforeURL">
         </form>
         <br>
         <br>
@@ -937,174 +935,28 @@
     
     
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>
-    $(window).load(function () {
-        $('body').sakura();
-    });
-
-    (function ($) {
-// requestAnimationFrame Polyfill
-(function () {
-    var lastTime = 0;
-    var vendors = ['ms', 'moz', 'webkit', 'o'];
-
-    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
-        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
-    }
-
-    if (!window.requestAnimationFrame)
-        window.requestAnimationFrame = function (callback, element) {
-            var currTime = new Date().getTime();
-            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-            var id = window.setTimeout(function () {
-                    callback(currTime + timeToCall);
-                },
-                timeToCall);
-            lastTime = currTime + timeToCall;
-
-            return id;
-        };
-
-    if (!window.cancelAnimationFrame)
-        window.cancelAnimationFrame = function (id) {
-            clearTimeout(id);
-        };
-}());
-
-// Sakura function.
-$.fn.sakura = function (options) {
-    // We rely on these random values a lot, so define a helper function for it.
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    // Helper function to attach cross-browser events to an element.
-    var prefixes = ['moz', 'ms', 'o', 'webkit', ''];
-    var prefCount = prefixes.length;
-
-    function prefixedEvent(element, type, callback) {
-        for (var i = 0; i < prefCount; i++) {
-            if (!prefixes[i]) {
-                type = type.toLowerCase();
-            }
-
-            element.get(0).addEventListener(prefixes[i] + type, callback, false);
-        }
-    }
-
-    // Defaults for the option object, which gets extended below.
-    var defaults = {
-        blowAnimations: ['blow-soft-left', 'blow-medium-left', 'blow-hard-left', 'blow-soft-right', 'blow-medium-right', 'blow-hard-right'],
-        className: 'sakura',
-        fallSpeed: 0.5,
-        maxSize: 14,
-        minSize: 9,
-        newOn: 300,
-        swayAnimations: ['sway-0', 'sway-1', 'sway-2', 'sway-3', 'sway-4', 'sway-5', 'sway-6', 'sway-7', 'sway-8']
-    };
-
-    var options = $.extend({}, defaults, options);
-
-    // Declarations.
-    var documentHeight = $(document).height();
-    var documentWidth = $(document).width();
-    var sakura = $('<div class="' + options.className + '" />');
-
-    // Set the overflow-x CSS property on the body to prevent horizontal scrollbars.
-    $('body').css({ 'overflow-x': 'hidden' });
-
-    // Function that inserts new petals into the document.
-    var petalCreator = function () {
-        setTimeout(function () {
-            requestAnimationFrame(petalCreator);
-        }, options.newOn);
-
-        // Get one random animation of each type and randomize fall time of the petals.
-        var blowAnimation = options.blowAnimations[Math.floor(Math.random() * options.blowAnimations.length)];
-        var swayAnimation = options.swayAnimations[Math.floor(Math.random() * options.swayAnimations.length)];
-        var fallTime = (Math.round(documentHeight * 0.007) + Math.random() * 5) * options.fallSpeed;
-
-        var animations = 'fall ' + fallTime + 's linear 0s 1' + ', ' +
-            blowAnimation + ' ' + (((fallTime > 30 ? fallTime : 30) - 20) + getRandomInt(0, 20)) + 's linear 0s infinite' + ', ' +
-            swayAnimation + ' ' + getRandomInt(2, 4) + 's linear 0s infinite';
-        var petal = sakura.clone();
-        var size = getRandomInt(options.minSize, options.maxSize);
-        var startPosLeft = Math.random() * documentWidth - 100;
-        var startPosTop = -((Math.random() * 20) + 15);
-
-        // Apply Event Listener to remove petals that reach the bottom of the page.
-        prefixedEvent(petal, 'AnimationEnd', function () {
-            $(this).remove();
-        });
-
-        // Apply Event Listener to remove petals that finish their horizontal float animation.
-        prefixedEvent(petal, 'AnimationIteration', function (ev) {
-            if ($.inArray(ev.animationName, options.blowAnimations) != -1) {
-                $(this).remove();
-            }
-        });
-
-        petal
-            .css({
-                '-webkit-animation': animations,
-                '-o-animation': animations,
-                '-ms-animation': animations,
-                '-moz-animation': animations,
-                animation: animations,
-                height: size,
-                left: startPosLeft,
-                'margin-top': startPosTop,
-                width: size
-            })
-            .appendTo('body');
-    };
-
-
-    // Recalculate documentHeight and documentWidth on browser resize.
-    $(window).resize(function () {
-        documentHeight = $(document).height();
-        documentWidth = $(document).width();
-    });
-
-    // Finally: Start adding petals.
-    requestAnimationFrame(petalCreator);
-};
-}(jQuery));
-    
-    //유효검사
-    function memberCheck(){
-    	
-    	var email_rule =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    	var phone_rule =   /^\d{3}-\d{3,4}-\d{4}$/; 
-    	                
-    	
-    	 let findfrom = document.findfrom;
-    	let check_name = document.getElementById('checkname').value;
-    	let check_phone = document.getElementById('memberPhone').value;
-    	let check_email = document.getElementById('memberEmail').value;
-    	
-    	
-    	if(check_name == "" ||check_name == null){
-    		alert("이름을 입력해주세요.");
-    	} else if (check_phone == "" || check_phone == null){
-    		alert("핸드폰번호를 입력해주세요.");
-    		
-    	} else if(!phone_rule.test($("input[id='memberPhone']").val())){
-    		alert("전화번호 형식(-포함)에 맞게 입력해주세요.");
-    		
-    	} else if(check_email == "" || check_email == null){
-    		alert("이메일을 입력해주세요.");
-    		
-    	}else if(!email_rule.test($("input[id='memberEmail']").val())){
-    		 alert("이메일 형식에 맞게 입력해주세요.")
-    		 
-    	}else{
-    		findfrom.submit(); 
-    	} 
-    	
-    }
-    </script>
+   <script>
+   
+   function checkfind(){
+	   
+	 var Id_rule = /^[a-z0-9]{4,12}$/;  
+	   
+	let findfrom = document.findfrom;
+	let check_Id = document.getElementById('checkId').value;
+	console.log(check_Id); 
+	
+	if(check_Id == "" || check_Id == null){
+		alert("아이디를 입력해주세요.");
+	}else if(!Id_rule.test($("input[id='checkId']").val())){
+		alert("아이디 형식에 맞게 입력해주세요.");
+	}else{
+		findfrom.submit();
+	}
+	
+  }
+   
+   </script> 
+   
   
 </body>
 </html>

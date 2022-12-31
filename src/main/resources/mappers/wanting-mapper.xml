@@ -3,10 +3,11 @@
 <mapper namespace="wantingMapper">
 
 
+<!-- 	원팅 게시글 작성 -->
 	<insert id="insertWanting">
 		insert into wanting
 		values(seq_wanting.nextval, #{wantingWriter}, #{wantingTitle}, #{wantingContent},
-				#{wantingShopLocation}, #{wantingShopName}, 1, default, SYSDATE)
+				#{wantingShopLocation}, #{wantingShopName}, 1, default, SYSDATE, default, default)
 	</insert>
 	
 	<insert id="insertImage">
@@ -15,9 +16,12 @@
 				#{imageLevel}, #{imageBoardCate}, seq_wanting.currval)
 	</insert>
 	
+	
+<!-- 	원팅 리스트 불러오기 -->
 	<select id="selectWantingList" resultMap="wantingResultSet">
 		select *
 		from wanting
+			join member on(wanting.writer = member.member_id)
 		where wanting_status='Y'
 		order by wanting_num desc
 	</select>
@@ -28,16 +32,52 @@
 		where image_board_cate=4 and image_status='Y' 
 	</select>
 	
+	
+<!-- 	원팅 게시글 상세보기 -->
+	<select id="selectWanting" resultMap="wantingResultSet">
+		select * 
+		from wanting
+		where wanting_num=#{wantingNum} and wanting_status='Y' 
+	</select>
+	
 	<select id="selectImage" resultMap="imageResultSet">
 		select * 
 		from image
-		where image_board_cate=#{imageBoardCate} and image_board_id=#{imageBoardId} and image_status='Y' 
+		where image_board_cate=4 and image_board_id=#{wantingNum} and image_status='Y' 
 	</select>
+
+	<select id="getWantingYN" resultType="_int">
+		select count(*)
+		from wanting_attend
+		where attender=#{attender} and wanting_num=#{wantingNum}
+	</select>
+	
+	
+<!-- 	원팅 참여하기 -->
+	<insert id="attendWanting">
+		insert into wanting_attend
+		values(#{attender}, #{wantingNum})
+	</insert>
+	
+	<select id="getWantingCount" resultType="_int">
+		select count(*)
+		from wanting_attend
+		where wanting_num = #{wantingNum}
+	</select>
+	
+	<update id="updateWantingStatus">
+		update wanting
+		set wanting_count=#{wantingCount},
+			wanting_level=#{wantingLevel}
+		where wanting_num=#{wantingNum} and wanting_status='Y' 
+	</update>
+	
 	
 	
 	<resultMap type="Wanting" id="wantingResultSet">
 		<id column="WANTING_NUM" property="wantingNum"/>
 		<result column="WRITER" property="wantingWriter"/>
+		<result column="MEMBER_NICKNAME" property="wantingNickname"/>
 		<result column="WANTING_TITLE" property="wantingTitle"/>
 		<result column="WANTING_CONTENT" property="wantingContent"/>
 		<result column="SHOP_LOCATION" property="wantingShopLocation"/>
@@ -45,6 +85,8 @@
 		<result column="WANTING_LEVEL" property="wantingLevel"/>
 		<result column="WANTING_STATUS" property="wantingStatus"/>
 		<result column="CREATE_DATE" property="wantingCreateDate"/>
+		<result column="WANTING_COUNT" property="wantingCount"/>
+		<result column="DAYS_COUNT" property="wantingDaysCount"/>
 	</resultMap>
 	
 	<resultMap type="Image" id="imageResultSet">
@@ -60,4 +102,9 @@
 		<result column="IMAGE_BOARD_ID" property="imageBoardId"/>
 	</resultMap>
 	
+	
+	<resultMap type="WantingAttend" id="wantingAttendResultSet">
+		<id column="ATTENDER" property="attender"/>
+		<id column="WANTING_NUM" property="wantingNum"/>
+	</resultMap>
 </mapper>

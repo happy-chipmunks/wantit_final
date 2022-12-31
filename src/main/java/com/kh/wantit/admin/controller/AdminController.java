@@ -1,4 +1,4 @@
-package com.kh.wantit.admin.controller;
+﻿package com.kh.wantit.admin.controller;
 
 import java.util.ArrayList;
 
@@ -12,9 +12,13 @@ import com.kh.wantit.admin.model.exception.AdminException;
 import com.kh.wantit.admin.model.service.AdminService;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
+import com.kh.wantit.admin.model.vo.FundingReport;
+import com.kh.wantit.admin.model.vo.NReply;
+import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.admin.model.vo.Reply;
+import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
@@ -33,20 +37,165 @@ public class AdminController {
 	public String projectManage() {
 		return "adminPageProject";
 	}
+	//펀딩신고관리
+	@RequestMapping("/fundingManage.ad")
+	public String fundingManage(@RequestParam(value="page", required=false) Integer page, Model model) {
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		int listCountF = aService.getListCountRF(1);
+		
+		PageInfo piF = Pagination.getPageInfo(currentPage, listCountF, 10);
+		
+		ArrayList<FundingReport> fList = aService.selectFundingReport(piF,1);
+		ArrayList<Integer> rCountList = new ArrayList<Integer>();
+		
+		int countF = fList.size();
+		
+		model.addAttribute("piF", piF);
+		model.addAttribute("fList", fList);
+		model.addAttribute("fCount", countF);
+		model.addAttribute("rCountList", rCountList);
+		
+		return "adminFundingReportManagement";
+	}
 	
+	//글 삭제
+	@RequestMapping("deleteFunding.ad")
+	public String deleteFunding(@RequestParam("id") String id) {
+		int result = aService.deleteFunding(id);
+		if(result>0) {
+			return "redirect:fundingManage.ad";
+		} else {
+			throw new AdminException("글 삭제에 실패하였습니다.");
+		}
+	}
+
+		
+	//리뷰신고관리
 	@RequestMapping("/reviewManage.ad")
-	public String reviewManage() {
+	public String reviewManage(@RequestParam(value="page", required=false) Integer page, Model model) {
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCountR = aService.getListCountRR(1);
+		
+		
+		PageInfo piR = Pagination.getPageInfo(currentPage, listCountR, 10);			
+		
+		ArrayList<ReviewReport> rList = aService.selectReviewReport(piR,1);
+		ArrayList<Integer> rCountList = new ArrayList<Integer>();
+		
+		int countR = rList.size();
+		
+		
+		model.addAttribute("piR", piR);
+		model.addAttribute("rList", rList);
+		model.addAttribute("rCount", countR);
+		model.addAttribute("rCountList", rCountList);
+		
 		return "adminReportManagement";
 	}
 	
+	//글 삭제
+	@RequestMapping("deleteReview.ad")
+	public String deleteReview(@RequestParam("id") String id) {
+		int result = aService.deleteReview(id);
+		if(result>0) {
+			return "redirect:reviewManage.ad";
+		} else {
+			throw new AdminException("글 삭제에 실패하였습니다.");
+		}
+	}
+
+	
+	
+	//공지사항, 이벤트 관리
 	@RequestMapping("/noticeManage.ad")
-	public String noticeManage() {
+	public String noticeManage(Notice n,@RequestParam(value="page", required=false) Integer page, Model model,
+								@RequestParam(value="check", required=false) String check, @RequestParam(value="reply", required=false) String reply, 
+								@RequestParam(value="code", required=false) String code, @RequestParam(value="title", required=false) String title, @RequestParam(value="make", required=false) String make) {
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+//		System.out.println(check);
+		
+		int listCount = aService.getListCountN(1);
+		
+		NReply reeply = new NReply();
+		reeply.setCode(code);
+		reeply.setTitle(title);
+		reeply.setReply(reply);
+		
+		n.setNoticeDivision(check);
+		n.setNoticeTitle(title);
+		n.setNoticeContent(make);
+		
+		System.out.println(n);
+		
+		if(reply != null) {
+//			System.out.println(reply);
+//			System.out.println(title);
+//			System.out.println(code);
+			int result = aService.answerContentN(reeply);
+		}
+		
+		if(check != null) {			
+			int newNotice = aService.selectNewWrite(n);
+		}
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);		
+//		ArrayList<Notice> nList = aService.selectAllNotice(pi,1);
+//		ArrayList<Notice> eList = aService.selectAllEvent(pi,1);
+		
+		ArrayList<Notice> mList = aService.selectAllwrite(pi,1);
+		ArrayList<Integer> rCountList = new ArrayList<Integer>();
+		int count = mList.size();
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("mList", mList);
+		model.addAttribute("mCount", count);
+		model.addAttribute("rCountList", rCountList);
+		model.addAttribute("Reply", reply);
+		model.addAttribute("code", code);		
+		model.addAttribute("title", title);		
+		model.addAttribute("check", check);		
+
 		return "adminNotice";
+	}
+	
+	//글 생성
+//	@RequestMapping("/noticeManage.ad")
+//	public String noticeManageMake(Notice n, Model model, @RequestParam(value="reply", required=false) String reply, @RequestParam(value="title", required=false) String title, @RequestParam(value="check", required=false) String check) {
+//		
+//		
+//		NReply reeply = new NReply();
+//		
+//		reeply.setTitle(title);
+//		reeply.setReply(reply);
+//
+//		return "adminNotice";
+//	}
+	
+	//글 삭제
+	@RequestMapping("deleteNotice.ad")
+	public String deleteNotice(@RequestParam("id") String id) {
+		int result = aService.deleteNotice(id);
+		if(result>0) {
+			return "redirect:noticeManage.ad";
+		} else {
+			throw new AdminException("글 삭제에 실패하였습니다.");
+		}
 	}
 	
 	//문의 관리
 	@RequestMapping("/inquiryManage.ad")
-	public String inquiryManage(@RequestParam(value="page", required=false) Integer page, Model model, @RequestParam(value="reply", required=false) String reply, @RequestParam(value="code", required=false) String code) {
+	public String inquiryManage(@RequestParam(value="page", required=false) Integer page, Model model,
+								@RequestParam(value="reply", required=false) String reply, @RequestParam(value="code", required=false) String code) {
 		
 		
 		int currentPage = 1;
@@ -54,16 +203,16 @@ public class AdminController {
 			currentPage = page;
 		}
 		
-		int listCount = aService.getListCount(1);
+		int listCount = aService.getListCountI(1);
 		
 		Reply reeply = new Reply();
 		reeply.setCode(code);
 		reeply.setReply(reply);
 		
 		if(reply != null) {
-			System.out.println(reply);
+//			System.out.println(reply);
 			int result = aService.answerContent(reeply);
-			System.out.println(code);
+//			System.out.println(code);
 		}
 		
 		
@@ -82,30 +231,40 @@ public class AdminController {
 		return "adminInquiryManagement";
 	}
 	
+	
+	
 	//광고 관리
 	@RequestMapping("/adManage.ad")
 	public String adManage(@RequestParam(value="page", required=false) Integer page, Model model) {
 		int currentPage = 1;
-		if(page != null) {
+		if(page != null) {	
 			currentPage = page;
 		}
-		
-		int listCount = aService.getListCount(1);
+//		System.out.println(acceptDivision);
+		int listCount = aService.getListCountA(1);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		
+//		int accept = aService.getAccept(acceptDivision);
 		
 		
 		ArrayList<Ads> mList = aService.selectAllAds(pi, 1);
+		ArrayList<Image> iList = aService.selectAllImage(1);
+		
 		ArrayList<Integer> rCountList = new ArrayList<Integer>();
 		int count = mList.size();
-		
+		System.out.println(mList);
+		System.out.println(iList.size());
 		model.addAttribute("pi", pi);
 		model.addAttribute("mList", mList);
+		model.addAttribute("iList", iList);
 		model.addAttribute("mCount", count);
 		model.addAttribute("rCountList", rCountList);
+//		model.addAttribute("accept", accept);
 		return "adminAdManagement";
 	}
 	
-
+	//승인
+	
 	//회원 관리
 	@RequestMapping("/memberManage.ad")
 	public String memberManage(@RequestParam(value="page", required=false) Integer page, Model model) {
@@ -152,9 +311,15 @@ public class AdminController {
 		ArrayList<Creator> cList = aService.creatorApproval();
 		ArrayList<Image> iList = aService.businessImage();
 		
-		if(cList != null && iList != null) {
-			model.addAttribute(cList);
-			model.addAttribute(iList);
+//		System.out.println(cList);
+//		System.out.println(iList);
+		
+		for(int i = 0; i < cList.size(); i++) {
+			cList.get(i).setBusinessFileName(iList.get(i).getImageRename());
+		}
+		
+		if(cList.size() > 0) {
+			model.addAttribute("cList", cList);
 			return "adminCreatorApproval";
 		}else {
 			throw new AdminException("크리에이터 승인 팝업 불러오는 것에 실패하였습니다.");

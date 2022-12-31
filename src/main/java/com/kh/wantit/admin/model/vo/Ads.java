@@ -19,4 +19,6 @@ public class Ads {
 	private String adsStatus, confirm;
 	private Date adsStart, adsEnd, adsCreateDate;
 	private String fundingTitle;
+	private String imageRename;
+	private int imageNum;
 }

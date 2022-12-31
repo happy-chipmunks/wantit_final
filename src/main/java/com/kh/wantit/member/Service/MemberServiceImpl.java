@@ -1,4 +1,4 @@
-package com.kh.wantit.member.Service;
+﻿package com.kh.wantit.member.Service;
 
 import java.util.HashMap;
 
@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.dao.MemberDAO;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
@@ -94,6 +95,66 @@ public class MemberServiceImpl implements MemberService {
 	public int creatorInsert(Creator c) {
 		return mDAO.creatorInsert(c, sqlSession);
 	}
+
+
+	@Override
+	public Member creatorCheck(String id) {
+		return mDAO.creatorCheck(id, sqlSession);
+	}
+
+
+	@Override
+	public int businessLicense(Image i) {
+		return mDAO.businessLicense(i, sqlSession);
+	}
+
+
+	@Override
+	public Creator creatorRegistration(String id) {
+		return mDAO.creatorRegistration(id, sqlSession);
+	}
+
+	public Member findcheckPwd(Member findPwd) {
+		return mDAO.findcheckPwd(sqlSession,findPwd);
+	}
+
+
+	@Override
+	public Member selectMember(String email) {
+		return mDAO.selectMember(sqlSession,email);
+	}
+
+
+	@Override
+	public int checkMember(Member checkIdemail) {
+		return mDAO.checkMember(sqlSession,checkIdemail);
+	}
+
+
+	@Override
+	public int updateenPwd(Member updatePwd) {
+		return mDAO.updateenPwd(sqlSession,updatePwd);
+	}
+
+
+
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+	
+
+
+	
 
 	
 

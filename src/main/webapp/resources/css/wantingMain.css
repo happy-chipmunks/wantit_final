@@ -102,8 +102,8 @@ p {margin: 0;}
 
     line-height: 28px;
     letter-spacing: -.3px;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 400;
     font-style: normal;
     color: #212529;
 }
@@ -129,7 +129,7 @@ p {margin: 0;}
     width: 46px;
     height: 45px;
 }
-.funding-detail p {
+.funding-detail-title {
     margin: 12px 0;
     padding: 16px;
     border-bottom: 1px solid #c0c0c0;
@@ -175,7 +175,7 @@ p {margin: 0;}
 .goal-box p {
     color: #4a4a4a;
     font-size: 12px;
-    margin: 0;
+    margin-right: 10px;
 }
 .goal-box strong {
     font-size: 12px;
@@ -218,10 +218,12 @@ p {margin: 0;}
     background-color: #F2F2F2;
     transition-duration: .2s;
 }
+.btn-secondary {
+	margin-right: 10px;
+}
 
 
-
-/* ==================== 모달 - 펀딩버튼 ==================== */
+/* ==================== 모달 - 펀딩 완료 ==================== */
 .modal-body {
     margin: 0 50px 15px;
 }
@@ -231,25 +233,25 @@ p {margin: 0;}
 .thumbnail {
     width: 100%;
 }
-.modal-funding-right {
+.modal-wanting-right {
     margin-left: 15px;
 }
-.modal-funding-title {
+.modal-wanting-title {
     font-size: 15px;
     font-weight: 400;
 }
-.modal-funding-store {
+.modal-wanting-store {
     font-size: 13px;
     font-weight: 400;
     color: grey;
     margin: 6px 0;
 }
-.modal-funding-status {
+.modal-wanting-status {
     font-size: 15px;
     font-weight: 400;
     line-height: 20px;
 }
-.modal-funding-btn {
+.modal-wanting-btn {
     background-color: #00c4c4;
     border: none;
     color: #fff;
@@ -262,11 +264,11 @@ p {margin: 0;}
     border-radius: 0.1rem;
     cursor: pointer;
 }
-.modal-funding-btn:hover {
+.modal-wanting-btn:hover {
     background-color: #00b2b0;
     transition-duration: .2s;
 }
-.modal-footer.modal-funding-footer {
+.modal-footer.modal-wanting-footer {
     border-top: none;
 }
 
@@ -278,6 +280,11 @@ p {margin: 0;}
 }
 
 /* ==================== 모달 - 공유버튼 ==================== */
+.link-icon { position: relative; display: inline-block; width: auto;    font-size: 14px; font-weight: 500; color: #333; margin-right: 10px; padding-top: 50px; }
+.link-icon.twitter { background-image: url(../wanting/icon-twitter.png); background-repeat: no-repeat; }
+.link-icon.facebook { background-image: url(../wanting/icon-facebook.png); background-repeat: no-repeat; } 
+.link-icon.kakao { background-image: url(../wanting/icon-kakao.png); background-repeat: no-repeat; }
+
 
 
 /* ==================== 부트스트랩 컨테이너 ==================== */

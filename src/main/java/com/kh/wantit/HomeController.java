@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.wanting.model.service.WantingService;
@@ -50,7 +51,9 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-//		ArrayList<Wanting> wantingList = wService.selectWantingList();
+		ArrayList<Wanting> wantingList = wService.selectWantingList();
+		ArrayList<Image> wantingImageList = wService.selectImageList();// 
+
 		ArrayList<Funding> fundingList = fService.fundingList();
 		
 		ArrayList<Funding> fundingComingSoonList = new ArrayList<Funding>();
@@ -74,8 +77,8 @@ public class HomeController {
 		model.addAttribute("fundingComingSoonList", fundingComingSoonList);
 		model.addAttribute("fundingProceedList", fundingProceedList);
 		
-		
-//		model.addAttribute("wantingList", wantingList);
+		model.addAttribute("wantingList", wantingList);
+		model.addAttribute("wantingImageList", wantingImageList);
 		
 		
 		return "home";

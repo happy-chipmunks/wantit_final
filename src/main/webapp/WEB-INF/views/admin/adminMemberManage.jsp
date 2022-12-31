@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <!Doctype html>
 <html lang="en">
 <head>
@@ -185,7 +184,7 @@
 		<div class="row">
 			<nav id="sidebarMenu"
 				class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-				<div class="position" style="height: 700px;">
+				<div class="position" style="height: 1000px;">
 					<ul class="nav flex-column">
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/admin.ad"> <span data-feather="home"
@@ -195,6 +194,11 @@
 							href="${ contextPath }/projectManage.ad"> <span
 								data-feather="file" class="align-text-bottom"></span> <br>
 								<br> 프로젝트 승인 / 거절
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${ contextPath }/fundingManage.ad"> <span
+								data-feather="file" class="align-text-bottom"></span> <br>
+							<br> 펀딩 신고 관리
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/reviewManage.ad"> <span
@@ -263,7 +267,6 @@
 												data-bs-toggle="dropdown" aria-expanded="false">
 												정상회원</button>
 											<ul class="dropdown-menu">
-												
 												<li><a class="dropdown-item deleteMemberButton"
 													data-bs-toggle="modal" data-bs-target="#deleteMemberModal">
 														회원탈퇴<span style="display: none">${m.memberId }</span>
@@ -316,11 +319,14 @@
 
 				<nav aria-label="Standard pagination example" style="float: right;">
 					<ul class="pagination">
-						<li class="page-item"><c:url var="goBack" value="${ loc }">
+						<li class="page-item">
+							<c:url var="goBack" value="${ loc }">
 								<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
-							</c:url> <a class="page-link" href="${ goBack }" aria-label="Previous">
+							</c:url> 
+							<a class="page-link" href="${ goBack }" aria-label="Previous">
 								<span aria-hidden="true">&laquo;</span>
-						</a></li>
+							</a>
+						</li>
 						<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
 							<c:url var="goNum" value="${ loc }">
 								<c:param name="page" value="${ p }"></c:param>
@@ -329,9 +335,12 @@
 						</c:forEach>
 						<li class="page-item"><c:url var="goNext" value="${ loc }">
 								<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
-							</c:url> <a class="page-link" href="${ goNext }" aria-label="Next"> <span
-								aria-hidden="true">&raquo;</span>
-						</a></li>
+							</c:url> 
+							
+							<a class="page-link" href="${ goNext }" aria-label="Next"> 
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
 					</ul>
 				</nav>
 			</main>
@@ -339,28 +348,23 @@
 	</div>
 
 	<script>
-		window.onload=()=>{
-			console.log("권진한 바보");
-		}
-		const trs = $(".member");
-		for(const tr of trs) {
-			// 회원 상세정보 조회
-			tr.addEventListener("click", function(){
-					console.log($(this).find());
-			});
-		}
-		//회원 탈퇴 정보 넘기기
-		const btns = $(".deleteMemberButton");
-		for(const btn of btns) {
-			btn.addEventListener("click", function(){
-				const id = $(this).find("span").text();
-				$("input[name=id]").val(id);
-			});
-		}
-		
-		// 회원 탈퇴
-		$("#modalDeleteButton").on("click", function(){
-			$("form").submit();
+	window.onload=()=>{
+		console.log("권진한 바보");
+	}
+	const trs = $(".member");
+	for(const tr of trs) {
+		// 회원 상세정보 조회
+		tr.addEventListener("click", function(){
+				console.log($(this).find());
+		});
+	}
+	//회원 탈퇴 정보 넘기기
+	const btns = $(".deleteMemberButton");
+	for(const btn of btns) {
+		btn.addEventListener("click", function(){
+			const id = $(this).find("span").text();
+			$("input[name=id]").val(id);
+			console.log($("input[name=id]").val(id));
 		});
 		
 		// 크리에이터 승인
@@ -369,6 +373,12 @@
 				var name="creatorApproval";
 				window.open(url, name, "width=700 height=800");
 			}
+	}
+	
+	// 회원 탈퇴
+	$("#modalDeleteButton").on("click", function(){
+		$("form").submit();
+	});
 	</script>
 
 	<script

@@ -2,25 +2,32 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.kh.wantit.wanting.model.vo.Wanting" alias="Wanting"/>
 		<typeAlias type="com.kh.wantit.pay.vo.TestMember" alias="TestMember"/>
 		<typeAlias type="com.kh.wantit.pay.vo.Reward" alias="Reward"/>
 		<typeAlias type="com.kh.wantit.pay.vo.PaySchedule" alias="PaySchedule"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.AdminInquiry" alias="AdminInquiry"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.Ads" alias="Ads"/>
+		<typeAlias type="com.kh.wantit.wanting.model.vo.Wanting" alias="Wanting"/>
+		<typeAlias type="com.kh.wantit.wanting.model.vo.WantingAttend" alias="WantingAttend"/>
+		<typeAlias type="com.kh.wantit.admin.model.vo.Notice" alias="Notice"/>
+		<typeAlias type="com.kh.wantit.common.model.vo.Image" alias="Image"/>
+		<typeAlias type="com.kh.wantit.admin.model.vo.ReviewReport" alias="ReviewReport"/>
+		<typeAlias type="com.kh.wantit.admin.model.vo.FundingReport" alias="FundingReport"/>
 		<typeAlias type="com.kh.wantit.member.vo.Member" alias="Member"/>
-		<typeAlias type="com.kh.wantit.funding.model.vo.Funding" alias="Funding"/>
 		<typeAlias type="com.kh.wantit.member.vo.Creator" alias="Creator"/>
+		<typeAlias type="com.kh.wantit.funding.model.vo.Review" alias="Review"/>
+		<typeAlias type="com.kh.wantit.funding.model.vo.Funding" alias="Funding"/>
 		<typeAlias type="com.kh.wantit.common.model.vo.CreatorImage" alias="CreatorImage"/>
 		<typeAlias type="com.kh.wantit.common.model.vo.Image" alias="Image"/>
+		
 		
 	</typeAliases>
 	
 	<mappers>
-		
 		<mapper resource="mappers/pay-mapper.xml"/>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/admin-mapper.xml"/>
 		<mapper resource="mappers/funding-mapper.xml"/>
+		<mapper resource="mappers/wanting-mapper.xml"/>
 	</mappers>
 </configuration>
