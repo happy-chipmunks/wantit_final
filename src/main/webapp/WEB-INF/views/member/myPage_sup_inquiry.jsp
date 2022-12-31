@@ -25,6 +25,10 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous"></script><!--네이바  -->	
 	<style>
 		@font-face {
 		    font-family: 'NanumSquareNeo-Variable';
@@ -87,7 +91,7 @@
     	</div>
     	<hr>
     	<div class="text-end">
-          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSuppoterInquiry.me'">서포터</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSupporterInquiry.me'">서포터</button>
           <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreatorInquiry.me'">크리에이터</button>
         </div>
        
@@ -131,6 +135,7 @@
    		</div>
    		<div class="col-8">
     					<h4 align="left">문의 내역</h4>
+    					<br><br>
     					<table class="table">
     						<tr>
     							<th>번호</th>

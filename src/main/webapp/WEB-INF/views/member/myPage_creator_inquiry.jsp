@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+	<jsp:include page="../common/navbar.jsp"/>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,6 +12,14 @@
 <!-- Bootstrap v5.1.3 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="resources/css/navbar.css">
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous"></script><!--네이바  -->
+
 	<style>
 		@font-face {
 		    font-family: 'NanumSquareNeo-Variable';
@@ -19,19 +28,20 @@
 		    font-style: normal;
 		}
 		
-		*{font-family: 'NanumSquareNeo-Variable';}
+		.col-8{font-family: 'NanumSquareNeo-Variable';}
 		
-		header{
-			background: black;
-		}
+		
 		
 		.container{
 			border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
 		}
 		
-		div>ul>li{
+		 div>ul>li{
 			margin: auto;
-		}
+			margin-left: 10px;
+		    margin-right: 10px;
+		    font-family: 'Do Hyeon', sans-serif;
+		} 
 		
 		h1{display: inline;}
 		
@@ -61,42 +71,7 @@
 
 </head>
 <body>
-	<header class="p-3 text-bg-dark">
-	    <div class="container" style="background: black;">
-	      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-	        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-	          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-	        </a>
 	
-	        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-	         <!--  <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">About</a></li> -->
-	        </ul>
-	
-	        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-	          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-	        </form>
-	
-	        <div class="text-end">
-	          <button type="button" class="btn btn-outline-light me-2">Login</button>
-	          <button type="button" class="btn btn-secondary">Sign-up</button>
-	        </div>
-	      </div>
-	    </div>
-	</header>
-	<br>
-	<div class="container" style="background: black;">
-    	<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-auto">
-          <li><a href="#" class="nav-link px-2 text-white">진행중인 펀딩</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">오픈예정 펀딩</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">원팅</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">프로젝트 오픈 신청</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">관리자 문의</a></li>
-        </ul>
-    </div>
     <br><br><br>
     <div class="container">
     	<div>
@@ -105,16 +80,16 @@
     	</div>
     	<hr>
     	<div class="text-end">
-          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSuppoterInquiry.me'">서포터</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSupporterInquiry.me'">서포터</button>
           <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreatorInquiry.me'">크리에이터</button>
         </div>
        
     </div>
 
 	<div class="row">
-		<div class="col-3">
+		<div class="col-3" style="align-self;">
 			<ul>
-				<li style="width: 200px;"><img src="resources/기본프로필.png" style="width: 150px; height: 150px;">
+				<li style="width: 200px; margin: auto;"><img src="${ contextPath }/resources/myPageImage/기본프로필.png" style="width: 150px; height: 150px;">
 	   				<h4><b>닉네임</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
 	   				크리에이터<br>
@@ -122,28 +97,25 @@
 	   				</p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporter.me'"><b>내 정보</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorFunding.me'"><b>진행중인펀딩</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterFunding.me'"><b>펀딩</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorFunding.me'"><b>오픈예정펀딩</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterWanting.me'"><b>원팅</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorAds.me'"><b>펀딩오픈신청</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterDibs.me'"><b>찜</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorInquiry.me'"><b>관리자문의</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterInquiry.me'"><b>문의</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorAds.me'"><b>광고 의뢰</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterAlarm.me'"><b>알림</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorAlarm.me'"><b>오픈알림</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterFollow.me'"><b>팔로우</b></button></p>
-   				</li>
-   				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterPayList.me'"><b>구매이력</b></button></p>
+   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorFollow.me'"><b>팔로우</b></button></p>
    				</li>
 			</ul>
    		</div>

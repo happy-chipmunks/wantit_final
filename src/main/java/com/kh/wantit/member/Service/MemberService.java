@@ -38,6 +38,8 @@ public interface MemberService {
 
 	int updateenPwd(Member updatePwd);
 
+	
+
 
 
 	
