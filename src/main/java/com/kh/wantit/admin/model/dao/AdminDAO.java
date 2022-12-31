@@ -13,14 +13,11 @@ import com.kh.wantit.admin.model.vo.NReply;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
-<<<<<<< HEAD
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.vo.Creator;
-=======
 import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
->>>>>>> 아내만원
 import com.kh.wantit.member.vo.Member;
 
 @Repository("aDAO")
@@ -76,7 +73,6 @@ public class AdminDAO {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectAllAds", i, rowBounds);
 	}
 
-<<<<<<< HEAD
 	public ArrayList<Creator> creatorApproval(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminMapper.creatorApproval");
 	}
@@ -85,7 +81,6 @@ public class AdminDAO {
 		return (ArrayList)sqlSession.selectList("adminMapper.businessImage");
 	}
 
-=======
 	public ArrayList<Image> selectAllImage(SqlSessionTemplate sqlSession, int i) {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectAllImage", i);
 	}
@@ -150,5 +145,16 @@ public class AdminDAO {
 		return sqlSession.update("adminMapper.deleteFunding", id);
 	}
 	
->>>>>>> 아내만원
+	public int updateMemberType(SqlSessionTemplate sqlSession, String changeId) {
+		return sqlSession.update("adminMapper.updateMemberType", changeId);
+	}
+
+	public int deleteCreator(String delCreator, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("adminMapper.deleteCreator", delCreator);
+	}
+
+	public int updateCreatorType(String delCreator, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("adminMapper.updateCreatorType", delCreator);
+	}
+	
 }

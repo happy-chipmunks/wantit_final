@@ -18,7 +18,6 @@
 		where funding_status='Y'
 	</select>
 
-<<<<<<< HEAD
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>
@@ -36,7 +35,5 @@
 		<result column="funding_status" property="fundingStatus"/>
 		<result column="creator_name" property="creatorNickname"/>
 	</resultMap>
-=======
 	
->>>>>>> 아내만원
 </mapper>
