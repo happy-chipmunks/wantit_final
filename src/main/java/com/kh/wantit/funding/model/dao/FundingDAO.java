@@ -22,6 +22,10 @@ public class FundingDAO {
 	public ArrayList<Funding> fundingList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("fundingMapper.fundingList");
 	}
+
+	public ArrayList<Funding> searchFundingList(SqlSessionTemplate sqlSession, String searchText) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.searchFundingList", searchText);
+	}
 	
 	
 }
