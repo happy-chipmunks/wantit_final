@@ -112,6 +112,7 @@ public class WantingController {
 		}
 	}
 
+
 	// ==================== 원팅 작성 - 이미지 처리 ====================
 	public String[] saveFile(MultipartFile file, HttpServletRequest request, int i) {
 		// saveFile이 있는 이유 : 우리가 지정한 경로에 넣어주고 자체형식으로 이름을 지정해줘야함 
@@ -151,6 +152,43 @@ public class WantingController {
 		returnArr[1] = renameFileName; // 변경한 이름 넣기
 		
 		return returnArr;
+	}
+	
+
+	// ==================== 원팅 작성 - 써머노트 이미지 ====================
+	@RequestMapping("summernoteImage.want")
+	public void profileUpload(String email, MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		// WEB-INF안에 있는 resources(정적파일관리)를 도달하려고 하는 경로
+		String savePath = root + "/wanting/summernote"; 
+		// 맥OS 경로
+		
+		File folder = new File(savePath);
+		if(!folder.exists()) {
+			folder.mkdirs(); // 폴더가 없으면 폴더 만들기
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+		// 날짜 이용하기 위해서 simpleDateFormat 이용
+		int ranNum = (int)(Math.random()*1000);
+		String originFileName = file.getOriginalFilename();
+		String renameFileName = "wantit " + sdf.format(new Date(System.currentTimeMillis())) + ranNum + "sm" + originFileName.substring(originFileName.lastIndexOf("."));
+		// 이름을 다시 지어줌 : 					데이터 업로드된 날짜 및 시간 (+ 랜덤값은 넣기 싫어)			 + 랜덤 + 원본파일에서 가장 마지막 . 뒤에 추출(파일확장자명 추출)
+		String renamePath = folder + "//" + renameFileName;
+		// 변경된 이름을 파일에 다시 저장
+		
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (Exception e) {
+			System.out.println("파일 전송 에러 : " + e.getMessage());
+		} // 여기까지는 일반 첨부파일과 동일
+		
+		System.out.println("파일경로 : " + renamePath);
+		PrintWriter out = response.getWriter();
+		// out 출력 : org.apache.catalina.connector.CoyoteWriter@6472c824
+
+		out.println(renameFileName); // 파일명 전송 
+		out.close(); // 닫아줘야 한다
 	}
 	
 	
@@ -270,53 +308,21 @@ public class WantingController {
 	}
 
 	
-	// 관리자페이지에서 내가 작성한 원팅 관리 - 원팅 현황 / 원팅 수정 요청 / 원팅 삭제 요청
 	// ==================== 원팅 수정하기 ====================
 	@RequestMapping("editWanting.want")
 	public String editWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session) {
 		
-		
 		return null;
 	}
 
+	
 	// ==================== 원팅 삭제하기 ====================
 	@RequestMapping("deleteWanting.want")
 	public String deleteWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session) {
-	
 		
 		return null;
 	}
 
-	
-	
-	@RequestMapping("summernote.want")
-	public void profileUpload(String email, MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		// 업로드할 폴더 경로
-		String realFolder = request.getSession().getServletContext().getRealPath("profileUpload");
-		UUID uuid = UUID.randomUUID();
-
-		// 업로드할 파일 이름
-		String org_filename = file.getOriginalFilename();
-		String str_filename = uuid.toString() + org_filename;
-
-		System.out.println("원본 파일명 : " + org_filename);
-		System.out.println("저장할 파일명 : " + str_filename);
-
-		String filepath = realFolder + "\\" + email + "\\" + str_filename;
-		System.out.println("파일경로 : " + filepath);
-
-		File f = new File(filepath);
-		if (!f.exists()) {
-			f.mkdirs();
-		}
-		file.transferTo(f);
-		out.println("profileUpload/"+email+"/"+str_filename);
-		out.close();
-	}
-	
-	
 	
 	
 	

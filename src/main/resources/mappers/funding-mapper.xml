@@ -17,6 +17,10 @@
 		from funding
 		where funding_status='Y'
 	</select>
+	
+	<select id="searchFundingList" resultMap="fundingResultSet">
+		select * from funding where funding_title like '%' || #{searchText} || '%'
+	</select>
 
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
@@ -35,4 +39,5 @@
 		<result column="funding_status" property="fundingStatus"/>
 		<result column="creator_name" property="creatorNickname"/>
 	</resultMap>
+	
 </mapper>

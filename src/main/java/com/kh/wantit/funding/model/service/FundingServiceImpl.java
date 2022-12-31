@@ -33,4 +33,9 @@ public class FundingServiceImpl implements FundingService{
 	public ArrayList<Funding> fundingList() {
 		return fDAO.fundingList(sqlSession);
 	}
+	
+	@Override
+	public ArrayList<Funding> searchFundingList(String searchText) {
+		return fDAO.searchFundingList(sqlSession, searchText);
+	}
 }

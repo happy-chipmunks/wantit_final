@@ -9,7 +9,7 @@
 </head>
 <body>
 	<c:set value="${ pageContext.servletContext.contextPath }" var="contextPath" scope="application"></c:set>
-	<button type="button" id="goHome" onclick="location.href='${ contextPath }/home.do'"></button>
+	<button type="button" id="goHome" onclick="location.href='${ contextPath }/home.do'" style="display: none;"></button>
 	<script type="text/javascript">
 		window.onload=()=> {
 			document.getElementById('goHome').click();

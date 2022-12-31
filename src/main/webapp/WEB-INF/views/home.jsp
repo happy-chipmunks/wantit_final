@@ -9,6 +9,22 @@
 	
 	<link rel="stylesheet" href="resources/css/main.css">
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<style type="text/css">
+		.remainDate{
+			float: right;
+		}
+		
+		.card-text, .wanting-text{
+			text-overflow: ellipsis;
+			white-space: normal;
+			word-wrap : break-word;
+			overflow : hidden;
+			display: -webkit-box;
+			-webkit-line-clamp : 2;
+			-webkit-box-orient : vertical;
+		}
+		
+	</style>
 </head>
 
 <body>
@@ -108,7 +124,7 @@
 	                                <fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowFmtTime" scope="request"/>
 	                                <fmt:parseNumber value="${ fp.fundingEnd.time / (1000*60*60*24) }" integerOnly="true" var="feFmtTime" scope="request"/>
 	                                
-	                                <span class="remainDate" style="text-align: end;">${feFmtTime - nowFmtTime + 1 }일 남음</span>
+	                                <span class="remainDate">${feFmtTime - nowFmtTime + 1 }일 남음</span>
 	                          </div>
 	                        </div>
 	                      </div>
@@ -128,7 +144,7 @@
 							<c:forEach items="${ wantingImageList }" var="image">
 								<c:if test="${ wantingList[i].wantingNum == image.imageBoardId and image.imageLevel == 0}">
 									<img src="${ contextPath }/resources/wanting/${image.imageRename}"
-										class="bd-placeholder-img card-img-top" alt="..." style="height: 100%; width: 100%; /* object-fit: cover; */">
+										class="bd-placeholder-img card-img-top" alt="..." style="height: 100%; width: 100%; object-fit: cover;">
 								</c:if>
 							</c:forEach>	
 						</svg>
@@ -166,98 +182,28 @@
             </div>
             <div class="row">
 
-                <div class="col">
-                    
-                    <div class="card shadow-sm fundinglist">
-                      <svg class="bd-placeholder-img card-img-top" width="100%" height="175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          
-                      <div class="card-body">
-                          <div class="cateAndName">
-                              <span class="cate">홈/리빙</span>
-                              <span class="fundName">괄호프로젝트</span>
-                          </div>
-                            <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                          
-                            <i class="bi bi-bag-heart likeIcon"> </i><span> 365</span>
-                            <span class="remainOpenDate">15일 뒤 오픈</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card shadow-sm fundinglist">
-                      <svg class="bd-placeholder-img card-img-top" width="100%" height="175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          
-                      <div class="card-body">
-                          <div class="cateAndName">
-                              <span class="cate">홈/리빙</span>
-                              <span class="fundName">괄호프로젝트</span>
-                          </div>
-                          <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                          <i class="bi bi-bag-heart likeIcon"> </i><span> 365</span>
-                        <span class="remainOpenDate">15일 뒤 오픈</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card shadow-sm fundinglist">
-                      <svg class="bd-placeholder-img card-img-top" width="100%" height="175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          
-                      <div class="card-body">
-                          <div class="cateAndName">
-                              <span class="cate">홈/리빙</span>
-                              <span class="fundName">괄호프로젝트</span>
-                          </div>
-                          <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                          <i class="bi bi-bag-heart likeIcon"> </i><span> 365</span>
-                            <span class="remainOpenDate">15일 뒤 오픈</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card shadow-sm fundinglist">
-                      <svg class="bd-placeholder-img card-img-top" width="100%" height="175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          
-                      <div class="card-body">
-                          <div class="cateAndName">
-                              <span class="cate">홈/리빙</span>
-                              <span class="fundName">괄호프로젝트</span>
-                          </div>
-                          <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                          <i class="bi bi-bag-heart likeIcon"> </i><span> 365</span>
-                            <span class="remainOpenDate">15일 뒤 오픈</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card shadow-sm fundinglist">
-                      <svg class="bd-placeholder-img card-img-top" width="100%" height="175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          
-                      <div class="card-body">
-                          <div class="cateAndName">
-                              <span class="cate">홈/리빙</span>
-                              <span class="fundName">괄호프로젝트</span>
-                          </div>
-                          <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                          <i class="bi bi-bag-heart likeIcon"> </i><span> 365</span>
-                            <span class="remainOpenDate">15일 뒤 오픈</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card shadow-sm fundinglist">
-                      <svg class="bd-placeholder-img card-img-top" width="100%" height="175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          
-                      <div class="card-body">
-                          <div class="cateAndName">
-                              <span class="cate">홈/리빙</span>
-                              <span class="fundName">괄호프로젝트</span>
-                          </div>
-                          <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                          <i class="bi bi-bag-heart likeIcon"> </i><span> 365</span>
-                            <span class="remainOpenDate">15일 뒤 오픈</span>
-                      </div>
-                    </div>
-                  </div>
+				<c:forEach items="${ fundingComingSoonList }" var="fcs">
+				
+	                <div class="col-2">
+	                    
+	                    <div class="card shadow-sm fundinglist">
+	                      <svg class="bd-placeholder-img card-img-top" width="100%" height="175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+	          
+	                      <div class="card-body">
+	                          <div class="cateAndName">
+	                              <span class="cate">${ fcs.fundingCate }</span>
+	                              <span class="fundName">${ fcs.fundingTitle }</span>
+	                          </div>
+	                            <p class="card-text">${ fcs.fundingContent }</p>
+	                          
+	                            <i class="bi bi-bag-heart likeIcon"> </i><span> 365</span>
+	                                <fmt:parseNumber value="${ fcs.fundingStart.time / (1000*60*60*24) }" integerOnly="true" var="fcsFmtTime" scope="request"/>
+	                            <span class="remainOpenDate">${ fcsFmtTime - nowFmtTime + 1}일 뒤 오픈</span>
+	                      </div>
+	                    </div>
+	                  </div>
+				</c:forEach>
+                  
             </div>
         </div>
 <!--       </div> -->
@@ -312,7 +258,29 @@
     				progressBar[i].style.width = percent + "%";
 				}
     		}
+    		
+//     		const searchInput = document.querySelector('#searchInput');
+// 			const dropDownSearch = document.querySelector('#dropDownSearch');
+// 			searchInput.addEventListener('click', function() {
+// 				dropDownSearch.style.display = "";
+// 			});
+    		
+//     		const searchInput = document.getElementById('searchInput');
+//     		const body = document.querySelector('body');
+//     		body.addEventListener('click', searchFormEvent);
+			
     	}
+    	
+//     	function searchFormEvent(event) {
+//     			let target = event.target;
+//     			const dropDownSearch = document.getElementById('dropDownSearch');
+//     			console.log(dropDownSearch);
+//     		if(target == event.currentTarget.querySelector('#searchInput')) {
+//     			dropDownSearch.style.display = "";
+//     		} else {
+//     			dropDownSearch.style.display = "none";
+//     		}
+//     	}
     </script>
 <% request.removeAttribute("cancelPayScuccess"); %>
 

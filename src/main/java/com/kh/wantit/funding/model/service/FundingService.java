@@ -12,5 +12,7 @@ public interface FundingService {
 	int insertImage(Image i);
 
 	ArrayList<Funding> fundingList();
+
+	ArrayList<Funding> searchFundingList(String searchText);
 	
 }

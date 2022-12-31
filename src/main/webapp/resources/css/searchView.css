@@ -1,0 +1,78 @@
+.li-item{
+    border: 0;
+    background-color: #343332;
+    border-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin: 10px;
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 10px;
+    list-style: none;
+    cursor: pointer;
+}
+
+.bigSizeFont{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 40px;
+}
+
+.searchListCount{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+}
+
+.cardDecoration{
+    padding: 30px;
+}
+
+.cate, .fundName {
+    color: dimgrey;
+  }
+
+  .cate {
+    border-right: 1px solid dimgrey;
+    padding-right: 5px;
+  }
+
+  .card-text{
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  .remainDate{
+    text-align: end;
+    padding-left: 25px;
+    color: dimgrey;
+    font-family: 'Noto Sans KR', sans-serif;
+    float: right;
+  }
+
+  .alarmApl{
+    font-family: 'Noto Sans KR', sans-serif;
+    border: 1px solid #e8acef;
+    color: #e8acef;
+    width: 100%;
+    font-size: 13px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .remainOpenDate{
+    text-align: end;
+    padding-left: 20px;
+    color: dimgrey;
+  }
+
+  .alarmApl:hover{
+    border: 1px solid #e8acef;
+    color: white;
+    background-color: #e8acef;
+  }
+
+  .fontOnly{
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  
+   i{
+    color: #e8acef;
+  }
