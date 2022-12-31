@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.wantit.admin.model.exception.AdminException;
 import com.kh.wantit.admin.model.service.AdminService;
@@ -306,24 +307,60 @@ public class AdminController {
 	}
 	
 	// 크리에이터 승인 팝업
-	@RequestMapping("adminCreatorApproval.ad")
-	public String adminCreatorApproval(Model model) {
-		ArrayList<Creator> cList = aService.creatorApproval();
-		ArrayList<Image> iList = aService.businessImage();
-		
-//		System.out.println(cList);
-//		System.out.println(iList);
-		
-		for(int i = 0; i < cList.size(); i++) {
-			cList.get(i).setBusinessFileName(iList.get(i).getImageRename());
+		@RequestMapping("adminCreatorApproval.ad")
+		public String adminCreatorApproval(Model model, @RequestParam(value="page", required=false) Integer page) {
+			ArrayList<Creator> cList = aService.creatorApproval();
+			ArrayList<Image> iList = aService.businessImage();
+			
+//			System.out.println(cList);
+//			System.out.println(iList);
+			
+			for(int i = 0; i < cList.size(); i++) {
+				cList.get(i).setBusinessFileName(iList.get(i).getImageRename());
+			}
+			
+			int currentPage = 1;
+			if(page != null) {
+				currentPage = page;
+			}
+			
+			int listCount = aService.getListCount(1);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 7);
+			
+				model.addAttribute("pi", pi);
+				model.addAttribute("cList", cList);
+				return "adminCreatorApproval";
 		}
 		
-		if(cList.size() > 0) {
-			model.addAttribute("cList", cList);
-			return "adminCreatorApproval";
-		}else {
-			throw new AdminException("크리에이터 승인 팝업 불러오는 것에 실패하였습니다.");
+		// 크리에이터 승인
+		@RequestMapping("updateMemberType.ad")
+		@ResponseBody
+		public int updateMemberType(@RequestParam("id") String changeId, Model model) {
+			// System.out.println(changeId);
+			int result = aService.updateMemberType(changeId);
+			
+			if(result > 0) {
+				return result;
+			}else {
+				throw new AdminException("크리에이터 승인 실패");
+			}
 		}
 		
-	}
+		// 크리에이터 거절
+		@RequestMapping("creatorDelete.ad")
+		@ResponseBody
+		public int creatorDelete(@RequestParam("delId") String delCreator) {
+			System.out.println(delCreator);
+			int result1 = aService.deleteCreator(delCreator);
+			int result2 = aService.updateCreatorType(delCreator);
+			
+			int result = result1 + result2;
+			
+			if(result == 2) {
+				return result;
+			}else {
+				throw new AdminException("크리에이터 거절 실패");
+			}
+			
+		}
 }

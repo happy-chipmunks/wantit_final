@@ -117,7 +117,8 @@
 
 	<select id="creatorApproval" resultMap="creatorResultSet">
 		select *
-		from creator
+		from creator join member on(member_id=creator)
+		where member_type='supportor'
 		order by creator_num desc
 	</select>
 	<insert id="selectNewWrite">
@@ -159,6 +160,22 @@
 		funding_num=#{id}
 	</update>
 	
+	<update id="updateMemberType">
+		update member
+		set member_type='creator'
+		where member_id=#{changeId}
+	</update>
+	
+	<delete id="deleteCreator">
+		delete from creator
+		where creator=#{delCreator}
+	</delete>
+	
+	<update id="updateCreatorType">
+		update member
+		set member_type='supportor'
+		where member_id=#{delCreator}
+	</update>
 	
 	
 	<resultMap type="Member" id="memberResultSet">
