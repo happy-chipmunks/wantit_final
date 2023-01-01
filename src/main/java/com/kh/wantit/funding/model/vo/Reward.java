@@ -1,5 +1,7 @@
 package com.kh.wantit.funding.model.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,4 +21,6 @@ public class Reward {
 	private int rewardPrice;
 	private int rewardShipping;
 	private int rewardLimit;
+	private int rewardSellCount;
+	private Date rewardExpectDate;
 }
