@@ -100,6 +100,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
+	
+<link rel="icon" href="${ contextPath }/resources/favicon/다람쥐-복사본.ico" type="image/x-icon" sizes="16x16">
 </head>
 <style>
 	#logoutBtn,#adminBtn {

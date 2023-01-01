@@ -59,4 +59,23 @@ public class FundingServiceImpl implements FundingService{
 	public int getCreatorNum(String id) {
 		return fDAO.getCreatorNum(id, sqlSession);
 	}
+
+	@Override
+	public String checkWriter(int creatorNum) {
+		return fDAO.checkWriter(sqlSession, creatorNum);
+	}
+
+	@Override
+	public Funding getFunding(int bId, boolean yn) {
+		int result = 0;
+		if(yn) {
+			result = fDAO.addCount(bId, sqlSession);
+		}
+		return fDAO.getFunding(sqlSession, bId);
+	}
+
+	@Override
+	public ArrayList<Image> getImage(int bId) {
+		return fDAO.getImage(sqlSession, bId);
+	}
 }

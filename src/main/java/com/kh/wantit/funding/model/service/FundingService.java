@@ -23,5 +23,11 @@ public interface FundingService {
 	int insertReward(Reward r);
 
 	int getCreatorNum(String id);
+
+	String checkWriter(int creatorNum);
+
+	Funding getFunding(int bId, boolean yn);
+
+	ArrayList<Image> getImage(int bId);
 	
 }

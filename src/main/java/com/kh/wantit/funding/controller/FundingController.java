@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.exception.FundingException;
@@ -50,12 +52,6 @@ public class FundingController {
 	@RequestMapping("insertFundingBoard.fund")
 	public String insertFundingBoard() {
 		return "fundingWrite";
-	}
-	
-	// 펀딩 상세페이지
-	@RequestMapping("fundingMain.fund")
-	public String fundingMain() {
-		return "fundingMain";
 	}
 	
 	// 펀딩 등록
@@ -182,6 +178,32 @@ public class FundingController {
 	@RequestMapping("fundingComingSoon.fund")
 	public String fundingComingSoon() {
 		return "fundingComingSoon";
+	}
+	
+	// 펀딩 게시글 상세조회
+	@RequestMapping("selectFundingBoard.fund")
+	public ModelAndView selectFundingBoard(@RequestParam("bId") int bId, @RequestParam("writerNo") int creatorNum, HttpSession session, ModelAndView mv) {
+		Member m = (Member)session.getAttribute("loginUser");
+		String login = null;
+		if(m != null) {
+			login = m.getMemberId();
+		}
+		
+		boolean yn = false;
+		String writerCheckId = fService.checkWriter(creatorNum);
+		if(!writerCheckId.equals(login)) {
+			yn = true;
+		}
+		
+		Funding f = fService.getFunding(bId, yn);
+		ArrayList<Image> image = fService.getImage(bId);
+		
+		if(f != null) {
+			mv.addObject("f", f).addObject("image", image).setViewName("fundingMain");
+		}else {
+			throw new FundingException("펀딩 게시글 상세조회 실패");
+		}
+		return mv;
 	}
 	
 	

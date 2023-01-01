@@ -147,7 +147,7 @@
 				    </div><br>
 				    
 				    <h5 class="fundingH5">펀딩 목표금액</h5>&nbsp;<span class="essential">*</span><br>
-					<input class="funding-style" maxlength="40" name="targetAmount" type="number" style="width: 300px;">
+					<input class="funding-style" maxlength="40" name="targetMoney" type="number" style="width: 300px;">
 					<br><br>
 					
 					<h5 class="fundingH5">펀딩 최소 후원 금액</h5>&nbsp;<br>

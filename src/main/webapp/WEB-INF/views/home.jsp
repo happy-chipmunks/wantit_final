@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 	<jsp:include page="common/navbar.jsp"></jsp:include>
 <head>
@@ -110,9 +111,11 @@
 	                          <div class="card-body">
 	                              <div style="padding-bottom: 10px;">
 	                                  <span class="cate">${ fp.fundingCate }</span>
-	                                  <span class="fundName">${ fp.fundingTitle }</span>
+	                                  <c:set var="title" value="${ fn:substring(fp.fundingTitle, 0, 12) }..."/>
+	                                  <span class="fundName">${ title }</span>
 	                              </div>
-	                              <p class="card-text">${ fp.fundingContent }</p>
+	                              <c:set var="content" value="${ fn:substring(fp.fundingContent, 0, 18) }..."/>
+	                              <p class="card-text">${ content }</p>
 	                                <fmt:formatNumber value="${ fp.currentMoney / fp.targetMoney }" type="percent" var="percentage"/>
 	                              <div class="d-flex justify-content-between align-items-center">
 	                                    <div style="height: 2px; width: 100%; background-color: gray;"><span class="progressBar" style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>

@@ -236,7 +236,7 @@
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 	<c:forEach items="${ fundingList }" var="fl">
 		          		<c:set var="isNotInserted" value="true"/>
-                		<div class="col">
+                		<div class="col fundingList">
 	                        <div class="card shadow-sm fundinglist">
 	                          		<c:forEach items="${ imageList }" var="i">
 		                          		<c:if test="${ fl.fundingNum eq i.imageBoardId and isNotInserted}">
@@ -252,6 +252,8 @@
 	              					
 	                          <div class="card-body">
 	                              <div style="padding-bottom: 10px;">
+	                              	<input class="bId" type="hidden" value="${ fl.fundingNum }">
+	                              	<input class="writer" type="hidden" value="${ fl.creatorNum }">
 	                                  <span class="cate">${ fl.fundingCate }</span>
 	                                  <c:set var="title" value="${ fn:substring(fl.fundingTitle, 0, 15) }..."/>
 	                                  <span class="fundName">${ title }</span>
@@ -272,6 +274,22 @@
             </div>
         </div>
     </div>
+    
+    <script>
+    	window.onload = () =>{
+    		var boards = document.getElementsByClassName('fundingList');
+    		for(var board of boards){
+    			board.addEventListener('click', function(){
+    				const bId = this.querySelector('.bId').value;
+    				console.log(bId);	// 선택한 펀딩 게시글 번호를 가지고 오는가
+    				const writerNo = this.querySelector('.writer').value;
+    				console.log(writerNo);	// 선택한 펀딩 게시글 작성자 번호를 가지고 오는가
+    				
+    				location.href='${contextPath}/selectFundingBoard.fund?bId=' + bId + '&writerNo=' + writerNo;
+    			});
+    		}
+    	}
+    </script>
     
 </body>
 </html>

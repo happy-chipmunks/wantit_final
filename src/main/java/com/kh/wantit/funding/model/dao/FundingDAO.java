@@ -43,6 +43,22 @@ public class FundingDAO {
 	public int getCreatorNum(String id, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("fundingMapper.getCreatorNum", id);
 	}
+
+	public String checkWriter(SqlSessionTemplate sqlSession, int creatorNum) {
+		return sqlSession.selectOne("fundingMapper.checkWriter", creatorNum);
+	}
+
+	public Funding getFunding(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("fundingMapper.getFunding", bId);
+	}
+
+	public ArrayList<Image> getImage(SqlSessionTemplate sqlSession, int bId) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getImage", bId);
+	}
+
+	public int addCount(int bId, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("fundingMapper.addCount", bId);
+	}
 	
 	
 }
