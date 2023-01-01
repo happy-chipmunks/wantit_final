@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <jsp:include page="../common/navbar.jsp"></jsp:include>
@@ -234,16 +235,29 @@
             <div class="col-md-10" style="padding: 30px;">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 	<c:forEach items="${ fundingList }" var="fl">
+		          		<c:set var="isNotInserted" value="true"/>
                 		<div class="col">
 	                        <div class="card shadow-sm fundinglist">
-	                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+	                          		<c:forEach items="${ imageList }" var="i">
+		                          		<c:if test="${ fl.fundingNum eq i.imageBoardId and isNotInserted}">
+		                          			<c:if test="${ i.imageRename != '' }">
+		                          				<img src="${ contextPath }/resources/funding/${i.imageRename}" height="225" alt="...">
+		                          				<c:set var ="isNotInserted" value="false"/>
+		                          			</c:if>
+		                          		</c:if>
+		                          	</c:forEach>
+		                         	<c:if test="${isNotInserted }">
+		                         		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">NO IMAGE</text></svg>    
+		                          	</c:if>
 	              					
 	                          <div class="card-body">
 	                              <div style="padding-bottom: 10px;">
 	                                  <span class="cate">${ fl.fundingCate }</span>
-	                                  <span class="fundName">${ fl.fundingTitle }</span>
+	                                  <c:set var="title" value="${ fn:substring(fl.fundingTitle, 0, 15) }..."/>
+	                                  <span class="fundName">${ title }</span>
 	                              </div>
-	                              <p class="card-text">${ fl.fundingContent }더</p>
+	                              <c:set var="content" value="${ fn:substring(fl.fundingContent, 0, 18) }..."/>
+	                              <p class="card-text">${ content }</p>
 	                              <div class="d-flex justify-content-between align-items-center">
 	                                    <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
 	                                </div>
