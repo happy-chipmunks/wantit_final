@@ -90,7 +90,6 @@
 		<result column="creator_name" property="creatorNickname"/>
 	</resultMap>
 	
->>>>>>> 아내만원
 	<resultMap type="Creator" id="creatorResultSet">
 		<id column="creator_num" property="creatorNum"/>
 		<result column="creator" property="creator"/>

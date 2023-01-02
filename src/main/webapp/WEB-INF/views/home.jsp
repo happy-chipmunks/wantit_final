@@ -25,6 +25,20 @@
 			-webkit-box-orient : vertical;
 		}
 		
+		.fundName{
+			text-overflow: ellipsis;
+			white-space: normal;
+			word-wrap : break-word;
+			overflow : hidden;
+			display: -webkit-box;
+			-webkit-line-clamp : 2;
+			-webkit-box-orient : vertical;
+		}
+		
+ 		.cate{ 
+ 		 	font-size: 10px; 
+		} 
+		
 	</style>
 </head>
 
@@ -110,12 +124,9 @@
 	              
 	                          <div class="card-body">
 	                              <div style="padding-bottom: 10px;">
+	                                  <span class="fundName">${ fp.fundingTitle }</span>
 	                                  <span class="cate">${ fp.fundingCate }</span>
-	                                  <c:set var="title" value="${ fn:substring(fp.fundingTitle, 0, 12) }..."/>
-	                                  <span class="fundName">${ title }</span>
 	                              </div>
-	                              <c:set var="content" value="${ fn:substring(fp.fundingContent, 0, 18) }..."/>
-	                              <p class="card-text">${ content }</p>
 	                                <fmt:formatNumber value="${ fp.currentMoney / fp.targetMoney }" type="percent" var="percentage"/>
 	                              <div class="d-flex justify-content-between align-items-center">
 	                                    <div style="height: 2px; width: 100%; background-color: gray;"><span class="progressBar" style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>

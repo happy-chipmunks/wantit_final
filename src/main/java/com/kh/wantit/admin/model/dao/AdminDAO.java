@@ -145,7 +145,6 @@ public class AdminDAO {
 		return sqlSession.update("adminMapper.deleteFunding", id);
 	}
 	
->>>>>>> 아내만원
 	public int updateMemberType(SqlSessionTemplate sqlSession, String changeId) {
 		return sqlSession.update("adminMapper.updateMemberType", changeId);
 	}

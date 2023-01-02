@@ -274,6 +274,19 @@
 		<result column="creator_name" property="creatorName"/>
 	</resultMap>
 	
+	<resultMap type="Image" id="imageResultSet">
+		<id column="image_num" property="imageNum"/>
+		<result column="image_form" property="imageForm"/>
+		<result column="origin_name" property="originName"/>
+		<result column="image_rename" property="imageRename"/>
+		<result column="image_src" property="imageSrc"/>
+		<result column="upload_date" property="uploadDate"/>
+		<result column="image_status" property="imageStatus"/>
+		<result column="image_level" property="imageLevel"/>
+		<result column="image_board_cate" property="imageBoardCate"/>
+		<result column="image_board_id" property="imageBoardId"/>
+	</resultMap>
+	
 	<resultMap type="CreatorImage" id="creatorImageResultSet">
 		<id column="image_num" property="imageNum"/>
 		<result column="image_detail" property="imageDetail"/>

@@ -158,13 +158,8 @@
     padding-bottom: 10px;
   }
 
-  .cate, .fundName {
-    color: dimgrey;
-  }
-
   .cate {
-    border-right: 1px solid dimgrey;
-    padding-right: 5px;
+    color: dimgrey;
   }
 
   .remainDate{
