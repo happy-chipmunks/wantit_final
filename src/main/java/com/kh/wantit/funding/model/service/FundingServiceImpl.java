@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.dao.FundingDAO;
 import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.Reward;
 
 @Service("fService")
 public class FundingServiceImpl implements FundingService{
@@ -37,5 +38,44 @@ public class FundingServiceImpl implements FundingService{
 	@Override
 	public ArrayList<Funding> searchFundingList(String searchText) {
 		return fDAO.searchFundingList(sqlSession, searchText);
+	}
+
+	@Override
+	public String getCreatorName(String id) {
+		return fDAO.getCreatorName(sqlSession, id);
+	}
+
+	@Override
+	public ArrayList<Image> fundingImageList() {
+		return fDAO.fundingImageList(sqlSession);
+	}
+
+	@Override
+	public int insertReward(Reward r) {
+		return fDAO.insertReward(r, sqlSession);
+	}
+
+	@Override
+	public int getCreatorNum(String id) {
+		return fDAO.getCreatorNum(id, sqlSession);
+	}
+
+	@Override
+	public String checkWriter(int creatorNum) {
+		return fDAO.checkWriter(sqlSession, creatorNum);
+	}
+
+	@Override
+	public Funding getFunding(int bId, boolean yn) {
+		int result = 0;
+		if(yn) {
+			result = fDAO.addCount(bId, sqlSession);
+		}
+		return fDAO.getFunding(sqlSession, bId);
+	}
+
+	@Override
+	public ArrayList<Image> getImage(int bId) {
+		return fDAO.getImage(sqlSession, bId);
 	}
 }

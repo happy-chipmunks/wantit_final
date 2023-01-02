@@ -1,32 +1,29 @@
 package com.kh.wantit.funding.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.exception.FundingException;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.Reward;
 import com.kh.wantit.member.vo.Member;
 
 @Controller
@@ -39,14 +36,16 @@ public class FundingController {
 	@RequestMapping("fundingList.fund") 
 	public String fundingList(Model model) {
 		ArrayList<Funding> fundingList = fService.fundingList();
+		ArrayList<Image> imageList = fService.fundingImageList();
+//		System.out.println(imageList);
 		
-		if(fundingList != null) {
+		if(fundingList != null && imageList != null) {
 			model.addAttribute("fundingList", fundingList);
+			model.addAttribute("imageList", imageList);
 			return "fundingProceed";
 		}else {
 			throw new FundingException("펀딩 목록 불러오기 실패");
 		}
-		
 	}
 	
 	// 펀딩 작성 페이지 이동
@@ -55,35 +54,59 @@ public class FundingController {
 		return "fundingWrite";
 	}
 	
-	// 펀딩 상세페이지
-	@RequestMapping("fundingMain.fund")
-	public String fundingMain() {
-		return "fundingMain";
-	}
-	
 	// 펀딩 등록
 	@RequestMapping("insertFunding.fund")
-	public String insertFunding(@ModelAttribute Funding f, @RequestParam("file") MultipartFile representativeFile, HttpServletRequest request) {
-		String name = ((Member)request.getSession().getAttribute("loginUser")).getMemberNickname();
-		f.setCreatorNickname(name);
+	public String insertFunding(@ModelAttribute Funding f, @RequestParam("file") ArrayList<MultipartFile> files, HttpServletRequest request, @RequestParam("category") String cate, @ModelAttribute Reward r) {
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
+		// System.out.println(id);
 		
-		Image i = new Image();
-		if(!representativeFile.equals("")) {
-			String[] returnArr = saveFile(representativeFile, request);
-			
-			if(returnArr[1] != null) {
-				i.setOriginName(representativeFile.getOriginalFilename());
-				i.setImageRename(returnArr[1]);
-				i.setImageSrc(returnArr[0]);
-				i.setImageBoardCate(1);
-				i.setImageLevel(0);
-			}
-		}
+		int creatorNum = fService.getCreatorNum(id);
+		
+		String creatorName = fService.getCreatorName(id);
+		f.setCreatorNum(creatorNum);
+		f.setCreatorNickname(creatorName);
+		// System.out.println(cate);
+		f.setFundingCate(cate);
+		// System.out.println(f.getFundingEnd());
+		
 		
 		int result1 = fService.insertFunding(f);
-		int result2 = fService.insertImage(i);
+		int result2 = 0;
+		// System.out.println(r);
+		int result3 = fService.insertReward(r);
 		
-		 if(result1 + result2 == 2) {
+		ArrayList<Image> list = new ArrayList<Image>();
+		for(int j = 0; j < files.size(); j++) {
+			MultipartFile upload = files.get(j);
+			
+			if(!upload.getOriginalFilename().equals("")) {
+				String[] returnArr = saveFile(upload, request, j);
+				
+				if(returnArr[1] != null) {
+					Image i = new Image();
+					i.setOriginName(upload.getOriginalFilename());
+					i.setImageForm(upload.getOriginalFilename().substring(upload.getOriginalFilename().lastIndexOf(".")));
+					i.setImageRename(returnArr[1]);
+					i.setImageSrc(returnArr[0]);
+					i.setImageBoardCate(1);
+//					i.setImageLevel(0);
+					list.add(i);
+				}
+			}
+		}
+		// System.out.println(list);
+		
+		for(int j = 0; j < list.size(); j++) {
+			Image i = list.get(j);
+			if(j == 0) {
+				i.setImageLevel(0);
+			}else {
+				i.setImageLevel(1);
+			}
+			result2 = fService.insertImage(i);
+		}
+		
+		 if(result1 > 0 && result2 > 0 && result3 >0) {
 			 return "redirect:fundingList.fund";
 		} else { 
 			 throw new FundingException("펀딩 등록 실패"); 
@@ -91,7 +114,8 @@ public class FundingController {
 		 
 	}
 	
-	public String[] saveFile(MultipartFile file, HttpServletRequest request) {
+	// 이미지 저장
+	public String[] saveFile(MultipartFile file, HttpServletRequest request, int j) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\funding";
 		
@@ -103,7 +127,7 @@ public class FundingController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		int ranNum = (int)(Math.random()*100000);
 		String originFileName = file.getOriginalFilename();
-		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + ranNum
+		String renameFileName = "funding" + sdf.format(new Date(System.currentTimeMillis())) + j + ranNum
 													+ originFileName.substring(originFileName.lastIndexOf("."));
 		
 		String renamePath = folder + "\\" + renameFileName;
@@ -120,68 +144,66 @@ public class FundingController {
 		return returnArr;
 	}
 	
-	// summernote 이미지 저장
-//	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
-//	@ResponseBody
-//	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
-//		JsonObject jsonObject = new JsonObject();
-//		
-//		//내부 경로로 저장
-//		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-//		String fileRoot = contextRoot="resources/fileupload/";
-//		String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
-//		String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
-//		String savedFileName = UUID.randomUUID() + extension; // 저장될 파일명
-//		
-//		File targetFile = new File(fileRoot + savedFileName);
-//		try {
-//			InputStream fileStream = multipartFile.getInputStream();
-//			FileUtils.copyInputStreamToFile(fileStream, targetFile); // 파일 저장
-//			jsonObject.addProperty("url", "/summernote/resources/fileupload/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-//			jsonObject.addProperty("responseCode", "success");
-//		} catch (IOException e) {
-//			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
-//			jsonObject.addProperty("responseCode", "error");
-//			e.printStackTrace();
-//		}
-//		String a = jsonObject.toString();
-//		return a;
-//		
-//	}
-	
-	@PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
-	@ResponseBody
-	public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
-		JsonObject jsonObject = new JsonObject();
+	// 펀딩 summernote 이미지
+	@RequestMapping("uploadSummernoteImageFile.fund")
+	public void profileUpload(String emial, MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\funding\\summernote";
 		
-		//내부 경로로 저장
-		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-		String fileRoot = contextRoot="resources/fileupload/";
-		String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
-		String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
-		
-		// 랜덤 UUID+확장자로 저장될 savedFileName
-		String savedFileName = UUID.randomUUID() + extension;
-		
-		File targetFile = new File(fileRoot + savedFileName);
-		
-		try {
-			InputStream fileStream = multipartFile.getInputStream();
-			FileUtils.copyInputStreamToFile(fileStream, targetFile);		// 파일 저장
-			jsonObject.addProperty("url", "/summernoteImage/resources/fileupload/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-			jsonObject.addProperty("responseCode", "success");
-		} catch (IOException e) {
-			FileUtils.deleteQuietly(targetFile);		// 실패 시 저장된 파일 삭제
-			jsonObject.addProperty("responseCode", "error");
-			e.printStackTrace();
+		File folder = new File(savePath);
+		if(!folder.exists()) {
+			folder.mkdirs();
 		}
-		return jsonObject;
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		int ranNum = (int)(Math.random()*1000);
+		String originFileName = file.getOriginalFilename();
+		String renameFileName = "funding" + sdf.format(new Date(System.currentTimeMillis())) + ranNum + "sm" + originFileName.substring(originFileName.lastIndexOf("."));
+
+		String renamePath = folder + "\\" + renameFileName;
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (Exception e) {
+			System.out.println("파일 전송 에러 : " + e.getMessage());
+		}
+		
+		System.out.println("파일경로: " + renamePath);
+		PrintWriter out = response.getWriter();
+		
+		out.println(renameFileName);
+		out.close();
 	}
 	
 	// 펀딩 오픈 예정 페이지 이동
 	@RequestMapping("fundingComingSoon.fund")
 	public String fundingComingSoon() {
 		return "fundingComingSoon";
+	}
+	
+	// 펀딩 게시글 상세조회
+	@RequestMapping("selectFundingBoard.fund")
+	public ModelAndView selectFundingBoard(@RequestParam("bId") int bId, @RequestParam("writerNo") int creatorNum, HttpSession session, ModelAndView mv) {
+		Member m = (Member)session.getAttribute("loginUser");
+		String login = null;
+		if(m != null) {
+			login = m.getMemberId();
+		}
+		
+		boolean yn = false;
+		String writerCheckId = fService.checkWriter(creatorNum);
+		if(!writerCheckId.equals(login)) {
+			yn = true;
+		}
+		
+		Funding f = fService.getFunding(bId, yn);
+		ArrayList<Image> image = fService.getImage(bId);
+		
+		if(f != null) {
+			mv.addObject("f", f).addObject("image", image).setViewName("fundingMain");
+		}else {
+			throw new FundingException("펀딩 게시글 상세조회 실패");
+		}
+		return mv;
 	}
 	
 	

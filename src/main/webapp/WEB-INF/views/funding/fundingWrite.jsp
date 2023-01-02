@@ -99,161 +99,123 @@
         </div>
     </div>
 	
-	<form action="${ contextPath }/insertFunding.fund" method="POST" enctype="multipart/form-data" id="formImage">
-		<div class="row">
-			<div class="container col-6" style="text-align: center;"><br>
-				<h4 class="pb-1 h4">펀딩 기본 정보</h4><br>
-				
-				<h5 class="fundingH5" style="display: inline;">펀딩 카테고리</h5>&nbsp;<span class="essential">*</span><br>
-				<select name="category" style="width: 200px;" class="funding-style">
-   					<option>테크·가전</option>
-   					<option>패션·잡화</option>
-   					<option>뷰티</option>
-   					<option>음식</option>
-   					<option>홈·리빙</option>
-   					<option>여행·레저</option>
-   					<option>스포츠</option>
-   					<option>캐릭터·굿즈</option>
-   				</select>
-				<br><br>
-				
-				<h5 class="fundingH5">펀딩 제목</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style" placeholder="제목을 입력해 주세요" maxlength="40" name="title" type="text" style="width: 300px;">
-				<br><br>
-				
-				<h5 class="fundingH5">펀딩 요약</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style" placeholder="펀딩을 간단히 요약해 주세요" maxlength="40" name="summary" type="text" style="width: 300px;">
-				<br><br>
-				
-				<h5 class="fundingH5">펀딩 대표이미지</h5>
-				<div class="selectCover" style="padding-left: 0;">
-				 	<img id="cover2" style="width: 200px; height: 200px;" src="${ contextPath }/resources/myPageImage/대체이미지.png"/>
+	<form action="${ contextPath }/insertFunding.fund" method="POST" enctype="multipart/form-data"  id="formImage">
+			<div class="row">
+				<div class="container col-6" style="text-align: center;"><br>
+					<h4 class="pb-1 h4">펀딩 기본 정보</h4><br>
+					
+					<h5 class="fundingH5" style="display: inline;">펀딩 카테고리</h5>&nbsp;<span class="essential">*</span><br>
+					<select name="category" style="width: 200px;" class="funding-style">
+	   					<option>테크·가전</option>
+	   					<option>패션·잡화</option>
+	   					<option>뷰티</option>
+	   					<option>음식</option>
+	   					<option>홈·리빙</option>
+	   					<option>여행·레저</option>
+	   					<option>스포츠</option>
+	   					<option>캐릭터·굿즈</option>
+	   				</select>
+					<br><br>
+					
+					<h5 class="fundingH5">펀딩 제목</h5>&nbsp;<span class="essential">*</span><br>
+					<input class="funding-style" placeholder="제목을 입력해 주세요" maxlength="40" name="fundingTitle" type="text" style="width: 300px;">
+					<br><br>
+					
+					<h5 class="fundingH5">펀딩 요약</h5>&nbsp;<span class="essential">*</span><br>
+					<input class="funding-style" placeholder="펀딩을 간단히 요약해 주세요" maxlength="40" name="fundingSummary" type="text" style="width: 300px;">
+					<br><br>
+					
+					<h5 class="fundingH5">펀딩 대표이미지</h5>
+					<div class="selectCover" style="padding-left: 0;">
+					 	<img id="cover" style="width: 200px; height: 200px;" src="${ contextPath }/resources/myPageImage/대체이미지.png"/>
+					</div>
+		  				
+		  				<div class="form-group" style="margin: 8px 0 8px;">
+						<input id="fileName" class="form-control" value="파일선택" disabled="disabled" style="width:40%; display: inline;">
+								<div class="fileRegiBtn">
+									<label for="myFileUp">파일등록하기</label>
+									<input type="file" id="myFileUp" name="file">
+								</div>
+					</div>
+					
+					<br>
+					<h4 class="pb-1 h4">펀딩 스토리</h4><br>
+					<h5 class="fundingH5">펀딩 소개</h5>&nbsp;<span class="essential">*</span><br>
+					<div>회원님의 펀딩 프로젝트를 소개해주세요.</div>
+				    <div>
+				    	<textarea id="summernote" name="fundingContent"></textarea>
+				    </div><br>
+				    
+				    <h5 class="fundingH5">펀딩 목표금액</h5>&nbsp;<span class="essential">*</span><br>
+					<input class="funding-style" maxlength="40" name="targetMoney" type="number" style="width: 300px;">
+					<br><br>
+					
+					<h5 class="fundingH5">펀딩 최소 후원 금액</h5>&nbsp;<br>
+					<i style="color: gray;" id="i-style">기본 최소 후원 금액은 1,000원 입니다.</i><br>
+					<input class="funding-style" maxlength="40" min="1000" step="10" name="minimumAmount" list="amountList" type="number" style="width: 300px;">
+					<br><br>
+					
+					<datalist id="amountList">
+						<option>1000</option>
+						<option>5000</option>
+						<option>10000</option>
+						<option>50000</option>
+						<option>100000</option>
+					</datalist>
+					
+					<h5 class="fundingH5">펀딩 종료일</h5>&nbsp;<span class="essential">*</span><br>
+					<input class="funding-style" maxlength="40" id="endDate" name="fundingEnd" type="date" style="width: 300px;">
+					<br>
+					
+					<br>
+					<h4 class="pb-1 h4">펀딩 리워드 구성</h4><br>
+					<button id="addReward" class="btn btn-outline-primary" onclick="$('#rewardAdd').modal('show')" type="button">리워드 추가</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button id="delReward" class="btn btn-outline-secondary" onclick="delRow()" type="button">선택한 리워드 삭제</button>
+					<br>
+					
+					<table id="rewardTable" class="table" style="display: none;">
+						<tr>
+							<th style="width: 70px;"></th>
+							<th>리워드 아이템</th>
+							<th>리워드 설명</th>
+							<th>수량 제한</th>
+							<th>발송 시작일</th>
+							<th>금액</th>
+							<th>배송비</th>
+						</tr>
+					</table>
+					
+					<!-- 리워드 추가 모달 -->
+					<div class="modal fade" id="rewardAdd" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+					  <div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+						  	<div class="modal-header">
+						        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">REWARD ADD</h1>
+						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						    </div>
+						 	<div class="modal-body" style="text-align: left">
+							    	리워드 아이템<input type="text" class="form-control input" id="reward-name" name="rewardTitle">
+							    	리워드 설명<input class="form-control input" style="height: 100px" id="reward-content" name="rewardContent">
+							      	수량 제한<input type="number" class="form-control input" id="reward-quantity" name="rewardLimit">
+							      	발송 시작일<input type="date" class="form-control input" id="reward-shipmentDate" name="rewardExpectDate">
+							      	금액<input type="number" class="form-control input" id="reward-donationPrice" name="rewardPrice">
+							      	배송비<input type="number" class="form-control input" id="reward-deliveryCharge" name="rewardShipping">
+							 </div>
+							 <div class="modal-footer">
+								<button type="button" class="btn btn-primary" id="sendBtn">보내기</button>
+						      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+							 </div>
+				    	</div> 
+					  </div>
+					</div>
 				</div>
-	  				
-	  				<div class="form-group" style="margin: 8px 0 8px;">
-					<input id="fileName" class="form-control" value="파일선택" disabled="disabled" style="width:40%; display: inline;">
-							<div class="fileRegiBtn">
-								<label for="myFileUp2">파일등록하기</label>
-								<input type="file" id="myFileUp2" name="file">
-							</div>
-				</div>
-				
-				<br>
-				<h4 class="pb-1 h4">펀딩 스토리</h4><br>
-				<h5 class="fundingH5">펀딩 소개</h5>&nbsp;<span class="essential">*</span><br>
-				<div>회원님의 펀딩 프로젝트를 소개해주세요.</div>
-			    <div>
-			    	<textarea id="summernote" name="fundingContent"></textarea>
-			    </div><br>
-			    
-			    <h5 class="fundingH5">펀딩 목표금액</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style" maxlength="40" name="targetAmount" type="number" style="width: 300px;">
-				<br><br>
-				
-				<h5 class="fundingH5">펀딩 최소 후원 금액</h5>&nbsp;<br>
-				<i style="color: gray;" id="i-style">기본 최소 후원 금액은 1,000원 입니다.</i><br>
-				<input class="funding-style" maxlength="40" min="1000" step="10" name="minimumAmount" list="amountList" type="number" style="width: 300px;">
-				<br><br>
-				
-				<datalist id="amountList">
-					<option>1000</option>
-					<option>5000</option>
-					<option>10000</option>
-					<option>50000</option>
-					<option>100000</option>
-				</datalist>
-				
-				<h5 class="fundingH5">펀딩 종료일</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style" maxlength="40" id="endDate" name="endDate" type="date" style="width: 300px;">
-				<br>
-				
-				<br>
-				<h4 class="pb-1 h4">펀딩 리워드 구성</h4><br>
-				<button id="addReward" class="btn btn-outline-primary" onclick="$('#rewardAdd').modal('show')" type="button">리워드 추가</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button id="delReward" class="btn btn-outline-secondary" onclick="delRow()" type="button">선택한 리워드 삭제</button>
-				<br>
-				
-				<table id="rewardTable" class="table" style="display: none;">
-					<tr>
-						<th style="width: 70px;"></th>
-						<th>리워드 아이템</th>
-						<th>리워드 설명</th>
-						<th>수량 제한</th>
-						<th>발송 시작일</th>
-						<th>금액</th>
-						<th>배송비</th>
-					</tr>
-				</table>
-				
-				<br>
-				<h4 class="pb-1 h4">사업자 정보</h4><br>
-				<h5 class="fundingH5">사업자 등록번호</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style" maxlength="40" name="targetAmount" type="number" style="width: 300px;">
-				<br><br>
-				
-				<h5 class="fundingH5">사업자 등록증</h5>&nbsp;<span class="essential">*</span><br>
-				<div class="selectCover" style="padding-left: 0;">
-				 	<img id="cover" style="width: 200px; height: 200px;" src="${ contextPath }/resources/myPageImage/대체이미지.png"/>
-				</div>
-	  				
-	  				<div class="form-group" style="margin: 8px 0 8px;">
-					<input id="fileName" class="form-control" value="파일선택" disabled="disabled" style="width:40%; display: inline;">
-							<div class="fileRegiBtn">
-								<label for="myFileUp">파일등록하기</label>
-								<input type="file" id="myFileUp" name="file">
-							</div>
-				</div>
-				<br>
-				<h5 class="fundingH5">대표자 명</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style" placeholder="제목을 입력해 주세요" maxlength="40" name="title" type="text" style="width: 300px;">
-				<br><br>
-				
-				<h5 class="fundingH5">대표자 전화번호</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style" placeholder="제목을 입력해 주세요" maxlength="40" name="title" type="text" style="width: 300px;">
-				<br><br>
-				
-				<h5 class="fundingH5">대표자 이메일</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style" placeholder="제목을 입력해 주세요" maxlength="40" name="title" type="text" style="width: 300px;">
-				<br><br>
-				
-				<h5 class="fundingH5">크리에이터 명</h5>&nbsp;<span class="essential">*</span><br>
-				<input class="funding-style" placeholder="제목을 입력해 주세요" maxlength="40" name="title" type="text" style="width: 300px;">
-				<br><br>
-				
-				<!-- 리워드 추가 모달 -->
-				<div class="modal fade" id="rewardAdd" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-				  <div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-					  	<div class="modal-header">
-					        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">REWARD ADD</h1>
-					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					    </div>
-					 	<div class="modal-body" style="text-align: left">
-						    	리워드 아이템<input type="text" class="form-control input" id="reward-name" name="rewardName">
-						    	리워드 설명<input class="form-control input" style="height: 100px" id="reward-content" name="rewardContent">
-						      	수량 제한<input type="number" class="form-control input" id="reward-quantity" name="rewardQuantity">
-						      	발송 시작일<input type="date" class="form-control input" id="reward-shipmentDate" name="rewardShipmentDate">
-						      	금액<input type="number" class="form-control input" id="reward-donationPrice" name="rewardDonationPrice">
-						      	배송비<input type="number" class="form-control input" id="reward-deliveryCharge" name="rewardDeliveryCharge">
-						 </div>
-						 <div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="sendBtn">보내기</button>
-					      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-						 </div>
-			    	</div> 
-				  </div>
-				</div>
-				
-				<br><br>
-				
-				<button class="btn btn-primary" type="submit" id="insertBtn">펀딩 제출</button>
-			
 			</div>
-		</div>
-    <br>
-    </form>
+			<button class="btn btn-primary" id="insertBtn" style="align: center;">펀딩 제출</button><br><br>
+	    </form>
+    	
 	
 	<script>
+		// 대표이미지 미리보기
 		function readURL(input) {
 	        if (input.files && input.files[0]) {
 	        var reader = new FileReader();
@@ -269,33 +231,15 @@
 	        readURL(this);
 	    });
 		
-		function readURL(input) {
-	        if (input.files && input.files[0]) {
-	        var reader = new FileReader();
-	        reader.onload = function (e) {
-	                $('#cover2').attr('src', e.target.result);        //cover src로 붙여지고
-	                $('#fileName2').val(input.files[0].name);    //파일선택 form으로 파일명이 들어온다
-	            }
-	          reader.readAsDataURL(input.files[0]);
-	        }
-	    }
-	
-		$("#myFileUp").change(function(){
-	        readURL(this);
-	    });
-		
-		
-		
-		
 		// 리워드 추가
 			$('#sendBtn').click(function(){
 				$('#rewardTable').show();
-				var title = $('#rewardAdd').find('input[name="rewardName"]').val();
+				var title = $('#rewardAdd').find('input[name="rewardTitle"]').val();
 				var content = $('#rewardAdd').find('input[name="rewardContent"]').val();
-				var quantity = $('#rewardAdd').find('input[name="rewardQuantity"]').val();
-				var postingDate = $('#rewardAdd').find('input[name="rewardShipmentDate"]').val();
-				var donationPrice = $('#rewardAdd').find('input[name="rewardDonationPrice"]').val();
-				var deliveryCharge = $('#rewardAdd').find('input[name="rewardDeliveryCharge"]').val();
+				var quantity = $('#rewardAdd').find('input[name="rewardLimit"]').val();
+				var postingDate = $('#rewardAdd').find('input[name="rewardExpectDate"]').val();
+				var donationPrice = $('#rewardAdd').find('input[name="rewardPrice"]').val();
+				var deliveryCharge = $('#rewardAdd').find('input[name="rewardShipping"]').val();
 				$('#rewardTable').append("<tr><td><input type='checkbox' name='checkBox'></td><td>" + title + "</td><td>" + content + "</td><td>" + quantity + "</td><td>" + postingDate + "</td><td>" + donationPrice + "</td><td>" + deliveryCharge + "</td>");
 			});
 		
@@ -321,11 +265,11 @@
 		          ['color', ['color']],
 		          ['para', ['ul', 'ol', 'paragraph']],
 		          ['table', ['table']],
-		          ['insert', ['link', 'picture', 'video']],
+		          ['insert', ['picture']],
 		          ['view', ['fullscreen', 'codeview', 'help']]
 		        ],
 	        callbacks: {
-	        	onImageUpload : function(files, editor){		// 이미지 첨부하는 부분
+	        	onImageUpload : function(files, editor, welEditable){		// 이미지 첨부하는 부분
 	        		for(var i = files.length - 1; i >= 0; i--){
 	        			uploadSummernoteImageFile(files[i], this);
 	        		}
@@ -334,19 +278,21 @@
 	     	 })
 		 });
 		 
-	        function uploadSummernoteImageFile(file, editor){
-	        	data = new FormData();
+	        function uploadSummernoteImageFile(file, el){
+	        	var data = new FormData();
 	        	data.append("file", file);
 	        	$.ajax({
 	        		data: data,
 	        		type: "POST",
-	        		url: "/uploadSummernoteImageFile",
+	        		url: "${contextPath}/uploadSummernoteImageFile.fund",
+	        		cache: false,
 	        		contentType: false,
 	        		enctype: 'multipart/form-data',
 	        		processData: false,
 	        		success: function(data){
+	        			console.log(data);
 	        			// 항상 업로드된 파일의 url이 있어야 한다.
-	        			$(editor).summernote('insertImage', data.url);
+	        			$(el).summernote('editor.insertImage', "/funding-summernote/" + data);
 	        		}
 	        	});
 	        } 
@@ -386,6 +332,7 @@
 	    			  data: JSON.stringify(dataArrayToSend1),
 	    			  success: (data)=>{
 	    				  console.log(data);
+	    				  console.log('성공');
 	    			  },
 	    			  error: (data)=>{
 	    				console.log(data);
@@ -393,23 +340,6 @@
 	    		  });
 	    	  });
 	      });
-	      
-	   // 이미지 저장
-			 const form = document.getElementByid('formImage');
-			 document.getElementById('insertBtn').addEventListener('click', ()=>{
-				 const files = document.getElementByName('file');
-				 let isEmpty = true;
-				 for(const f of files){
-					 if(f.value != ''){
-						 isEmpty = false;
-					 }
-				 }
-				 form.submit();
-			 });
-	      
-			 $("#insertBtn").on('click', function(){
-				 $('textarea[name="fundingContent"]').val($('#summernote').summernote('code'));
-			 });
 	</script>
 
 </body>

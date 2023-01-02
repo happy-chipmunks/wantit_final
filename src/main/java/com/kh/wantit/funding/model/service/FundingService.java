@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.Reward;
 
 public interface FundingService {
 
@@ -14,5 +15,19 @@ public interface FundingService {
 	ArrayList<Funding> fundingList();
 
 	ArrayList<Funding> searchFundingList(String searchText);
+
+	String getCreatorName(String id);
+
+	ArrayList<Image> fundingImageList();
+
+	int insertReward(Reward r);
+
+	int getCreatorNum(String id);
+
+	String checkWriter(int creatorNum);
+
+	Funding getFunding(int bId, boolean yn);
+
+	ArrayList<Image> getImage(int bId);
 	
 }

@@ -133,6 +133,18 @@ public class AdminService {
 //	public int getAccept(int acceptDivision) {
 //		return aDAO.getAccept(sqlSession, acceptDivision);
 //	}
+	
+	public int updateMemberType(String changeId) {
+		return aDAO.updateMemberType(sqlSession, changeId);
+	}
+
+	public int deleteCreator(String delCreator) {
+		return aDAO.deleteCreator(delCreator, sqlSession);
+	}
+
+	public int updateCreatorType(String delCreator) {
+		return aDAO.updateCreatorType(delCreator, sqlSession);
+	}
 
 	
 }

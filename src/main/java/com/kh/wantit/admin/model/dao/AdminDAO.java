@@ -1,4 +1,4 @@
-package com.kh.wantit.admin.model.dao;
+﻿package com.kh.wantit.admin.model.dao;
 
 import java.util.ArrayList;
 
@@ -143,6 +143,19 @@ public class AdminDAO {
 	}
 	public int deleteFunding(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.update("adminMapper.deleteFunding", id);
+	}
+	
+>>>>>>> 아내만원
+	public int updateMemberType(SqlSessionTemplate sqlSession, String changeId) {
+		return sqlSession.update("adminMapper.updateMemberType", changeId);
+	}
+
+	public int deleteCreator(String delCreator, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("adminMapper.deleteCreator", delCreator);
+	}
+
+	public int updateCreatorType(String delCreator, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("adminMapper.updateCreatorType", delCreator);
 	}
 	
 }
