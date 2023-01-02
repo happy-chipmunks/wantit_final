@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.wanting.exception.WantingException;
@@ -210,6 +211,24 @@ public class WantingController {
 	}
 	
 	
+	// ==================== 원팅 리스트 불러오기 - 인기 ====================
+	@RequestMapping("/wantingListPopular.want")
+	public String wantingListPopular(Model model) {
+		ArrayList<Wanting> wantingList = wService.selectWantingListPopular();
+		ArrayList<Image> imageList = wService.selectImageList();// 
+		System.out.println(wantingList);
+		System.out.println(imageList);
+		
+		if(wantingList != null && wantingList != null) {
+			model.addAttribute("wantingList", wantingList);
+			model.addAttribute("imageList",imageList);
+			return "wantingListView";
+	      } else {
+	         throw new WantingException("원팅 리스트 조회 실패");
+	      }
+	}
+	
+	
 	// ==================== 원팅 상세보기 ====================
 	@RequestMapping("selectWanting.want")
 	public String selectWanting(@RequestParam("wantingNum") int wantingNum, Model model, HttpSession session) {
@@ -276,15 +295,36 @@ public class WantingController {
 		WantingAttend join = new WantingAttend(id, wantingNum);
 		System.out.println("원팅 참여한다면 이것 : " + join);
 		
+		// 원팅 참여함
 		int result1 = wService.attendWanting(join);
 		
-		// 원팅에 참여자수랑 달성단계 DB에 넣기
+		// 원팅에 참여자수 DB에 넣기
 		Wanting w = wService.selectWanting(wantingNum);
 		int wantingCount = wService.getWantingCount(wantingNum);
 		w.setWantingCount(wantingCount);
 		
+		// 원팅 달성하면 알림 보내기
+		// 원래는 100명 500명 1000명이지만
+		int result2 = 0;
+		if(wantingCount == 10 || wantingCount == 50 || wantingCount == 100) {
+			Alarm alarm = new Alarm();
+			alarm.setAlarmBoardCate(4);
+			alarm.setAlarmBoardId(wantingNum);
+			
+			if(wantingCount == 10) { alarm.setAlarmMsg("${ w.wantingTitle} 원팅 1차 달성이 완료되었습니다!"); }
+			if(wantingCount == 500) { alarm.setAlarmMsg("${ w.wantingTitle} 원팅 2차 달성이 완료되었습니다!"); }
+			if(wantingCount == 1000) { alarm.setAlarmMsg("${ w.wantingTitle} 원팅 3차 달성이 완료되었습니다!"); }
+			
+			// Alarm 객체에 memberId만 빼고 넣어서 함수에 전달
+			result2 = sendAlarm(alarm);
+		} else {
+			result2 = 1;
+		}
+		
+		
+		// 원팅 달성단계 DB에 넣기
 		int wantingLevel = 0;
-		if(wantingCount <= 100) {
+		if(wantingCount <= 10) {
 			wantingLevel = 1;
 		} else if(wantingCount <= 500) {
 			wantingLevel = 2;
@@ -296,10 +336,10 @@ public class WantingController {
 		w.setWantingLevel(wantingLevel);
 		System.out.println("원팅 참여 업데이트 : " + w);
 		
-		int result2 = wService.updateWantingStatus(w);
-		System.out.println("result1 : " + result1 + "/ result2 : " + result2);
+		int result3 = wService.updateWantingStatus(w);
+		System.out.println("원팅 참여 결과 : " + result1 + "/ 원팅 달성 시 알림 : " + result2 + "/ 원팅 달성 상태 삽입 : " + result3);
 		
-		if(result1 > 0 && result2 > 0) {
+		if(result1 > 0 && result2 > 0 && result3 > 0) {
 			redirectAttributes.addAttribute("wantingNum", wantingNum);
 			return "redirect:selectWanting.want";
 		} else {
@@ -308,22 +348,90 @@ public class WantingController {
 	}
 
 	
-	// ==================== 원팅 수정하기 ====================
-	@RequestMapping("editWanting.want")
-	public String editWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session) {
+	// ==================== 원팅 달성 알림 보내기 함수  ====================
+	public int sendAlarm(Alarm alarm) {
+		int wantingNum = alarm.getAlarmBoardId();
+		ArrayList<WantingAttend> memberList = wService.getMemberList(wantingNum);
+		System.out.println(memberList); // wantingNum으로 참여자 맴버들 리스트 가져와서
 		
-		return null;
+		int result = 0; 
+		for(int i = 0; i < memberList.size(); i++) {
+			String memberId = memberList.get(i).getAttender();
+			alarm.setMemberId(memberId); // Alarm 객체에 memberId 넣어서 DB에 넣기
+			result += wService.sendAlarm(alarm); // 알림 보낸 횟수만큼 result 값 증가시키고
+			System.out.println("결과증  " +result);
+		}
+		
+		if(result == memberList.size()) {
+			result = 1; // 모든 member들에게 알림을 보냈으면 결과값 1
+		} else {
+			result = 0; // 모든 member에게 알림을 못 보냈으면 결과값 0
+		}
+		return result;
+	}
+	
+	
+	// ==================== 원팅 수정하기 페이지 ====================
+	@RequestMapping("updateWantingView.want")
+	public String selectWanting1(@RequestParam("wantingNum") int wantingNum, Model model, HttpSession session) {
+		Wanting w = wService.selectWanting(wantingNum);
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		if(id == w.getWantingWriter() || id == "admin") {
+			ArrayList<Image> imageList = wService.selectImage(wantingNum);
+			Image thumbnail = null;
+			for(int i = 0; i < imageList.size(); i++) {
+				if(imageList.get(i).getImageLevel() == 0) {
+					thumbnail = imageList.get(i);
+				}
+			}
+			
+			if (w != null && imageList != null) {
+				model.addAttribute("wanting", w);
+				model.addAttribute("thumbnail", thumbnail);
+				return "wantingUpdate";
+			} else {
+				throw new WantingException("원팅 상세보기 실패");
+			}
+		} else {
+			throw new WantingException("원팅 상세보기 실패");
+		}
+		
 	}
 
 	
+	// ==================== 원팅 수정하기 ====================
+	@RequestMapping("updateWanting.want")
+	public String updateWanting(@ModelAttribute Wanting w, HttpSession session) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		if(id == w.getWantingWriter() || id == "admin") {
+			
+		}
+		return null; // 이건 관리자가 수정하는 
+	}
+		
+		
 	// ==================== 원팅 삭제하기 ====================
 	@RequestMapping("deleteWanting.want")
-	public String deleteWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session) {
-		
-		return null;
+	public String deleteWanting(@ModelAttribute Wanting w, HttpSession session) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		if(id == w.getWantingWriter() || id == "admin") {
+			
+			
+			
+			
+			
+			
+			// 원팅 삭제
+			int wantingNum = w.getWantingNum();
+			int result = wService.deleteWanting(wantingNum);
+		}
+		return null; // 이건 관리자가 수정하는  
 	}
 
 	
+
+
 	
 	
 }

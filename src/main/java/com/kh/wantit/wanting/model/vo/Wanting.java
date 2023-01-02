@@ -18,12 +18,14 @@ public class Wanting {
 	private String wantingWriter;
 	private String wantingNickname;
 	private String wantingTitle;
+	private String wantingSummary;
 	private String wantingContent;
-	private String wantingShopLocation;
 	private String wantingShopName;
-	private int wantingLevel;
-	private String wantingStatus;
+	private String wantingShopAddress;
 	private Date wantingCreateDate;
-	private int wantingCount;
 	private int wantingDaysCount;
+	private int wantingCount;
+	private int wantingLevel;
+	private String wantingConfirm;
+	private String wantingStatus;
 }

@@ -26,11 +26,7 @@
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9d6a7c5e2b95f01e1fdfee7c815cc918&libraries=services"></script>
   
 </head>
-<!-- <style>
-.map_wrap span{
-height: 10px;
-}
-</style> -->
+
 
 <body>
 <div class="container wanting-write">
@@ -47,19 +43,10 @@ height: 10px;
 	<h4 class="">원팅 등록하기</h4>
 	<div class="wanting-title-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	
-	
-	
-	
-	
 	<h5 class="wanting-guide-title">원팅 제목</h5>
 	<div class="wanting-guide-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	<i class="icon-help" aria-hidden="true"></i>
-	<input class="wanting-write-input" placeholder="제목을 입력해 주세요" maxlength="40" name="wantingTitle" type="text" value="" name="wantingTitle">
-
-	<h5 class="wanting-guide-title">원팅 요약</h5>
-	<div class="wanting-guide-detail">대표 이미지와 함께 보이는 글이에요. 원팅은 쉽고 간결하게 소개해 주세요.</div>
-	<i class="icon-help" aria-hidden="true"></i>
-	<input class="wanting-write-input" placeholder="내용을 입력해 주세요" maxlength="80" name="wantingSummary" type="text" value="" name="wantingSummary">
+	<input class="wanting-write-input" placeholder="제목을 입력해 주세요" maxlength="40" name="wantingTitle" type="text" value="${ wanting.wantingTitle }" name="wantingTitle">
 
 	<h5 class="wanting-guide-title">대표이미지</h5>
 	<input accept="image/JPG,image/JPEG,image/GIF,image/PNG" name="wanting-file" placeholder="" type="file" id="wanting-file" style="display:none">
@@ -67,39 +54,39 @@ height: 10px;
 		원팅 맨 위에서 가장 먼저 보여 주고 싶은 영상이나 사진을 등록해주세요.
 		<br>2MB 이하의 JPG, JPEG, GIF, PNG 파일이 등록됩니다. 여러 장 등록돼요.
 	</div>
-	
 	<label for="wanting-file" class="file-btn">등록하기</label>
-	<span id="file-name">선택된 파일없음</span>
+	<span id="file-name">${ thumbnail.getImageRename }</span>
 
 	<h5 class="wanting-guide-title">가게 소개</h5>
 	<div class="wanting-guide-detail">원팅 대상이 되는 가게 정보를 입력해주세요</div>
 	<div class="wanting-shop">
-		가게 이름<input class="wanting-write-input shop-input" placeholder="가게 이름을 입력해 주세요" maxlength="40" name="wantingShopName" type="text" value="" id="wanting-input" height="10"><br>
-		가게 주소<input class="wanting-write-input shop-input" placeholder="가게 주소를 입력해 주세요" maxlength="40" name="wantingShopAddress" type="text" value="" id="wanting-input">
-	</div>
-
-	<!-- 카카오 지도 -->
-    <div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-        
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
- 				<!-- 키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> -->
-                <input type="text" value="정원순두부 을지로점" id="keyword" size="25"> 
-                <button class="" id="map-search-btn" type="submit" onclick="searchPlaces(); return false;"
-                style="background-color: #e7e7e7; border-radius: 2px; border: 2px;">검색하기</button> 
-            </div>
-        </div>
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-    </div>
+		가게 이름<input class="wanting-write-input shop-input" placeholder="가게 이름을 입력해 주세요" maxlength="40" name="wantingShopName" type="text" value="${ wanting.wantingShopName }" id="wanting-input" height="10"><br>
+		가게 주소<input class="wanting-write-input shop-input" placeholder="가게 주소를 입력해 주세요" maxlength="40" name="wantingShopAddress" type="text" value="${ wanting.wantingShopAddress }" id="wanting-input">
+	  	
+	  	<!-- 카카오 지도 -->
+	    <div class="map_wrap">
+	    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+	        
+	    <div id="menu_wrap" class="bg_white">
+	        <div class="option">
+	            <div>
+	 				<!-- 키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> -->
+	                <input type="text" value="${ wanting.wantingShopName }" id="keyword" size="25"> 
+	                <button class="" id="map-search-btn" type="submit" onclick="searchPlaces(); return false;"
+	                style="background-color: #e7e7e7; border-radius: 2px; border: 2px;">검색하기</button> 
+	            </div>
+	        </div>
+	        <hr>
+	        <ul id="placesList"></ul>
+	        <div id="pagination"></div>
+	    </div>
+		</div>
+		
 	</div>
 
 	<h5 class="wanting-guide-title">원팅 스토리 작성</h5>
 	<div class="wanting-guide-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
-    <textarea id="summernote" name="wantingContent"></textarea>
+    <textarea id="summernote" name="wantingContent">${ wanting.wantingContent }</textarea>
 
 	<button class="btn-wanting" data-bs-toggle="modal" data-bs-target="#wanting-modal" id="btn-submit">원팅 제출</button>
 
