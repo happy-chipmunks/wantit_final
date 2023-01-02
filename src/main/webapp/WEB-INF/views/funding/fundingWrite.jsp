@@ -121,9 +121,9 @@
 					<input class="funding-style" placeholder="제목을 입력해 주세요" maxlength="40" name="fundingTitle" type="text" style="width: 300px;">
 					<br><br>
 					
-					<h5 class="fundingH5">펀딩 요약</h5>&nbsp;<span class="essential">*</span><br>
-					<input class="funding-style" placeholder="펀딩을 간단히 요약해 주세요" maxlength="40" name="fundingSummary" type="text" style="width: 300px;">
-					<br><br>
+<!-- 					<h5 class="fundingH5">펀딩 요약</h5>&nbsp;<span class="essential">*</span><br> -->
+<!-- 					<input class="funding-style" placeholder="펀딩을 간단히 요약해 주세요" maxlength="40" name="fundingSummary" type="text" style="width: 300px;"> -->
+<!-- 					<br><br> -->
 					
 					<h5 class="fundingH5">펀딩 대표이미지</h5>
 					<div class="selectCover" style="padding-left: 0;">
@@ -260,14 +260,18 @@
 		        tabsize: 2,
 		        height: 550,
 		        toolbar: [
-		          ['style', ['style']],
-		          ['font', ['bold', 'underline', 'clear']],
-		          ['color', ['color']],
-		          ['para', ['ul', 'ol', 'paragraph']],
-		          ['table', ['table']],
-		          ['insert', ['picture']],
-		          ['view', ['fullscreen', 'codeview', 'help']]
+		        	['fontname', ['fontname']],
+		            ['fontsize', ['fontsize']],
+		            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+		            ['color', ['forecolor','color']],
+		            ['table', ['table']],
+		            ['para', ['ul', 'ol', 'paragraph']],
+		            ['height', ['height']],
+		            ['insert',['picture']],
+		            ['view', ['fullscreen', 'codeview' ,'help']]
 		        ],
+		        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+		        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
 	        callbacks: {
 	        	onImageUpload : function(files, editor, welEditable){		// 이미지 첨부하는 부분
 	        		for(var i = files.length - 1; i >= 0; i--){

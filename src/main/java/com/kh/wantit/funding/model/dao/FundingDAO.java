@@ -52,8 +52,8 @@ public class FundingDAO {
 		return sqlSession.selectOne("fundingMapper.getFunding", bId);
 	}
 
-	public ArrayList<Image> getImage(SqlSessionTemplate sqlSession, int bId) {
-		return (ArrayList)sqlSession.selectList("fundingMapper.getImage", bId);
+	public Image getImage(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("fundingMapper.getImage", bId);
 	}
 
 	public int addCount(int bId, SqlSessionTemplate sqlSession) {

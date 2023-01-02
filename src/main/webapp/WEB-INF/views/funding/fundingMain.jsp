@@ -60,7 +60,7 @@
         <!-- 상품 상세설명 -->
         <div class="funding-detail">
           <p><strong>펀딩 이야기</strong></p>
-          <img src="https://cdn.imweb.me/thumbnail/20210119/53c7002429e0d.jpg">
+          ${ f.fundingContent }
         </div>
       </div>
       </div>
