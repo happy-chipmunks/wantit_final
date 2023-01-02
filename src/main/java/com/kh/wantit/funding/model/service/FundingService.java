@@ -28,6 +28,6 @@ public interface FundingService {
 
 	Funding getFunding(int bId, boolean yn);
 
-	ArrayList<Image> getImage(int bId);
+	Image getImage(int bId);
 	
 }

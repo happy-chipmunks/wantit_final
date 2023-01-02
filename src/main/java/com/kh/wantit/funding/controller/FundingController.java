@@ -195,8 +195,10 @@ public class FundingController {
 			yn = true;
 		}
 		
+		System.out.println(bId);
 		Funding f = fService.getFunding(bId, yn);
-		ArrayList<Image> image = fService.getImage(bId);
+		Image image = fService.getImage(bId);
+		System.out.println(image);
 		
 		if(f != null) {
 			mv.addObject("f", f).addObject("image", image).setViewName("fundingMain");
