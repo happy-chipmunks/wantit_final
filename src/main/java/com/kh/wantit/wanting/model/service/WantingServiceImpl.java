@@ -94,6 +94,8 @@ public class WantingServiceImpl implements WantingService{
 	@Override
 	public ArrayList<Wanting> searchWantingList(String searchText) {
 		return wDAO.searchWantingList(sqlSession, searchText);
+	}
+	
 	public int sendAlarm (Alarm alarm) {
 		return wDAO.sendAlarm(sqlSession, alarm);
 	}

@@ -65,6 +65,7 @@ public class WantingDAO {
 
 	public ArrayList<Wanting> searchWantingList(SqlSessionTemplate sqlSession, String searchText) {
 		return (ArrayList)sqlSession.selectList("wantingMapper.searchWantingList", searchText);
+	}
 	
 	// 원팅 달성 알림 보내기
 	public ArrayList<WantingAttend> getMemberList(SqlSessionTemplate sqlSession, int wantingNum) {

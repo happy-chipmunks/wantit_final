@@ -43,10 +43,7 @@ public interface WantingService {
 	// 원팅 삭제 및 수정
 	int deleteWanting(int wantingNum);
 
-
-
 	
-
 	ArrayList<Wanting> searchWantingList(String searchText);
 
 	
