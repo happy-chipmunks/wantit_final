@@ -58,6 +58,10 @@ public class WantingDAO {
 		return sqlSession.update("wantingMapper.updateWantingStatus", w);
 	}
 
+	public ArrayList<Wanting> searchWantingList(SqlSessionTemplate sqlSession, String searchText) {
+		return (ArrayList)sqlSession.selectList("wantingMapper.searchWantingList", searchText);
+	}
+
 
 
 }

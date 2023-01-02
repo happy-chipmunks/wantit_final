@@ -78,7 +78,10 @@ public class WantingServiceImpl implements WantingService{
 		return wDAO.updateWantingStatus(sqlSession, w);
 	}
 
-
+	@Override
+	public ArrayList<Wanting> searchWantingList(String searchText) {
+		return wDAO.searchWantingList(sqlSession, searchText);
+	}
 
 	
 }

@@ -1,5 +1,6 @@
 package com.kh.wantit.pay.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.pay.dao.PayDAO;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
@@ -61,6 +63,11 @@ public class PayService {
 	public int updatePayStatus(Map<String, String> updateStatusMap) {
 		return pDAO.updatePayStatus(sqlSession, updateStatusMap);
 	}
+
+	public Funding getFundingInfo(int fundingNum) {
+		return pDAO.getFundingInfo(sqlSession, fundingNum);
+	}
+
 
 //	public int updatePayStatus(PaySchedule ps) {
 //		return pDAO.updatePayStatus(sqlSession, ps);

@@ -50,6 +50,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.google.gson.JsonObject;
+import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.pay.exception.PayException;
 import com.kh.wantit.pay.service.PayService;
 import com.kh.wantit.pay.vo.PaySchedule;
@@ -78,9 +79,12 @@ public class PayController {
 		
 		ArrayList<Reward> rewardList = pService.getRewardList(fundingNum);
 		String fundingTitle = pService.getFundingTitle(fundingNum);
+		Funding funding = pService.getFundingInfo(fundingNum);
+		Date fundingEnd = funding.getFundingEnd();
 		model.addAttribute("rewardList", rewardList);
 		model.addAttribute("fundingTitle", fundingTitle);
 		model.addAttribute("fundingNum", fundingNum);
+		model.addAttribute("fundingEnd", fundingEnd);
 		return "payView";
 	}
 	
@@ -252,19 +256,10 @@ public class PayController {
 												@RequestParam("buyerName") String buyerName, @RequestParam("buyerTel") String buyerTel,
 												@RequestParam("buyerAddr") String[] buyerAddr, @RequestParam("postReq") String postReq,
 												@RequestParam("rewardExpectDate") Date[] rewardExpectDate,  @RequestParam("fundingNum") int fundingNum,
-												@RequestParam("rewardTitle") String[] rewardTitle, Model model) {
+												@RequestParam("rewardTitle") String[] rewardTitle, @RequestParam("fundingEnd") Date fundingEnd, Model model) {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		Date date = Date.valueOf("2022-01-01");
-		for(int i=0 ; i<rewardExpectDate.length ; i++) {
-			if(date.compareTo(rewardExpectDate[i]) == -1) {
-				date = rewardExpectDate[i];
-			}
-			
-			System.out.println(date);
-			
-		}
 		String creditCardNumber = cardNum[0] + "-" +  cardNum[1] + "-" + cardNum[2] + "-" + cardNum[3];
 		String creditCardExpiry = "20" + cardExpiry[1] + "-" + cardExpiry[0];
 		String buyerFullAddress = buyerAddr[0] + " // " + buyerAddr[1];
@@ -292,7 +287,7 @@ public class PayController {
 			System.out.println(billingMap.get("customer_uid"));
 			
 			//아임포트 결제예약
-			scheduleMap = paySchedule(fundingTitle, date, totalAmount, buyerName, buyerTel, buyerFullAddress, accessToken, billingMap.get("customer_uid"));
+			scheduleMap = paySchedule(fundingTitle, fundingEnd, totalAmount, buyerName, buyerTel, buyerFullAddress, accessToken, billingMap.get("customer_uid"));
 			System.out.println(scheduleMap.toString());
 			System.out.println(buyerName);
 			
@@ -414,7 +409,7 @@ public class PayController {
 		LocalDate tempDate = LocalDate.now();
 		String dateTime = tempDate.toString();
 		
-		long schedule_at = scheduleDate.getTime() / 1000;
+		long schedule_at = (scheduleDate.getTime() + 86400000) / 1000;
 		schedule_at += 3600;
 		//12월 25일 00시 00분으로 인식함.
 		System.out.println("schedule_date : " + scheduleDate.getTime());

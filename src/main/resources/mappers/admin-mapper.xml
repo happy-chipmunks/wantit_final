@@ -202,19 +202,6 @@
 		<result column="FUNDING_TITLE" property="fundingTitle" />
 	</resultMap>
 
-	<resultMap type="Image" id="imageResultSet">
-		<id column="IMAGE_NUM" property="imageNum" />
-		<result column="IMAGE_FORM" property="imageForm" />
-		<result column="ORIGIN_NAME" property="originName" />
-		<result column="IMAGE_RENAME" property="imageRename" />
-		<result column="IMAGE_SRC" property="imageSrc" />
-		<result column="UPLOAD_DATE" property="uploadDate" />
-		<result column="IMAGE_STATUS" property="imageStatus" />
-		<result column="IMAGE_LEVEL" property="imageLevel" />
-		<result column="IMAGE_BOARD_CATE" property="imageBoardCate" />
-		<result column="IMAGE_BOARD_ID" property="imageBoardId" />
-	</resultMap>
-
 	<resultMap type="Notice" id="noticeResultSet">
 		<id column="NOTICE_NUM" property="noticeNum" />
 		<result column="ADMIN" property="admin" />

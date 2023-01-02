@@ -72,6 +72,9 @@
 		where wanting_num=#{wantingNum} and wanting_status='Y' 
 	</update>
 	
+	<select id="searchWantingList" resultMap="wantingResultSet">
+		select * from wanting where wanting_title like '%' || #{searchText} || '%'
+	</select>
 	
 	
 	<resultMap type="Wanting" id="wantingResultSet">

@@ -32,6 +32,8 @@ public interface WantingService {
 
 	int updateWantingStatus(Wanting w);
 
+	ArrayList<Wanting> searchWantingList(String searchText);
+
 	
 
 }

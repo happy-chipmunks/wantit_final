@@ -2,7 +2,6 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.kh.wantit.pay.vo.TestMember" alias="TestMember"/>
 		<typeAlias type="com.kh.wantit.pay.vo.Reward" alias="Reward"/>
 		<typeAlias type="com.kh.wantit.pay.vo.PaySchedule" alias="PaySchedule"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.AdminInquiry" alias="AdminInquiry"/>

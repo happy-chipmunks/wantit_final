@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.wantit.common.model.vo.Image;
@@ -63,11 +64,11 @@ public class HomeController {
 		
 		for(Funding f : fundingList) {
 			if(now.compareTo(f.getFundingStart()) == -1) {
-				if(fundingComingSoonList.size() < 7) {
+				if(fundingComingSoonList.size() < 6) {
 					fundingComingSoonList.add(f);
 				}
 			} else {
-				if(fundingProceedList.size() < 7) {
+				if(fundingProceedList.size() < 6) {
 					fundingProceedList.add(f);
 				}
 			}
@@ -85,14 +86,34 @@ public class HomeController {
 	}
 	
 	@RequestMapping("search.do")
-	public String search(@RequestParam("searchText") String searchText, 
-										HttpServletResponse resp, HttpServletRequest req, Model model) {
+	public String search(@RequestParam("searchText") String searchText, Model model) {
+		
+		ArrayList<Funding> fundingList = fService.searchFundingList(searchText);
+		System.out.println(fundingList);
+//		ArrayList<Wanting> wantingList = wService.searchWantingList(searchText);
+//		System.out.println(wantingList);
+		
+		model.addAttribute("fundingList", fundingList);
+		model.addAttribute("searchText", searchText);
+//		model.addAttribute("wantingList", wantingList);
+		
+		
+		return "common/searchView";
+	}
+	@RequestMapping("searchFP.do")
+	public String searchFP(@RequestParam("searchText") String searchText, Model model) {
+		ArrayList<Funding> fundingFPList = new ArrayList<Funding>();
 		
 		ArrayList<Funding> fundingList = fService.searchFundingList(searchText);
 		
+		Date now = new Date();
+		for(Funding f : fundingList) {
+			if(f.getFundingStart().compareTo(now) == -1) {
+				fundingFPList.add(f);
+			}
+		}
 		
-		
-		model.addAttribute("fundingList", fundingList);
+		model.addAttribute("fundingList", fundingFPList);
 		return "common/searchView";
 	}
 	

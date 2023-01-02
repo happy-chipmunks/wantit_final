@@ -1,11 +1,13 @@
 package com.kh.wantit.pay.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.pay.service.PayService;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
@@ -56,6 +58,11 @@ public class PayDAO {
 		System.out.println("dao map : " + updateStatusMap.toString());
 		return sqlSession.update("payMapper.updatePayStatus", updateStatusMap);
 	}
+
+	public Funding getFundingInfo(SqlSessionTemplate sqlSession, int fundingNum) {
+		return sqlSession.selectOne("payMapper.getFundingInfo", fundingNum);
+	}
+
 
 //	public int updatePayStatus(SqlSessionTemplate sqlSession, PaySchedule ps) {
 //		return sqlSession.update("payMapper.updatePayStatus", ps);

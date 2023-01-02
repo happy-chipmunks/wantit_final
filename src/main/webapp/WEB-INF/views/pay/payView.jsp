@@ -63,6 +63,7 @@
             <p class="srTitle">펀딩 결제</p>
         </div>
         <form action="${ contextPath }/paySchedule.pay" method="post" id="scheduleForm">
+        	<input type="hidden" value="${ fundingEnd }" name="fundingEnd">
 	        <div class="row">
 	            <div class="col-4 selectReward">
 	                <p class="crT">리워드 선택</p>

@@ -131,7 +131,7 @@
                 	</c:forEach>
                   </div>
                   <div class="row">
-                        <span class="fundingMore">더보기</span>
+                        <span class="fundingMore" id="fundingMore">더보기</span>
                   </div>
                </div>
                 
@@ -232,7 +232,7 @@
   </div>
 </div>
     <script type="text/javascript">
-    	window.onload=()=> {
+//     	window.onload=()=> {
     		const payScheduleSuccessMessage = '${ cancelPayScuccess }';
     		console.log(payScheduleSuccessMessage);
     		if(payScheduleSuccessMessage != '') {
@@ -269,7 +269,7 @@
 //     		const body = document.querySelector('body');
 //     		body.addEventListener('click', searchFormEvent);
 			
-    	}
+//     	}
     	
 //     	function searchFormEvent(event) {
 //     			let target = event.target;
@@ -298,6 +298,11 @@
 	       });
 	    }
 	 }
+	
+	const fundingMore = document.getElementById('fundingMore');
+	fundingMore.addEventListener('click', function() {
+		location.href='${ contextPath }/fundingList.fund';
+	});
 </script>
 </body>
 </html>

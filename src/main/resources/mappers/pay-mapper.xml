@@ -2,22 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="payMapper">
 
-	<resultMap type="TestMember" id="testMemberResultSet">
-		<id column="MEMBER_ID" property="id"/>
-		<result column="MEMBER_PWD" property="pwd"/>
-		<result column="MEMBER_NAME" property="name"/>
-		<result column="MEMBER_NICKNAME" property="nickName"/>
-		<result column="MEMBER_PHONE" property="phone"/>
-		<result column="MEMBER_POSTCODE" property="postCode"/>
-		<result column="MEMBER_ADDRESS" property="address"/>
-		<result column="MEMBER_EMAIL" property="email"/>
-		<result column="MEMBER_ENROLL_DATE" property="enrollDate"/>
-		<result column="MEMBER_GENDER" property="gender"/>
-		<result column="MEMBER_TYPE" property="type"/>
-		<result column="MEMBER_INTRODUCE" property="introduce"/>
-		<result column="MEMBER_CATE" property="cate"/>
-		<result column="MEMBER_STATUS" property="status"/>
-	</resultMap>
 	
 	<resultMap type="Reward"  id="rewardResultSet">
 		<id column="REWARD_NUM" property="rewardNum"/>
@@ -46,9 +30,23 @@
 		<result column="AMOUNT" property="amount"/>
 	</resultMap>
 	
-	<select id="testLogin" resultMap="testMemberResultSet">
-		select * from member where member_id = 'admin'
-	</select>
+	<resultMap type="Funding" id="fundingResultSet">
+		<id column="funding_num" property="fundingNum"/>
+		<result column="creator_num" property="creatorNum"/>
+		<result column="funding_cate" property="fundingCate"/>
+		<result column="funding_title" property="fundingTitle"/>
+		<result column="funding_content" property="fundingContent"/>
+		<result column="funding_count" property="fundingCount"/>
+		<result column="funding_start" property="fundingStart"/>
+		<result column="funding_end" property="fundingEnd"/>
+		<result column="current_money" property="currentMoney"/>
+		<result column="target_money" property="targetMoney"/>
+		<result column="confirm" property="confirm"/>
+		<result column="create_date" property="createDate"/>
+		<result column="modify_date" property="modifyDate"/>
+		<result column="funding_status" property="fundingStatus"/>
+		<result column="creator_name" property="creatorNickname"/>
+	</resultMap>
 	
 	<select id="getRewardList" resultMap="rewardResultSet">
 		select * from reward where funding_num = #{fundingNum}
@@ -56,6 +54,10 @@
 	
 	<select id="getFundingTitle" resultType="string">
 		select funding_title from funding where funding_num = #{fundingNum}
+	</select>
+	
+	<select id="getFundingInfo" resultMap="fundingResultSet">
+		select * from funding where funding_num = #{fundingNum}
 	</select>
 	
 	<update id="changeRewardSellCount" parameterType="map">
