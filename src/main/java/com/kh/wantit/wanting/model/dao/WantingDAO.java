@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.wanting.model.vo.Wanting;
 import com.kh.wantit.wanting.model.vo.WantingAttend;
@@ -24,6 +25,10 @@ public class WantingDAO {
 	// 원팅 리스트 불러오기
 	public ArrayList<Wanting> selectWantingList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("wantingMapper.selectWantingList");
+	}
+
+	public ArrayList<Wanting> selectWantingListPopular(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("wantingMapper.selectWantingListPopular");
 	}
 
 	public ArrayList<Image> selectImageList(SqlSessionTemplate sqlSession) {
@@ -57,6 +62,24 @@ public class WantingDAO {
 	public int updateWantingStatus(SqlSessionTemplate sqlSession, Wanting w) {
 		return sqlSession.update("wantingMapper.updateWantingStatus", w);
 	}
+
+	
+	// 원팅 달성 알림 보내기
+	public ArrayList<WantingAttend> getMemberList(SqlSessionTemplate sqlSession, int wantingNum) {
+		return (ArrayList)sqlSession.selectList("wantingMapper.getMemberList", wantingNum);
+	}
+
+	public int sendAlarm(SqlSessionTemplate sqlSession, Alarm alarm) {
+		return sqlSession.insert("wantingMapper.sendAlarm", alarm);
+	}
+
+	
+	// 원팅 수정 및 삭제
+	public int deleteWanting(SqlSessionTemplate sqlSession, int wantingNum) {
+		return sqlSession.update("wantingMapper.deleteWanting", wantingNum);
+	}
+
+
 
 
 

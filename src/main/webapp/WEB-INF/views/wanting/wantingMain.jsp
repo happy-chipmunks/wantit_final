@@ -40,6 +40,9 @@
         <!-- 대표 이미지-->
         <img src="${ contextPath }/resources/wanting/${thumbnail.imageRename}">
 
+        <!-- 원팅 요약 -->
+        <p>${ wanting.wantingSummary }</p>
+
         <!-- 안내사항 -->
         <div class="notification">
           <p>
@@ -60,7 +63,7 @@
         <!-- 상품 상세설명 -->
         <div class="funding-detail">
           <p class="funding-detail-title"><strong>가게 정보</strong></p>
-          ${ wanting.wantingShopLocation }
+		  <!-- <input type="hidden" id="wantingShopAddress" value="${ wanting.wantingShopAddress }"> -->
           <div id="map" style="width:100%; height:400px;"></div>
           <p class="funding-detail-title"><strong>원팅 이야기</strong></p>
           ${ wanting.wantingContent }
@@ -99,7 +102,7 @@
 <%-- 		<input type="hidden" class="memberId" value="${ loginUser.memberId }"> --%>
 	  <input type="hidden" id="wantingNum" value="${ wanting.wantingNum }">
 	  <c:if test="${ empty loginUser }">
-	  	<button id="wanting-send-btn" class="btn-funding" data-bs-toggle="modal" data-bs-target="#login-modal">원팅 참여하기</button>
+	  	<button id="wanting-login-btn" class="btn-funding" data-bs-toggle="modal" data-bs-target="#login-modal">원팅 참여하기</button>
       </c:if>
 	  <c:if test="${ !empty loginUser }">
 	  	<c:if test="${ wantingYN }">
@@ -114,8 +117,8 @@
           <img src="resources/wanting/share.png"/>
           <span class="dips-count">원팅을 다른 사람에게 공유해보세요</span></button>
         </div>
-        <button class="btn" onclick="location.href='${ contextPath }/editWanting.want'">원팅수정</button>
-        <button class="btn" onclick="location.href='${ contextPath }/deleteWanting.want'">원팅삭제</button>
+        <button class="btn" id="wanting-update-btn" <%-- onclick="location.href='${ contextPath }/updateWantingView.want'" --%>>원팅수정</button>
+        <button class="btn" id="wanting-delete-btn" <%-- onclick="location.href='${ contextPath }/deleteWanting.want'" --%>>원팅삭제</button>
       </div>
     </div>
   </div>
@@ -231,16 +234,32 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9d6a7c5e2b95f01e1fdfee7c815cc918&libraries=services"></script>
 <script>
 	// 원팅 참여하기
-    document.getElementById('wanting-send-btn').addEventListener('click',function(){
-    	const wantingNum = parseInt(document.getElementById('wantingNum').value);
-    	//const input = document.querySelectorAll('input');
-		//const memberId = input[0].value;
-		//const wantingNum = parseInt(input[0].value);
-		//console.log(wantingNum);
-		//location.href  = '${contextPath}/attendWanting.want?memberId=' + memberId +'wantingNum='+ wantingNum;
-		location.href = '${contextPath}/attendWanting.want?wantingNum='+ wantingNum;
-	});
+	if(${ !empty loginUser }) {
+	    document.getElemensById('wanting-send-btn').addEventListener('click',function(){
+	    	const wantingNum = parseInt(document.getElementById('wantingNum').value);
+	    	//const input = document.querySelectorAll('input');
+			//const memberId = input[0].value;
+			//const wantingNum = parseInt(input[0].value);
+			//console.log(wantingNum);
+			//location.href  = '${contextPath}/attendWanting.want?memberId=' + memberId +'wantingNum='+ wantingNum;
+			location.href = '${contextPath}/attendWanting.want?wantingNum='+ wantingNum;
+		});
+	}
     
+	// 원팅 수정하기
+	document.getElementById('wanting-update-btn').addEventListener('click', function() {
+     	// const wantingNum = parseInt(document.getElementById('wantingNum').value); 굳이 hidden tag로 해야하나
+    	let wantingNum = ${ wanting.wantingNum };
+    	location.href = '${contextPath}/updateWantingView.want?wantingNum=' + wantingNum;
+	});
+
+	// 원팅 삭제하기
+	document.getElementById('wanting-delete-btn').addEventListener('click', function() {
+     	// const wantingNum = parseInt(document.getElementById('wantingNum').value); 굳이 hidden tag로 해야하나
+    	const wantingNum = ${ wanting.wantingNum };
+    	location.href = '${contextPath}/deleteWantingView.want?wantingNum=' + wantingNum;
+	});
+	
     // 원팅 공유하기
     function shareTwitter() {
         var sendText = "함께 만들어나가는 원팅! 자세히 알아보기"; // 전달할 텍스트
@@ -253,13 +272,40 @@
     }
 	
     // 원팅 가게 정보 지도
-	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+	var shopAddress = "${wanting.wantingShopAddress}";
+	console.log(shopAddress);
 
-	var options = { //지도를 생성할 때 필요한 기본 옵션
-		center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표 (위도, 경도)
-		level: 3 //지도의 레벨(확대, 축소 정도)
-	};
-	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+	if(shopAddress != null){
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = { // 지도를 생성할 때 필요한 기본 옵션
+			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표 (위도, 경도)
+			level: 3 // 지도의 레벨 (확대, 축소 정도)
+		}; 
+	
+	// 지도 생성 및 객체 리턴
+	var map = new kakao.maps.Map(mapContainer, mapOption);
+	// 주소를 위도 경도 좌표로 변환하는 객체를 생성
+	var geocoder = new kakao.maps.services.Geocoder();
+	// 주소로 좌표 검색
+	geocoder.addressSearch(shopAddress, function(result, status) {
+		// 정상적으로 검색을 완료 했으면
+		if (status === kakao.maps.services.Status.OK) {
+			var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			// 결과값으로 받은 위치를 마커로 표시
+			var marker = new kakao.maps.Marker({
+				map: map,
+				position: coords
+			});
+	        // 인포윈도우로 장소에 대한 설명을 표시
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">${wanting.wantingShopName}</div>'
+	        });
+	        infowindow.open(map, marker);
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시키기
+			map.setCenter(coords);
+		} 
+	});  
+	}
 	
 </script>
 

@@ -46,7 +46,7 @@
                    <div class="row">
                      <div class="col-lg-8 details order-2 order-lg-1">
                        <h3 class="tabTitle"> ${ wantingList[i].wantingTitle } </h3>
-                       <p class="tabContent">${ wantingList[i].wantingContent }</p>
+                       <p class="tabContent">${ wantingList[i].wantingSummary }</p>
                      </div>
                      <div class="col-lg-4 text-center order-1 order-lg-2">
                        <c:forEach items="${ imageList }" var="image">
@@ -73,9 +73,8 @@
                 <span class="cateTitleOrAll">진행중인 원팅</span>
                 <span class="fontOnly">if you want it you can get it</span>
                 <ul class="sortList">
-                    <li class="sortType">최신순</li>
-                    <li class="sortType">인기순</li>
-                    <li class="sortType" >원팅 성공순</li>
+                    <li class="sortType" onclick="location.href='${ contextPath }/wantingList.want'">최신순</li>
+                    <li class="sortType" onclick="location.href='${ contextPath }/wantingListPopular.want'">인기순</li>
                 </ul>
                 <br>
                 <hr style="border: 2px solid dimgray;">
