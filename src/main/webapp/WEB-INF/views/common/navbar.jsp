@@ -217,8 +217,14 @@
 				&nbsp;&nbsp;&nbsp;   
 				<c:if test="${ loginUser != null  && loginUser.memberNickname != '관리자'}">
 						<a href="${contextPath}/myPageinfo.me"> 
+						<c:if test="${image == null }">
+								<img style="border-radius: 20px" onerror="this.src='/blog/image/userProfile.png'"
+								src="${contextPath}/resources//myPageImage/뉴프로필.png" width="50px" height="50px" />
+						</c:if>
+						 <c:if test="${image != null }">
 							<img style="border-radius: 20px" onerror="this.src='/blog/image/userProfile.png'"
-								src="https://github.com/mdo.png" width="40px" height="40px" />
+								src="${contextPath}/resources/member/${ image }" width="50px" height="50px" />
+						</c:if>		 
 						</a>
 						<button type="button" class="btn" id="askManager"
 							onclick="location.href='${contextPath}/'">관리자 문의</button>

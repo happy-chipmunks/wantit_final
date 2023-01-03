@@ -128,4 +128,92 @@
 		<result column="manage_email" property="managerEmail"/>
 		<result column="creator_name" property="creatorName"/>
 	</resultMap>
+	
+	<resultMap type="Image" id="ImageResultSet">
+		<id column="creator_num" property="creatorNum"/>
+		<result column="creator" property="creator"/>
+		<result column="business_type" property="businessType"/>
+		<result column="business_number" property="businessNumber"/>
+		<result column="manager_name" property="managerName"/>
+		<result column="manager_phone" property="managerPhone"/>
+		<result column="manage_email" property="managerEmail"/>
+		<result column="creator_name" property="creatorName"/>
+	</resultMap>
+	
+	<resultMap type="Image" id="imageResultSet">
+		<id column="IMAGE_NUM" property="imageNum"/>
+		<result column="IMAGE_FORM" property="imageForm"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="IMAGE_RENAME" property="imageRename"/>
+		<result column="IMAGE_SRC" property="imageSrc"/>
+		<result column="UPLOAD_DATE" property="uploadDate"/>
+		<result column="IMAGE_STATUS" property="imageStatus"/>
+		<result column="IMAGE_LEVEL" property="imageLevel"/>
+		<result column="IMAGE_BOARD_CATE" property="imageBoardCate"/>
+		<result column="IMAGE_BOARD_ID" property="imageBoardId"/>
+	</resultMap>
+	
+	<resultMap type="CreatorImage" id="creatorImageResultSet">
+		<id column="IMAGE_NUM" property="imageNum"/>
+		<result column="IMAGE_DETAIL" property="imageDetail"/>
+	</resultMap>
+	
+	<!-- <insert id="insertmemberImage">
+		insert into image
+		values(seq_image.nextval, ${imageForm}, ${originName}, ${imageRename}, ${imageSrc}, sysdate, default, ${imageLevel}, ${imageBoardCate}, ${imageBoardId})
+	</insert> -->
+	
+	<insert id="insertmemberImage">
+		insert into image
+		values(seq_image.nextval, #{imageForm}, #{originName}, #{imageRename}, #{imageSrc}, SYSDATE, default,
+				#{imageLevel}, #{imageBoardCate}, #{imageBoardId})
+	</insert>
+	
+	<select id="selectImage" resultMap="imageResultSet">
+		select image_rename, image_src
+		from image
+		where IMAGE_STATUS = 'Y' AND IMAGE_BOARD_ID = #{imageBoardId} AND IMAGE_BOARD_CATE = #{imageBoardCate}
+	</select>
+	
+	<select id="allProfileImage" resultType="integer">
+		select image_num from image where image_board_id = #{memberId}
+	</select>
+	
+	<select id="selectCreatorImageList" resultMap="creatorImageResultSet">
+		select * from creator_image where image_num in
+		<foreach collection="arraylist" open="(" close=")" separator=", " item="item">
+			#{item}
+		</foreach>
+	</select>
+	
+	<update id="deleteImage">
+  		update image
+  		set IMAGE_STATUS = 'N'
+  		where IMAGE_BOARD_ID = #{imageBoardId}
+  	</update>
+	
+	<insert id="insertcreatorImage"><!--크리에이터사진등록  -->
+		insert into image
+		values(seq_image.nextval, #{imageForm}, #{originName}, #{imageRename}, #{imageSrc}, SYSDATE, default,
+				#{imageLevel}, #{imageBoardCate}, #{imageBoardId})
+	</insert>
+	
+	<select id="selectcreatorImage" resultMap="imageResultSet"><!--크리에이터 사진 불러오기  -->
+		select image_rename, image_src
+		from image
+		where IMAGE_STATUS = 'Y' AND IMAGE_BOARD_ID = #{imageBoardId} AND IMAGE_BOARD_CATE = #{imageBoardCate}
+	</select>
+	
+	<select id="selectcImage" resultMap="imageResultSet">
+		select image_rename, image_src
+		from image
+		where IMAGE_STATUS = 'Y' AND IMAGE_BOARD_ID = #{imageBoardId} AND IMAGE_BOARD_CATE = #{imageBoardCate}
+	</select>
+	
+	<update id="deletecImage" >
+  		update image
+  		set IMAGE_STATUS = 'N'
+  		where   IMAGE_BOARD_CATE = #{imageBoardCate} 
+  	</update>
+	
 </mapper>

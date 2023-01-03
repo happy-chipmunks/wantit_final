@@ -1,5 +1,9 @@
 ﻿package com.kh.wantit.member.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
@@ -37,6 +41,36 @@ public interface MemberService {
 	int checkMember(Member checkIdemail);
 
 	int updateenPwd(Member updatePwd);
+
+	int insertmemberImage(Image m);
+
+	Image selectImage(Image image);
+
+	ArrayList<Integer> allProfileImage(String id);
+
+	ArrayList<CreatorImage> selectCreatorImageList(ArrayList<Integer> memberIds);
+
+	int deleteImage(String memberId);//프로필사진 삭제
+
+	int insertcreatorImage(Image cm);//크리에이터 사진등록
+
+	Image selectcreatorImage(Image image);//크리에이터 사진 불러오기
+
+	Image selectcImage(Image cimage);//크리에이터 사진 가져오기 로그인할때
+
+	int deletecImage(int cateNum);
+
+	
+
+	
+	
+
+
+	
+
+
+
+	
 
 
 

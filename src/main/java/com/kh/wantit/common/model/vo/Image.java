@@ -23,6 +23,6 @@ public class Image {
 	private String imageStatus;
 	private int imageLevel;
 	private int imageBoardCate;
-	private int imageBoardId;
+	private String imageBoardId;
 }
 

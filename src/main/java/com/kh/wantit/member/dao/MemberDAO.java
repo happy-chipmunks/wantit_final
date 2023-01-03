@@ -1,8 +1,12 @@
 package com.kh.wantit.member.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
@@ -81,6 +85,62 @@ public class MemberDAO {
 	public int updateenPwd(SqlSessionTemplate sqlSession, Member updatePwd) {
 		return sqlSession.update("memberMapper.updateenPwd",updatePwd);
 	}
+
+
+	public int insertmemberImage(SqlSessionTemplate sqlSession, Image m) {
+		return sqlSession.insert("memberMapper.insertmemberImage", m);
+	}
+
+
+	public Image selectImage(SqlSessionTemplate sqlSession, Image image) {
+		return sqlSession.selectOne("memberMapper.selectImage", image);
+	}
+
+
+	public ArrayList<Integer> allProfileImage(SqlSessionTemplate sqlSession, String id) {
+		return (ArrayList)sqlSession.selectList("memberMapper.allProfileImage", id);
+	}
+
+
+	public ArrayList<CreatorImage> selectCreatorImageList(SqlSessionTemplate sqlSession, ArrayList<Integer> memberIds) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectCreatorImageList", memberIds);
+	}
+
+
+	public int deleteImage(SqlSessionTemplate sqlSession, String memberId) {
+		return sqlSession.update("memberMapper.deleteImage",memberId);
+	}
+
+
+	public int insertcreatorImage(SqlSessionTemplate sqlSession, Image cm) {
+		return sqlSession.insert("memberMapper.insertcreatorImage", cm);
+	}
+
+
+	public Image selectcreatorImage(SqlSessionTemplate sqlSession, Image image) {
+		return sqlSession.selectOne("memberMapper.selectcreatorImage", image);
+	}
+
+
+	public Image selectcImage(SqlSessionTemplate sqlSession, Image cimage) {
+		return sqlSession.selectOne("memberMapper.selectcImage", cimage);
+	}
+
+
+	public int deletecImage(SqlSessionTemplate sqlSession, int cateNum) {
+		return sqlSession.update("memberMapper.deletecImage",cateNum);
+	}
+
+
+	
+
+
+	
+
+
+
+
+	
 
 
 

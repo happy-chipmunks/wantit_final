@@ -5,6 +5,7 @@ import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.mail.internet.MimeMessage;
 
@@ -23,6 +24,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.bag.SynchronizedSortedBag;
+import org.apache.maven.shared.invoker.SystemOutHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.mail.javamail.JavaMailSender;
@@ -34,10 +37,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.Service.MemberService;
 import com.kh.wantit.member.exception.MemberException;
@@ -45,6 +48,7 @@ import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
 @Controller
+@SessionAttributes
 public class MemberController {
 	
 	@Autowired
@@ -102,6 +106,10 @@ public class MemberController {
 	public String myPageSupporterPayList() {
 		return "myPage_sup_payList";
 	}
+	@RequestMapping("myPage_sup_message.me")
+	public String myPagesupMessage() {
+		return "myPage_sup_message";
+	}
 	
 	@RequestMapping("/myPageCreator.me")
 	public String myPageCreator(HttpSession session, Model model) {
@@ -110,16 +118,38 @@ public class MemberController {
 		Member creatorCheck = mService.creatorCheck(id);
 		Creator creatorRegistration = mService.creatorRegistration(id);
 		
+//		ArrayList<Integer> memberIds = mService.allProfileImage(id);
+//		System.out.println(memberIds);
 		
+//		ArrayList<CreatorImage> imageList = mService.selectCreatorImageList(memberIds);
+//		System.out.println(imageList);
+		Image cimage = new Image();
+		cimage.setImageBoardCate(9);
+		cimage.setImageBoardId(id);
+		
+		 Image img = mService.selectcImage(cimage);
+		 System.out.println("크리에이터페이지 :"+img);
+		 if(img != null ) {
+		 session.setAttribute("icmage", img.getImageRename());//테스트
+		 
+		 return"myPage_creator" ;
+		 }
+		
+		 
+		 
+		 
+		 
 		boolean check = false;
 		if(creatorCheck.getMemberType() == "creator") {
 			check = true;
+			
 			
 			model.addAttribute("check", check);
 		}else {
 			model.addAttribute("creatorRegistration", creatorRegistration);
 			model.addAttribute("check", check);
 		}
+		
 		
 		return "myPage_creator";
 	}
@@ -184,6 +214,7 @@ public class MemberController {
 		
 		Member loginUser = mService.login(member);
 		
+		
 		if(loginUser == null ) {
 			model.addAttribute("msg", "사용자 ID 또는 비밀번호를 잘못 입력했습니다.<br>"
 					                  + "입력하신 내용을 다시 확인해주세요.");
@@ -198,7 +229,33 @@ public class MemberController {
 			session.setAttribute("loginUser", loginUser);
 			System.out.println(loginUser);
 			 if(beforeURL.equals("")) {
-				   return "redirect:home.do";    
+				 
+				 
+				 Image image = new Image();
+				 image.setImageBoardCate(3);
+				 image.setImageBoardId(loginUser.getMemberId());
+//시작				 
+//				 Image cimage = new Image();
+//				 cimage.setImageBoardCate(9);
+//				 cimage.setImageBoardId(loginUser.getMemberId());
+				 
+				 
+			
+//				 Image cimg = mService.selectcImage(cimage);
+//				 System.out.println(cimg);
+				 
+				
+				 Image img = mService.selectImage(image);
+			System.out.println(image);
+				 System.out.println(img);
+//				 Image cimg = mService.selectImage(cimage);
+				if(img == null ) {
+					return "redirect:home.do";    
+				}else {
+					session.setAttribute("image", img.getImageRename());
+					return "redirect:home.do";  
+				}
+				 
 			   }else{
 				   System.out.println(beforeURL);
 				   return "redirect:"+ beforeURL;   
@@ -494,7 +551,7 @@ public class MemberController {
 	  		return "checkpwd3";
 	  	}
 	  
-	  @RequestMapping("checkpwdfinal1.me")
+	  @RequestMapping("checkpwdfinal1.me")//비밀번호 찾기 다시 구현 
 	  public String checkpwdfinal1(@RequestParam("memberId") String memberId,@RequestParam("memberPwd") String memberPwd) {
 		  System.out.println("가져온값 :"+memberId);
 		  
@@ -508,7 +565,7 @@ public class MemberController {
 		 String newenPwd = bcrypt.encode(newPwd);
 		 updatePwd.setMemberPwd(newenPwd);
 		  
-		  System.out.println(updatePwd);
+		  System.out.println("새로운비번 객체"+updatePwd);
 		 int result = mService.updateenPwd(updatePwd); 
 		  
 		 System.out.println(result);
@@ -517,20 +574,119 @@ public class MemberController {
 		  }else {
 			  return null;
 		  }
-		  
-		
-		  
-		  
+	  
 	  }
-	  	
-	  
-	  
+	 // 서포터 프로필 사진 업로드  	
+	 @RequestMapping("insertMemberImg.me")
+	 public String memberImg(@RequestParam("file") MultipartFile file ,@RequestParam("memberId") String memberId ,HttpServletRequest request ,Model model,
+			 HttpSession session) {
+		 System.out.println("memberId :"+memberId);
+		 System.out.println("파일목록 :"+file);
+		
+
+		 Image m = new Image();
+		 
+		 
+		 if(!file.equals("")) {
+			 int deleteImg = mService.deleteImage(memberId);
+			 
+			 
+		String[] returnArr = saveFile(file, request);
+		 System.out.println(returnArr);
+		 String file2 = file.getOriginalFilename();
+		 System.out.println("파일 이름 :"+file2);
+		 if(returnArr[1] != null) {
+			 
+			    m.setImageForm(file2.substring(file2.lastIndexOf(".")));
+				m.setOriginName(file.getOriginalFilename());
+				m.setImageRename(returnArr[1]);
+				m.setImageSrc(returnArr[0]);
+				m.setImageBoardCate(3);
+				m.setImageLevel(0);
+				m.setImageBoardId(memberId);
+			}
+		 
+		 System.out.println("세팅후파일 :"+m);
+		} 
+		 int result = mService.insertmemberImage(m);//사진등록
+		 
+		 if(result > 0) {
+			 Image image = new Image();
+			 image.setImageBoardCate(3);
+			 image.setImageBoardId(memberId);
+			 
+			 Image img = mService.selectImage(image);
+			 ArrayList<Integer> allProfileImage = mService.allProfileImage(memberId);
+			 System.out.println(allProfileImage);
+			 System.out.println(img);
+				/* model.addAttribute("image",img.getImageRename()); */
+			 session.setAttribute("image", img.getImageRename());
+		 }else {
+			 throw  new MemberException("프로필 사진등록 실패");
+		 }
+	
+		 return "myPage_sup";
 }	
-			
-		  
-	  
-
-
+	 
+	 
+	@RequestMapping("insertcreatorMemberImg.me")	//크리에이터 사진등록
+	public String insertcreatorMemberImg(@RequestParam("file") MultipartFile file1 ,@RequestParam("memberId") String memberId ,HttpServletRequest request ,Model model,
+			 HttpSession session) {
+		 System.out.println("memberId :"+memberId);
+		 System.out.println("파일목록 :"+file1);
+		
+		 Image cm = new Image();
+		 cm.setImageBoardCate(9);
+		 cm.setImageBoardId(memberId);
+		 
+		System.out.println("============================");
+		System.out.println(cm);
+		int cateNum = 9;
+		 System.out.println("크리에이터이미지 수정"+cm);
+		 if(!file1.equals("")) {
+			 int deleteImg = mService.deletecImage(cateNum);
+			 
+			 
+			 String[] returnArr = saveFile(file1, request);
+			 System.out.println(returnArr);
+			 String file3 = file1.getOriginalFilename();
+			 System.out.println("파일 이름 :"+file3);
+			 if(returnArr[1] != null) {
+				 
+				 cm.setImageForm(file3.substring(file3.lastIndexOf(".")));
+				 cm.setOriginName(file1.getOriginalFilename());
+				 cm.setImageRename(returnArr[1]);
+				 cm.setImageSrc(returnArr[0]);
+				 cm.setImageBoardCate(9);
+				 cm.setImageLevel(0);
+				 cm.setImageBoardId(memberId);
+		 }
+			 System.out.println("크리에이터세팅후파일 :"+cm);
+	}
+		 int result = mService.insertcreatorImage(cm);//크리에이터사진등록
+		 
+		 if(result > 0) {
+			 Image image = new Image();
+			 image.setImageBoardCate(9);
+			 image.setImageBoardId(memberId);
+			 
+			 Image img = mService.selectcreatorImage(image);
+			 
+//			 ArrayList<Integer> allProfileImage = mService.allProfileImage(memberId);
+//			 System.out.println(allProfileImage);
+//			 System.out.println(img);
+				/* model.addAttribute("image",img.getImageRename()); */
+			 session.setAttribute("icmage", img.getImageRename());
+	
+		}else {
+			 throw  new MemberException("프로필 사진등록 실패");
+		}
+		 return "myPage_creator";
+}
+	
+	
+	
+}
 	
 	
 	
