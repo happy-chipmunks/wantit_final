@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
@@ -168,11 +168,7 @@
                           <strong class="d-inline-block mb-2 mainTitle">제목</strong>
                           <p class="wanting-text">${ wantingList[i].wantingTitle }</p>
                           <span class="wanting-writer">${ wantingList[i].wantingWriter }</span>
-<<<<<<< HEAD
-                          <div style="height: 2px; width: 100%; background-color: gray; margin: 3px;"><span style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
-=======
                           <div style="height: 2px; width: 100%; background-color: gray; margin: 3px;"><span style="display: block; background-color: #e8acef; height: 2px; width: ${ wantingList[i].wantingCount }%;"></span></div>
->>>>>>> 7ec48b9 (저번에 충돌 해결을 잘못해서 풀 받으면 에러나서..)
                           <div class="d-inline wanting-other">
                               <span><strong>${ wantingList[i].wantingCount }</strong>%</span>
                               <span style="font-size: 15px;">${ wantingList[i].wantingCount }명 원팅중</span>
