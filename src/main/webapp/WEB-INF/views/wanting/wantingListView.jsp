@@ -73,7 +73,34 @@
                 </ul>
                 <br>
                 <hr style="border: 2px solid dimgray;">
-				<button class="btn" onclick="location.href='${ contextPath }/wantingWrite.want'">원팅작성</button>
+				
+				
+				
+		<!-- 임시 공간 ---------------------------->
+		<button class="btn" onclick="location.href='${ contextPath }/wantingWrite.want'">원팅작성(로그인)</button>
+		<div class="dropdown">
+		<c:if test="${ !empty alarmList }">
+			<img src="resources/wanting/notification-y.png" style="width:30px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
+		</c:if>
+		<c:if test="${ empty alarmList }">
+			<img src="resources/wanting/notification-n.png" style="width:30px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
+		</c:if>
+		  <ul class="dropdown-menu">
+			<c:forEach items="${ alarmList }" var="a">
+				<c:if test="${ a.alarmBoardCate == 1}">
+			    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectWanting.want?wantingNum=${ a.alarmBoardId }'">${ a.alarmMsg }</a></li>
+				</c:if>
+				<c:if test="${ a.alarmBoardCate == 4}">
+					<input type="hidden" id="wanting-alarmNum" value="${ a.alarmNum }">
+			    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/alarmSelectWanting.want?wantingNum=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
+				</c:if>
+		    </c:forEach>
+		    <li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="#">더보기(마이페이지 알림 연결)</a></li>
+		  </ul>
+		</div>
+
+				
             </div>
         </div>
       <div class="row">
