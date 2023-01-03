@@ -19,6 +19,7 @@
 		<typeAlias type="com.kh.wantit.common.model.vo.CreatorImage" alias="CreatorImage"/>
 		<typeAlias type="com.kh.wantit.common.model.vo.Image" alias="Image"/>
 		<typeAlias type="com.kh.wantit.common.model.vo.Alarm" alias="Alarm"/>
+		<typeAlias type="com.kh.wantit.funding.model.vo.FundingNotice" alias="FundingNotice"/>
 		
 		
 	</typeAliases>
