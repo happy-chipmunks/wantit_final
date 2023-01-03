@@ -61,7 +61,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h2 class="ttable" style="color: black; font-weight: bold;">로그인</h2>
+
+	 <a class="ttable" href="${ contextPath }/home.do">
+		<img alt="" src="${ contextPath }/resources/cateImage/wantitLogo.png" style="width:300px;">
+	</a>  
+    <h2 class="ttable" style="color: black; font-weight: bold;">
+    로그인</h2>
     <form action="${contextPath}/login.me" method="POST" id="frmLogin" name="loginForm">
     <div class="tttable">
         <div class="input-group mb-3">

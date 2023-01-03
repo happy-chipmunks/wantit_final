@@ -71,7 +71,19 @@
 		}
 		
 		ul{text-align: center; list-style: none;}
-		
+		.circle-img {
+
+	    object-fit: cover;
+	
+	    object-position: top; 
+	
+	    border-radius: 50%;
+	
+	    width: 100px; 
+	
+	    height: 100px;
+
+		}
 		
     </style>
 
@@ -82,7 +94,7 @@
     <div class="container">
     	<div>
     		<h1 style="display: inline;"><b>마이페이지</b></h1>&nbsp;&nbsp;&nbsp;
-    		<button class="btn" onclick="openPopup()"><img src="resources/메시지.png" style="width: 40px; height: 40px;"></button>
+    		<button class="btn" onclick="openPopup()"><img src="${ contextPath }/resources/myPageImage/메시지.png" style="width: 40px; height: 40px;"></button>
     	</div>
     	<hr>
     	<div class="text-end">
@@ -95,7 +107,15 @@
 	<div class="row">
 		<div class="col-3" style="align-self;">
 			<ul>
-				<li style="width: 200px; margin: auto;"><img src="resources/기본프로필.png" style="width: 150px; height: 150px;">
+				<li style="width: 200px; margin: auto;">
+				<c:if test="${image == null }">
+				<img  id= "target_img" src="${ contextPath }/resources/myPageImage/뉴프로필.png" style="width: 150px; height: 150px;">
+				</c:if>
+				<c:if test="${image != null }">
+    			<img  id="target_img" src="${contextPath}/resources/member/${ image }" style="width: 150px; height: 150px;" class="circle-img">
+    			</c:if>
+				
+				<br><br>
 	   				<h4><b>${ loginUser.memberName }</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
 	   				서포터<br>

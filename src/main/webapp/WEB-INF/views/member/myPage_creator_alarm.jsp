@@ -87,12 +87,12 @@
     <div class="container">
     	<div>
     		<h1 style="display: inline;"><b>마이페이지</b></h1>&nbsp;&nbsp;&nbsp;
-    		<button class="btn" onclick="openPopup()"><img src="resources/메시지.png" style="width: 40px; height: 40px;"></button>
+    		<button class="btn" onclick="openPopup()"><img src="${ contextPath }/resources/myPageImage/메시지.png"  style="width: 40px; height: 40px;"></button>
     	</div>
     	<hr>
     	<div class="text-end">
-          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSuppoterAlarm.me'">서포터</button>
-          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreatorAlarm.me'">크리에이터</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSupporter.me'">서포터</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreator.me'">크리에이터</button>
         </div>
        
     </div>
@@ -100,7 +100,7 @@
 	<div class="row">
 		<div class="col-3" style="align-self;">
 			<ul>
-				<li style="width: 200px; margin: auto;"><img src="${ contextPath }/resources/myPageImage/기본프로필.png" style="width: 150px; height: 150px;">
+				<li style="width: 200px; margin: auto;"><img src="${ contextPath }/resources/myPageImage/뉴프로필.png" style="width: 150px; height: 150px;">
 	   				<h4><b>닉네임</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
 	   				크리에이터<br>

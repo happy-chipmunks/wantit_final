@@ -1,5 +1,6 @@
 ﻿package com.kh.wantit.member.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.simple.JSONObject;
@@ -7,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.dao.MemberDAO;
 import com.kh.wantit.member.vo.Creator;
@@ -135,6 +137,69 @@ public class MemberServiceImpl implements MemberService {
 	public int updateenPwd(Member updatePwd) {
 		return mDAO.updateenPwd(sqlSession,updatePwd);
 	}
+
+
+	@Override
+	public int insertmemberImage(Image m) {
+		return mDAO.insertmemberImage(sqlSession,m);
+	}
+
+	@Override
+	public Image selectImage(Image image) {
+		return mDAO.selectImage(sqlSession, image);
+	}
+	
+	@Override
+	public ArrayList<Integer> allProfileImage(String id) {
+		return mDAO.allProfileImage(sqlSession, id);
+	}
+
+	@Override
+	public ArrayList<CreatorImage> selectCreatorImageList(ArrayList<Integer> memberIds) {
+		return mDAO.selectCreatorImageList(sqlSession, memberIds);
+	}
+
+
+	@Override
+	public int deleteImage(String memberId) {//프로필 이미지 삭제
+		return mDAO.deleteImage(sqlSession,memberId);
+	}
+
+
+	@Override
+	public int insertcreatorImage(Image cm) {//크리에이터 사진등록
+		return mDAO.insertcreatorImage(sqlSession,cm);
+	}
+
+
+	@Override
+	public Image selectcreatorImage(Image image) {//크리에이터 사진불러오기
+		return mDAO.selectcreatorImage(sqlSession, image);
+	}
+
+
+	@Override
+	public Image selectcImage(Image cimage) {
+		return mDAO.selectcImage(sqlSession, cimage);
+	}
+
+
+	@Override
+	public int deletecImage(int cateNum) {
+		return mDAO.deletecImage(sqlSession,cateNum);
+	}
+
+
+	
+
+
+	
+
+
+	
+	
+
+	
 
 
 

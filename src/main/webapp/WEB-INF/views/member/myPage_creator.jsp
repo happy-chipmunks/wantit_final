@@ -77,12 +77,24 @@
 		#insertCreator{
 			background-color: #D1B2FF;
 		}
+		.circle-img {
+
+	    object-fit: cover;
+	
+	    object-position: top; 
+	
+	    border-radius: 50%;
+	
+	    width: 100px; 
+	
+	    height: 100px;
+
+		}
     </style>
 
 </head>
 <body>
-	
-    <br><br><br>
+     <br><br><br>
     <div class="container">
     	<div>
     		<h1 style="display: inline;"><b>마이페이지</b></h1>&nbsp;&nbsp;&nbsp;
@@ -90,7 +102,7 @@
     	</div>
     	<hr>
     	<div class="text-end">
-          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSuppoter.me'">서포터</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSupporter.me'">서포터</button>
           <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreator.me'">크리에이터</button>
         </div>
        
@@ -99,11 +111,25 @@
 	<div class="row">
 		<div class="col-3" style="align-self;">
 			<ul>
-				<li style="width: 200px; margin: auto;"><img src="${ contextPath }/resources/myPageImage/기본프로필.png" style="width: 150px; height: 150px;">
-	   				<h4><b>닉네임</b>님</h4>
+
+				<li  style="width: 200px; margin: auto;">
+				<c:if test="${image == null }">
+				<img  id= "target_img" src="${ contextPath }/resources/myPageImage/뉴프로필.png" style="width: 150px; height: 150px;">
+				</c:if>
+				<c:if test="${image != null }">
+    			<img  id="target_img" src="${contextPath}/resources/member/${ icmage }" style="width: 150px; height: 150px;" class="circle-img">
+    			</c:if>
+
+					<form name="signform" method="POST" ENCTYPE="multipart/form-data" action="${contextPath}/insertcreatorMemberImg.me">
+				    <input type="file" id="file" name="file" style="display:none;" onchange="changeValue(this)">
+				    <input type="hidden" name = "target_url">
+				    <input type="hidden" value=${ loginUser.memberId } name="memberId" >
+					</form>
+					<br>
+	   				<h4><b>${ loginUser.memberNickname }</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
 	   				크리에이터<br>
-	   				<button class="btn btn-sm" style="background-color: lightgray;">로그아웃</button>
+	   				<button class="btn btn-sm" style="background-color: lightgray;" onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
 	   				</p>
    				</li>
    				<li>
@@ -250,6 +276,16 @@
     <br>
     
     <script>
+    $('#target_img').click(function (e) {
+	    document.signform.target_url.value = document.getElementById( 'target_img' ).src;
+	    e.preventDefault();
+	    $('#file').click();
+	    
+	});        
+	function changeValue(obj){
+	    document.signform.submit();
+	}
+	
 	    function openPopup(){
 			window.open("myPage_sup_message.jsp", "message", "width=500 height=300");
 		}
@@ -318,6 +354,7 @@
 			 
 			 element.checked = true;
 		 }
+		 
 		 
 	  
     </script>
