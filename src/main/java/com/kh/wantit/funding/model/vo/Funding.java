@@ -2,6 +2,8 @@
 
 import java.sql.Date;
 
+import com.kh.wantit.wanting.model.vo.Wanting;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,4 +31,5 @@ public class Funding {
 	private Date modifyDate;
 	private String FundingStatus;
 	private String creatorNickname;
+	private String fundingSummary;
 }

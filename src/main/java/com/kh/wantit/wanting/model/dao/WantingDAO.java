@@ -22,6 +22,7 @@ public class WantingDAO {
 		return sqlSession.insert("wantingMapper.insertImage", img);
 	}
 
+	
 	// 원팅 리스트 불러오기
 	public ArrayList<Wanting> selectWantingList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("wantingMapper.selectWantingList");
@@ -34,8 +35,8 @@ public class WantingDAO {
 	public ArrayList<Image> selectImageList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("wantingMapper.selectImageList");
 	}
-
-
+	
+	
 	// 원팅 게시글 상세보기
 	public Wanting selectWanting(SqlSessionTemplate sqlSession, int wantingNum) {
 		return sqlSession.selectOne("wantingMapper.selectWanting", wantingNum);
@@ -63,9 +64,6 @@ public class WantingDAO {
 		return sqlSession.update("wantingMapper.updateWantingStatus", w);
 	}
 
-	public ArrayList<Wanting> searchWantingList(SqlSessionTemplate sqlSession, String searchText) {
-		return (ArrayList)sqlSession.selectList("wantingMapper.searchWantingList", searchText);
-	}
 	
 	// 원팅 달성 알림 보내기
 	public ArrayList<WantingAttend> getMemberList(SqlSessionTemplate sqlSession, int wantingNum) {
@@ -77,10 +75,35 @@ public class WantingDAO {
 	}
 
 	
+	// 원팅 검색
+	public ArrayList<Wanting> searchWantingList(SqlSessionTemplate sqlSession, String searchText) {
+		return (ArrayList)sqlSession.selectList("wantingMapper.searchWantingList", searchText);
+	}	
+	
+	
+	// 회원 전체 알림 가져오기
+	public ArrayList<Alarm> selectAlarmList(SqlSessionTemplate sqlSession, String id) {
+		return (ArrayList)sqlSession.selectList("wantingMapper.selectAlarmList", id);
+	}
+	
+	
+	// 회원 알림 확인하기
+	public int checkAlarm(SqlSessionTemplate sqlSession, int alarmNum) {
+		return sqlSession.update("wantingMapper.checkAlarm", alarmNum);
+	}
+	
+
 	// 원팅 수정 및 삭제
+	public int updateWanting(SqlSessionTemplate sqlSession, Wanting w) {
+		return sqlSession.update("wantingMapper.updateWanting", w);
+	}
+
 	public int deleteWanting(SqlSessionTemplate sqlSession, int wantingNum) {
 		return sqlSession.update("wantingMapper.deleteWanting", wantingNum);
 	}
+
+
+	
 
 
 

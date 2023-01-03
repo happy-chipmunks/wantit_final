@@ -284,7 +284,7 @@
 				
 				<c:forEach var="m" items="${ mList }" varStatus="r">
 					<div class="shadow p-3 mb-5 bg-body rounded myForm myForm${ r.index }">
-<%-- 						<form action="${contextPath }/adManage.ad" method="post"> --%>
+						<form action="${contextPath }/adManage.ad" method="post">
 						<fieldset>
 							<h1>
 								<br>&nbsp;&nbsp;&nbsp;&nbsp;광고 처리
@@ -314,9 +314,9 @@
 								</div>
 							
 							<br>
-							<button type="submit"
+							<button type="button"
 								class="btn cancel btn-primary btn-lg right modbtn cancelBtn" value="${ r.index }">거절</button>
-							<button type="submit" class="btn btn-primary btn-lg right modbtn acceptBtn" value="${ r.index }">승인</button>
+							<button type="button" class="btn btn-primary btn-lg right modbtn acceptBtn" value="${ r.index }">승인</button>
 							<input type="hidden" name="cancelDivision" class="cancelDivision"  >
 							<input type="hidden" name="acceptDivision" class="acceptDivision"  >
 							
@@ -363,7 +363,10 @@
 		});
 	
 		$('label').css('display', 'inline-block');
-	
+		
+		
+		
+		
 		$('.cancel').click(function() {
 			$(this).siblings()[10].value;
 			$(this).siblings('.acceptDivision').val($(this).siblings()[10].value);

@@ -18,11 +18,6 @@
 		insert into image
 		values(seq_image.nextval, #{imageForm}, #{originName}, #{imageRename}, #{imageSrc}, default, default, #{imageLevel}, 1, seq_funding.currval)
 	</insert>
-	
-	<insert id="insertReward">
-		insert into reward
-		values(seq_reward.nextval, seq_funding.currval, #{rewardTitle}, #{rewardContent}, #{rewardPrice}, #{rewardShipping}, #{rewardLimit}, default, #{rewardExpectDate})
-	</insert>
 
 	<!-- 펀딩 글 목록 -->
 	<select id="fundingList" resultMap="fundingResultSet">
@@ -31,6 +26,8 @@
 		where funding_status='Y'
 		order by funding_num desc
 	</select>
+
+
 	
 	<select id="fundingImageList" resultMap="imageResultSet">
 		select *
@@ -55,6 +52,7 @@
 		</choose>
 	</select>
 	
+	<!-- 조회수 -->
 	<select id="getCreatorName" resultType="string">
 		select creator_name
 		from creator join member on(member_id = creator)
@@ -84,6 +82,57 @@
 		set funding_count = funding_count+1
 		where funding_num=#{bId}
 	</update>
+	
+	<!-- 펀딩 상세조회 -->
+	<select id="getFundingCreator" resultType="string">
+		select creator
+		from funding join creator using(creator_num)
+		where funding_num=#{bId}
+	</select>
+	
+	<!-- 펀딩 새소식 작성 -->
+	<insert id="insertFundingNotice">
+		insert into funding_notice
+		values(seq_funding_notice.nextval, #{fundingNum}, #{fundingNoticeWriter}, #{fundingNoticeTitle}, #{fundingNoticeContent}, default, default, default, default, #{fundingNoticeCategory})
+	</insert>
+	
+	<!-- 펀딩 새소식 리스트 -->
+	<select id="fundingNoticeList" resultMap="fundingNoticeResultSet">
+		select *
+		from funding_notice
+		where funding_num=#{bId}
+	</select>
+	
+	<select id="fnListCount" resultType="_int">
+		select count(*)
+		from funding_notice
+		where funding_num=#{bId}
+	</select>
+	
+	<update id="addNoticeCount">
+		update funding_notice
+		set funding_notice_count=funding_notice_count+1
+		where funding_num=#{bId}
+	</update>
+	
+	<select id="getFundingNotice" resultMap="fundingNoticeResultSet">
+		select *
+		from funding_notice
+		where funding_num=#{bId}
+	</select>
+	
+	<insert id="insertReward">
+		insert into reward
+		values(seq_reward.nextval, seq_funding.currval, #{rewardTitle}, #{rewardContent}, #{rewardPrice}, #{rewardShipping}, #{rewardLimit}, default, #{rewardExpectDate})
+	</insert>
+	
+	<select id="getCurrFunding" resultMap="fundingResultSet">
+		select *
+		from funding join funding_notice using(funding_num)
+		where funding_notice_num=#{bId}
+	</select>
+	
+
 
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
@@ -102,6 +151,7 @@
 		<result column="funding_status" property="fundingStatus"/>
 		<result column="creator_name" property="creatorNickname"/>
 	</resultMap>
+
 	
 	<resultMap type="Creator" id="creatorResultSet">
 		<id column="creator_num" property="creatorNum"/>
@@ -138,4 +188,18 @@
 		<result column="reward_sellcount" property="rewardSellCount"/>
 		<result column="reward_expect_date" property="rewardExpectDate"/>
 	</resultMap>
+	
+	<resultMap type="FundingNotice" id="fundingNoticeResultSet">
+		<id column="funding_notice_num" property="fundingNoticeNum"/>
+		<result column="funding_num" property="fundingNum"/>
+		<result column="funding_notice_writer" property="fundingNoticeWriter"/>
+		<result column="funding_notice_title" property="fundingNoticeTitle"/>
+		<result column="funding_notice_content" property="fundingNoticeContent"/>
+		<result column="funding_notice_create_date" property="fundingNoticeCreateDate"/>
+		<result column="funding_notice_modify_date" property="fundingNoticeModifyDate"/>
+		<result column="funding_notice_count" property="fundingNoticeCount"/>
+		<result column="funding_notice_status" property="fundingNoticeStatus"/>
+		<result column="funding_notice_category" property="fundingNoticeCategory"/>
+	</resultMap>
+
 </mapper>

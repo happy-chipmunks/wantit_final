@@ -14,13 +14,8 @@
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.104.2">
 <title>Dashboard Template · Bootstrap v5.2</title>
-<link rel="stylesheet" href="resources/css/main.css">
 
 
-
-
-
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
 @font-face {
@@ -179,7 +174,7 @@
 
 
 <!-- Custom styles for this template -->
-<link href="../../resources/css/dashboard.css" rel="stylesheet">
+
 <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body id="body">
@@ -358,8 +353,5 @@
 	</script>
 
 
-	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-	
-	<script src="dashboard.js"></script>
 </body>
 </html>

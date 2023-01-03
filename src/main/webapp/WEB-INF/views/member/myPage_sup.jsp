@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 	<jsp:include page="../common/navbar.jsp"/>
@@ -13,8 +14,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-	<!-- ------------------------------- -->
-	<link href="/blog/css/styles.css" rel="stylesheet">
+	
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -33,11 +33,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
 	rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR&display=swap"
-	rel="stylesheet">
+
+
 	
 	
 	
@@ -88,23 +85,35 @@
 			color: white;
 			transition: background 0.7s ease-in-out;
 		}
-		
 		ul{text-align: center; list-style: none;}
-		
-		
-    </style>
+		.circle-img {
 
+	    object-fit: cover;
+	
+	    object-position: top; 
+	
+	    border-radius: 50%;
+	
+	    width: 100px; 
+	
+	    height: 100px;
+
+		}
+    </style>
 </head>
 <body>
      <br><br><br>
     <div class="container">
     	<div>
     		<h1 style="display: inline;"><b>마이페이지</b></h1>&nbsp;&nbsp;&nbsp;
-    		<button class="btn" onclick="openPopup()"><img src="${ contextPath }/resources/myPageImage/메시지.png" style="width: 40px; height: 40px;"></button>
+    		<button class="btn" onclick="openPopup()">
+    			<img src="${ contextPath }/resources/myPageImage/메시지.png" style="width: 40px; height: 40px;">
+    		</button>
+    		
     	</div>
     	<hr>
     	<div class="text-end">
-          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSuppoter.me'">서포터</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSupporter.me'">서포터</button>
           <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreator.me'">크리에이터</button>
         </div>
        
@@ -113,7 +122,22 @@
 	<div class="row" >
 		<div class="col-3" style="align-self;">
 			<ul>
-				<li style="width: 200px; margin: auto;"><img src="${ contextPath }/resources/myPageImage/기본프로필.png" style="width: 150px; height: 150px;">
+				
+				<li style="width: 200px; margin: auto;">
+				<c:if test="${image == null }">
+				<img  id= "target_img" src="${ contextPath }/resources/myPageImage/뉴프로필.png" style="width: 150px; height: 150px;">
+				</c:if>
+				<c:if test="${image != null }">
+    			<img  id="target_img" src="${contextPath}/resources/member/${ image }" style="width: 150px; height: 150px;" class="circle-img">
+    			</c:if>
+				
+				
+				<form name="signform" method="POST" ENCTYPE="multipart/form-data" action="${contextPath}/insertMemberImg.me">
+				    <input type="file" id="file" name="file" style="display:none;" onchange="changeValue(this)">
+				    <input type="hidden" name = "target_url">
+				    <input type="hidden" value=${ loginUser.memberId } name="memberId" >
+				</form>
+				<br>
 	   				<h4><b>${ loginUser.memberName }</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
 	   				서포터<br>
@@ -218,8 +242,25 @@
 	
 	 <script>
 		function openPopup(){
-			window.open("myPage_sup_message.jsp", "message", "width=500 height=300");
+			window.open("myPage_sup_message.me", "message", "width=500 height=300");
 		}
+		
+		
+		$('#target_img').click(function (e) {
+		    document.signform.target_url.value = document.getElementById( 'target_img' ).src;
+		    e.preventDefault();
+		    $('#file').click();
+		    
+		});        
+		function changeValue(obj){
+		    document.signform.submit();
+		}
+		
+		
+		
+		
+		
+		
 	</script> 
 	
 	

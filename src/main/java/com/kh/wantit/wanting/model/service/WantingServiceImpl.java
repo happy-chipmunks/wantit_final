@@ -49,7 +49,8 @@ public class WantingServiceImpl implements WantingService{
 	public ArrayList<Image> selectImageList() {
 		return wDAO.selectImageList(sqlSession);
 	}
-
+	
+	
 	
 	// 원팅 게시글 상세보기
 	@Override
@@ -90,22 +91,44 @@ public class WantingServiceImpl implements WantingService{
 	public ArrayList<WantingAttend> getMemberList(int wantingNum) {
 		return wDAO.getMemberList(sqlSession, wantingNum);
 	}
-
-	@Override
-	public ArrayList<Wanting> searchWantingList(String searchText) {
-		return wDAO.searchWantingList(sqlSession, searchText);
-	}
 	
 	public int sendAlarm (Alarm alarm) {
 		return wDAO.sendAlarm(sqlSession, alarm);
 	}
+	
+	
+	// 원팅 검색
+	@Override
+	public ArrayList<Wanting> searchWantingList(String searchText) {
+		return wDAO.searchWantingList(sqlSession, searchText);
+	}
 
 	
+	// 회원 전체 알림 가져오기
+	@Override
+	public ArrayList<Alarm> selectAlarmList(String id) {
+		return wDAO.selectAlarmList(sqlSession, id);
+	}
+	
+
+	// 회원 알림 확인하기
+	@Override
+	public int checkAlarm(int alarmNum) {
+		return wDAO.checkAlarm(sqlSession, alarmNum);
+	}
+	
+	
 	// 원팅 수정 및 삭제
+	@Override
+	public int updateWanting(Wanting w) {
+		return wDAO.updateWanting(sqlSession, w);
+	}
+
 	@Override
 	public int deleteWanting(int wantingNum) {
 		return wDAO.deleteWanting(sqlSession, wantingNum);
 	}
+		
 
 
 

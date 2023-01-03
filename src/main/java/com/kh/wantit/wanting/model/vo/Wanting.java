@@ -1,4 +1,4 @@
-package com.kh.wantit.wanting.model.vo;
+﻿package com.kh.wantit.wanting.model.vo;
 
 import java.sql.Date;
 
@@ -26,6 +26,7 @@ public class Wanting {
 	private int wantingDaysCount;
 	private int wantingCount;
 	private int wantingLevel;
-	private String wantingConfirm;
 	private String wantingStatus;
+	private String wantingConfirm;
+	private String division;
 }

@@ -11,9 +11,9 @@
   <!-- CSS Files -->
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
-  <link rel="stylesheet" href="bootstrap.min.css" />
-  <link rel="stylesheet" href="fundingMain.css" />
-  <link rel="stylesheet" href="fundingNotice.css" />
+  <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="resources/css/fundingMain.css" />
+  <link rel="stylesheet" href="resources/css/fundingNotice.css" />
 
   <!-- icons fonts -->
 
@@ -22,13 +22,13 @@
 
 <body>
 <div class="funding-header text-center">
-  <p class="title-info">여행·레저</p>
-  <h2 class="title"><a href="#">[곰표] 한정수량 곰표 침낭! 침낭을 패딩처럼 입고 뛰어다닐 수 있어요</a></h2>
+  <p class="title-info">${ fn.fundingNoticeCategory }</p>
+  <h2 class="title"><a href="#">${ fn.fundingNoticeTitle }</a></h2>
 </div>
 <div class="container-fluid text-center funding-category">
   <div class="row">
     <div class="col-2 offset-2"><a class="tab-link" href="#">정보 </a></div>
-    <div class="col-2"><a class="tab-link" href="#" style="font-weight: 1000px; color:black;">새소식 </a></div>
+    <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund" style="font-weight: 1000px; color:black;">새소식 </a></div>
     <div class="col-2"><a class="tab-link" href="#">리뷰 </a></div>
     <div class="col-2"><a class="tab-link" href="#">서포터 <span class="count-total">4</span></a></div>
   </div>
@@ -41,19 +41,21 @@
       <div class="left-content">
 
         <!-- 새소식 제목 -->
-        <button class="to-list">< 목록으로 이동</button>
+        <button class="to-list btn btn-light" style="float: right;" onclick="location.href='${contextPath}/fundingNotice.fund'">< 목록으로 이동</button>
         <div class="notice-header">
-          <p class="notice-category">리워드안내</p>
-          <p class="notice-title">[깜짝 선물]2개 이상 펀딩시, 한정판 에코백 선물</p>
-          <p class="notice-date">2022.12.09 13:56</p>
+          <p class="notice-category">${fn.fundingNoticeCategory}</p>
+          <p class="notice-title">${fn.fundingNoticeTitle}</p>
+          <p class="notice-date">${fn.fundingNoticeCreateDate}</p>
         </div>
-
+		
+		<hr>
+		
         <div class="notice-content">
-          <img class="notice-content-img" src="https://www.imagetalk.co.kr/wp-content/uploads/detail-page/general-design/general-design-087_01.jpg">
+          <span class="notice-content">${ fn.fundingNoticeContent }</span>
         </div>
 
 
-
+		<br><br>
 
 
       </div>

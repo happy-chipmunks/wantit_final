@@ -222,9 +222,42 @@
 				&nbsp;&nbsp;&nbsp;   
 				<c:if test="${ loginUser != null  && loginUser.memberNickname != '관리자'}">
 						<a href="${contextPath}/myPageinfo.me"> 
+						<c:if test="${image == null }">
+								<img style="border-radius: 20px" onerror="this.src='/blog/image/userProfile.png'"
+								src="${contextPath}/resources//myPageImage/뉴프로필.png" width="50px" height="50px" />
+						</c:if>
+						 <c:if test="${image != null }">
 							<img style="border-radius: 20px" onerror="this.src='/blog/image/userProfile.png'"
-								src="https://github.com/mdo.png" width="40px" height="40px" />
+								src="${contextPath}/resources/member/${ image }" width="50px" height="50px" />
+						</c:if>		 
 						</a>
+		
+						<!-- 알림 -->
+						<div class="dropdown">
+						<c:if test="${ !empty alarmList }">
+							<img src="resources/wanting/notification-y.png" style="width:35px; margin: 10px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
+						</c:if>
+						<c:if test="${ empty alarmList }">
+							<img src="resources/wanting/notification-n.png" style="width:35px; margin: 10px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
+						</c:if>
+						  <ul class="dropdown-menu">
+						  	<c:if test="${ empty alarmList }">
+								<li><a class="dropdown-item" href="#">새 알람이 없습니다.</a></li>
+							</c:if>
+							<c:forEach items="${ alarmList }" var="a">
+								<c:if test="${ a.alarmBoardCate == 1}">
+							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectWanting.want?wantingNum=${ a.alarmBoardId }'">${ a.alarmMsg }</a></li>
+								</c:if>
+								<c:if test="${ a.alarmBoardCate == 4}">
+									<input type="hidden" id="wanting-alarmNum" value="${ a.alarmNum }">
+							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/alarmSelectWanting.want?wantingNum=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
+								</c:if>
+						    </c:forEach>
+						    <li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="#">더보기(마이페이지 알림 연결)</a></li>
+						  </ul>
+						</div>
+										
 						<button type="button" class="btn" id="askManager"
 							onclick="location.href='${contextPath}/'">관리자 문의</button>
 						<button type="button" class="btn" id="openProject"
@@ -240,8 +273,6 @@
 						<button type="button" class="btn" id="logoutBtn"
 								onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
 				</c:if>
-				
-			
 
 		</div>
 	</nav>

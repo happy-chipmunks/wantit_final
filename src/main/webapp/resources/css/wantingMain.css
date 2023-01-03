@@ -162,9 +162,8 @@ p {margin: 0;}
 }
 .rate-bar em {
     display: block;
-    background: #00c4c4;
+    background: #7056F2;
     height: 3px;
-    width: 26%;
     overflow: hidden;
 }
 .goal-box {
@@ -284,6 +283,27 @@ p {margin: 0;}
 .link-icon.twitter { background-image: url(../wanting/icon-twitter.png); background-repeat: no-repeat; }
 .link-icon.facebook { background-image: url(../wanting/icon-facebook.png); background-repeat: no-repeat; } 
 .link-icon.kakao { background-image: url(../wanting/icon-kakao.png); background-repeat: no-repeat; }
+
+
+/* ==================== 모달 - 원팅 자세히 알아보기 ==================== */
+.modal-sheet .modal-dialog {
+  width: 380px;
+  transition: bottom .75s ease-in-out;
+}
+.modal-sheet .modal-footer {
+  padding-bottom: 2rem;
+}
+
+.modal-alert .modal-dialog {
+  width: 380px;
+}
+
+.modal-tour .modal-dialog {
+  width: 380px;
+}
+
+
+
 
 
 

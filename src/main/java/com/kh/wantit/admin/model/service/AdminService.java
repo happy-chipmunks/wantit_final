@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.wantit.admin.model.dao.AdminDAO;
+import com.kh.wantit.admin.model.vo.AFunding;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.FundingReport;
@@ -14,6 +15,7 @@ import com.kh.wantit.admin.model.vo.NReply;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
+import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.admin.model.vo.ReviewReport;
@@ -131,8 +133,29 @@ public class AdminService {
 		return aDAO.deleteFunding(sqlSession, id);
 	}
 
-//	public int getAccept(int acceptDivision) {
-//		return aDAO.getAccept(sqlSession, acceptDivision);
+	public ArrayList<Integer> getListCountPM(int i) {
+		return aDAO.getListCountPM(sqlSession, i);
+	}
+
+	public ArrayList<AFunding> selectOkList(PageInfo pi, int i) {
+		return aDAO.selectOkList(sqlSession, pi, i);
+	}
+
+	public ArrayList<AFunding> projectApproval() {
+		return aDAO.projectApproval(sqlSession);
+	}
+	
+	public int okProjectW(String id) {
+		System.out.println("s"+id);
+		return aDAO.okProjectW(sqlSession, id);
+	}
+	
+	public int okProjectF(String id) {
+		System.out.println("s"+id);
+		return aDAO.okProjectF(sqlSession, id);
+	}
+//	public int noProject(String id) {
+//		return aDAO.noProject(sqlSession, id);
 //	}
 	
 	public int updateMemberType(String changeId) {
