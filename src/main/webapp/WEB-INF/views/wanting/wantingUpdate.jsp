@@ -39,7 +39,7 @@
 <!-- 	<input placeholder="" type="file"  name="wanting-file"> -->
 	
 	
-<form class="" action="${ contextPath }/insertWanting.want" method="POST" enctype="multipart/form-data" id="wantingForm"> <!-- enctype : 이미지나 파일을 건낼 수 있음 -->
+<form class="" action="${ contextPath }/updateWanting.want" method="POST" enctype="multipart/form-data" id="wantingForm"> <!-- enctype : 이미지나 파일을 건낼 수 있음 -->
 	<h4 class="">원팅 수정하기</h4>
 	<div class="wanting-title-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	

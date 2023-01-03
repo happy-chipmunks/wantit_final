@@ -120,10 +120,14 @@ public class WantingServiceImpl implements WantingService{
 	
 	// 원팅 수정 및 삭제
 	@Override
+	public int updateWanting(Wanting w) {
+		return wDAO.updateWanting(sqlSession, w);
+	}
+
+	@Override
 	public int deleteWanting(int wantingNum) {
 		return wDAO.deleteWanting(sqlSession, wantingNum);
 	}
-
 		
 
 

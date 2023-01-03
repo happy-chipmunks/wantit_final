@@ -117,12 +117,19 @@
 
 	
 <!-- 	원팅 수정 및 삭제 -->
+	<update id="updateWanting">
+		update wanting
+		set wanting_title=#{wantingTitle}, wanting_summary=#{wantingSummary}, 
+			wanting_content=#{wantingContent}, shop_name=#{wantingShopName},
+			shop_address=#{wantingShopAddress}
+		where wanting_num=#{wantingNum}
+	</update>
+	
 	<update id="deleteWanting">
 		update wanting
 		set wanting_status='N'
 		where wanting_num=#{wantingNum}
 	</update>
-	
 	
 	
 	

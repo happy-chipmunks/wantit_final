@@ -111,7 +111,7 @@ public class WantingController {
 	}
 
 
-	// ==================== 원팅 작성 - 이미지 처리 ====================
+	// ==================== 원팅 작성 - 이미지 saveFile 메소드  ====================
 	public String[] saveFile(MultipartFile file, HttpServletRequest request, int i) {
 		// saveFile이 있는 이유 : 우리가 지정한 경로에 넣어주고 자체형식으로 이름을 지정해줘야함 
 		
@@ -197,12 +197,6 @@ public class WantingController {
 		ArrayList<Image> imageList = wService.selectImageList();// 
 		//System.out.println(wantingList);
 		//System.out.println(imageList);
-		
-		if(session.getAttribute("loginUser") != null) {
-			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
-			ArrayList<Alarm> alarmList = wService.selectAlarmList(id); // =========== 알림 있는지 확인 (마이페이지)(HttpSessio도 지우기)
-			model.addAttribute("alarmList", alarmList); // =========== 알림 있는지 확인 (마이페이지)
-		}
 		
 		if(wantingList != null && wantingList != null) {
 			model.addAttribute("wantingList", wantingList);
@@ -456,14 +450,69 @@ public class WantingController {
 	
 	// ==================== 원팅 수정하기 ====================
 	@RequestMapping("updateWanting.want")
-	public String updateWanting(@ModelAttribute Wanting w, HttpSession session) {
-		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
-		if(id == w.getWantingWriter() || id == "admin") {
+	public String updateWanting(@ModelAttribute Wanting w, @RequestParam("wanting-file") ArrayList<MultipartFile> files, HttpServletRequest request) {
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
+//		if( id.equals(w.getWantingWriter()) || id.equals("admin") ) {
 			
-		}
-		return null; // 이건 관리자가 수정하는 
-	}
+			System.out.println(w);
+			System.out.println(files); // 받아온 파일들 ArrayList
+	
+			int result1 = wService.insertWanting(w); // 원팅 삽입
+			int result2 = 0; // 이미지 삽입
+			
+			// 이미지 속성값 설정
+			ArrayList<Image> list = new ArrayList<Image>();
+			for(int i = 0; i < files.size(); i++) {
+				MultipartFile upload = files.get(i);
+				System.out.println(upload.getOriginalFilename());
+				
+				if(!upload.getOriginalFilename().equals("")) {	//upload에 오리지날 이름이 빈칸이 아니라면
+				// if(upload != null && !upload.isEmpty()) {	// upload가 null이 아니고 upload가 비어있지 않다면
+					String[] returnArr = saveFile(upload, request, i);
+					// 파일이 upload 객체에 있는데 saveFile 함수를 거쳐서
+					// returnArr[0]에는 저장경로 returnArr[1]에는 변경한 이름이 들어있다
+	
+					if(returnArr[1] != null) {
+						// 리네임이 null이 아니라면
+						Image img = new Image(); // img에 속성값을 넣어서 추가하자
+						
+						String originFileName = upload.getOriginalFilename();
+						img.setImageForm(originFileName.substring(originFileName.lastIndexOf(".")));
+						img.setOriginName(originFileName);
+						img.setImageRename(returnArr[1]);
+						img.setImageSrc(returnArr[0]);
+						img.setImageBoardCate(4);
+						img.setImageBoardId(100);
+						list.add(img); // 받아온 files에 정보를 넣어서 Image list에 넣자
+						System.out.println(upload.getOriginalFilename() + "list넣기");
+					}
+				}
+			}
+				
+			// 이미지 속성값 설정 - 썸네일
+			for(int i = 0; i < list.size(); i++) {
+				Image img = list.get(i);
+				if(i == 0) {
+					img.setImageLevel(0);
+				} else {
+					img.setImageLevel(1);
+				}
+				result2 = wService.insertImage(img); // 이미지 삽입
+				System.out.println(img + "삽입");
+	
+			}
+			
+			if(result1 > 0 && result2 > 0) {
+				return "redirect:wantingList.want";
+			} else {
+				throw new WantingException("원팅 수정 삽입 실패");
+			}
 		
+//		} else {
+//			throw new WantingException("원팅 수정 삽입 실패");
+//		}
+	}	
+	
 		
 	// ==================== 원팅 삭제하기 ====================
 	@RequestMapping("deleteWanting.want")
@@ -471,21 +520,37 @@ public class WantingController {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		if(id == w.getWantingWriter() || id == "admin") {
 			
-			
-			
-			
-			
-			
-			// 원팅 삭제
 			int wantingNum = w.getWantingNum();
 			int result = wService.deleteWanting(wantingNum);
+			
+			if(result > 0) {
+				return "redirect: list.bo";
+			} else {
+				throw new WantingException("원팅 삭제 실패");
+			}
+			
+		} else {
+			throw new WantingException("원팅 삭제 실패");
 		}
-		return null; // 이건 관리자가 수정하는  
 	}
 
 	
-
-
+	// ==================== 원팅 작성 - 이미지 deleteFile 메소드  ====================
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		// WEB-INF안에 있는 resources(정적파일관리)를 도달하려고 하는 경로
+		
+		// String savePath = root + "\\wantingImage"; // 윈도우OS 경로
+		String savePath = root + "/wanting"; // 맥OS 경로
+		
+		File file = new File(savePath + "/" + fileName);
+		if(!file.exists()) {
+			file.delete(); // 파일 있으면 삭제하기
+		}
+	}
 	
+
+
+		
 	
 }

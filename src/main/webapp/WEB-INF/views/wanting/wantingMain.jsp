@@ -46,18 +46,21 @@
         <!-- 안내사항 -->
         <div class="notification">
           <p>
-            <strong>목표 인원</strong> <span>500명</span><br>
+            <strong>목표 인원</strong> 
+            <c:if test="${ wanting.wantingLevel == 1 }">100명</c:if>
+            <c:if test="${ wanting.wantingLevel == 2 }">500명</c:if>
+            <c:if test="${ wanting.wantingLevel == 3 }">1000명</c:if><br>
             <strong>원팅 시작일</strong> <span>${ wanting.wantingCreateDate }</span><br>
           </p>
           <p>
-            100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제가 진행되지 않습니다.
+            원팅 달성목표를 달성하면 가게에 연락이 갑니다. 펀딩으로 만나고 싶다면 원팅에 참여하세요!
           </p>
         </div>
 
         <div class="about-funding">
           <span class="icon"></span>
           <strong>원팅! 제대로 알고 참여하자</strong>
-          <button class="more-button">자세히 알아보기</button>
+          <button class="more-button" data-bs-toggle="modal" data-bs-target="#modal-about-wanting">자세히 알아보기</button>
         </div>
 
         <!-- 상품 상세설명 -->
@@ -225,6 +228,53 @@
 	    </div>
 	  </div>
 	</div>
+	
+	
+	<!-- 원팅 자세히 알아보기 모달 -->
+	<div class="modal fade modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modal-about-wanting">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content rounded-4 shadow">
+	      <div class="modal-header p-5 pb-4 border-bottom-0">
+	        <!-- <h1 class="modal-title fs-5" >Modal title</h1> -->
+	        <h1 class="fw-bold mb-0 fs-2">원팅 제대로 알고 참여하자</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	
+	      <div class="modal-body p-5 pt-0">
+	        <form class="">
+	          <div class="form-floating mb-3">
+	          	원팅은 원하는 펀딩을 소비자가 제안하는 것입니다.<br>
+	          	원팅의 달성목표를 달성하면 wantit에서 가게에 컨택을 합니다.
+	          	컨택이 성공하면 펀딩으로 만나보세요! 
+	          	
+	            <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+	            <label for="floatingPassword">Password</label>
+	          </div>
+	          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">확인</button>
+	          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+	          <hr class="my-4">
+	          <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
+	          <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
+	            <svg class="bi me-1" width="16" height="16"><use xlink:href="#twitter"/></svg>
+	            Sign up with Twitter
+	          </button>
+	          <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
+	            <svg class="bi me-1" width="16" height="16"><use xlink:href="#facebook"/></svg>
+	            Sign up with Facebook
+	          </button>
+	          <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
+	            <svg class="bi me-1" width="16" height="16"><use xlink:href="#github"/></svg>
+	            Sign up with GitHub
+	          </button>
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+
+	
 	
     </div>
   </div>

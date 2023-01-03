@@ -28,7 +28,7 @@
 	                   			<a class="nav-link active show wantNavLink" data-bs-toggle="tab" href="#tab-${ status.index + 1 }">${ wantingList[i].wantingTitle }</a>
                				</c:if>
                				<c:if test="${ i != 0 }">
-                 				  <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-${ status.index + 1 }">${ wantingList[i].wantingTitle }</a>
+                				<a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-${ status.index + 1 }">${ wantingList[i].wantingTitle }</a>
                				</c:if>
                  		</li>
                		</c:forEach>
@@ -38,7 +38,7 @@
                <div class="tab-content">
 				<c:forEach begin="0" end="4" var="i">
                  <div class="tab-pane <c:if test="${ i == 0 }">active show</c:if>" id="tab-${ i + 1 }">
-                   <div class="row">
+                   <div class="row" onclick="location.href='${ contextPath }/selectWanting.want?wantingNum=${ wantingList[i].wantingNum }'">
                      <div class="col-lg-8 details order-2 order-lg-1">
                        <h3 class="tabTitle"> ${ wantingList[i].wantingTitle } </h3>
                        <p class="tabContent">${ wantingList[i].wantingSummary }</p>
@@ -73,34 +73,6 @@
                 </ul>
                 <br>
                 <hr style="border: 2px solid dimgray;">
-				
-				
-				
-		<!-- 임시 공간 ---------------------------->
-		<button class="btn" onclick="location.href='${ contextPath }/wantingWrite.want'">원팅작성(로그인)</button>
-		<div class="dropdown">
-		<c:if test="${ !empty alarmList }">
-			<img src="resources/wanting/notification-y.png" style="width:30px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
-		</c:if>
-		<c:if test="${ empty alarmList }">
-			<img src="resources/wanting/notification-n.png" style="width:30px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
-		</c:if>
-		  <ul class="dropdown-menu">
-			<c:forEach items="${ alarmList }" var="a">
-				<c:if test="${ a.alarmBoardCate == 1}">
-			    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectWanting.want?wantingNum=${ a.alarmBoardId }'">${ a.alarmMsg }</a></li>
-				</c:if>
-				<c:if test="${ a.alarmBoardCate == 4}">
-					<input type="hidden" id="wanting-alarmNum" value="${ a.alarmNum }">
-			    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/alarmSelectWanting.want?wantingNum=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
-				</c:if>
-		    </c:forEach>
-		    <li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="#">더보기(마이페이지 알림 연결)</a></li>
-		  </ul>
-		</div>
-
-				
             </div>
         </div>
       <div class="row">
@@ -126,7 +98,7 @@
                           </div>
                           <p class="card-text">${ w.wantingTitle }</p>
                           <div class="d-flex justify-content-between align-items-center">
-                            <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: ${ w.wantingCount }%;"></span></div>
+                            <div style="height: 2px; width: 100%; background-color: gray; overflow: hidden;"><span style="display: block; background-color: #8c86c7; height: 2px; width: ${ w.wantingCount }%;"></span></div>
                           </div>
                           
                           <span class="remainCount">${ w.wantingCount }명 / 100명</span>
@@ -145,17 +117,15 @@
     </div>
     
     <script>
-    window.onload = () => {
-        const divs = document.getElementsByClassName('col');
-        for(const div of divs){
-           div.addEventListener('click',function(){
-        	  const input = this.querySelectorAll('input');
-              const wantingNum=input[0].value;
-        
-              location.href  = '${contextPath}/selectWanting.want?wantingNum='+ wantingNum;
-           });
-        }
-     }
+	const divs = document.getElementsByClassName('col');
+	for(const div of divs){
+	   div.addEventListener('click',function(){
+		  const input = this.querySelectorAll('input');
+	      const wantingNum=input[0].value;
+	
+	      location.href = '${contextPath}/selectWanting.want?wantingNum='+ wantingNum;
+	   });
+	}
     
     </script>
     

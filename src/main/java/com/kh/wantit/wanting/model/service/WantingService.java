@@ -51,8 +51,9 @@ public interface WantingService {
 	int checkAlarm(int alarmNum);
 	
 	// 원팅 삭제 및 수정
-	int deleteWanting(int wantingNum);
+	int updateWanting(Wanting w);
 
+	int deleteWanting(int wantingNum);
 	
 
 }

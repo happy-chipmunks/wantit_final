@@ -94,11 +94,14 @@ public class WantingDAO {
 	
 
 	// 원팅 수정 및 삭제
+	public int updateWanting(SqlSessionTemplate sqlSession, Wanting w) {
+		return sqlSession.update("wantingMapper.updateWanting", w);
+	}
+
 	public int deleteWanting(SqlSessionTemplate sqlSession, int wantingNum) {
 		return sqlSession.update("wantingMapper.deleteWanting", wantingNum);
 	}
 
-	
 
 	
 
