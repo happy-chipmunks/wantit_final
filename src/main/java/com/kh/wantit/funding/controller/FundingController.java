@@ -254,11 +254,11 @@ public class FundingController {
 		
 		// System.out.println(bId);
 		Funding f = fService.getFunding(bId, yn);
-		Image image = fService.getImage(bId);
+		Image img = fService.getImage(bId);
 		// System.out.println(image);
 		
 		if(f != null) {
-			mv.addObject("f", f).addObject("image", image).setViewName("fundingMain");
+			mv.addObject("f", f).addObject("img", img).setViewName("fundingMain");
 		}else {
 			throw new FundingException("펀딩 게시글 상세조회 실패");
 		}
