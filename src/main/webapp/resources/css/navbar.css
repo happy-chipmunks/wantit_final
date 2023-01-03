@@ -52,7 +52,7 @@
     cursor: pointer;
     /* margin-left: 10px; */
     /* margin-right: 10px; */
-    background-color: #e8acef;
+    background-color: #8c86c7;
 }
 
 #loginBtn{
@@ -61,13 +61,13 @@
     font-family: 'Noto Sans KR', sans-serif;
     margin-left: 10px;
     margin-right: 10px;
-    color: #e8acef;
-    border-color: #e8acef;
+    color: #8c86c7;
+    border-color: #8c86c7;
 }
 
 #loginBtn:hover{
     color: white;
-    background-color: #e8acef;
+    background-color: #8c86c7;
 }
 
 
@@ -118,14 +118,14 @@
     font-family: 'Noto Sans KR', sans-serif;
     margin-left: 10px;
     margin-right: 10px;
-    background-color: #e8acef;
+    background-color: #8c86c7;
 }
 
 #openProject{
     font-family: 'Noto Sans KR', sans-serif;
     margin-left: 10px;
     margin-right: 10px;
-    background-color: #e8acef;
+    background-color: #8c86c7;
 }
 
 .brandName{
@@ -133,7 +133,7 @@
 }
 
  i{
-    color: #e8acef;
+    color: #8c86c7;
   }
 
 

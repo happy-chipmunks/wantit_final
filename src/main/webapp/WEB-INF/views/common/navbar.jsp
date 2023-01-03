@@ -111,7 +111,7 @@
     font-family: 'Noto Sans KR', sans-serif;
     margin-left: 10px;
     margin-right: 10px;
-    background-color: #e8acef;
+    background-color: #8c86c7;
 }
 
 </style>
@@ -141,7 +141,7 @@
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							더보기 </a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">공지사항</a></li>
+							<li><a class="dropdown-item" href="${ contextPath }/noticeEvent.do">공지사항</a></li>
 							<li><a class="dropdown-item" href="#">이벤트</a></li>
 							
 						</ul>
@@ -152,7 +152,7 @@
 			
 				<form id="searchForm" class="searchForm" action="${ contextPath }/search.do" method="get">
 					<div class="searchArea">
-						<input type="text" class="searchText" maxlength="13" id="searchInput" name="searchText" autocomplete="off">
+						<input type="text" class="searchText" maxlength="13" id="searchInput" name="searchText" autocomplete="off" onkeyup="if(window.event.keyCode == 13){setSearchCookie()}">
 						<div class="searchBtn" id="searchBtn">
 							<i class="bi bi-search" id="searchIcon"></i>
 						</div>
@@ -262,6 +262,18 @@
 			
 			const searchBtn = document.getElementById('searchBtn');
 			searchBtn.addEventListener('click', function() {
+				setSearchCookie();
+			});
+			
+			searchInput.addEventListener('keyup', function(event) {
+				if(event.keyCode === 13) {
+					setSearchCookie();
+				}
+			});
+			
+		
+			
+			function setSearchCookie() {
 				const searchInput = document.getElementById('searchInput');
 				const searchForm = document.getElementById('searchForm');
 				if(searchInput.value.trim() == "") {
@@ -276,7 +288,7 @@
 					document.cookie = encodeURIComponent(inputVal) + "=" + encodeURIComponent(inputVal) + "; path=/wantit; expires" + todayDate.toGMTString() + ";";
 					searchForm.submit();
 				}
-			});
+			}
 		
 			const deleteSW = document.getElementsByClassName('deleteSW');
 			for(const i of deleteSW) {

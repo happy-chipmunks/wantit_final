@@ -114,7 +114,41 @@ public class HomeController {
 		}
 		
 		model.addAttribute("fundingList", fundingFPList);
-		return "common/searchView";
+		return "common/searchAjaxProceed";
+	}
+	
+	@RequestMapping("searchFCS.do")
+	public String searchFCS(@RequestParam("searchText") String searchText, Model model) {
+		ArrayList<Funding> fundingFCSList = new ArrayList<Funding>();
+		
+		ArrayList<Funding> fundingList = fService.searchFundingList(searchText);
+		
+		Date now = new Date();
+		for(Funding f : fundingList) {
+			if(now.compareTo(f.getFundingStart()) == -1) {
+				fundingFCSList.add(f);
+			}
+		}
+		
+		model.addAttribute("fundingList", fundingFCSList);
+		
+		return "common/searchAjaxComingSoon";
+	}
+	
+	@RequestMapping("searchWant.do")
+	public String searchWant(@RequestParam("searchText") String searchText, Model model) {
+		ArrayList<Wanting> wantingList = wService.searchWantingList(searchText);
+		ArrayList<Image> imageList = wService.selectImageList();
+		
+		model.addAttribute("wantingList", wantingList);
+		model.addAttribute("imageList", imageList);
+		
+		return "common/searchAjaxWant";
+	}
+	
+	@RequestMapping("noticeEvent.do")
+	public String noticeEvent() {
+		return "common/noticeAndEvent";
 	}
 	
 	//로그인 페이지

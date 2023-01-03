@@ -35,7 +35,7 @@
 .dohyeonFont{
     font-family: 'Do Hyeon', sans-serif;
     font-size: 30px;
-    color: #e8acef;
+    color: #8c86c7;
 }
 
 .cardName, .cardNumber{
@@ -46,14 +46,14 @@
 
 .btnPayCancel{
     border: 1px solid #e8acef;
-    color: #e8acef;
+    color: #8c86c7;
     border-radius: 0;
     width: 100%;
 }
 
 .btnPayCancel:hover{
     border-radius: 0;
-    border: 1px solid #e8acef;
+    border: 1px solid #8c86c7;
     color: white;
-    background-color: #e8acef;
+    background-color: #8c86c7;
 }

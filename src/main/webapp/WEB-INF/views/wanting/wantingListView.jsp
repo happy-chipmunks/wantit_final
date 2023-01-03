@@ -22,21 +22,16 @@
            <div class="row" data-aos="fade-up" data-aos-delay="100">
              <div class="col-lg-3">
                <ul class="nav nav-tabs flex-column wantSuccessList">
-                 <li class="nav-item want-nav">
-                   <a class="nav-link active show wantNavLink" data-bs-toggle="tab" href="#tab-1">${ wantingList[0].wantingTitle }</a>
-                 </li>
-                 <li class="nav-item want-nav">
-                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-2">${ wantingList[1].wantingTitle }</a>
-                 </li>
-                 <li class="nav-item want-nav">
-                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-3">${ wantingList[2].wantingTitle }</a>
-                 </li>
-                 <li class="nav-item want-nav">
-                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-4">${ wantingList[3].wantingTitle }</a>
-                 </li>
-                 <li class="nav-item want-nav">
-                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-5">${ wantingList[4].wantingTitle }</a>
-                 </li>
+               		<c:forEach begin="0" end="4" var="i" varStatus="status">
+               			<li class="nav-item want-nav">
+               				<c:if test="${ i == 0 }">
+	                   			<a class="nav-link active show wantNavLink" data-bs-toggle="tab" href="#tab-${ status.index + 1 }">${ wantingList[i].wantingTitle }</a>
+               				</c:if>
+               				<c:if test="${ i != 0 }">
+                 				  <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-${ status.index + 1 }">${ wantingList[i].wantingTitle }</a>
+               				</c:if>
+                 		</li>
+               		</c:forEach>
                </ul>
              </div>
              <div class="col-lg-9 mt-4 mt-lg-0">

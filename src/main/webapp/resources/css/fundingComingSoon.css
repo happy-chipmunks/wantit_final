@@ -139,7 +139,7 @@
   }
 
   .mainTitle{
-    color: #e8acef;
+    color: #8c86c7;
   }
 
   .cateAndName{
@@ -169,13 +169,13 @@
   }
 
   .alarmApl{
-    border: 1px solid #e8acef;
-    color: #e8acef;
+    border: 1px solid #8c86c7;
+    color: #8c86c7;
     width: 100%;
   }
 
   .alarmApl:hover{
-    border: 1px solid #e8acef;
+    border: 1px solid #8c86c7;
     color: white;
-    background-color: #e8acef;
+    background-color: #8c86c7;
   }

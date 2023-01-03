@@ -36,7 +36,7 @@
 		}
 		
  		.cate{ 
- 		 	font-size: 10px; 
+ 		 	font-size: 14px; 
 		} 
 		
 	</style>
@@ -100,7 +100,7 @@
       <div class="container" style="margin-top: 20px; border-bottom: 1px solid white; padding-bottom: 20px;">
         <div class="row">
             <div class="col-md-8">
-                <strong class="d-inline-block mb-2 mainTitle" style="font-size: 35px; color: #e8acef; padding-left: 20px;">인기있는 펀딩<a href="${ contextPath }/payView.pay?fundingNum=9999"> 결제테스트</a><a href="${ contextPath }/payStatusRenewal.pay?fundingNum=9999">결제상태갱신</a> </strong>
+                <strong class="d-inline-block mb-2 mainTitle" style="font-size: 35px; color: #8c86c7; padding-left: 20px;">인기있는 펀딩<a href="${ contextPath }/payView.pay?fundingNum=9999"> 결제테스트</a><a href="${ contextPath }/payStatusRenewal.pay?fundingNum=9999">결제상태갱신</a> </strong>
 <!-- 			테스트 구간 -->
 
                 
@@ -129,7 +129,7 @@
 	                              </div>
 	                                <fmt:formatNumber value="${ fp.currentMoney / fp.targetMoney }" type="percent" var="percentage"/>
 	                              <div class="d-flex justify-content-between align-items-center">
-	                                    <div style="height: 2px; width: 100%; background-color: gray;"><span class="progressBar" style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
+	                                    <div style="height: 2px; width: 100%; background-color: gray;"><span class="progressBar" style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
 	                                    <input type="hidden" class="progressBarPercent" value="${ percentage }">
 	                                </div>
 	                                <span>${ percentage } </span>
@@ -168,7 +168,7 @@
                           <strong class="d-inline-block mb-2 mainTitle">제목</strong>
                           <p class="wanting-text">${ wantingList[i].wantingTitle }</p>
                           <span class="wanting-writer">${ wantingList[i].wantingWriter }</span>
-                          <div style="height: 2px; width: 100%; background-color: gray; margin: 3px;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
+                          <div style="height: 2px; width: 100%; background-color: gray; margin: 3px;"><span style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
                           <div class="d-inline wanting-other">
                               <span><strong>${ wantingList[i].wantingCount }</strong>%</span>
                               <span style="font-size: 15px;">${ wantingList[i].wantingCount }명 원팅중</span>

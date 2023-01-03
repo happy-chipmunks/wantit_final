@@ -88,5 +88,6 @@
 		update payschedule set payment_status = #{payStatus} where merchant_uid = #{mUId}
 		
 	</update>
+	
 
 </mapper>
