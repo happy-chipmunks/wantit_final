@@ -162,9 +162,8 @@ p {margin: 0;}
 }
 .rate-bar em {
     display: block;
-    background: #00c4c4;
+    background: #7056F2;
     height: 3px;
-    width: 26%;
     overflow: hidden;
 }
 .goal-box {

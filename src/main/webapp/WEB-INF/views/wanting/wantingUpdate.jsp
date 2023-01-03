@@ -40,13 +40,18 @@
 	
 	
 <form class="" action="${ contextPath }/insertWanting.want" method="POST" enctype="multipart/form-data" id="wantingForm"> <!-- enctype : 이미지나 파일을 건낼 수 있음 -->
-	<h4 class="">원팅 등록하기</h4>
+	<h4 class="">원팅 수정하기</h4>
 	<div class="wanting-title-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	
 	<h5 class="wanting-guide-title">원팅 제목</h5>
 	<div class="wanting-guide-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	<i class="icon-help" aria-hidden="true"></i>
 	<input class="wanting-write-input" placeholder="제목을 입력해 주세요" maxlength="40" name="wantingTitle" type="text" value="${ wanting.wantingTitle }" name="wantingTitle">
+
+	<h5 class="wanting-guide-title">원팅 요약</h5>
+	<div class="wanting-guide-detail">대표 이미지와 함께 보이는 글이에요. 원팅은 쉽고 간결하게 소개해 주세요.</div>
+	<i class="icon-help" aria-hidden="true"></i>
+	<input class="wanting-write-input" placeholder="내용을 입력해 주세요" maxlength="80" name="wantingSummary" type="text" value="${ wanting.wantingSummary }" name="wantingSummary">
 
 	<h5 class="wanting-guide-title">대표이미지</h5>
 	<input accept="image/JPG,image/JPEG,image/GIF,image/PNG" name="wanting-file" placeholder="" type="file" id="wanting-file" style="display:none">
@@ -55,7 +60,7 @@
 		<br>2MB 이하의 JPG, JPEG, GIF, PNG 파일이 등록됩니다. 여러 장 등록돼요.
 	</div>
 	<label for="wanting-file" class="file-btn">등록하기</label>
-	<span id="file-name">${ thumbnail.getImageRename }</span>
+	<span id="file-name">${ thumbnail.getImageRename() }</span>
 
 	<h5 class="wanting-guide-title">가게 소개</h5>
 	<div class="wanting-guide-detail">원팅 대상이 되는 가게 정보를 입력해주세요</div>

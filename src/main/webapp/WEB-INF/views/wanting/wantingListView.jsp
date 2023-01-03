@@ -10,61 +10,57 @@
 <link rel="stylesheet" href="resources/css/wantingListView.css">
 </head>
 <body>
-        
+       
  <!-- ======= Specials Section ======= -->
-      <section id="specials" class="specials" style="background-color: #1E1E1E;">
-         <div class="container" data-aos="fade-up">
-	 		<div class="section-title">
-	          <h2>원팅성공</h2>
-	          <p>이제 펀딩으로 만나보세요</p>
-			</div>           
+   <section id="specials" class="specials" style="background-color: #1E1E1E;">
+      <div class="container" data-aos="fade-up">
+       <div class="section-title">
+          <h2>원팅성공</h2>
+          <p>이제 펀딩으로 만나보세요</p>
+       </div>           
 
-           <div class="row" data-aos="fade-up" data-aos-delay="100">
-             <div class="col-lg-3">
-               <ul class="nav nav-tabs flex-column wantSuccessList">
+       <div class="row" data-aos="fade-up" data-aos-delay="100">
+         <div class="col-lg-3">
+           <ul class="nav nav-tabs flex-column wantSuccessList">
+              <c:forEach begin="0" end="4" var="i" varStatus="status">
                  <li class="nav-item want-nav">
-                   <a class="nav-link active show wantNavLink" data-bs-toggle="tab" href="#tab-1">${ wantingList[0].wantingTitle }</a>
-                 </li>
-                 <li class="nav-item want-nav">
-                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-2">${ wantingList[1].wantingTitle }</a>
-                 </li>
-                 <li class="nav-item want-nav">
-                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-3">${ wantingList[2].wantingTitle }</a>
-                 </li>
-                 <li class="nav-item want-nav">
-                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-4">${ wantingList[3].wantingTitle }</a>
-                 </li>
-                 <li class="nav-item want-nav">
-                   <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-5">${ wantingList[4].wantingTitle }</a>
-                 </li>
-               </ul>
-             </div>
-             <div class="col-lg-9 mt-4 mt-lg-0">
-               <div class="tab-content">
-				<c:forEach begin="0" end="4" var="i">
-                 <div class="tab-pane <c:if test="${ i == 0 }">active show</c:if>" id="tab-${ i + 1 }">
-                   <div class="row">
-                     <div class="col-lg-8 details order-2 order-lg-1">
-                       <h3 class="tabTitle"> ${ wantingList[i].wantingTitle } </h3>
-                       <p class="tabContent">${ wantingList[i].wantingSummary }</p>
-                     </div>
-                     <div class="col-lg-4 text-center order-1 order-lg-2">
-                       <c:forEach items="${ imageList }" var="image">
-							<c:if test="${ wantingList[i].wantingNum == image.imageBoardId and image.imageLevel == 0}">
-								<img src="${ contextPath }/resources/wanting/${image.imageRename}"
-									class="img-fluid" alt="..." >
-							</c:if>
-					   </c:forEach>	
-                     </div>
-                   </div>
-                 </div>
-				</c:forEach>
-               </div>
-             </div>
-           </div>
-
+                    <c:if test="${ i == 0 }">
+                        <a class="nav-link active show wantNavLink" data-bs-toggle="tab" href="#tab-${ status.index + 1 }">${ wantingList[i].wantingTitle }</a>
+                    </c:if>
+                    <c:if test="${ i != 0 }">
+                        <a class="nav-link wantNavLink" data-bs-toggle="tab" href="#tab-${ status.index + 1 }">${ wantingList[i].wantingTitle }</a>
+                    </c:if>
+                </li>
+              </c:forEach>
+           </ul>
          </div>
-       </section><!-- End Specials Section -->
+         <div class="col-lg-9 mt-4 mt-lg-0">
+           <div class="tab-content">
+	        <c:forEach begin="0" end="4" var="i">
+		       <div class="tab-pane <c:if test="${ i == 0 }">active show</c:if>" id="tab-${ i + 1 }">
+		         <div class="row">
+		           <div class="col-lg-8 details order-2 order-lg-1">
+		             <h3 class="tabTitle"> ${ wantingList[i].wantingTitle } </h3>
+		             <p class="tabContent">${ wantingList[i].wantingSummary }</p>
+		           </div>
+		           <div class="col-lg-4 text-center order-1 order-lg-2">
+		             <c:forEach items="${ imageList }" var="image">
+			           <c:if test="${ wantingList[i].wantingNum == image.imageBoardId and image.imageLevel == 0}">
+			              <img src="${ contextPath }/resources/wanting/${image.imageRename}"
+			                 class="img-fluid" alt="..." >
+			           </c:if>
+		      		 </c:forEach>   
+		           </div>
+		         </div>
+		       </div>
+	        </c:forEach>
+           </div>
+         </div>
+       </div>
+
+      </div>
+    </section><!-- End Specials Section -->       
+       
     <div class="container">
       <br><br>
         <div class="row">
@@ -78,7 +74,33 @@
                 </ul>
                 <br>
                 <hr style="border: 2px solid dimgray;">
-				<button class="btn" onclick="location.href='${ contextPath }/wantingWrite.want'">원팅작성</button>
+                
+                
+                <!-- 임시 공간 ---------------------------->
+				<button class="btn" onclick="location.href='${ contextPath }/wantingWrite.want'">원팅작성(로그인)</button>
+				<div class="dropdown">
+				<c:if test="${ !empty alarmList }">
+					<img src="resources/wanting/notification-y.png" style="width:30px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
+				</c:if>
+				<c:if test="${ empty alarmList }">
+					<img src="resources/wanting/notification-n.png" style="width:30px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
+				</c:if>
+				  <ul class="dropdown-menu">
+					<c:forEach items="${ alarmList }" var="a">
+						<c:if test="${ a.alarmBoardCate == 1}">
+					    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectWanting.want?wantingNum=${ a.alarmBoardId }'">${ a.alarmMsg }</a></li>
+						</c:if>
+						<c:if test="${ a.alarmBoardCate == 4}">
+							<input type="hidden" id="wanting-alarmNum" value="${ a.alarmNum }">
+					    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/alarmSelectWanting.want?wantingNum=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
+						</c:if>
+				    </c:forEach>
+				    <li><hr class="dropdown-divider"></li>
+    				<li><a class="dropdown-item" href="#">더보기(마이페이지 알림 연결)</a></li>
+				  </ul>
+				</div>
+				
+				
             </div>
         </div>
       <div class="row">
@@ -104,7 +126,8 @@
                           </div>
                           <p class="card-text">${ w.wantingTitle }</p>
                           <div class="d-flex justify-content-between align-items-center">
-                            <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: ${ w.wantingCount }%;"></span></div>
+                            <div style="height: 3px; width: 100%; background-color: gray; overflow: hidden;"><span style="display: block; background-color: #B2A9FF; height: 3px; width: 1100223449%;"></span></div>
+<%--                             <div style="height: 3px; width: 100%; background-color: gray;"><span style="display: block; background-color: #B2A9FF; height: 3px; width: ${ w.wantingCount }%;"></span></div> --%>
                           </div>
                           
                           <span class="remainCount">${ w.wantingCount }명 / 100명</span>
@@ -123,17 +146,26 @@
     </div>
     
     <script>
-    window.onload = () => {
-        const divs = document.getElementsByClassName('col');
-        for(const div of divs){
-           div.addEventListener('click',function(){
-        	  const input = this.querySelectorAll('input');
-              const wantingNum=input[0].value;
-        
-              location.href  = '${contextPath}/selectWanting.want?wantingNum='+ wantingNum;
-           });
-        }
-     }
+    // 클릭하면 상세보기
+	const divs = document.getElementsByClassName('col');
+	for(const div of divs){
+	   div.addEventListener('click',function(){
+		  const input = this.querySelectorAll('input');
+	      const wantingNum=input[0].value;
+	
+	      location.href  = '${contextPath}/selectWanting.want?wantingNum='+ wantingNum;
+	   });
+	}
+	
+	// 알림 확인하면 없어지기
+	/*const divs = document.getElementsByClassName('alarm-item');
+	for(const div of divs){
+		div.addEventListener('click',function(){
+			let alarmNum = document.getElementById('wanting-alarmNum');
+			location.href  = '${contextPath}/checkAlarm.want?=alarmNum'+ alarmNum;
+	   });
+	}*/
+	
     
     </script>
     

@@ -168,7 +168,7 @@
                           <strong class="d-inline-block mb-2 mainTitle">제목</strong>
                           <p class="wanting-text">${ wantingList[i].wantingTitle }</p>
                           <span class="wanting-writer">${ wantingList[i].wantingWriter }</span>
-                          <div style="height: 2px; width: 100%; background-color: gray; margin: 3px;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
+                          <div style="height: 2px; width: 100%; background-color: gray; margin: 3px;"><span style="display: block; background-color: #e8acef; height: 2px; width: ${ wantingList[i].wantingCount }%;"></span></div>
                           <div class="d-inline wanting-other">
                               <span><strong>${ wantingList[i].wantingCount }</strong>%</span>
                               <span style="font-size: 15px;">${ wantingList[i].wantingCount }명 원팅중</span>

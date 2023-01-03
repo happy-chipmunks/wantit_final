@@ -20,6 +20,7 @@ public interface WantingService {
 	ArrayList<Wanting> selectWantingListPopular();
 
 	ArrayList<Image> selectImageList();
+	
 
 	// 원팅 게시글 상세보기
 	Wanting selectWanting(int wantingNum);
@@ -40,11 +41,17 @@ public interface WantingService {
 
 	int sendAlarm(Alarm alarm);
 	
+	// 원팅 검색
+	ArrayList<Wanting> searchWantingList(String searchText);
+	
+	// 회원 전체 알림 가져오기
+	ArrayList<Alarm> selectAlarmList(String id);
+	
+	// 회원 알림 확인하기
+	int checkAlarm(int alarmNum);
+	
 	// 원팅 삭제 및 수정
 	int deleteWanting(int wantingNum);
-
-	
-	ArrayList<Wanting> searchWantingList(String searchText);
 
 	
 
