@@ -323,7 +323,7 @@
 								<c:if test="${ m.confirm == 'Y' && (m.division == 'W' || m.division == 'F') }">
 									승인완료
 								</c:if>
-								<c:if test="${ m.confirm == 'R' && (m.division == 'F' || m.division == 'W') }">
+								<c:if test="${ m.confirm == 'X' && (m.division == 'F' || m.division == 'W') }">
 									승인거절
 								</c:if>
 								
@@ -335,7 +335,7 @@
 								<c:if test="${ m.confirm == 'Y' && (m.division == 'W' || m.division == 'F') }">
 									확인완료
 								</c:if>
-								<c:if test="${ m.confirm == 'R' && (m.division == 'F' || m.division == 'W') }">
+								<c:if test="${ m.confirm == 'X' && (m.division == 'F' || m.division == 'W') }">
 									확인완료
 								</c:if>
 							</td>
@@ -417,17 +417,18 @@
 								<p>정말 프로젝트를 승인하시겠습니까?</p>
 							</div>
 							<div class="modal-footer">
-								<form action="${contextPath }/refuseProject.ad" method="post">
-									<button type="submit" class="btn btn-sm btn-outline-secondary"
-										id="modalRefuseButton">거절</button>
+								<form action="${contextPath }/refuseProject.ad" method="post" id="refuseSubmit">
+									<button type="button" class="btn btn-sm btn-outline-secondary"
+										id="modalRefuseBtn">거절</button>
 									<input type="hidden" name="id">
 									<input type="hidden" name="type">
-								
 								</form>
-								<form action="${contextPath }/confirmProject.ad" method="post">
-									
+								<form action="${contextPath }/confirmProject.ad" method="post" id="confirmSubmit">
 									<button id="modalConfirmButton" type="button" 
 										class="btn btn-sm btn-outline-danger">승인</button>
+									<input type="hidden" name="id">
+									<input type="hidden" name="type">
+									
 								</form>
 							</div>
 						</div>
@@ -497,12 +498,13 @@
 		}
 		
 		$("#modalConfirmButton").on("click", function(){
- 			$("form").submit();
+ 			$("#confirmSubmit").submit();
 		});
 		
-// 		$("#modalRefuseButton").on("click", function(){
-//  			$("form").submit();
-// 		});
+		$("#modalRefuseBtn").on("click", function(){
+ 			$("#refuseSubmit").submit();
+			console.log("df");
+		});
 	</script>
 
 	

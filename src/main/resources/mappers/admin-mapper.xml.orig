@@ -172,6 +172,7 @@
 		funding_num=#{id}
 	</update>
 	
+<<<<<<< HEAD
 	<update id="updateMemberType">
 		update member
 		set member_type='creator'
@@ -188,6 +189,7 @@
 		set member_type='supportor'
 		where member_id=#{delCreator}
 	</update>
+=======
 	<select id="selectOkList" resultMap="afundingResultSet">
         select funding_num, funding_title, funding_content, CONFIRM, CREATE_DATE, FUNDING_STATUS, 'F' division
 		from funding 
@@ -198,6 +200,7 @@
         from wanting 
         order by create_date desc
 	</select>
+>>>>>>> 아내금연
 	
 	
 	<update id="okProjectW">
@@ -212,17 +215,6 @@
 		where funding_num=#{id}
 	</update>
 	
-	<update id="noProjectW">
-		update wanting
-		set wanting_confirm='X'
-		where wanting_num=#{id}
-	</update>
-	
-	<update id="noProjectF">
-		update funding
-		set confirm='X'
-		where funding_num=#{id}
-	</update>
 <!-- 	<update id="noProject"> -->
 <!-- 		update funding -->
 <!-- 		set confirm='R' -->
