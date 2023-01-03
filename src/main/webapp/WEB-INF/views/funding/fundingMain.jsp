@@ -40,7 +40,7 @@
       		<!-- 정보 -->
 	      <div class="left-content">
 	        <!-- 대표 이미지-->
-	        <img src="${ contextPath }/resources/funding/${image.imageRename}">
+	        <img src="${ contextPath }/resources/funding/${image.imageRename}" alt="...">
 	
 	        <!-- 안내사항 -->
 	        <div class="notification">
