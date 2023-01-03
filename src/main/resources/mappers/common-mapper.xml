@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="commonMapper">
+
+
+	<select id="selectAllNotice" resultMap="noticeResultSet">
+		select *
+		from notice
+		where NOTICE_DIVISION = 'N'
+		order
+		by NOTICE_CREATE_DATE desc
+	</select>
+
+	<select id="getListCountN" resultType="_int">
+		select count(*)
+		from notice
+		where notice_division = 'N'
+	</select>
+	
+	<select id="selectAllEvent" resultMap="noticeResultSet">
+		select *
+		from notice
+		where NOTICE_DIVISION = 'E'
+		order
+		by NOTICE_CREATE_DATE desc
+	</select>
+
+	<select id="getListCountE" resultType="_int">
+		select count(*)
+		from notice
+		where notice_division = 'E'
+	</select>
+	
+	<resultMap type="NoticeDetail" id="noticeResultSet">
+		<id column="NOTICE_NUM" property="noticeNum" />
+		<result column="ADMIN" property="admin" />
+		<result column="NOTICE_TITLE" property="noticeTitle" />
+		<result column="NOTICE_CONTENT" property="noticeContent" />
+		<result column="NOTICE_CREATE_DATE" property="noticeCreateDate" />
+		<result column="NOTICE_MODIFY_DATE" property="noticeModifyDate" />
+		<result column="NOTICE_COUNT" property="noticeCount" />
+		<result column="NOTICE_STATUS" property="noticeStatus" />
+		<result column="NOTICE_DIVISION" property="noticeDivision" />
+	</resultMap>
+	
+</mapper>

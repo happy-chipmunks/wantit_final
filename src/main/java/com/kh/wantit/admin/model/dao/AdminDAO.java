@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wantit.admin.model.vo.AFunding;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.FundingReport;
@@ -13,14 +14,9 @@ import com.kh.wantit.admin.model.vo.NReply;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
-<<<<<<< HEAD
-import com.kh.wantit.common.model.vo.CreatorImage;
-import com.kh.wantit.common.model.vo.Image;
-import com.kh.wantit.member.vo.Creator;
-=======
 import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
->>>>>>> 아내만원
+import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
 @Repository("aDAO")
@@ -76,7 +72,7 @@ public class AdminDAO {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectAllAds", i, rowBounds);
 	}
 
-<<<<<<< HEAD
+
 	public ArrayList<Creator> creatorApproval(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminMapper.creatorApproval");
 	}
@@ -85,7 +81,6 @@ public class AdminDAO {
 		return (ArrayList)sqlSession.selectList("adminMapper.businessImage");
 	}
 
-=======
 	public ArrayList<Image> selectAllImage(SqlSessionTemplate sqlSession, int i) {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectAllImage", i);
 	}
@@ -146,9 +141,41 @@ public class AdminDAO {
 	public int deleteReview(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.update("adminMapper.deleteReview", id);
 	}
+	
 	public int deleteFunding(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.update("adminMapper.deleteFunding", id);
 	}
+
+		public ArrayList<Integer> getListCountPM(SqlSessionTemplate sqlSession, int i) {
+			return (ArrayList)sqlSession.selectList("adminMapper.getListCountPM", i);
+		}
+
+	public ArrayList<AFunding> selectOkList(SqlSessionTemplate sqlSession, PageInfo pi, int i) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.selectOkList", i, rowBounds);
+	}
 	
->>>>>>> 아내만원
+	public ArrayList<AFunding> projectApproval(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.projectApproval");
+	}
+	
+	public int okProjectW(SqlSessionTemplate sqlSession, String id) {
+		System.out.println("daoW"+id);
+		int result = sqlSession.update("adminMapper.okProjectW", id);
+		System.out.println("w result = " + result);
+		return result;
+	}
+	
+	public int okProjectF(SqlSessionTemplate sqlSession, String id) {
+		System.out.println("daoF"+id);
+		int result = sqlSession.update("adminMapper.okProjectF", id);
+		System.out.println("f result = " + result);
+		return result;
+	}
+	
+//	public int noProject(SqlSessionTemplate sqlSession, String id) {
+//		return sqlSession.update("adminMapper.noProject", id);
+//	}
+	
 }

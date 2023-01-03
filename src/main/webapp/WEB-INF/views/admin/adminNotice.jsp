@@ -15,9 +15,6 @@
 <meta name="generator" content="Hugo 0.104.2">
 <title>Dashboard Template · Bootstrap v5.2</title>
 
-<link rel="stylesheet" href="resources/css/main.css">
-<link rel="canonical"
-		href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
 
 <style>
 @font-face {
@@ -224,7 +221,6 @@ input[type="checkbox"]:checked + label span {
 
 
 <!-- Custom styles for this template -->
-<link href="../../resources/css/dashboard.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body id="body">
@@ -401,7 +397,12 @@ input[type="checkbox"]:checked + label span {
 							    <label for="c2" style="color: black;"><span></span>공지사항</label>
 							    <br>
 								</div>
-								
+								<br>
+								<br>
+								<input accept="image/JPG,image/JPEG,image/GIF,image/PNG" name="wanting-file" placeholder="" type="file" id="wanting-file" style="display:none">
+								<label for="wanting-file" class="file-btn">등록하기</label>
+									<span id="file-name">선택된 파일없음</span>
+<!-- 								<br> -->
 								<div class="textForm">
 <%-- 									<input type="hidden" value="${ r.count }" class="reply"> --%>
 <%-- 									<c:if test="${r.count == r.count} "> --%>
@@ -540,8 +541,9 @@ input[type="checkbox"]:checked + label span {
        
 		$('.makeNotice').click(function(){
 			
-			$(this).siblings('.hiddenMake').val($(this).siblings()[4].querySelector('textarea').value);
-			$(this).siblings('.hiddenTitle').val($(this).siblings()[2].querySelector('textarea').value);
+			$(this).siblings('.hiddenMake').val($(this).siblings()[9].querySelector('textarea').value);
+			$(this).siblings('.hiddenTitle').val($(this).siblings()[7].querySelector('textarea').value);
+			console.log($(this).siblings());
 // 			const check = $(this).siblings()[1].querySelectorAll('input');
 // 			for (var index = 0; index < check.length; index++) {
 // 				   const checkval = check[index].value;
@@ -567,6 +569,7 @@ input[type="checkbox"]:checked + label span {
 			btn.addEventListener("click", function(){
 				const id = $(this).find("span").text();
 				$("input[name=id]").val(id);
+				console.log(id);
 			});
 		}
 		
@@ -576,15 +579,6 @@ input[type="checkbox"]:checked + label span {
 		});
 	</script>
 
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-		crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -26,4 +26,6 @@ public class Wanting {
 	private Date wantingCreateDate;
 	private int wantingCount;
 	private int wantingDaysCount;
+	private String wantingConfirm;
+	private String division;
 }

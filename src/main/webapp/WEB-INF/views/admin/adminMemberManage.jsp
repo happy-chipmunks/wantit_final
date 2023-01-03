@@ -12,12 +12,6 @@
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.104.2">
 <title>Dashboard Template · Bootstrap v5.2</title>
-<link rel="stylesheet" href="resources/css/main.css">
-	<link rel="canonical"
-		href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
-
-
-
 
 
 <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -355,7 +349,7 @@
 	for(const tr of trs) {
 		// 회원 상세정보 조회
 		tr.addEventListener("click", function(){
-				console.log($(this).find());
+// 				console.log($(this).find());
 		});
 	}
 	//회원 탈퇴 정보 넘기기
@@ -364,7 +358,8 @@
 		btn.addEventListener("click", function(){
 			const id = $(this).find("span").text();
 			$("input[name=id]").val(id);
-			console.log($("input[name=id]").val(id));
+// 			console.log($("input[name=id]").val(id));	
+			console.log(id);
 		});
 		
 		// 크리에이터 승인
@@ -375,20 +370,11 @@
 			}
 	}
 	
-	// 회원 탈퇴
+	//회원 탈퇴
 	$("#modalDeleteButton").on("click", function(){
 		$("form").submit();
 	});
 	</script>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-		crossorigin="anonymous"></script>
-<!-- 	<script src="dashboard.js"></script> -->
 </body>
 </html>
