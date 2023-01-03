@@ -77,7 +77,6 @@ public class AdminDAO {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectAllAds", i, rowBounds);
 	}
 
-<<<<<<< HEAD
 
 	public ArrayList<Creator> creatorApproval(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminMapper.creatorApproval");
@@ -164,6 +163,7 @@ public class AdminDAO {
 
 	public int updateMemberType(SqlSessionTemplate sqlSession, String changeId) {
 		return sqlSession.update("adminMapper.updateMemberType", changeId);
+	}
 	public ArrayList<AFunding> projectApproval(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminMapper.projectApproval");
 	}
