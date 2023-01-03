@@ -5,8 +5,6 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -54,8 +52,7 @@ public class WantingController {
 	// ==================== 원팅 작성 ====================
 	@RequestMapping("insertWanting.want")
 	public String inserteWanting(@ModelAttribute Wanting w, @RequestParam("wanting-file") ArrayList<MultipartFile> files, HttpServletRequest request) {
-//		String wantingWriter = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
-		String wantingWriter = "user05";
+		String wantingWriter = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		w.setWantingWriter(wantingWriter);
 		
 		System.out.println(w);
@@ -195,19 +192,25 @@ public class WantingController {
 	
 	// ==================== 원팅 리스트 불러오기 ====================
 	@RequestMapping("/wantingList.want")
-	public String wantingList(Model model) {
+	public String wantingList(Model model, HttpSession session) {
 		ArrayList<Wanting> wantingList = wService.selectWantingList();
 		ArrayList<Image> imageList = wService.selectImageList();// 
-		System.out.println(wantingList);
-		System.out.println(imageList);
+		//System.out.println(wantingList);
+		//System.out.println(imageList);
+		
+		if(session.getAttribute("loginUser") != null) {
+			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+			ArrayList<Alarm> alarmList = wService.selectAlarmList(id); // =========== 알림 있는지 확인 (마이페이지)(HttpSessio도 지우기)
+			model.addAttribute("alarmList", alarmList); // =========== 알림 있는지 확인 (마이페이지)
+		}
 		
 		if(wantingList != null && wantingList != null) {
 			model.addAttribute("wantingList", wantingList);
-			model.addAttribute("imageList",imageList);
+			model.addAttribute("imageList", imageList);
 			return "wantingListView";
-	      } else {
+		} else {
 	         throw new WantingException("원팅 리스트 조회 실패");
-	      }
+        }
 	}
 	
 	
@@ -216,8 +219,8 @@ public class WantingController {
 	public String wantingListPopular(Model model) {
 		ArrayList<Wanting> wantingList = wService.selectWantingListPopular();
 		ArrayList<Image> imageList = wService.selectImageList();// 
-		System.out.println(wantingList);
-		System.out.println(imageList);
+		//System.out.println(wantingList);
+		//System.out.println(imageList);
 		
 		if(wantingList != null && wantingList != null) {
 			model.addAttribute("wantingList", wantingList);
@@ -235,7 +238,7 @@ public class WantingController {
 		
 		// 원팅 가져오기
 		Wanting w = wService.selectWanting(wantingNum);
-		System.out.println("원팅 상세보기 원팅 : " + w);
+		//System.out.println("원팅 상세보기 원팅 : " + w);
 		
 		
 		// 원팅 며칠 지났는지 넣기 -> 디비
@@ -257,7 +260,7 @@ public class WantingController {
 		if(session.getAttribute("loginUser") != null) {
 			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 			WantingAttend join = new WantingAttend(id, wantingNum);
-			System.out.println(join);
+			//System.out.println(join);
 			int result = wService.getWantingYN(join);
 			if(result > 0) {
 				wantingYN = true; 
@@ -274,7 +277,7 @@ public class WantingController {
 				thumbnail = imageList.get(i);
 			}
 		}
-		System.out.println("원팅 상세보기 이미지 : " + imageList);
+		//System.out.println("원팅 상세보기 이미지 : " + imageList);
 
 		if (w != null && imageList != null) {
 			model.addAttribute("wanting", w);
@@ -293,7 +296,7 @@ public class WantingController {
 	public String attendWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session, RedirectAttributes redirectAttributes) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		WantingAttend join = new WantingAttend(id, wantingNum);
-		System.out.println("원팅 참여한다면 이것 : " + join);
+		// System.out.println("원팅 참여한다면 이것 : " + join);
 		
 		// 원팅 참여함
 		int result1 = wService.attendWanting(join);
@@ -306,14 +309,14 @@ public class WantingController {
 		// 원팅 달성하면 알림 보내기
 		// 원래는 100명 500명 1000명이지만
 		int result2 = 0;
-		if(wantingCount == 10 || wantingCount == 50 || wantingCount == 100) {
+		if(wantingCount == 5 || wantingCount == 10 || wantingCount == 15) {
 			Alarm alarm = new Alarm();
 			alarm.setAlarmBoardCate(4);
 			alarm.setAlarmBoardId(wantingNum);
 			
-			if(wantingCount == 10) { alarm.setAlarmMsg("${ w.wantingTitle} 원팅 1차 달성이 완료되었습니다!"); }
-			if(wantingCount == 500) { alarm.setAlarmMsg("${ w.wantingTitle} 원팅 2차 달성이 완료되었습니다!"); }
-			if(wantingCount == 1000) { alarm.setAlarmMsg("${ w.wantingTitle} 원팅 3차 달성이 완료되었습니다!"); }
+			if(wantingCount == 5) { alarm.setAlarmMsg( "<" + w.getWantingTitle() + ">" + " 원팅 1차 달성이 완료되었습니다!"); }
+			if(wantingCount == 10) { alarm.setAlarmMsg( "<" + w.getWantingTitle() + ">" + " 원팅 2차 달성이 완료되었습니다!"); }
+			if(wantingCount == 15) { alarm.setAlarmMsg( "<" + w.getWantingTitle() + ">" + " 원팅 3차 달성이 완료되었습니다!"); }
 			
 			// Alarm 객체에 memberId만 빼고 넣어서 함수에 전달
 			result2 = sendAlarm(alarm);
@@ -321,20 +324,19 @@ public class WantingController {
 			result2 = 1;
 		}
 		
-		
 		// 원팅 달성단계 DB에 넣기
 		int wantingLevel = 0;
-		if(wantingCount <= 10) {
+		if(wantingCount <= 5) {
 			wantingLevel = 1;
-		} else if(wantingCount <= 500) {
+		} else if(wantingCount <= 10) {
 			wantingLevel = 2;
-		} else if(wantingCount <= 1000) {
+		} else if(wantingCount <= 15) {
 			wantingLevel = 3;
 		} else {
 			wantingLevel = 9;
 		}
 		w.setWantingLevel(wantingLevel);
-		System.out.println("원팅 참여 업데이트 : " + w);
+		// System.out.println("원팅 참여 업데이트 : " + w);
 		
 		int result3 = wService.updateWantingStatus(w);
 		System.out.println("원팅 참여 결과 : " + result1 + "/ 원팅 달성 시 알림 : " + result2 + "/ 원팅 달성 상태 삽입 : " + result3);
@@ -358,8 +360,9 @@ public class WantingController {
 		for(int i = 0; i < memberList.size(); i++) {
 			String memberId = memberList.get(i).getAttender();
 			alarm.setMemberId(memberId); // Alarm 객체에 memberId 넣어서 DB에 넣기
+			System.out.println(alarm);
 			result += wService.sendAlarm(alarm); // 알림 보낸 횟수만큼 result 값 증가시키고
-			System.out.println("결과증  " +result);
+			System.out.println("결과증가중  " +result);
 		}
 		
 		if(result == memberList.size()) {
@@ -371,14 +374,65 @@ public class WantingController {
 	}
 	
 	
+	// ==================== 원팅 알림 지우면서 상세보기 ====================
+	@RequestMapping("alarmSelectWanting.want")
+	public String alarmSelectWanting(@RequestParam("wantingNum") int wantingNum, @RequestParam("alarmNum") int alarmNum, Model model, HttpSession session) {
+		
+		// 알림 지우기 !!
+		int result2 = wService.checkAlarm(alarmNum);
+
+		// 원팅 가져오기
+		Wanting w = wService.selectWanting(wantingNum);
+		//System.out.println("원팅 상세보기 원팅 : " + w);
+		
+		// 작성자인지 확인하는 건 프론트에서
+		// 사용자가 원팅했는지 확인하기
+		boolean wantingYN = false;
+		if(session.getAttribute("loginUser") != null) {
+			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+			WantingAttend join = new WantingAttend(id, wantingNum);
+			//System.out.println(join);
+			int result = wService.getWantingYN(join);
+			if(result > 0) {
+				wantingYN = true; 
+			} else {
+				wantingYN = false;
+			}
+		}
+		
+		// 이미지 가져와서 썸네일만 보내기
+		ArrayList<Image> imageList = wService.selectImage(wantingNum);
+		Image thumbnail = null;
+		for(int i = 0; i < imageList.size(); i++) {
+			if(imageList.get(i).getImageLevel() == 0) {
+				thumbnail = imageList.get(i);
+			}
+		}
+		System.out.println("원팅 상세보기 이미지 : " + imageList);
+
+		if (w != null && imageList != null && result2 != 0) {
+			model.addAttribute("wanting", w);
+			model.addAttribute("wantingYN", wantingYN);
+			model.addAttribute("thumbnail", thumbnail);
+			return "wantingMain";
+		} else {
+			throw new WantingException("알림 확인 및 원팅 상세보기 실패");
+		}
+		
+	}
+	
 	// ==================== 원팅 수정하기 페이지 ====================
 	@RequestMapping("updateWantingView.want")
-	public String selectWanting1(@RequestParam("wantingNum") int wantingNum, Model model, HttpSession session) {
+	public String updateWantingView(@RequestParam("wantingNum") int wantingNum, Model model, HttpSession session) {
 		Wanting w = wService.selectWanting(wantingNum);
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		
-		if(id == w.getWantingWriter() || id == "admin") {
+		if( id.equals(w.getWantingWriter()) || id.equals("admin") ) {
 			ArrayList<Image> imageList = wService.selectImage(wantingNum);
+			
+			System.out.println(w);
+			System.out.println(imageList);
+
 			Image thumbnail = null;
 			for(int i = 0; i < imageList.size(); i++) {
 				if(imageList.get(i).getImageLevel() == 0) {

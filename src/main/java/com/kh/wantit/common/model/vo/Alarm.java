@@ -19,5 +19,5 @@ public class Alarm {
 	private String alarmMsg;
 	private int alarmBoardCate;
 	private int alarmBoardId;
-	private int alarmCheck;
+	private String alarmCheck;
 }

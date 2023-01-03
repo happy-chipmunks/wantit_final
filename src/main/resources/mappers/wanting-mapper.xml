@@ -80,44 +80,41 @@
 		where wanting_num=#{wantingNum} and wanting_status='Y' 
 	</update>
 	
+	
+<!-- 	원팅 달성 알림 보내기 -->
+	<select id="getMemberList" resultMap="wantingAttendResultSet">
+		select *
+		from wanting_attend
+		where wanting_num=#{wantingNum}
+	</select>
+	
+	<insert id="sendAlarm">
+		insert into alarm
+		values(seq_alarm.nextval, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, default)
+	</insert>
+	
+	
+<!-- 	원팅 검색 -->
 	<select id="searchWantingList" resultMap="wantingResultSet">
 		select * from wanting where wanting_title like '%' || #{searchText} || '%'
 	</select>
-	
-<!-- 	원팅 달성 알림 보내기 -->
-	<select id="getMemberList" resultMap="wantingAttendResultSet">
+
+
+<!-- 	회원 전체 알림 가져오기 -->
+	<select id="selectAlarmList" resultMap="alarmResultSet">
 		select *
-		from wanting_attend
-		where wanting_num=#{wantingNum}
+		from alarm
+		where member_id=#{memberId} and alarm_check='N'
 	</select>
 	
-	<insert id="sendAlarm">
-		insert into alarm
-		values(seq_alarm, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, default)
-	</insert>
 	
-	
-<!-- 	원팅 수정 및 삭제 -->
-	<update id="deleteWanting">
-		update wanting
-		set wanting_status='N'
-		where wanting_num=#{wantingNum}
+<!-- 	회원 알림 확인하기 -->
+	<update id="checkAlarm">
+		update alarm
+		set alarm_check='Y'
+		where alarm_num=#{alarmNum}
 	</update>
-	
-	
-	
-<!-- 	원팅 달성 알림 보내기 -->
-	<select id="getMemberList" resultMap="wantingAttendResultSet">
-		select *
-		from wanting_attend
-		where wanting_num=#{wantingNum}
-	</select>
-	
-	<insert id="sendAlarm">
-		insert into alarm
-		values(seq_alarm, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, default)
-	</insert>
-	
+
 	
 <!-- 	원팅 수정 및 삭제 -->
 	<update id="deleteWanting">
@@ -159,10 +156,18 @@
 		<result column="IMAGE_BOARD_ID" property="imageBoardId"/>
 	</resultMap>
 	
-	
 	<resultMap type="WantingAttend" id="wantingAttendResultSet">
 		<id column="ATTENDER" property="attender"/>
 		<id column="WANTING_NUM" property="wantingNum"/>
+	</resultMap>
+
+	<resultMap type="Alarm" id="alarmResultSet">
+		<id column="ALARM_NUM" property="alarmNum"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="ALARM_MSG" property="alarmMsg"/>
+		<result column="ALARM_BOARD_CATE" property="alarmBoardCate"/>
+		<result column="ALARM_BOARD_ID" property="alarmBoardId"/>
+		<result column="ALARM_CHECK" property="alarmCheck"/>
 	</resultMap>
 	
 	
