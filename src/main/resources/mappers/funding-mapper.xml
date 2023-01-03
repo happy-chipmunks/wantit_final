@@ -11,7 +11,7 @@
 	
 	<insert id="insertFunding">
 		insert into funding
-		values(seq_funding.nextval, #{creatorNum}, #{fundingCate}, #{fundingTitle}, #{fundingCount}, sysdate, #{fundingEnd}, default, #{targetMoney}, default, sysdate, default, default, #{creatorNickname}, #{fundingContent})
+		values(seq_funding.nextval, #{creatorNum}, #{fundingCate}, #{fundingTitle}, #{fundingCount}, sysdate, #{fundingEnd}, default, #{targetMoney}, default, sysdate, default, default, #{creatorNickname}, #{fundingContent}, #{fundingSummary})
 	</insert>
 	
 	<insert id="insertImage">
@@ -150,6 +150,7 @@
 		<result column="modify_date" property="modifyDate"/>
 		<result column="funding_status" property="fundingStatus"/>
 		<result column="creator_name" property="creatorNickname"/>
+		<result column="funding_summary" property="fundingSummary"/>
 	</resultMap>
 
 	

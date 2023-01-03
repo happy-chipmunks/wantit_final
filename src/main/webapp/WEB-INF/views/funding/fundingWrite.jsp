@@ -274,30 +274,32 @@
 		        ],
 		        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
 		        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-	        callbacks: {
-	        	onImageUpload : function(files, editor, welEditable){		// 이미지 첨부하는 부분
-	        		for(var i = 0; i < files.length; i++){
-	        			uploadSummernoteImageFile(files[i], this);
-	        		}
-	        	}
-	        }
+		        callbacks: {
+		        	onImageUpload : function(files, editor, welEditable){		// 이미지 첨부하는 부분
+		        		for(var i = 0; i < files.length; i++){
+		        			sendFile(files[i], this);
+		        		}
+		        	}
+		        }
 	     	 });
 		 
-	        function uploadSummernoteImageFile(file, el){
-	        	data = new FormData();
-	        	data.append('file', file);
+	        function sendFile(file, el){
+	        	var form_data = new FormData();
+	        	form_data.append('file', file);
 	        	$.ajax({
-	        		data: data,
+	        		data: form_data,
 	        		type: "POST",
-	        		url: "${contextPath}/uploadSummernoteImageFile.fund",
+	        		url: '${contextPath}/uploadSummernoteImageFile.fund',
 	        		cache: false,
 	        		contentType: false,
 	        		enctype: 'multipart/form-data',
 	        		processData: false,
-	        		success: function(data){
-	        			console.log(data);
+	        		success: function(img_name){
+	        			$(".spinner-border").css("display","none");
+	            		
+	            		console.log(img_name);
 	        			// 항상 업로드된 파일의 url이 있어야 한다.
-	        			$(el).summernote('editor.insertImage', "/funding-summernote/" + data.url);
+	        			$(el).summernote('editor.insertImage', "/funding-summernote/" + img_name);
 	        		}
 	        	});
 	        } 

@@ -149,7 +149,7 @@ public class FundingController {
 			folder.mkdirs();
 		}
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		int ranNum = (int)(Math.random()*100000);
 		String originFileName = file.getOriginalFilename();
 		String renameFileName = "funding" + sdf.format(new Date(System.currentTimeMillis())) + j + ranNum
@@ -180,7 +180,7 @@ public class FundingController {
 				folder.mkdirs();
 			}
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 			int ranNum = (int)(Math.random()*1000);
 			String originFileName = file.getOriginalFilename();
 			String renameFileName = "funding" + sdf.format(new Date(System.currentTimeMillis())) + ranNum + "sm" + originFileName.substring(originFileName.lastIndexOf("."));
@@ -198,38 +198,6 @@ public class FundingController {
 			out.println(renameFileName);
 			out.close();
 		}
-	
-//		@RequestMapping(value="/uploadSummernoteImageFile.fund", produces="application/json; charset=utf8")
-//		@ResponseBody
-//		public void profileUpload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
-//			JsonObject jsonObject = new JsonObject();
-//			
-//			// 내부 경로로 저장
-//			String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-//			String fileRoot = contextRoot+"resources/funding/summernote/";
-//			
-//			// 외부 경로로 저장
-////			String root = request.getSession().getServletContext().getRealPath("resources");
-////			String savePath = root + "\\funding\\summernote";
-//			
-//			String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
-//			String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
-//			String savedFileName = UUID.randomUUID() + extension;	// 저장될 파일 명
-//			
-//			File targetFile = new File(fileRoot + savedFileName);
-//			try {
-//				InputStream fileStream = multipartFile.getInputStream();
-//				FileUtils.copyInputStreamToFile(fileStream, targetFile);	// 파일 저장
-//				jsonObject.addProperty("url", "/resources/funding/"+savedFileName);	// contextroot + resources + 저장할 내부 폴더 명
-//				jsonObject.addProperty("responseCode", "success");
-//			} catch (IOException e) {
-//				FileUtils.deleteQuietly(targetFile);	// 저장된 파일 삭제
-//				jsonObject.addProperty("responseCode", "error");
-//				e.printStackTrace();
-//			}
-//			String a = jsonObject.toString();
-//			System.out.println(a);
-//		}
 	
 	// 펀딩 오픈 예정 페이지 이동
 	@RequestMapping("fundingComingSoon.fund")
