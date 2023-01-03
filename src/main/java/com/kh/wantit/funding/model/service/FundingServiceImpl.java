@@ -75,7 +75,7 @@ public class FundingServiceImpl implements FundingService{
 	}
 
 	@Override
-	public ArrayList<Image> getImage(int bId) {
+	public Image getImage(int bId) {
 		return fDAO.getImage(sqlSession, bId);
 	}
 }

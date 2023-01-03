@@ -6,8 +6,8 @@
 <!-- 	원팅 게시글 작성 -->
 	<insert id="insertWanting">
 		insert into wanting
-		values(seq_wanting.nextval, #{wantingWriter}, #{wantingTitle}, #{wantingContent},
-				#{wantingShopLocation}, #{wantingShopName}, 1, default, SYSDATE, default, default)
+		values(seq_wanting.nextval, #{wantingWriter}, #{wantingTitle}, #{wantingSummary}, #{wantingContent},
+				#{wantingShopName}, #{wantingShopAddress}, SYSDATE, default, default, 1, default, default)
 	</insert>
 	
 	<insert id="insertImage">
@@ -24,6 +24,14 @@
 			join member on(wanting.writer = member.member_id)
 		where wanting_status='Y'
 		order by wanting_num desc
+	</select>
+
+	<select id="selectWantingListPopular" resultMap="wantingResultSet">
+		select *
+		from wanting
+			join member on(wanting.writer = member.member_id)
+		where wanting_status='Y'
+		order by wanting_count desc
 	</select>
 
 	<select id="selectImageList" resultMap="imageResultSet">
@@ -76,20 +84,66 @@
 		select * from wanting where wanting_title like '%' || #{searchText} || '%'
 	</select>
 	
+<!-- 	원팅 달성 알림 보내기 -->
+	<select id="getMemberList" resultMap="wantingAttendResultSet">
+		select *
+		from wanting_attend
+		where wanting_num=#{wantingNum}
+	</select>
+	
+	<insert id="sendAlarm">
+		insert into alarm
+		values(seq_alarm, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, default)
+	</insert>
+	
+	
+<!-- 	원팅 수정 및 삭제 -->
+	<update id="deleteWanting">
+		update wanting
+		set wanting_status='N'
+		where wanting_num=#{wantingNum}
+	</update>
+	
+	
+	
+<!-- 	원팅 달성 알림 보내기 -->
+	<select id="getMemberList" resultMap="wantingAttendResultSet">
+		select *
+		from wanting_attend
+		where wanting_num=#{wantingNum}
+	</select>
+	
+	<insert id="sendAlarm">
+		insert into alarm
+		values(seq_alarm, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, default)
+	</insert>
+	
+	
+<!-- 	원팅 수정 및 삭제 -->
+	<update id="deleteWanting">
+		update wanting
+		set wanting_status='N'
+		where wanting_num=#{wantingNum}
+	</update>
+	
+	
+	
 	
 	<resultMap type="Wanting" id="wantingResultSet">
 		<id column="WANTING_NUM" property="wantingNum"/>
 		<result column="WRITER" property="wantingWriter"/>
 		<result column="MEMBER_NICKNAME" property="wantingNickname"/>
 		<result column="WANTING_TITLE" property="wantingTitle"/>
+		<result column="WANTING_SUMMARY" property="wantingSummary"/>
 		<result column="WANTING_CONTENT" property="wantingContent"/>
-		<result column="SHOP_LOCATION" property="wantingShopLocation"/>
 		 <result column="SHOP_NAME" property="wantingShopName"/> 
-		<result column="WANTING_LEVEL" property="wantingLevel"/>
-		<result column="WANTING_STATUS" property="wantingStatus"/>
+		<result column="SHOP_ADDRESS" property="wantingShopAddress"/>
 		<result column="CREATE_DATE" property="wantingCreateDate"/>
-		<result column="WANTING_COUNT" property="wantingCount"/>
 		<result column="DAYS_COUNT" property="wantingDaysCount"/>
+		<result column="WANTING_COUNT" property="wantingCount"/>
+		<result column="WANTING_LEVEL" property="wantingLevel"/>
+		<result column="WANTING_CONFIRM" property="wantingConfirm"/>
+		<result column="WANTING_STATUS" property="wantingStatus"/>
 	</resultMap>
 	
 	<resultMap type="Image" id="imageResultSet">
@@ -110,4 +164,6 @@
 		<id column="ATTENDER" property="attender"/>
 		<id column="WANTING_NUM" property="wantingNum"/>
 	</resultMap>
+	
+	
 </mapper>

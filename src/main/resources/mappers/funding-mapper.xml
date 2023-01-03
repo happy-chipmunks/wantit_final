@@ -63,7 +63,7 @@
 	<select id="getImage" resultMap="imageResultSet">
 		select *
 		from Image join funding on(funding_num = image_board_id)
-		where image_board_id=#{bId}
+		where image_board_id=#{bId} and image_board_cate=1
 	</select>
 	
 	<update id="addCount">

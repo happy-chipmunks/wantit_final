@@ -26,50 +26,11 @@
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9d6a7c5e2b95f01e1fdfee7c815cc918&libraries=services"></script>
   
 </head>
-
-
-<style>
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-.bg_white {background:#fff;}
-#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-#menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
-#menu_wrap .option button {margin-left:5px;}
-#placesList li {list-style: none;}
-#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-#placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
-#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-#placesList .item .marker_1 {background-position: 0 -10px;}
-#placesList .item .marker_2 {background-position: 0 -56px;}
-#placesList .item .marker_3 {background-position: 0 -102px}
-#placesList .item .marker_4 {background-position: 0 -148px;}
-#placesList .item .marker_5 {background-position: 0 -194px;}
-#placesList .item .marker_6 {background-position: 0 -240px;}
-#placesList .item .marker_7 {background-position: 0 -286px;}
-#placesList .item .marker_8 {background-position: 0 -332px;}
-#placesList .item .marker_9 {background-position: 0 -378px;}
-#placesList .item .marker_10 {background-position: 0 -423px;}
-#placesList .item .marker_11 {background-position: 0 -470px;}
-#placesList .item .marker_12 {background-position: 0 -516px;}
-#placesList .item .marker_13 {background-position: 0 -562px;}
-#placesList .item .marker_14 {background-position: 0 -608px;}
-#placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination {margin:10px auto;text-align: center;}
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
-</style>
-
-
-
-
+<!-- <style>
+.map_wrap span{
+height: 10px;
+}
+</style> -->
 
 <body>
 <div class="container wanting-write">
@@ -80,42 +41,25 @@
 		</ol>
 	</nav>
 <!-- 	<input placeholder="" type="file"  name="wanting-file"> -->
-
-
-	<br><br><br>
-	가게 이름<input class="wanting-write-input shop-input" placeholder="가게 이름을 입력해 주세요" maxlength="40" name="wantingShopName" type="text" value="" id="wanting-input" height="10"><br>
-	가게 주소<input class="wanting-write-input shop-input" placeholder="가게 주소를 입력해 주세요" maxlength="40" name="wantingShopLocation" type="text" value="" id="wanting-input">
-	<br><br><br>
-	<div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-        
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-                <form onsubmit="searchPlaces(); return false;">
-                
-                    키워드 : <input type="text" value="정원순두부 을지로점" id="keyword" size="15"> 
-                    <button id="map-search-btn" type="submit">검색하기</button> 
-                </form>
-            </div>
-        </div>
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-    </div>
-	</div>
-	<br><br><br>
-	
 	
 	
 <form class="" action="${ contextPath }/insertWanting.want" method="POST" enctype="multipart/form-data" id="wantingForm"> <!-- enctype : 이미지나 파일을 건낼 수 있음 -->
 	<h4 class="">원팅 등록하기</h4>
 	<div class="wanting-title-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	
+	
+	
+	
+	
 	<h5 class="wanting-guide-title">원팅 제목</h5>
 	<div class="wanting-guide-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	<i class="icon-help" aria-hidden="true"></i>
 	<input class="wanting-write-input" placeholder="제목을 입력해 주세요" maxlength="40" name="wantingTitle" type="text" value="" name="wantingTitle">
+
+	<h5 class="wanting-guide-title">원팅 요약</h5>
+	<div class="wanting-guide-detail">대표 이미지와 함께 보이는 글이에요. 원팅은 쉽고 간결하게 소개해 주세요.</div>
+	<i class="icon-help" aria-hidden="true"></i>
+	<input class="wanting-write-input" placeholder="내용을 입력해 주세요" maxlength="80" name="wantingSummary" type="text" value="" name="wantingSummary">
 
 	<h5 class="wanting-guide-title">대표이미지</h5>
 	<input accept="image/JPG,image/JPEG,image/GIF,image/PNG" name="wanting-file" placeholder="" type="file" id="wanting-file" style="display:none">
@@ -123,6 +67,7 @@
 		원팅 맨 위에서 가장 먼저 보여 주고 싶은 영상이나 사진을 등록해주세요.
 		<br>2MB 이하의 JPG, JPEG, GIF, PNG 파일이 등록됩니다. 여러 장 등록돼요.
 	</div>
+	
 	<label for="wanting-file" class="file-btn">등록하기</label>
 	<span id="file-name">선택된 파일없음</span>
 
@@ -130,11 +75,26 @@
 	<div class="wanting-guide-detail">원팅 대상이 되는 가게 정보를 입력해주세요</div>
 	<div class="wanting-shop">
 		가게 이름<input class="wanting-write-input shop-input" placeholder="가게 이름을 입력해 주세요" maxlength="40" name="wantingShopName" type="text" value="" id="wanting-input" height="10"><br>
-		가게 주소<input class="wanting-write-input shop-input" placeholder="가게 주소를 입력해 주세요" maxlength="40" name="wantingShopLocation" type="text" value="" id="wanting-input">
+		가게 주소<input class="wanting-write-input shop-input" placeholder="가게 주소를 입력해 주세요" maxlength="40" name="wantingShopAddress" type="text" value="" id="wanting-input">
+	</div>
+
+	<!-- 카카오 지도 -->
+    <div class="map_wrap">
+    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
         
-	
-	
-			
+    <div id="menu_wrap" class="bg_white">
+        <div class="option">
+            <div>
+ 				<!-- 키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> -->
+                <input type="text" value="정원순두부 을지로점" id="keyword" size="25"> 
+                <button class="" id="map-search-btn" type="submit" onclick="searchPlaces(); return false;"
+                style="background-color: #e7e7e7; border-radius: 2px; border: 2px;">검색하기</button> 
+            </div>
+        </div>
+        <hr>
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
+    </div>
 	</div>
 
 	<h5 class="wanting-guide-title">원팅 스토리 작성</h5>
@@ -292,11 +252,15 @@
 	
 	/* ==================== 카카오 지도 ==================== */
 	// 변수 지정
-	const shop_name = null; // place_name
-	const shop_address = null; // road_address_name
-	const shop_latitude = null; // 위도 37
-	const shop_longitude = null; // 경도 127 + 넣을 때 순서 (위도, 경도)
-
+	let shop_name = null; // place_name
+	let shop_address = null; // road_address_name
+	// 삽입할 input 태그
+	let shop_name_input = document.getElementsByClassName('shop-input')[0];
+	let shop_address_input = document.getElementsByClassName('shop-input')[1];
+	// 클릭 여부 변수
+	let clickYN = false;
+	// latitude longitude 위도 37 경도 127 카카오순서(위도, 경도)
+	
 	
 	// 마커를 담을 배열입니다
 	var markers = [];
@@ -339,7 +303,7 @@
 	
 	        // 정상적으로 검색이 완료됐으면
 	        // 검색 목록과 마커를 표출합니다
-	        displayPlaces(data); // ---------------------------------------data : 검색결과 각각 places 객체
+	        displayPlaces(data);
 
 	        // 페이지 번호를 표출합니다
 	        displayPagination(pagination);
@@ -373,7 +337,9 @@
 	    removeMarker();
 	    
 	    for ( var i=0; i<places.length; i++ ) {
-	
+	    	const place = places[i]; // 안에서 읽기 위해서 변수 설정 (수정)
+			console.log(place);
+	    	
 	        // 마커를 생성하고 지도에 표시합니다
 	        var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
 	            marker = addMarker(placePosition, i), 
@@ -389,14 +355,62 @@
 	        (function(marker, title) {
 	            kakao.maps.event.addListener(marker, 'mouseover', function() {
 	                displayInfowindow(marker, title);
+	                
+	                if(!clickYN) {
+		             	// 마커에 마우스 들어오면 가게 이름 저장 ( 수정)
+		                shop_name = place.place_name;
+		                shop_address = place.road_address_name;
+		                console.log("마커 : " + shop_address);
+		                // input 태그에 삽입
+		            	shop_name_input.value = shop_name;
+		            	shop_address_input.value = shop_address;
+	                }
+	            });
+	            
+	            // 클릭하면 값이 고정되고 mouseover 작동 안 함
+	            kakao.maps.event.addListener(marker, 'click', function() {
+	                displayInfowindow(marker, title);
+	                
+	                clickYN = true;
+	             	// 마커 클릭하면 가게 이름 고정 ( 수정)
+	                shop_name = place.place_name;
+	                shop_address = place.road_address_name;
+	                console.log("마커 : " + shop_address);
+	                // input 태그에 삽입
+	            	shop_name_input.value = shop_name;
+	            	shop_address_input.value = shop_address;
 	            });
 	
 	            kakao.maps.event.addListener(marker, 'mouseout', function() {
 	                infowindow.close();
 	            });
-	
+
 	            itemEl.onmouseover =  function () {
 	                displayInfowindow(marker, title);
+	                
+	                if(!clickYN) {
+		             	// 리스트에 마우스 들어오면 가게 이름 저장 (수정)
+		                shop_name = place.place_name;
+		                shop_address = place.road_address_name;
+		                console.log("리스트 : " + shop_address);
+		                // input 태그에 삽입
+		            	shop_name_input.value = shop_name;
+		            	shop_address_input.value = shop_address;
+	                }
+	            };
+
+	            // 클릭하면 값이 고정되고 mouseover 작동 안 함
+	            itemEl.onclick =  function () {
+	                displayInfowindow(marker, title);
+	                
+	                clickYN = true;
+	             	// 리스트에 마우스 들어오면 가게 이름 저장 (수정)
+	                shop_name = place.place_name;
+	                shop_address = place.road_address_name;
+	                console.log("리스트 : " + shop_address);
+	                // input 태그에 삽입
+	            	shop_name_input.value = shop_name;
+	            	shop_address_input.value = shop_address;
 	            };
 	
 	            itemEl.onmouseout =  function () {
@@ -514,20 +528,6 @@
 	        el.removeChild (el.lastChild);
 	    }
 	}
-	
-
-	/* ==================== 카카오 지도 처리 ==================== */
-    document.getElementById('map-search-btn').addEventListener('click',function(){
-    	const wantingNum = parseInt(document.getElementById('wantingNum').value);
-    	//const input = document.querySelectorAll('input');
-		//const memberId = input[0].value;
-		//const wantingNum = parseInt(input[0].value);
-		//console.log(wantingNum);
-		//location.href  = '${contextPath}/attendWanting.want?memberId=' + memberId +'wantingNum='+ wantingNum;
-		location.href = '${contextPath}/attendWanting.want?wantingNum='+ wantingNum;
-	});
-	
-	
 	
 	
 </script>
