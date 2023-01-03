@@ -172,6 +172,7 @@
 		funding_num=#{id}
 	</update>
 	
+<<<<<<< HEAD
 	<update id="updateMemberType">
 		update member
 		set member_type='creator'
@@ -188,6 +189,7 @@
 		set member_type='supportor'
 		where member_id=#{delCreator}
 	</update>
+=======
 	<select id="selectOkList" resultMap="afundingResultSet">
         select funding_num, funding_title, funding_content, CONFIRM, CREATE_DATE, FUNDING_STATUS, 'F' division
 		from funding 
@@ -198,10 +200,7 @@
         from wanting 
         order by create_date desc
 	</select>
-	
-	<select id="selectBannerImageList" resultMap="bannerImageResultSet">
-		select * from image join banner_image using(image_num) where banner_status = 'Y'
-	</select>
+>>>>>>> 아내금연
 	
 	
 	<update id="okProjectW">
@@ -216,17 +215,6 @@
 		where funding_num=#{id}
 	</update>
 	
-	<update id="noProjectW">
-		update wanting
-		set wanting_confirm='X'
-		where wanting_num=#{id}
-	</update>
-	
-	<update id="noProjectF">
-		update funding
-		set confirm='X'
-		where funding_num=#{id}
-	</update>
 <!-- 	<update id="noProject"> -->
 <!-- 		update funding -->
 <!-- 		set confirm='R' -->
@@ -365,16 +353,6 @@
       <result column="creator_name" property="creatorNickname"/>
       <result column="division" property="division"/>
       <association property="wanting" javaType="Wanting" resultMap="wantingResultSet"/>
-   </resultMap>
-   
-   <resultMap type="BannerImage" id="bannerImageResultSet">
-   		<id column="IMAGE_NUM" property="imageNum"/>
-   		<result column="START_DATE" property="startDate"/>
-   		<result column="END_DATE" property="endDate"/>
-   		<result column="CONFIRM" property="confirm"/>
-   		<result column="BANNER_STATUS" property="bannerStatus"/>
-   		<result column="IMAGE_RENAME" property="imageRename"/>
-   		<result column="IMAGE_BOARD_ID" property="seqIdNum"/>
    </resultMap>
 	
 	<resultMap type="Wanting" id="wantingResultSet">

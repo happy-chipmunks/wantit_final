@@ -154,6 +154,16 @@ public class AdminService {
 		System.out.println("s"+id);
 		return aDAO.okProjectF(sqlSession, id);
 	}
+	
+	public int noProjectW(String id) {
+		System.out.println("s"+id);
+		return aDAO.noProjectW(sqlSession, id);
+	}
+	
+	public int noProjectF(String id) {
+		System.out.println("s"+id);
+		return aDAO.noProjectF(sqlSession, id);
+	}
 //	public int noProject(String id) {
 //		return aDAO.noProject(sqlSession, id);
 //	}

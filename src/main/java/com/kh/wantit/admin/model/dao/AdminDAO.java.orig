@@ -14,15 +14,17 @@ import com.kh.wantit.admin.model.vo.NReply;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
-import com.kh.wantit.common.model.vo.BannerImage;
+<<<<<<< HEAD
 import com.kh.wantit.common.model.vo.CreatorImage;
-import com.kh.wantit.common.model.vo.CreatorImage;
-import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
-
+=======
+import com.kh.wantit.admin.model.vo.ReviewReport;
+import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.member.vo.Creator;
+>>>>>>> 아내금연
 import com.kh.wantit.member.vo.Member;
 
 @Repository("aDAO")
@@ -78,7 +80,10 @@ public class AdminDAO {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectAllAds", i, rowBounds);
 	}
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 아내금연
 	public ArrayList<Creator> creatorApproval(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminMapper.creatorApproval");
 	}
@@ -161,26 +166,10 @@ public class AdminDAO {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("adminMapper.selectOkList", i, rowBounds);
 	}
-
-	public int updateMemberType(SqlSessionTemplate sqlSession, String changeId) {
-		return sqlSession.update("adminMapper.updateMemberType", changeId);
-	}
+	
 	public ArrayList<AFunding> projectApproval(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminMapper.projectApproval");
 	}
-
-	public int deleteCreator(String delCreator, SqlSessionTemplate sqlSession) {
-		return sqlSession.delete("adminMapper.deleteCreator", delCreator);
-	}
-
-	public int updateCreatorType(String delCreator, SqlSessionTemplate sqlSession) {
-		return sqlSession.update("adminMapper.updateCreatorType", delCreator);
-	}
-
-	public ArrayList<BannerImage> selectBannerImageList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("adminMapper.selectBannerImageList");
-	}
-	
 	
 	public int okProjectW(SqlSessionTemplate sqlSession, String id) {
 		System.out.println("daoW"+id);
@@ -196,22 +185,23 @@ public class AdminDAO {
 		return result;
 	}
 	
-	public int noProjectW(SqlSessionTemplate sqlSession, String id) {
-		System.out.println("daoW"+id);
-		int result = sqlSession.update("adminMapper.noProjectW", id);
-		System.out.println("w result = " + result);
-		return result;
-	}
-	
-	public int noProjectF(SqlSessionTemplate sqlSession, String id) {
-		System.out.println("daoF"+id);
-		int result = sqlSession.update("adminMapper.noProjectF", id);
-		System.out.println("f result = " + result);
-		return result;
-	}
-	
 //	public int noProject(SqlSessionTemplate sqlSession, String id) {
 //		return sqlSession.update("adminMapper.noProject", id);
 //	}
 	
+<<<<<<< HEAD
+	public int updateMemberType(SqlSessionTemplate sqlSession, String changeId) {
+		return sqlSession.update("adminMapper.updateMemberType", changeId);
+	}
+
+	public int deleteCreator(String delCreator, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("adminMapper.deleteCreator", delCreator);
+	}
+
+	public int updateCreatorType(String delCreator, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("adminMapper.updateCreatorType", delCreator);
+	}
+	
+=======
+>>>>>>> 아내금연
 }
