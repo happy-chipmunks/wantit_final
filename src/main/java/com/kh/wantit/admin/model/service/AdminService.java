@@ -14,6 +14,7 @@ import com.kh.wantit.admin.model.vo.NReply;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
+import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
@@ -144,6 +145,10 @@ public class AdminService {
 
 	public int updateCreatorType(String delCreator) {
 		return aDAO.updateCreatorType(delCreator, sqlSession);
+	}
+
+	public ArrayList<BannerImage> selectBannerIamgeList() {
+		return aDAO.selectBannerImageList(sqlSession);
 	}
 
 	

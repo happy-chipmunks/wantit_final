@@ -39,7 +39,20 @@
 	</select>
 	
 	<select id="searchFundingList" resultMap="fundingResultSet">
-		select * from funding where funding_title like '%' || #{searchText} || '%'
+<!-- 		<if test="searchText != null"> -->
+<!-- 			select * from funding where funding_title like '%' || #{searchText} || '%' -->
+<!-- 		</if> -->
+<!-- 		<if test="cate != null"> -->
+<!-- 			select * from funding where funding_cate = #{cate} -->
+<!-- 		</if> -->
+		<choose>
+			<when test="searchText != null">
+				select * from funding where funding_title like '%' || #{searchText} || '%'
+			</when>
+			<when test="cate != null">
+				select * from funding where funding_cate = #{cate}
+			</when>
+		</choose>
 	</select>
 	
 	<select id="getCreatorName" resultType="string">

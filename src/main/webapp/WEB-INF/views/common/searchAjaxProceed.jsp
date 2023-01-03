@@ -28,11 +28,16 @@
                           		<span class="fundName">${ fund.creatorNickname }</span>
                       </div>
                       <div class="d-flex justify-content-between align-items-center">
-                            <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
+                            <div style="height: 2px; width: 100%; background-color: gray;"><span class="progressBar" style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
                         </div>
-                        <span class="fontOnly">26%</span>
-                        <span>1,000원</span>
-                        <span class="remainDate">15일 남음</span>
+                        <fmt:formatNumber value="${ fund.currentMoney / fund.targetMoney }" type="percent" var="percentage"/>
+                        <input type="hidden" value="${ percentage }" class="progressBarPercent">
+                        <jsp:useBean id="now" class="java.util.Date"/>
+                        <fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowFmtTime" scope="request"/>
+                        <fmt:parseNumber value="${ fund.fundingEnd.time / (1000*60*60*24) }" integerOnly="true" var="feFmtTime" scope="request"/>
+                        <span class="fontOnly">${ percentage }</span>
+                        <span class="fundingProceedMoney">${ fund.currentMoney }</span>
+                        <span class="remainDate">${feFmtTime - nowFmtTime + 1 }일 남음</span>
                   </div>
                 </div>
               </div>
@@ -40,5 +45,26 @@
 	           
 	            
 	    </div>
+	    <script type="text/javascript">
+	    window.onload=()=> {
+	    	
+	    	const fundingProceedMoney = document.getElementsByClassName('fundingProceedMoney');
+			for(const span of fundingProceedMoney) {
+				const before = parseInt(span.innerText);
+				span.innerText = " " + before.toLocaleString() + "원";
+			}
+		
+			const progressBar = document.getElementsByClassName('progressBar');
+			const progressBarPercent = document.getElementsByClassName('progressBarPercent');
+			for(let i=0 ; i<progressBar.length ; i++) {
+				const percent = parseInt(progressBarPercent[i].value.substring(0, progressBarPercent[i].value.length-1));
+				if(percent >= 100) {
+    				progressBar[i].style.width = "100%";
+				} else {
+					progressBar[i].style.width = percent + "%";
+				}
+			}
+	    }
+	    </script>
 </body>
 </html>

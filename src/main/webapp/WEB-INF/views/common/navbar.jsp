@@ -271,23 +271,26 @@
 				}
 			});
 			
+			const searchCates = document.getElementsByClassName('searchCates');
+			for(const i of searchCates) {
+				i.addEventListener('click', function() {
+					const cate = this.innerText;
+					location.href = '${ contextPath }/search.do?searchCate=' + cate;
+				});
+			}
+			
 		
 			
 			function setSearchCookie() {
 				const searchInput = document.getElementById('searchInput');
 				const searchForm = document.getElementById('searchForm');
-				if(searchInput.value.trim() == "") {
-					const exampleModalLabel = document.getElementById('exampleModalLabel');
-	    			exampleModalLabel.innerText = "검색어를 입력해주세요.";
-	    			
-	    			$('#exampleModal').modal('show');
-				} else {
-					const inputVal = searchInput.value;
-					let todayDate = new Date();
-					todayDate.setDate(todayDate.getDate() + 1);
-					document.cookie = encodeURIComponent(inputVal) + "=" + encodeURIComponent(inputVal) + "; path=/wantit; expires" + todayDate.toGMTString() + ";";
-					searchForm.submit();
-				}
+				
+				const inputVal = searchInput.value;
+				let todayDate = new Date();
+				todayDate.setDate(todayDate.getDate() + 1);
+				document.cookie = encodeURIComponent(inputVal) + "=" + encodeURIComponent(inputVal) + "; path=/wantit; expires" + todayDate.toGMTString() + ";";
+				searchForm.submit();
+				
 			}
 		
 			const deleteSW = document.getElementsByClassName('deleteSW');

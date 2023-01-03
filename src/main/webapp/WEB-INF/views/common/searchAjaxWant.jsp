@@ -15,6 +15,7 @@
 <body>
 	        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="BigArea">
 	        	<input type="hidden" value="${ wantingList.size() }"  id="listSize">
+	       		<input type="hidden" value="${ wantAjax }" id="wantAjax">
 	        	<c:forEach items="${ wantingList }" var="want">
 	        		<div class="col">
 	        		<div class="card shadow-sm fundinglist">
@@ -33,7 +34,7 @@
                           </div>
                           <p class="card-text">${ want.wantingTitle }</p>
                           <div class="d-flex justify-content-between align-items-center">
-                            <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: ${ want.wantingCount }%;"></span></div>
+                            <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #8c86c7 height: 2px; width: ${ want.wantingCount }%;"></span></div>
                           </div>
                           
                           <span class="remainCount">${ want.wantingCount }명 / 100명</span>
@@ -49,6 +50,6 @@
 	        	</c:forEach>
 	           
 	            
-<!-- 	    </div> -->
+	    </div>
 </body>
 </html>

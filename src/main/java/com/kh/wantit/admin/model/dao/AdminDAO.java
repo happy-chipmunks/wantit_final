@@ -13,6 +13,7 @@ import com.kh.wantit.admin.model.vo.NReply;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
+import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.member.vo.Creator;
@@ -155,6 +156,10 @@ public class AdminDAO {
 
 	public int updateCreatorType(String delCreator, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("adminMapper.updateCreatorType", delCreator);
+	}
+
+	public ArrayList<BannerImage> selectBannerImageList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectBannerImageList");
 	}
 	
 }

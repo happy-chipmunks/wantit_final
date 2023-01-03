@@ -27,6 +27,7 @@
 }
 
 .cate, .fundName {
+	font-family: 'Noto Sans KR', sans-serif;
     color: dimgrey;
   }
 
@@ -75,4 +76,13 @@
   
    i{
     color: #8c86c7;
+  }
+  
+  .alermWantExist{
+  	width: 100%;
+  	height: 200px;
+  	text-align: center;
+  	font-family: 'Do Hyeon', sans-serif;
+  	font-size : 30px;
+  	padding: 50px;
   }

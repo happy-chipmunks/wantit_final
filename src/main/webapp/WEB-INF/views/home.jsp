@@ -51,17 +51,18 @@
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-    
+        	<c:forEach items="${ biList }" var="bi">
+        		<div class="carousel-item active">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+            	<image href="${ contextPath }/resources/bannerImage/${ bi.imageRename }" height="100%" width="100%"/>
+            </svg>
+    		
             <div class="container">
               <div class="carousel-caption text-start">
-                <h1>Example headline.</h1>
-                <p>Some representative placeholder content for the first slide of the carousel.</p>
-                <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
               </div>
             </div>
           </div>
+        	</c:forEach>
           <div class="carousel-item" >
             <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
     
@@ -103,7 +104,6 @@
                 <strong class="d-inline-block mb-2 mainTitle" style="font-size: 35px; color: #8c86c7; padding-left: 20px;">인기있는 펀딩<a href="${ contextPath }/payView.pay?fundingNum=9999"> 결제테스트</a><a href="${ contextPath }/payStatusRenewal.pay?fundingNum=9999">결제상태갱신</a> </strong>
 <!-- 			테스트 구간 -->
 
-                
 <!--                 테스트구간 -->
                 
             </div>
@@ -246,7 +246,6 @@
   </div>
 </div>
     <script type="text/javascript">
-//     	window.onload=()=> {
     		const payScheduleSuccessMessage = '${ cancelPayScuccess }';
     		console.log(payScheduleSuccessMessage);
     		if(payScheduleSuccessMessage != '') {
@@ -273,28 +272,6 @@
 				}
     		}
     		
-//     		const searchInput = document.querySelector('#searchInput');
-// 			const dropDownSearch = document.querySelector('#dropDownSearch');
-// 			searchInput.addEventListener('click', function() {
-// 				dropDownSearch.style.display = "";
-// 			});
-    		
-//     		const searchInput = document.getElementById('searchInput');
-//     		const body = document.querySelector('body');
-//     		body.addEventListener('click', searchFormEvent);
-			
-//     	}
-    	
-//     	function searchFormEvent(event) {
-//     			let target = event.target;
-//     			const dropDownSearch = document.getElementById('dropDownSearch');
-//     			console.log(dropDownSearch);
-//     		if(target == event.currentTarget.querySelector('#searchInput')) {
-//     			dropDownSearch.style.display = "";
-//     		} else {
-//     			dropDownSearch.style.display = "none";
-//     		}
-//     	}
     </script>
 <% request.removeAttribute("cancelPayScuccess"); %>
 

@@ -47,11 +47,16 @@
                           		<span class="fundName">${ fund.creatorNickname }</span>
                       </div>
                       <div class="d-flex justify-content-between align-items-center">
-                            <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
+                            <div style="height: 2px; width: 100%; background-color: gray;"><span class="progressBar" style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
                         </div>
-                        <span class="fontOnly">26%</span>
-                        <span>1,000원</span>
-                        <span class="remainDate">15일 남음</span>
+                        <fmt:formatNumber value="${ fund.currentMoney / fund.targetMoney }" type="percent" var="percentage"/>
+                        <input type="hidden" value="${ percentage }" class="progressBarPercent">
+                        <jsp:useBean id="now" class="java.util.Date"/>
+                        <fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowFmtTime" scope="request"/>
+                        <fmt:parseNumber value="${ fund.fundingEnd.time / (1000*60*60*24) }" integerOnly="true" var="feFmtTime" scope="request"/>
+                        <span class="fontOnly">${ percentage }</span>
+                        <span class="fundingProceedMoney">${ fund.currentMoney }</span>
+                        <span class="remainDate">${feFmtTime - nowFmtTime + 1 }일 남음</span>
                   </div>
                 </div>
               </div>
@@ -63,12 +68,13 @@
                  			 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
       
                   			<div class="card-body">
-                      			<p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
+                      			<p class="card-text">${ fund.fundingTitle }</p>
                       			<div style="padding-bottom: 10px;">
-                          			<span class="cate">홈/리빙</span>
-                          			<span class="fundName">괄호프로젝트</span>
+                          			<span class="cate">${ fund.fundingCate }</span>
+                          			<span class="fundName">${ fund.creatorNickname }</span>
                       			</div>
-                      		<button type="button" class="btn alarmApl"><i class="bi bi-bell"></i>12/12(월) 오픈 알람신청</button>
+                      			<fmt:formatDate value="${ fund.fundingStart }"  pattern="MM-dd(E)" var="openDate"/>
+                      		<button type="button" class="btn alarmApl"><i class="bi bi-bell"></i>${ openDate } 오픈 알람신청</button>
                  	 </div>
                 </div>
             </div>
@@ -79,46 +85,43 @@
             
             
           </div>
+          <c:if test="${ fundingList.size() == 0 && wantingList.size() == 0}">
+          	<div class="row">
+          		<div class="col alermWantExist" >
+	          			<span>검색결과와 일치한 펀딩, 펀딩예정인 목록이 없습니다.</span><br><br>
+          		</div>
+          	</div>
+          </c:if>
+          
+          
+          
     </div>
     <script type="text/javascript">
-//     	const searchAll = document.getElementById('searchAll');
-//     	const searchFundP = document.getElementById('searchFundP');
-//     	const searchFundC = document.getElementById('searchFundC');
-//     	const searchWant = document.getElementById('searchWant');
-    	
-//     	searchAll.addEventListener('click', function() {
-//     		location.href= '${ contextPath }/search.do';
-//     	});
-    	
-//     	searchFundP.addEventListener('click', function() {
-//     		$.ajax({
-//     			url : '${ contextPath }/search'
-//     		})
-//     	});
-    	
-//     	searchFundC.addEventListener('click', function() {
-    		
-//     	});
-    	
-//     	searchWant.addEventListener('click', function() {
-    		
-//     	});
+    		changeMoney();
+    		changeProgressBar();
 
 			const liItem = document.getElementsByClassName('li-item');
 			const searchText = '${ searchText }';
+			const cate = '${ cate }';
 			for(const li of liItem) {
 				li.addEventListener('click', function() {
 					switch(this.innerText) {
 						case '전체(펀딩, 펀딩예정)':
-							location.href = '${ contextPath }/search.do?searchText=' + searchText;
+							if(searchText != '') {
+								location.href = '${ contextPath }/search.do?searchText=' + searchText;
+							} else if(cate != '') {
+								location.href = '${ contextPath }/search.do?searchCate=' + cate;
+							}
 							break;
 							
 						case '펀딩':
 							$.ajax({
 								url : '${ contextPath }/searchFP.do',
-								data : {'searchText' : searchText},
+								data : {'searchText' : searchText, 'searchCate' : cate},
 								success : (data)=> {
 									changeHtmlView(data);
+									changeMoney();
+						    		changeProgressBar();
 									
 								},
 								error : (data)=> {
@@ -129,9 +132,11 @@
 						case '펀딩예정':
 							$.ajax({
 								url : '${ contextPath }/searchFCS.do',
-								data : {'searchText' : searchText},
+								data : {'searchText' : searchText, 'searchCate' : cate},
 								success : (data)=> {
 									changeHtmlView(data);
+									changeMoney();
+						    		changeProgressBar();
 								},
 								error : (data)=> {
 									
@@ -144,6 +149,8 @@
 								data : {'searchText' : searchText},
 								success : (data)=> {
 									changeHtmlView(data);
+									changeMoney();
+						    		changeProgressBar();
 								},
 								error : (data)=> {
 									
@@ -155,6 +162,26 @@
 					}
 				});
 			}
+			function changeMoney() {
+				const fundingProceedMoney = document.getElementsByClassName('fundingProceedMoney');
+	    		for(const span of fundingProceedMoney) {
+	    			const before = parseInt(span.innerText);
+	    			span.innerText = " " + before.toLocaleString() + "원";
+	    		}
+			}
+			
+    		function changeProgressBar() {
+	    		const progressBar = document.getElementsByClassName('progressBar');
+	    		const progressBarPercent = document.getElementsByClassName('progressBarPercent');
+	    		for(let i=0 ; i<progressBar.length ; i++) {
+					const percent = parseInt(progressBarPercent[i].value.substring(0, progressBarPercent[i].value.length-1));
+					if(percent >= 100) {
+		    			progressBar[i].style.width = "100%";
+					} else {
+	    				progressBar[i].style.width = percent + "%";
+					}
+	    		}
+    		}
 			
 			function changeHtmlView(data) {
 				var html = jQuery('<div>').html(data);
@@ -164,6 +191,7 @@
 				var searchListCount = document.getElementById('searchListCount');
 				searchListCount.innerText = listSize.value + '개';
 			}
+			
     </script>
 </body>
 </html>

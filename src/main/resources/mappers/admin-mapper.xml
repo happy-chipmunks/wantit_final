@@ -177,6 +177,10 @@
 		where member_id=#{delCreator}
 	</update>
 	
+	<select id="selectBannerImageList" resultMap="bannerImageResultSet">
+		select * from image join banner_image using(image_num) where banner_status = 'Y'
+	</select>
+	
 	
 	<resultMap type="Member" id="memberResultSet">
 		<id column="MEMBER_ID" property="memberId" />
@@ -308,6 +312,16 @@
       <result column="modify_date" property="modifyDate"/>
       <result column="funding_status" property="fundingStatus"/>
       <result column="creator_name" property="creatorNickname"/>
+   </resultMap>
+   
+   <resultMap type="BannerImage" id="bannerImageResultSet">
+   		<id column="IMAGE_NUM" property="imageNum"/>
+   		<result column="START_DATE" property="startDate"/>
+   		<result column="END_DATE" property="endDate"/>
+   		<result column="CONFIRM" property="confirm"/>
+   		<result column="BANNER_STATUS" property="bannerStatus"/>
+   		<result column="IMAGE_RENAME" property="imageRename"/>
+   		<result column="IMAGE_BOARD_ID" property="seqIdNum"/>
    </resultMap>
 	
 		

@@ -104,29 +104,7 @@
 		where wanting_num=#{wantingNum}
 	</update>
 	
-	
-	
-<!-- 	원팅 달성 알림 보내기 -->
-	<select id="getMemberList" resultMap="wantingAttendResultSet">
-		select *
-		from wanting_attend
-		where wanting_num=#{wantingNum}
-	</select>
-	
-	<insert id="sendAlarm">
-		insert into alarm
-		values(seq_alarm, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, default)
-	</insert>
-	
-	
-<!-- 	원팅 수정 및 삭제 -->
-	<update id="deleteWanting">
-		update wanting
-		set wanting_status='N'
-		where wanting_num=#{wantingNum}
-	</update>
-	
-	
+
 	
 	
 	<resultMap type="Wanting" id="wantingResultSet">

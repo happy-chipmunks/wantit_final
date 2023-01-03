@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 import org.apache.http.HttpResponse;
+import org.apache.maven.doxia.site.decoration.Banner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.wantit.admin.model.service.AdminService;
+import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
@@ -42,6 +45,8 @@ public class HomeController {
 	private WantingService wService;
 	@Autowired
 	private FundingService fService;
+	@Autowired
+	private AdminService aService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -56,6 +61,8 @@ public class HomeController {
 		ArrayList<Image> wantingImageList = wService.selectImageList();// 
 
 		ArrayList<Funding> fundingList = fService.fundingList();
+		
+		ArrayList<BannerImage> biList = aService.selectBannerIamgeList();
 		
 		ArrayList<Funding> fundingComingSoonList = new ArrayList<Funding>();
 		ArrayList<Funding> fundingProceedList = new ArrayList<Funding>();
@@ -81,30 +88,48 @@ public class HomeController {
 		model.addAttribute("wantingList", wantingList);
 		model.addAttribute("wantingImageList", wantingImageList);
 		
+		model.addAttribute("biList", biList);
+		
 		
 		return "home";
 	}
 	
 	@RequestMapping("search.do")
-	public String search(@RequestParam("searchText") String searchText, Model model) {
+	public String search(@RequestParam(value = "searchText", required = false) String searchText, 
+										@RequestParam(value = "searchCate", required = false) String cate,  Model model) {
+		ArrayList<Funding> fundingList = new ArrayList<Funding>();
+		ArrayList<Wanting> wantingList = new ArrayList<Wanting>();
+		System.out.println(searchText);
+		System.out.println(cate);
 		
-		ArrayList<Funding> fundingList = fService.searchFundingList(searchText);
-		System.out.println(fundingList);
-//		ArrayList<Wanting> wantingList = wService.searchWantingList(searchText);
-//		System.out.println(wantingList);
+		if(searchText != null) {
+			fundingList = fService.searchFundingList(searchText);
+			wantingList = wService.searchWantingList(searchText);
+			model.addAttribute("searchText", searchText);
+			model.addAttribute("wantingList", wantingList);
+		} else if(cate != null) {
+			fundingList = fService.searchFundingList(cate);
+			model.addAttribute("cate", cate);
+		}
 		
 		model.addAttribute("fundingList", fundingList);
-		model.addAttribute("searchText", searchText);
-//		model.addAttribute("wantingList", wantingList);
-		
 		
 		return "common/searchView";
 	}
 	@RequestMapping("searchFP.do")
-	public String searchFP(@RequestParam("searchText") String searchText, Model model) {
+	public String searchFP(@RequestParam(value = "searchText", required = false) String searchText, 
+											@RequestParam(value = "searchCate", required = false) String cate, Model model) {
 		ArrayList<Funding> fundingFPList = new ArrayList<Funding>();
 		
-		ArrayList<Funding> fundingList = fService.searchFundingList(searchText);
+		ArrayList<Funding> fundingList = new ArrayList<Funding>();
+		
+		if(searchText != null) {
+			fundingList = fService.searchFundingList(searchText);
+			model.addAttribute("searchText", searchText);
+		} else if(cate != null) {
+			fundingList = fService.searchFundingList(cate);
+			model.addAttribute("cate", cate);
+		}
 		
 		Date now = new Date();
 		for(Funding f : fundingList) {
@@ -118,10 +143,19 @@ public class HomeController {
 	}
 	
 	@RequestMapping("searchFCS.do")
-	public String searchFCS(@RequestParam("searchText") String searchText, Model model) {
+	public String searchFCS(@RequestParam(value = "searchText", required = false) String searchText, 
+												@RequestParam(value = "searchCate", required = false) String cate, Model model) {
 		ArrayList<Funding> fundingFCSList = new ArrayList<Funding>();
 		
-		ArrayList<Funding> fundingList = fService.searchFundingList(searchText);
+		ArrayList<Funding> fundingList = new ArrayList<Funding>();
+		
+		if(searchText != null) {
+			fundingList = fService.searchFundingList(searchText);
+			model.addAttribute("searchText", searchText);
+		} else if(cate != null) {
+			fundingList = fService.searchFundingList(cate);
+			model.addAttribute("cate", cate);
+		}
 		
 		Date now = new Date();
 		for(Funding f : fundingList) {
@@ -145,6 +179,7 @@ public class HomeController {
 		
 		return "common/searchAjaxWant";
 	}
+	
 	
 	@RequestMapping("noticeEvent.do")
 	public String noticeEvent() {
