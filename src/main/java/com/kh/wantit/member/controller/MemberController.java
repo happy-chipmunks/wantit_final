@@ -5,16 +5,21 @@ import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+
+import java.util.Random;
+import javax.servlet.http.HttpSession;
 
 import java.util.Random;
 
@@ -28,8 +33,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.apache.maven.shared.invoker.SystemOutHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,6 +45,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -576,6 +584,7 @@ public class MemberController {
 		  }else {
 			  return null;
 		  }
+
 	  
 	  }
 	 // 서포터 프로필 사진 업로드  	
@@ -585,6 +594,7 @@ public class MemberController {
 		 System.out.println("memberId :"+memberId);
 		 System.out.println("파일목록 :"+file);
 		
+
 
 		 Image m = new Image();
 		 

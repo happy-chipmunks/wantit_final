@@ -1,4 +1,4 @@
-﻿package com.kh.wantit.funding.model.vo;
+package com.kh.wantit.admin.model.vo;
 
 import java.sql.Date;
 
@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Funding {
+public class AFunding {
 	private int fundingNum;
 	private int creatorNum;
 	private String fundingCate;
@@ -26,10 +26,11 @@ public class Funding {
 	private Date fundingEnd;
 	private long currentMoney;
 	private long targetMoney;
-	private char confirm;
+	private String confirm;
 	private Date createDate;
 	private Date modifyDate;
 	private String FundingStatus;
 	private String creatorNickname;
-	private String fundingSummary;
+	private String division;
+	private Wanting wanting;
 }

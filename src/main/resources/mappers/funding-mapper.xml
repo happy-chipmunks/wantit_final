@@ -26,6 +26,8 @@
 		where funding_status='Y'
 		order by funding_num desc
 	</select>
+
+
 	
 	<select id="fundingImageList" resultMap="imageResultSet">
 		select *
@@ -117,6 +119,8 @@
 		where funding_notice_num=#{bId}
 	</select>
 	
+
+
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>
@@ -134,6 +138,7 @@
 		<result column="funding_status" property="fundingStatus"/>
 		<result column="creator_name" property="creatorNickname"/>
 	</resultMap>
+
 	
 	<resultMap type="Creator" id="creatorResultSet">
 		<id column="creator_num" property="creatorNum"/>
@@ -183,4 +188,5 @@
 		<result column="funding_notice_status" property="fundingNoticeStatus"/>
 		<result column="funding_notice_category" property="fundingNoticeCategory"/>
 	</resultMap>
+
 </mapper>

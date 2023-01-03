@@ -246,8 +246,6 @@
 						<button type="button" class="btn" id="logoutBtn"
 								onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
 				</c:if>
-				
-			
 
 		</div>
 	</nav>

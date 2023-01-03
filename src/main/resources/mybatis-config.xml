@@ -9,9 +9,13 @@
 		<typeAlias type="com.kh.wantit.wanting.model.vo.Wanting" alias="Wanting"/>
 		<typeAlias type="com.kh.wantit.wanting.model.vo.WantingAttend" alias="WantingAttend"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.Notice" alias="Notice"/>
+		<typeAlias type="com.kh.wantit.admin.model.vo.AFunding" alias="AFunding"/>
 		<typeAlias type="com.kh.wantit.common.model.vo.Image" alias="Image"/>
+		<typeAlias type="com.kh.wantit.common.model.vo.NoticeDetail" alias="NoticeDetail"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.ReviewReport" alias="ReviewReport"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.FundingReport" alias="FundingReport"/>
+		<typeAlias type="com.kh.wantit.admin.model.vo.Reply" alias="Reply"/>
+		<typeAlias type="com.kh.wantit.admin.model.vo.NReply" alias="NReply"/>
 		<typeAlias type="com.kh.wantit.member.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.wantit.member.vo.Creator" alias="Creator"/>
 		<typeAlias type="com.kh.wantit.funding.model.vo.Review" alias="Review"/>
@@ -30,5 +34,6 @@
 		<mapper resource="mappers/admin-mapper.xml"/>
 		<mapper resource="mappers/funding-mapper.xml"/>
 		<mapper resource="mappers/wanting-mapper.xml"/>
+		<mapper resource="mappers/common-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -40,6 +40,16 @@
 		from notice
 	</select>
 	
+	<select id="getListCountPM" resultType="_int">
+		select count(*)
+		from funding
+		
+		union all
+		
+		select count(*)
+		from wanting
+	</select>
+	
 	<update id="deleteMember">
 		update member
 		set member_status='N'
@@ -121,6 +131,7 @@
 		where member_type='supportor'
 		order by creator_num desc
 	</select>
+	
 	<insert id="selectNewWrite">
 		insert into notice
 		values(seq_notice.nextval, default, #{noticeTitle}, #{noticeContent}, sysdate, sysdate, default, default, #{noticeDivision} )
@@ -132,6 +143,7 @@
 		where image_board_cate='5' and image_detail='1'
 		order by image_num desc
 	</select>
+	
 	<select id="selectReviewReport" resultMap="reviewReportResultSet">
 		select *
 		from review_report
@@ -176,7 +188,35 @@
 		set member_type='supportor'
 		where member_id=#{delCreator}
 	</update>
+	<select id="selectOkList" resultMap="afundingResultSet">
+        select funding_num, funding_title, funding_content, CONFIRM, CREATE_DATE, FUNDING_STATUS, 'F' division
+		from funding 
+        
+        union all
+        
+        select wanting_num, WANTING_TITLE, WANTING_CONTENT, wanting_confirm, CREATE_DATE, WANTING_STATUS, 'W' division
+        from wanting 
+        order by create_date desc
+	</select>
 	
+	
+	<update id="okProjectW">
+		update wanting
+		set wanting_confirm='Y'
+		where wanting_num=#{id}
+	</update>
+	
+	<update id="okProjectF">
+		update funding
+		set confirm='Y'
+		where funding_num=#{id}
+	</update>
+	
+<!-- 	<update id="noProject"> -->
+<!-- 		update funding -->
+<!-- 		set confirm='R' -->
+<!-- 		where funding_num=#{id} -->
+<!-- 	</update> -->
 	
 	<resultMap type="Member" id="memberResultSet">
 		<id column="MEMBER_ID" property="memberId" />
@@ -292,7 +332,7 @@
 		<result column="image_detail" property="imageDetail"/>
 	</resultMap>
 	
-	<resultMap type="Funding" id="fundingResultSet">
+	<resultMap type="AFunding" id="afundingResultSet">
       <id column="funding_num" property="fundingNum"/>
       <result column="creator_num" property="creatorNum"/>
       <result column="funding_cate" property="fundingCate"/>
@@ -308,7 +348,42 @@
       <result column="modify_date" property="modifyDate"/>
       <result column="funding_status" property="fundingStatus"/>
       <result column="creator_name" property="creatorNickname"/>
+      <result column="division" property="division"/>
+      <association property="wanting" javaType="Wanting" resultMap="wantingResultSet"/>
    </resultMap>
 	
+	<resultMap type="Wanting" id="wantingResultSet">
+		<id column="WANTING_NUM" property="wantingNum"/>
+		<result column="WRITER" property="wantingWriter"/>
+		<result column="MEMBER_NICKNAME" property="wantingNickname"/>
+		<result column="WANTING_TITLE" property="wantingTitle"/>
+		<result column="WANTING_CONTENT" property="wantingContent"/>
+		<result column="SHOP_LOCATION" property="wantingShopLocation"/>
+		 <result column="SHOP_NAME" property="wantingShopName"/> 
+		<result column="WANTING_LEVEL" property="wantingLevel"/>
+		<result column="WANTING_STATUS" property="wantingStatus"/>
+		<result column="CREATE_DATE" property="wantingCreateDate"/>
+		<result column="WANTING_COUNT" property="wantingCount"/>
+		<result column="DAYS_COUNT" property="wantingDaysCount"/>
+		<result column="wanting_confirm" property="wantingConfirm"/>
+		<result column="DIVISION" property="division"/>
+	</resultMap>
 		
+	<resultMap type="Funding" id="fundingResultSet">
+		<id column="funding_num" property="fundingNum"/>
+		<result column="creator_num" property="creatorNum"/>
+		<result column="funding_cate" property="fundingCate"/>
+		<result column="funding_title" property="fundingTitle"/>
+		<result column="funding_content" property="fundingContent"/>
+		<result column="funding_count" property="fundingCount"/>
+		<result column="funding_start" property="fundingStart"/>
+		<result column="funding_end" property="fundingEnd"/>
+		<result column="current_money" property="currentMoney"/>
+		<result column="target_money" property="targetMoney"/>
+		<result column="confirm" property="confirm"/>
+		<result column="create_date" property="createDate"/>
+		<result column="modify_date" property="modifyDate"/>
+		<result column="funding_status" property="fundingStatus"/>
+		<result column="creator_name" property="creatorNickname"/>
+	</resultMap>
 </mapper>
