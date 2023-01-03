@@ -41,5 +41,7 @@ public interface FundingService {
 	FundingNotice getFundingNotice(int bId, boolean yn);
 
 	int insertReward(Reward r);
+
+	Funding getCurrFunding(int bId);
 	
 }

@@ -45,8 +45,8 @@
 
 <body>
 <div class="funding-header text-center">
-  <p class="title-info">여행·레저</p>
-  <h2 class="title"><a href="#">[곰표] 한정수량 곰표 침낭! 침낭을 패딩처럼 입고 뛰어다닐 수 있어요</a></h2>
+  <p class="title-info">${ f.fundingCate }</p>
+  <h2 class="title"><a href="#">${ f.fundingTitle }</a></h2>
 </div>
 <div class="container-fluid text-center funding-category">
   <div class="row">

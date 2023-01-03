@@ -3,6 +3,7 @@ package com.kh.wantit.funding.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
@@ -168,37 +170,66 @@ public class FundingController {
 	}
 	
 	// 펀딩 summernote 이미지
-		@RequestMapping(value="/uploadSummernoteImageFile.fund", produces="application/json; charset=utf8")
-		@ResponseBody
-		public void profileUpload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
-			JsonObject jsonObject = new JsonObject();
+		@RequestMapping("uploadSummernoteImageFile.fund")
+		public void profileUpload(String email, MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception{
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "\\funding\\summernote";
 			
-			// 내부 경로로 저장
-			String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-			String fileRoot = contextRoot+"resources/funding/summernote/";
-			
-			// 외부 경로로 저장
-//			String root = request.getSession().getServletContext().getRealPath("resources");
-//			String savePath = root + "\\funding\\summernote";
-			
-			String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
-			String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
-			String savedFileName = UUID.randomUUID() + extension;	// 저장될 파일 명
-			
-			File targetFile = new File(fileRoot + savedFileName);
-			try {
-				InputStream fileStream = multipartFile.getInputStream();
-				FileUtils.copyInputStreamToFile(fileStream, targetFile);	// 파일 저장
-				jsonObject.addProperty("url", "/resources/funding/"+savedFileName);	// contextroot + resources + 저장할 내부 폴더 명
-				jsonObject.addProperty("responseCode", "success");
-			} catch (IOException e) {
-				FileUtils.deleteQuietly(targetFile);	// 저장된 파일 삭제
-				jsonObject.addProperty("responseCode", "error");
-				e.printStackTrace();
+			File folder = new File(savePath);
+			if(!folder.exists()) {
+				folder.mkdirs();
 			}
-			String a = jsonObject.toString();
-			System.out.println(a);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
+			int ranNum = (int)(Math.random()*1000);
+			String originFileName = file.getOriginalFilename();
+			String renameFileName = "funding" + sdf.format(new Date(System.currentTimeMillis())) + ranNum + "sm" + originFileName.substring(originFileName.lastIndexOf("."));
+	
+			String renamePath = folder + "\\" + renameFileName;
+			try {
+				file.transferTo(new File(renamePath));
+			} catch (Exception e) {
+				System.out.println("파일 전송 에러 : " + e.getMessage());
+			}
+			
+			System.out.println("파일경로: " + renamePath);
+			PrintWriter out = response.getWriter();
+			
+			out.println(renameFileName);
+			out.close();
 		}
+	
+//		@RequestMapping(value="/uploadSummernoteImageFile.fund", produces="application/json; charset=utf8")
+//		@ResponseBody
+//		public void profileUpload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
+//			JsonObject jsonObject = new JsonObject();
+//			
+//			// 내부 경로로 저장
+//			String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+//			String fileRoot = contextRoot+"resources/funding/summernote/";
+//			
+//			// 외부 경로로 저장
+////			String root = request.getSession().getServletContext().getRealPath("resources");
+////			String savePath = root + "\\funding\\summernote";
+//			
+//			String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
+//			String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
+//			String savedFileName = UUID.randomUUID() + extension;	// 저장될 파일 명
+//			
+//			File targetFile = new File(fileRoot + savedFileName);
+//			try {
+//				InputStream fileStream = multipartFile.getInputStream();
+//				FileUtils.copyInputStreamToFile(fileStream, targetFile);	// 파일 저장
+//				jsonObject.addProperty("url", "/resources/funding/"+savedFileName);	// contextroot + resources + 저장할 내부 폴더 명
+//				jsonObject.addProperty("responseCode", "success");
+//			} catch (IOException e) {
+//				FileUtils.deleteQuietly(targetFile);	// 저장된 파일 삭제
+//				jsonObject.addProperty("responseCode", "error");
+//				e.printStackTrace();
+//			}
+//			String a = jsonObject.toString();
+//			System.out.println(a);
+//		}
 	
 	// 펀딩 오픈 예정 페이지 이동
 	@RequestMapping("fundingComingSoon.fund")
@@ -241,15 +272,18 @@ public class FundingController {
 		String fundingCreator = fService.getFundingCreator(bId);
 		Member login = (Member)session.getAttribute("loginUser");
 		
-		
 		ArrayList<FundingNotice> fnList = fService.fundingNoticeList(bId);
 		int count = fService.fnListCount(bId);
+		
+		Funding f = fService.getCurrFunding(bId);
+		System.out.println(f);
 		
 		model.addAttribute("count", count);
 		model.addAttribute("fnList", fnList);
 		model.addAttribute("fundingCreator", fundingCreator);
 		model.addAttribute("login", login);
 		model.addAttribute("bId", bId);
+		model.addAttribute("f", f);
 		return "fundingNotice";
 	}
 	

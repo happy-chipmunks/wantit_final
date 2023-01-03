@@ -109,4 +109,9 @@ public class FundingServiceImpl implements FundingService{
 	public int insertReward(Reward r) {
 		return fDAO.insertReward(r, sqlSession);
 	}
+
+	@Override
+	public Funding getCurrFunding(int bId) {
+		return fDAO.getCurrFunding(bId, sqlSession);
+	}
 }
