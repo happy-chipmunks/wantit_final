@@ -80,14 +80,6 @@
 		where wanting_num=#{wantingNum} and wanting_status='Y' 
 	</update>
 	
-	
-<!-- 	원팅 달성 알림 보내기 -->
-	<select id="getMemberList" resultMap="wantingAttendResultSet">
-		select *
-		from wanting_attend
-		where wanting_num=#{wantingNum}
-	</select>
-	
 	<insert id="sendAlarm">
 		insert into alarm
 		values(seq_alarm.nextval, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, default)
@@ -102,7 +94,10 @@
 
 <!-- 	회원 전체 알림 가져오기 -->
 	<select id="selectAlarmList" resultMap="alarmResultSet">
-	
+		select *
+		from alarm
+		where member_id=#{memberId} and alarm_check='N'
+	</select>
 	
 <!-- 	원팅 달성 알림 보내기 -->
 	<select id="getMemberList" resultMap="wantingAttendResultSet">
@@ -112,10 +107,7 @@
 	</select>
 	
 
-		select *
-		from alarm
-		where member_id=#{memberId} and alarm_check='N'
-	</select>
+		
 	
 	
 	
@@ -142,12 +134,6 @@
 		set wanting_title=#{wantingTitle}, wanting_summary=#{wantingSummary}, 
 			wanting_content=#{wantingContent}, shop_name=#{wantingShopName},
 			shop_address=#{wantingShopAddress}
-		where wanting_num=#{wantingNum}
-	</update>
-	
-	<update id="deleteWanting">
-		update wanting
-		set wanting_status='N'
 		where wanting_num=#{wantingNum}
 	</update>
 	

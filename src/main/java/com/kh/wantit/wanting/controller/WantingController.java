@@ -482,7 +482,7 @@ public class WantingController {
 						img.setImageRename(returnArr[1]);
 						img.setImageSrc(returnArr[0]);
 						img.setImageBoardCate(4);
-						img.setImageBoardId(100);
+						img.setImageBoardId("1");
 						list.add(img); // 받아온 files에 정보를 넣어서 Image list에 넣자
 						System.out.println(upload.getOriginalFilename() + "list넣기");
 					}
