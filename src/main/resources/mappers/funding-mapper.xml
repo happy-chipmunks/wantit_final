@@ -111,6 +111,12 @@
 		values(seq_reward.nextval, seq_funding.currval, #{rewardTitle}, #{rewardContent}, #{rewardPrice}, #{rewardShipping}, #{rewardLimit}, default, #{rewardExpectDate})
 	</insert>
 	
+	<select id="getCurrFunding" resultMap="fundingResultSet">
+		select *
+		from funding join funding_notice using(funding_num)
+		where funding_notice_num=#{bId}
+	</select>
+	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>

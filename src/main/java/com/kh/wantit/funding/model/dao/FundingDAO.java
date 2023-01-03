@@ -89,6 +89,10 @@ public class FundingDAO {
 	public int insertReward(Reward r, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("fundingMapper.insertReward", r);
 	}
+
+	public Funding getCurrFunding(int bId, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getCurrFunding", bId);
+	}
 	
 	
 }
