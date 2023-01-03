@@ -10,11 +10,11 @@
   <!-- CSS Files -->
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
-  <link rel="stylesheet" href="bootstrap.min.css"/>
-  <link rel="stylesheet" href="fundingMain.css"/>
-  <link rel="stylesheet" href="fundingNotice.css"/>
-  <link rel="stylesheet" href="fundingReview.css"/>
-  <link rel="stylesheet" href="bootstrap-custom.css" />
+  <link rel="stylesheet" href="resources/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="resources/css/fundingMain.css"/>
+  <link rel="stylesheet" href="resources/css/fundingNotice.css"/>
+  <link rel="stylesheet" href="resources/css/fundingReview.css"/>
+  <link rel="stylesheet" href="resources/css/bootstrap-custom.css" />
 
 
 
@@ -31,7 +31,7 @@
 <div class="container-fluid text-center funding-category">
   <div class="row">
     <div class="col-2 offset-2"><a class="tab-link" href="#">정보 </a></div>
-    <div class="col-2"><a class="tab-link" href="#">새소식 </a></div>
+    <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund">새소식 </a></div>
     <div class="col-2"><a class="tab-link" href="#" style="font-weight: 1000px; color:black;">후기 </a></div>
     <div class="col-2"><a class="tab-link" href="#">서포터 <span class="count-total">4</span></a></div>
   </div>

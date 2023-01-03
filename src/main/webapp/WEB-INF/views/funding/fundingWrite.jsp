@@ -12,12 +12,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
  -->
    	<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <link rel="stylesheet" href="resources/css/summernote-lite.min.css">
-  <script src="resources/css/summernote-lite.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+  <script src="resources/css/summernote-bs4.min.js"></script>
   <script src="resources/css/summernote-ko-KR.js"></script>
+  
 
 	<style>
 		@font-face {
@@ -121,9 +123,9 @@
 					<input class="funding-style" placeholder="제목을 입력해 주세요" maxlength="40" name="fundingTitle" type="text" style="width: 300px;">
 					<br><br>
 					
-<!-- 					<h5 class="fundingH5">펀딩 요약</h5>&nbsp;<span class="essential">*</span><br> -->
-<!-- 					<input class="funding-style" placeholder="펀딩을 간단히 요약해 주세요" maxlength="40" name="fundingSummary" type="text" style="width: 300px;"> -->
-<!-- 					<br><br> -->
+					<h5 class="fundingH5">펀딩 요약</h5>&nbsp;<span class="essential">*</span><br>
+					<input class="funding-style" placeholder="펀딩을 간단히 요약해 주세요" maxlength="40" name="fundingSummary" type="text" style="width: 300px;">
+					<br><br>
 					
 					<h5 class="fundingH5">펀딩 대표이미지</h5>
 					<div class="selectCover" style="padding-left: 0;">
@@ -240,7 +242,7 @@
 				var postingDate = $('#rewardAdd').find('input[name="rewardExpectDate"]').val();
 				var donationPrice = $('#rewardAdd').find('input[name="rewardPrice"]').val();
 				var deliveryCharge = $('#rewardAdd').find('input[name="rewardShipping"]').val();
-				$('#rewardTable').append("<tr><td><input type='checkbox' name='checkBox'></td><td>" + title + "</td><td>" + content + "</td><td>" + quantity + "</td><td>" + postingDate + "</td><td>" + donationPrice + "</td><td>" + deliveryCharge + "</td>");
+				$('#rewardTable').append("<tr name='reward'><td><input type='checkbox' name='checkBox'></td><td><input type='hidden' value=" + title + " name='rewardTitle'>" + title + "</td><td><input type='hidden' value=" + content + " name='rewardContent'>" + content + "</td><td><input type='hidden' value=" + quantity + " name='rewardLimit'>" + quantity + "</td><td><input type='hidden' value=" + postingDate + " name='rewardExpectDate'>" + postingDate + "</td><td><input type='hidden' value=" + donationPrice + " name='rewardPrice'>" + donationPrice + "</td><td><input type='hidden' value=" + deliveryCharge + " name='rewardShipping'>" + deliveryCharge + "</td>");
 			});
 		
 		 // 선택 리워드 삭제
@@ -254,8 +256,8 @@
 		 
 	 	
 		 // summernote
-		 $(document).ready(function() {
 		      $('#summernote').summernote({
+		    	  lang: "ko-KR",
 		    	  placeholder: '펀딩 프로젝트 내용을 작성해주세요.',
 		        tabsize: 2,
 		        height: 550,
@@ -274,17 +276,16 @@
 		        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
 	        callbacks: {
 	        	onImageUpload : function(files, editor, welEditable){		// 이미지 첨부하는 부분
-	        		for(var i = files.length - 1; i >= 0; i--){
+	        		for(var i = 0; i < files.length; i++){
 	        			uploadSummernoteImageFile(files[i], this);
 	        		}
 	        	}
 	        }
-	     	 })
-		 });
+	     	 });
 		 
 	        function uploadSummernoteImageFile(file, el){
-	        	var data = new FormData();
-	        	data.append("file", file);
+	        	data = new FormData();
+	        	data.append('file', file);
 	        	$.ajax({
 	        		data: data,
 	        		type: "POST",
@@ -296,7 +297,7 @@
 	        		success: function(data){
 	        			console.log(data);
 	        			// 항상 업로드된 파일의 url이 있어야 한다.
-	        			$(el).summernote('editor.insertImage', "/funding-summernote/" + data);
+	        			$(el).summernote('editor.insertImage', "/funding-summernote/" + data.url);
 	        		}
 	        	});
 	        } 
@@ -317,33 +318,33 @@
 	      });
 	      
 	      // table tr값 넘기기
-	      $(function(){
-	    	  $('#insertBtn').click(function(){
-	    		  var dataArrayToSend = [];
-	    		  var dataArrayToSend1 = [];
+// 	      $(function(){
+// 	    	  $('#insertBtn').on('click', function(){
+// 	    		  var dataArrayToSend = [];
+// 	    		  var dataArrayToSend1 = [];
 	    		  
-	    		  $('#rewardTable tr').each(function(){
-	    			  var length = $(this).find('td').length;
+// 	    		  $('#rewardTable tr').each(function(){
+// 	    			  var length = $(this).find('td').length;
 	    			  
-	    			  for(var i = 0; i < length; i++){
-	    				  dataArrayToSend.push($(this).find('td').eq(i).text());
-	    			  }
-	    			  dataArrayToSend1.push(dataArrayToSend);
-	    		  });
+// 	    			  for(var i = 0; i < length; i++){
+// 	    				  dataArrayToSend.push($(this).find('td').eq(i).text());
+// 	    			  }
+// 	    			  dataArrayToSend1.push(dataArrayToSend);
+// 	    		  });
 	    		  
-	    		  $.ajax({
-	    			  url: 'insertFunding.fund',
-	    			  data: JSON.stringify(dataArrayToSend1),
-	    			  success: (data)=>{
-	    				  console.log(data);
-	    				  console.log('성공');
-	    			  },
-	    			  error: (data)=>{
-	    				console.log(data);
-	    			  }
-	    		  });
-	    	  });
-	      });
+// 	    		  $.ajax({
+// 	    			  url: 'insertFunding.fund',
+// 	    			  data: JSON.stringify(dataArrayToSend1),
+// 	    			  success: (data)=>{
+// 	    				  console.log(data);
+// 	    				  console.log('성공');
+// 	    			  },
+// 	    			  error: (data)=>{
+// 	    				console.log(data);
+// 	    			  }
+// 	    		  });
+// 	    	  });
+// 	      });
 	</script>
 
 </body>

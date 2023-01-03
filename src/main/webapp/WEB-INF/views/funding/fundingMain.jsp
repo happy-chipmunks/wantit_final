@@ -25,8 +25,8 @@
   </div>
   <div class="container-fluid text-center funding-category">
     <div class="row">
-      <div class="col-2 offset-2"><a class="tab-link" href="#">정보 </a></div>
-      <div class="col-2"><a class="tab-link" href="#" style="font-weight: 1000px; color:black;">새소식 </a></div>
+      <div class="col-2 offset-2"><a class="tab-link" href="#" style="font-weight: 1000px; color:black;">정보 </a></div>
+      <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund?bId=${f.fundingNum}">새소식 </a></div>
       <div class="col-2"><a class="tab-link" href="#">리뷰 </a></div>
       <div class="col-2"><a class="tab-link" href="#">서포터 <span class="count-total"></span></a></div>
     </div>
@@ -36,33 +36,37 @@
     <div class="row g-2">
       <!-- 왼쪽 사이드바 -->
       <div class="col-md-9">
-      <div class="left-content">
-        <!-- 대표 이미지-->
-        <img src="https://cdn.wadiz.kr/ft/images/green001/2022/1118/20221118111401032_38.png/wadiz/format/jpg/quality/80/optimize">
-
-        <!-- 안내사항 -->
-        <div class="notification">
-          <p>
-            <strong>목표 금액</strong> <span>${ f.targetMoney }</span><br>
-            <strong>펀딩 기간</strong> <span>${ f.fundingStart } ~ ${ f.fundingEnd }</span><br>
-          </p>
-          <p>
-            100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제가 진행되지 않습니다.
-          </p>
-        </div>
-
-        <div class="about-funding">
-          <span class="icon"></span>
-          <strong>크라우드펀딩 제대로 알고 펀딩하자</strong>
-          <button class="more-button">자세히 알아보기</button>
-        </div>
-
-        <!-- 상품 상세설명 -->
-        <div class="funding-detail">
-          <p><strong>펀딩 이야기</strong></p>
-          ${ f.fundingContent }
-        </div>
-      </div>
+      
+      		<!-- 정보 -->
+	      <div class="left-content">
+	        <!-- 대표 이미지-->
+	        <img src="${ contextPath }/resources/funding/${image.imageRename}">
+	
+	        <!-- 안내사항 -->
+	        <div class="notification">
+	          <p>
+	            <strong>목표 금액</strong> <span>${ f.targetMoney }</span><br>
+	            <strong>펀딩 기간</strong> <span>${ f.fundingStart } ~ ${ f.fundingEnd }</span><br>
+	          </p>
+	          <p>
+	            100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제가 진행되지 않습니다.
+	          </p>
+	        </div>
+	
+	        <div class="about-funding">
+	          <span class="icon"></span>
+	          <strong>크라우드펀딩 제대로 알고 펀딩하자</strong>
+	          <button class="more-button">자세히 알아보기</button>
+	        </div>
+	
+	        <!-- 상품 상세설명 -->
+	        <div class="funding-detail">
+	          <p><strong>펀딩 이야기</strong></p>
+	          ${ f.fundingContent }
+	        </div>
+	        <br><br><br>
+	      </div>
+	      
       </div>
 
       <!-- 오른쪽 사이드바 -->
@@ -72,7 +76,7 @@
           <div class="rate-bar"><em></em></div>
           <p class="achievement-rate"><strong>0</strong>% 달성</p>
           <p class="total-amount"><strong>${ f.currentMoney }</strong>원 펀딩</p>
-          <p class="total-supporter"><strong>1,282</strong>명의 서포터</p>
+          <p class="total-supporter"><strong>0</strong>명의 서포터</p>
         </div>
         
         <div class="container goal-box">
@@ -323,6 +327,10 @@
     new fairyDustCursor();
     // new rainbowCursor();
   </script>
+
+	<script>
+		console.log(${bId});
+	</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

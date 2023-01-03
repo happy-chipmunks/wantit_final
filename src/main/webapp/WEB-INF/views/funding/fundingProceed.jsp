@@ -258,8 +258,8 @@
 	                                  <c:set var="title" value="${ fn:substring(fl.fundingTitle, 0, 15) }..."/>
 	                                  <span class="fundName">${ title }</span>
 	                              </div>
-	                              <c:set var="content" value="${ fn:substring(fl.fundingContent, 0, 18) }..."/>
-	                              <p class="card-text">${ content }</p>
+<%-- 	                              <c:set var="content" value="${ fn:substring(fl.fundingContent, 0, 18) }..."/> --%>
+<%-- 	                              <p class="card-text">${ content }</p> --%>
 	                              <div class="d-flex justify-content-between align-items-center">
 	                                    <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
 	                                </div>
