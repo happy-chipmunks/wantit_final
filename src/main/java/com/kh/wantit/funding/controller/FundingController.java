@@ -1,41 +1,31 @@
 package com.kh.wantit.funding.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.exception.FundingException;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingNotice;
-import com.kh.wantit.funding.model.vo.Reward;
 import com.kh.wantit.member.vo.Member;
+import com.kh.wantit.pay.vo.Reward;
 
 @Controller
 public class FundingController {
@@ -67,7 +57,7 @@ public class FundingController {
 	
 	// 펀딩 등록
 	@RequestMapping("insertFunding.fund")
-	public String insertFunding(@ModelAttribute Funding f, @RequestParam("file") ArrayList<MultipartFile> files, HttpServletRequest request, @RequestParam("category") String cate, @ModelAttribute Reward r,
+	public String insertFunding(@ModelAttribute Funding f, @RequestParam("file2") ArrayList<MultipartFile> files, HttpServletRequest request, @RequestParam("category") String cate, @ModelAttribute Reward r,
 													@RequestParam("rewardTitle") ArrayList<String> rewardTitleArr, @RequestParam("rewardContent") ArrayList<String> rewardContentArr, @RequestParam("rewardLimit") ArrayList<Integer> rewardLimitArr,
 													@RequestParam("rewardExpectDate") ArrayList<Date> rewardExpectDateArr, @RequestParam("rewardPrice") ArrayList<Integer> rewardPriceArr, @RequestParam("rewardShipping") ArrayList<Integer> rewardShippingArr) {
 		String id = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
@@ -92,8 +82,8 @@ public class FundingController {
 			r.setRewardContent(rewardContentArr.get(i));
 			r.setRewardLimit(rewardLimitArr.get(i));
 			r.setRewardExpectDate(rewardExpectDateArr.get(i));
-			r.setRewardPrice(rewardPriceArr.get(i));
-			r.setRewardShipping(rewardShippingArr.get(i));
+			r.setPrice(rewardPriceArr.get(i));
+			r.setShipping(rewardShippingArr.get(i));
 			
 			result3 = fService.insertReward(r);
 			System.out.println(r);
@@ -173,6 +163,7 @@ public class FundingController {
 		@RequestMapping("uploadSummernoteImageFile.fund")
 		public void profileUpload(String email, MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception{
 			String root = request.getSession().getServletContext().getRealPath("resources");
+			System.out.println(root);
 			String savePath = root + "\\funding\\summernote";
 			
 			File folder = new File(savePath);
@@ -185,7 +176,7 @@ public class FundingController {
 			String originFileName = file.getOriginalFilename();
 			String renameFileName = "funding" + sdf.format(new Date(System.currentTimeMillis())) + ranNum + "sm" + originFileName.substring(originFileName.lastIndexOf("."));
 	
-			String renamePath = folder + "\\" + renameFileName;
+			String renamePath = folder + "//" + renameFileName;
 			try {
 				file.transferTo(new File(renamePath));
 			} catch (Exception e) {
@@ -223,10 +214,10 @@ public class FundingController {
 		// System.out.println(bId);
 		Funding f = fService.getFunding(bId, yn);
 		Image img = fService.getImage(bId);
-		// System.out.println(image);
+		 System.out.println(img);
 		
 		if(f != null) {
-			mv.addObject("f", f).addObject("img", img).setViewName("fundingMain");
+			mv.addObject("f", f).addObject("img", img).addObject("bId", bId).addObject("m", m).setViewName("fundingMain");
 		}else {
 			throw new FundingException("펀딩 게시글 상세조회 실패");
 		}
@@ -235,7 +226,7 @@ public class FundingController {
 	
 	// 새소식 리스트
 	@RequestMapping("fundingNotice.fund")
-	public String fundingNotice(@RequestParam("bId") int bId, Model model, HttpSession session, @RequestParam(value="writer", required=false) String writer) {
+	public String fundingNotice(@RequestParam("bId") int bId, Model model, HttpSession session) {
 		// System.out.println(bId);
 		String fundingCreator = fService.getFundingCreator(bId);
 		Member login = (Member)session.getAttribute("loginUser");
@@ -246,11 +237,16 @@ public class FundingController {
 		Funding f = fService.getCurrFunding(bId);
 		System.out.println(f);
 		
+		System.out.println(bId);
+		String writer = fService.getFundingCreator(bId);
+		int writerNo = fService.getFundingCreatorNum(writer);
+		
 		model.addAttribute("count", count);
 		model.addAttribute("fnList", fnList);
 		model.addAttribute("fundingCreator", fundingCreator);
 		model.addAttribute("login", login);
 		model.addAttribute("bId", bId);
+		model.addAttribute("writerNo", writerNo);
 		model.addAttribute("f", f);
 		return "fundingNotice";
 	}
@@ -287,8 +283,8 @@ public class FundingController {
 		}
 		
 		FundingNotice fn = fService.getFundingNotice(bId, yn);
-		System.out.println(fn);
-		System.out.println(bId);
+//		System.out.println(fn);
+//		System.out.println(bId);
 		
 		if(fn != null) {
 			model.addAttribute("login", login);
@@ -297,8 +293,28 @@ public class FundingController {
 		}else {
 			throw new FundingException("새소식 상세조회 실패");
 		}
-		
 	}
+	
+	// 펀딩하기
+//	@RequestMapping("doFunding.fund")
+//	public String doFunding(@RequestParam("bId") int bId, HttpSession session, Model model) {
+//		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+//		
+//		Funding f = fService.getFundingInfo(bId);
+//		System.out.println(f);
+//		ArrayList<Reward> rList = fService.fundingRewardList(bId);
+////		System.out.println(rList);
+//		
+//		if(rList.size() > 0) {
+//			model.addAttribute("rList", rList);
+//			model.addAttribute("bId", bId);
+//			model.addAttribute("id", id);
+//			model.addAttribute("f", f);
+//			return "doFundingView";
+//		}else{
+//			throw new FundingException("펀딩하기 실패");
+//		}
+//	}
 	
 	
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <jsp:include page="../common/navbar.jsp"></jsp:include>
@@ -40,8 +41,11 @@
       		<!-- 정보 -->
 	      <div class="left-content">
 	        <!-- 대표 이미지-->
-	        <img src="${ contextPath }/resources/funding/${image.imageRename}" alt="...">
-	
+	        <img src="${ contextPath }/resources/funding/${img.imageRename}" alt="..." width="100%" height="600px">
+			
+			<!-- 펀딩 요약 -->
+			<h4>${ f.fundingSummary }</h4>
+			
 	        <!-- 안내사항 -->
 	        <div class="notification">
 	          <p>
@@ -96,7 +100,13 @@
         </div>
 
         <div class="container funding-buttons g-0">
-          <button class="btn-funding" data-bs-toggle="modal" data-bs-target="#funding-modal">펀딩하기</button>
+<!--           <button class="btn-funding" data-bs-toggle="modal" data-bs-target="#funding-modal">펀딩하기</button> -->
+		<c:if test="${ m != null }">
+		 	<button class="btn-funding" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ bId }'">펀딩하기</button>
+		</c:if>
+		<c:if test="${ m == null }">
+		 	<button class="btn-funding" onclick="noLogin()">펀딩하기</button>
+		</c:if>
           <div class="row g-1">
             <div class="col-sm-4"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#dibs-modal">
               <img src="resources/img/heart.png"/>
@@ -112,52 +122,52 @@
 
 
 <!-- 모달 -->
-<!-- 펀딩하기 완료 -->
-<div class="modal fade" id="funding-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid g-0">
-          <div class="row g-0">
-            <div class="col-md-5">
-              <img class="thumbnail" src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=768,574"/>
-            </div>
-            <div class="col-md-7">
-              <div class="modal-funding-right">
-                <h5>펀딩이 완료되었습니다 !</h5>
-                <p class="modal-funding-title">[서울시 용답동] 나정순 할매 쭈꾸미 택배 전국 배송</p>
-                <p class="modal-funding-store">업체이름(가게이름)</p>
-                <div class="modal-funding-status">
-                  현재 <span class="modal-funding-goal">100</span>명 중 <span class="modal-funding-amount">45</span>명이 모였어요.
-                  원팅 달성 시 알림이 갑니다.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer modal-funding-footer">
-        <div class="container">
-          <div class="row g-2">
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn">다른 펀딩 둘러보기</button>
-            </div>
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn">내 펀딩 목록보기</button>
-            </div>
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- <!-- 펀딩하기 완료 -->
+<!-- <div class="modal fade" id="funding-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!--   <div class="modal-dialog modal-dialog-centered"> -->
+<!--     <div class="modal-content"> -->
+<!--       <div class="modal-header"> -->
+<!--         <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1> -->
+<!--         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!--       </div> -->
+<!--       <div class="modal-body"> -->
+<!--         <div class="container-fluid g-0"> -->
+<!--           <div class="row g-0"> -->
+<!--             <div class="col-md-5"> -->
+<!--               <img class="thumbnail" src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=768,574"/> -->
+<!--             </div> -->
+<!--             <div class="col-md-7"> -->
+<!--               <div class="modal-funding-right"> -->
+<!--                 <h5>펀딩이 완료되었습니다 !</h5> -->
+<!--                 <p class="modal-funding-title">[서울시 용답동] 나정순 할매 쭈꾸미 택배 전국 배송</p> -->
+<!--                 <p class="modal-funding-store">업체이름(가게이름)</p> -->
+<!--                 <div class="modal-funding-status"> -->
+<!--                   현재 <span class="modal-funding-goal">100</span>명 중 <span class="modal-funding-amount">45</span>명이 모였어요. -->
+<!--                   원팅 달성 시 알림이 갑니다. -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--       <div class="modal-footer modal-funding-footer"> -->
+<!--         <div class="container"> -->
+<!--           <div class="row g-2"> -->
+<!--             <div class="col-sm-4"> -->
+<!--               <button type="button" class="modal-funding-btn">다른 펀딩 둘러보기</button> -->
+<!--             </div> -->
+<!--             <div class="col-sm-4"> -->
+<!--               <button type="button" class="modal-funding-btn">내 펀딩 목록보기</button> -->
+<!--             </div> -->
+<!--             <div class="col-sm-4"> -->
+<!--               <button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
 
 
 <!-- 찜하기 완료 -->
@@ -329,7 +339,9 @@
   </script>
 
 	<script>
-		console.log(${bId});
+		function noLogin(){
+			alert('로그인 후 이용해주세요.');
+		}
 	</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

@@ -115,6 +115,12 @@
 		where funding_num=#{bId}
 	</update>
 	
+	<select id="getFundingCreatorNum" resultType="_int">
+		select creator_num
+		from creator
+		where creator=#{writer}
+	</select>
+	
 	<select id="getFundingNotice" resultMap="fundingNoticeResultSet">
 		select *
 		from funding_notice
@@ -123,7 +129,7 @@
 	
 	<insert id="insertReward">
 		insert into reward
-		values(seq_reward.nextval, seq_funding.currval, #{rewardTitle}, #{rewardContent}, #{rewardPrice}, #{rewardShipping}, #{rewardLimit}, default, #{rewardExpectDate})
+		values(seq_reward.nextval, seq_funding.currval, #{rewardTitle}, #{rewardContent}, #{price}, #{shipping}, #{rewardLimit}, default, #{rewardExpectDate})
 	</insert>
 	
 	<select id="getCurrFunding" resultMap="fundingResultSet">
@@ -132,6 +138,18 @@
 		where funding_notice_num=#{bId}
 	</select>
 	
+	<!-- 펀딩 리워드 -->
+	<select id="fundingRewardList" resultMap="rewardResultSet">
+		select *
+		from reward
+		where funding_num=#{bId}
+	</select>
+	
+	<select id="getFundingInfo" resultMap="fundingResultSet">
+		select *
+		from funding
+		where funding_num=#{bId}
+	</select>
 
 
 	<resultMap type="Funding" id="fundingResultSet">
@@ -183,8 +201,8 @@
 		<result column="funding_num" property="fundingNum"/>
 		<result column="reward_title" property="rewardTitle"/>
 		<result column="reward_content" property="rewardContent"/>
-		<result column="reward_price" property="rewardPrice"/>
-		<result column="reward_shipping" property="rewardShipping"/>
+		<result column="reward_price" property="price"/>
+		<result column="reward_shipping" property="shipping"/>
 		<result column="reward_limit" property="rewardLimit"/>
 		<result column="reward_sellcount" property="rewardSellCount"/>
 		<result column="reward_expect_date" property="rewardExpectDate"/>

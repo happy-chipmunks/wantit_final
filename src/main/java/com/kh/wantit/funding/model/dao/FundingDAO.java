@@ -1,7 +1,6 @@
 package com.kh.wantit.funding.model.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingNotice;
-import com.kh.wantit.funding.model.vo.Reward;
+import com.kh.wantit.pay.vo.Reward;
 
 @Repository("fDAO")
 public class FundingDAO {
@@ -92,6 +91,18 @@ public class FundingDAO {
 
 	public Funding getCurrFunding(int bId, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("fundingMapper.getCurrFunding", bId);
+	}
+
+	public int getFundingCreatorNum(String writer, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getFundingCreatorNum", writer);
+	}
+
+	public ArrayList<Reward> fundingRewardList(int bId, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.fundingRewardList", bId);
+	}
+
+	public Funding getFundingInfo(int bId, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getFundingInfo", bId);
 	}
 	
 	
