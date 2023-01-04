@@ -167,7 +167,8 @@
    		</div>
    	
    		<div class="col-8">
-		<h4 align="left">나의 펀딩 | 펀딩 내역</h4>
+		<h4 align="left"> | 펀딩 이력 |</h4>
+		<br>
 	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 	        <div class="col">
 	          <div class="card shadow-sm">

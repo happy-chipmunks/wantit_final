@@ -207,19 +207,19 @@
 					<th colspan="3">dd</th>
 				</tr> -->
 				<tr>
-					<td>
-						<select class="form-select" style="width: 70%;">
+					<th>개인정보
+						<!-- <select class="form-select" style="width: 70%;">
 							<option value="home">집</option>
 							<option value="company">회사</option>
-						</select>
-					</td>
+						</select> -->
+					</th>
 					<td>수령인 이름<br><br>
 					${ loginUser.memberName }</td>
 					<td style="width: 300px;">수령인 전화번호<br><br>
 					${ loginUser.memberPhone }</td>
 				</tr>
 				<tr>
-					<td>배송받을 주소</td>
+					<th>배송받을 주소</th>
 					<td colspan="3">
 					${ loginUser.memberAddress }</td>
 				</tr>

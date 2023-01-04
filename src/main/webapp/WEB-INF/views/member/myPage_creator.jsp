@@ -88,8 +88,8 @@
 	    width: 100px; 
 	
 	    height: 100px;
-
 		}
+		
     </style>
 
 </head>
@@ -147,13 +147,9 @@
    				<li>
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorAds.me'"><b>광고 의뢰</b></button></p>
    				</li>
-   				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorAlarm.me'"><b>오픈알림</b></button></p>
-   				</li>
-   				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorFollow.me'"><b>팔로우</b></button></p>
-   				</li>
 			</ul>
+			<br><br>
+			<br><br>
    		</div>
    		<div class="col-8">
    			<c:if test="${ !check }">
@@ -270,10 +266,10 @@
 				</table>
 			</c:if>
 	    </div>
-    	<hr>
+	    <hr>
     </div>
     
-    <br>
+    
     
     <script>
     $('#target_img').click(function (e) {

@@ -8,21 +8,13 @@ import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-
 import javax.mail.internet.MimeMessage;
-
 import org.springframework.mail.javamail.MimeMessageHelper;
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-
 import java.util.Random;
 import javax.servlet.http.HttpSession;
-
 import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -298,6 +290,7 @@ public class MemberController {
 		@ResponseBody
 		public String sendSMS(String Phone) {
 			
+			
 			Random rand = new Random();
 			String numStr = "";
 			for(int i=0; i<4; i++) {
@@ -507,7 +500,7 @@ public class MemberController {
 			        				+ "[WANTIT]비밀번호 찾기 인증 이메일입니다.<br>"
 			        				+ "인증번호는"+checkNum+"입니다.<br>"
 			        				+"해당 인증번호를 인증번호 확인란에 기입해주세요.";
-			        String from = "WANTIT<wjdche94@naver.com>";
+			        String from = "WANTIT<jaedog0818@naver.com>";
 			        String to = email;
 			        
 			       
@@ -571,9 +564,9 @@ public class MemberController {
 		  updatePwd.setMemberPwd(memberPwd);
 		 System.out.println("새로운 비밀번호 :"+updatePwd.getMemberPwd());
 		  
-		 String newPwd = updatePwd.getMemberPwd();
-		 String newenPwd = bcrypt.encode(newPwd);
-		 updatePwd.setMemberPwd(newenPwd);
+		 String rawPwd = updatePwd.getMemberPwd();
+		 String enPwd = bcrypt.encode(rawPwd);
+		 updatePwd.setMemberPwd(enPwd);
 		  
 		  System.out.println("새로운비번 객체"+updatePwd);
 		 int result = mService.updateenPwd(updatePwd); 

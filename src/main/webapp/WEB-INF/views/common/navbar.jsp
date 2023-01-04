@@ -223,11 +223,11 @@
 				<c:if test="${ loginUser != null  && loginUser.memberNickname != '관리자'}">
 						<a href="${contextPath}/myPageinfo.me"> 
 						<c:if test="${image == null }">
-								<img style="border-radius: 20px" onerror="this.src='/blog/image/userProfile.png'"
+								<img style="border-radius: 20px" 
 								src="${contextPath}/resources//myPageImage/뉴프로필.png" width="50px" height="50px" />
 						</c:if>
 						 <c:if test="${image != null }">
-							<img style="border-radius: 20px" onerror="this.src='/blog/image/userProfile.png'"
+							<img style="border-radius: 20px" 
 								src="${contextPath}/resources/member/${ image }" width="50px" height="50px" />
 						</c:if>		 
 						</a>
