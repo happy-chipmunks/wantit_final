@@ -136,7 +136,7 @@
 						<input id="fileName" class="form-control" value="파일선택" disabled="disabled" style="width:40%; display: inline;">
 								<div class="fileRegiBtn">
 									<label for="myFileUp">파일등록하기</label>
-									<input type="file" id="myFileUp" name="file">
+									<input type="file" id="myFileUp" name="file2">
 								</div>
 					</div>
 					
@@ -200,8 +200,8 @@
 							    	리워드 설명<input class="form-control input" style="height: 100px" id="reward-content" name="rewardContent">
 							      	수량 제한<input type="number" class="form-control input" id="reward-quantity" name="rewardLimit">
 							      	발송 시작일<input type="date" class="form-control input" id="reward-shipmentDate" name="rewardExpectDate">
-							      	금액<input type="number" class="form-control input" id="reward-donationPrice" name="rewardPrice">
-							      	배송비<input type="number" class="form-control input" id="reward-deliveryCharge" name="rewardShipping">
+							      	금액<input type="number" class="form-control input" id="reward-donationPrice" name="price">
+							      	배송비<input type="number" class="form-control input" id="reward-deliveryCharge" name="shipping">
 							 </div>
 							 <div class="modal-footer">
 								<button type="button" class="btn btn-primary" id="sendBtn">보내기</button>
