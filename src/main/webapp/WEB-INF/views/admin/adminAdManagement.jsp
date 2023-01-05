@@ -359,7 +359,12 @@
 	
 		$('.answerBtn').click(function() {
 			const num = $(this).val();
+			if ( $('.myForm').css('display') === 'none' ) {
 			$('.myForm' + num).show();
+			} else {
+				 $('.myForm').hide();
+			}
+			
 		});
 	
 		$('label').css('display', 'inline-block');

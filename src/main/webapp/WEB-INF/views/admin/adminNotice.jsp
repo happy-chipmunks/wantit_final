@@ -316,6 +316,7 @@ input[type="checkbox"]:checked + label span {
 							<tr>
 								<th scope="row">${r.count }</th>
 								<td>
+
 									<c:if test="${ m.noticeDivision == 'N' }">
 									공지사항
 									</c:if>
@@ -453,11 +454,13 @@ input[type="checkbox"]:checked + label span {
 		$(document).on("click", ".answerBtn", function(){
             const code = this.children[0].innerText;
             const title = this.children[1].value;
+            
 			
 			console.log(code);
             console.log(title);
             
-            location.href='${contextPath}/editNotice.ad? code=' + code + '&title=' + title;
+            location.href = '${contextPath}/editNotice.ad?code='+code+'&title='+title;
+            
     	});
 		
 // 		$(document).on("click", ".featured__item__pic.set-bg", function(){
