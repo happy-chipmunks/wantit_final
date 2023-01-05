@@ -1,7 +1,6 @@
 package com.kh.wantit.funding.model.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.dao.FundingDAO;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingNotice;
-import com.kh.wantit.funding.model.vo.Reward;
+import com.kh.wantit.pay.vo.Reward;
 
 @Service("fService")
 public class FundingServiceImpl implements FundingService{
@@ -113,5 +112,20 @@ public class FundingServiceImpl implements FundingService{
 	@Override
 	public Funding getCurrFunding(int bId) {
 		return fDAO.getCurrFunding(bId, sqlSession);
+	}
+
+	@Override
+	public int getFundingCreatorNum(String writer) {
+		return fDAO.getFundingCreatorNum(writer, sqlSession);
+	}
+
+	@Override
+	public ArrayList<Reward> fundingRewardList(int bId) {
+		return fDAO.fundingRewardList(bId, sqlSession);
+	}
+
+	@Override
+	public Funding getFundingInfo(int bId) {
+		return fDAO.getFundingInfo(bId, sqlSession);
 	}
 }

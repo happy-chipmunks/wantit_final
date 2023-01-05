@@ -50,8 +50,8 @@
 </div>
 <div class="container-fluid text-center funding-category">
   <div class="row">
-    <div class="col-2 offset-2"><a class="tab-link" href="#">정보 </a></div>
-    <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund" style="font-weight: 1000px; color:black;">새소식 </a></div>
+    <div class="col-2 offset-2"><a class="tab-link" href="${ contextPath }/selectFundingBoard.fund?bId=${bId}&writerNo=${writerNo}">정보 </a></div>
+    <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund?bId=${bId}" style="font-weight: 1000px; color:black;">새소식 </a></div>
     <div class="col-2"><a class="tab-link" href="#">리뷰 </a></div>
     <div class="col-2"><a class="tab-link" href="#">서포터 <span class="count-total">4</span></a></div>
   </div>

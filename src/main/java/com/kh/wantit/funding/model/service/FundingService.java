@@ -1,12 +1,11 @@
 package com.kh.wantit.funding.model.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingNotice;
-import com.kh.wantit.funding.model.vo.Reward;
+import com.kh.wantit.pay.vo.Reward;
 
 public interface FundingService {
 
@@ -43,5 +42,11 @@ public interface FundingService {
 	int insertReward(Reward r);
 
 	Funding getCurrFunding(int bId);
-	
+
+	int getFundingCreatorNum(String writer);
+
+	ArrayList<Reward> fundingRewardList(int bId);
+
+	Funding getFundingInfo(int bId);
+
 }
