@@ -375,8 +375,7 @@
 							
 <%-- 								<button type="button" class="btn cancel btn-primary btn-lg right" value="${ r.index }" style="float: right;">거절</button> --%>
 									<button type="button"
-									class="btn btn-primary btn-lg right" style="display: inline-block; float: right;"
-									data-bs-toggle="modal" data-bs-target="">
+									class="btn btn-primary btn-lg right cancel" style="display: inline-block; float: right;">
 									미승인</button>
 <!-- 								<button type="button" class="btn btn-primary btn-lg deleteMemberButton" style="display: inline-block; float: left;" -->
 <!-- 								data-bs-toggle="modal" data-bs-target="#deleteMemberModal">승인 -->
@@ -528,7 +527,11 @@
 	
 		$('.answerBtn').click(function() {
 			const num = $(this).val();
-			$('.myForm' + num).show();
+			if ( $('.myForm').css('display') === 'none' ) {
+				$('.myForm' + num).show();
+				} else if( $('.myForm').css('display') !== 'none'){
+					 $('.myForm').hide();
+				}
 		});
 	
 		$('label').css('display', 'inline-block');
