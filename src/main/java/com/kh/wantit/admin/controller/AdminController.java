@@ -33,6 +33,8 @@ import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.admin.model.vo.Reply;
 import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.funding.model.exception.FundingException;
+import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingEdit;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
@@ -450,77 +452,34 @@ public class AdminController {
 	}
 	
 	//공지사항 수정
-	@RequestMapping("editNotice.ad")
-	public ModelAndView editNotice(@ModelAttribute Notice n, 
-			@RequestParam(value = "code", required = false) String code,
-			HttpSession session,
-			@RequestParam("notice-file") ArrayList<MultipartFile> files, HttpServletRequest request, ModelAndView mv) {
-		String admin = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
-		
-		
-		boolean yn = false;
-		String writerCheckId = aService.checkCode(code);
-		if(!writerCheckId.equals(admin)) {
-			yn = true;
-		}
-//		System.out.println(n);
-		int result1 = aService.selectNewWrite(n); // 원팅 삽입
-		int result2 = 0; // 이미지 삽입
-		
-		// 이미지 속성값 설정
-		ArrayList<Image> list = new ArrayList<Image>();
-//		System.out.println(result1);
-		for(int i = 0; i < files.size(); i++) {
-//			System.out.println(i);
-			MultipartFile upload = files.get(i);
-//			System.out.println(upload);
-//			System.out.println(upload.getOriginalFilename());
-			
-			if(!upload.getOriginalFilename().equals("")) {	//upload에 오리지날 이름이 빈칸이 아니라면
-			// if(upload != null && !upload.isEmpty()) {	// upload가 null이 아니고 upload가 비어있지 않다면
-				String[] returnArr = saveFile(upload, request, i);
-				// 파일이 upload 객체에 있는데 saveFile 함수를 거쳐서
-				// returnArr[0]에는 저장경로 returnArr[1]에는 변경한 이름이 들어있다
-
-				if(returnArr[1] != null) {
-					// 리네임이 null이 아니라면
-					Image img = new Image(); // img에 속성값을 넣어서 추가하자
-					
-					String originFileName = upload.getOriginalFilename();
-					img.setImageForm(originFileName.substring(originFileName.lastIndexOf(".")));
-					img.setOriginName(originFileName);
-					img.setImageRename(returnArr[1]);
-					img.setImageSrc(returnArr[0]);
-					img.setImageBoardCate(6);
-					list.add(img); // 받아온 files에 정보를 넣어서 Image list에 넣자
-//					System.out.println(upload.getOriginalFilename() + "list넣기");
-				}
-			}
-		}
-			
-		// 이미지 속성값 설정 - 썸네일
-		for(int i = 0; i < list.size(); i++) {
-			Image img = list.get(i);
-			if(i == 0) {
-				img.setImageLevel(0);
-			} else {
-				img.setImageLevel(1);
-			}
-			result2 = aService.insertImage(img); // 이미지 삽입
-//			System.out.println(img + "삽입");
-
-		}
-		
-		Notice nt = aService.getNotice(code, yn);
-		Image image = aService.getImage(code);
-		
-		if(result1 > 0 && result2 > 0 && (nt != null)) {
-			mv.addObject("nt", nt).addObject("image", image).setViewName("adminNoticeEdit");
-		} else {
-			throw new AdminException("공지사항 수정 실패");
-		}
-		return mv;
-	}
+//	@RequestMapping("editNotice.ad")
+//	public ModelAndView editNotice(@RequestParam("code") String code, @RequestParam("title") String title, HttpSession session, ModelAndView mv) {
+//		Member m = (Member)session.getAttribute("loginUser");
+//		String login = null;
+//		if(m != null) {
+//			login = m.getMemberId();
+//		}
+//		
+//		boolean yn = false;
+//		String writerCheckId = aService.checkWriter(creatorNum);
+//		if(!writerCheckId.equals(login)) {
+//			yn = true;
+//		}
+//		
+//		// System.out.println(bId);
+//		Notice n = aService.getNotice(code, yn);
+//		Image img = aService.getImage(code);
+////		 System.out.println(img);
+//		 
+//		 int supCount = aService.getSupportCount(code);
+//		
+//		if(n != null) {
+//			mv.addObject("n", n).addObject("img", img).addObject("code", code).addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).setViewName("fundingMain");
+//		}else {
+//			throw new FundingException("펀딩 게시글 상세조회 실패");
+//		}
+//		return mv;
+//	}
 // 
 	
 	// 글 삭제
