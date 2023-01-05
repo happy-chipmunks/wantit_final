@@ -28,7 +28,7 @@
 
 <body>
 <div class="funding-header text-center">
-  <p class="title-info">${ f.fundingCate }</p>
+  <p class="title-info" style="color: #8c86c7;">${ f.fundingCate }</p>
   <h2 class="title"><a href="#">${ f.fundingTitle }</a></h2>
 </div>
 <div class="container-fluid text-center funding-category">
@@ -70,11 +70,15 @@
 	                <div class="review-list">
 	                  <strong>옵션 : </strong>
 	                  <span class="review-option">
-	                  		<c:if test="${ rv.reviewer eq ps.buyer }">
+	                  		<c:if test="${ rv.reviewer eq ps.buyerName }">
 	                  			${ ps.rewardBuyList }
 	                  		</c:if>
 	                  </span>
-	                  <span class="review-nickname">> ${ rv.reviewer }</span>
+	                  <c:forEach items="${ reviewerNick }" var="nick">
+	                  		<c:if test="${ rv.reviewer eq nick.memberId }">
+	                  			<span class="review-nickname">> ${ nick.memberNickname }</span>
+	                  		</c:if>
+	                  </c:forEach>
 	                  <p class="review-content">
 	                    ${ fn:substring(rv.reviewContent, 0, 10) }
 	                  </p>
@@ -151,10 +155,10 @@
 
       <div class="container funding-buttons g-0">
         <c:if test="${ m != null }">
-		 	<button class="btn-funding" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ fundingNum }'">펀딩하기</button>
+		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ fundingNum }'">펀딩하기</button>
 		</c:if>
 		<c:if test="${ m == null }">
-		 	<button class="btn-funding" onclick="noLogin()">펀딩하기</button>
+		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">펀딩하기</button>
 		</c:if>
         <div class="row g-1">
           <div class="col-sm-4"><button onclick="" class="btn-funding-small">

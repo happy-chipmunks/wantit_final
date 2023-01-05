@@ -74,7 +74,8 @@
 		#i-style{ font-size : 14px; }
 		
 		.h4{
-			 background-color: #ffccff;
+			 background-color: #8c86c7;
+			 color: white;
 		}
 		
     </style>
@@ -96,18 +97,15 @@
 	
     <div class="container">
     	<h1 id="planning"><b>프로젝트 기획</b></h1>
-    	<div class="text-end">
-          <button type="button" onclick="location.href='${contextPath}/fundingMain.fund'" class="btn btn-secondary">··· 미리보기</button>
-        </div>
     </div>
 	
 	<form action="${ contextPath }/insertFunding.fund" method="POST" enctype="multipart/form-data"  id="formImage">
 			<div class="row">
-				<div class="container col-6" style="text-align: center;"><br>
+				<div class="container col-6"><br>
 					<h4 class="pb-1 h4">펀딩 기본 정보</h4><br>
 					
 					<h5 class="fundingH5" style="display: inline;">펀딩 카테고리</h5>&nbsp;<span class="essential">*</span><br>
-					<select name="category" style="width: 200px;" class="funding-style">
+					<select name="category" style="width: 200px;" class="funding-style" required>
 	   					<option>테크·가전</option>
 	   					<option>패션·잡화</option>
 	   					<option>뷰티</option>
@@ -116,20 +114,26 @@
 	   					<option>여행·레저</option>
 	   					<option>스포츠</option>
 	   					<option>캐릭터·굿즈</option>
+	   					<option>베이비·키즈</option>
+	   					<option>반려동물</option>
+	   					<option>게임</option>
+	   					<option>컬쳐·아티스트</option>
+	   					<option>출판</option>
+	   					<option>클래스·컨설팅</option>
 	   				</select>
 					<br><br>
 					
 					<h5 class="fundingH5">펀딩 제목</h5>&nbsp;<span class="essential">*</span><br>
-					<input class="funding-style" placeholder="제목을 입력해 주세요" maxlength="40" name="fundingTitle" type="text" style="width: 300px;">
+					<input class="funding-style" placeholder="제목을 입력해 주세요" maxlength="40" name="fundingTitle" type="text" style="width: 300px;" required>
 					<br><br>
 					
 					<h5 class="fundingH5">펀딩 요약</h5>&nbsp;<span class="essential">*</span><br>
-					<input class="funding-style" placeholder="펀딩을 간단히 요약해 주세요" maxlength="40" name="fundingSummary" type="text" style="width: 300px;">
+					<input class="funding-style" placeholder="펀딩을 간단히 요약해 주세요" maxlength="40" name="fundingSummary" type="text" style="width: 300px;" required>
 					<br><br>
 					
 					<h5 class="fundingH5">펀딩 대표이미지</h5>
 					<div class="selectCover" style="padding-left: 0;">
-					 	<img id="cover" style="width: 200px; height: 200px;" src="${ contextPath }/resources/myPageImage/대체이미지.png"/>
+					 	<img id="cover" style="width: 200px; height: 200px;" src="${ contextPath }/resources/myPageImage/대체이미지2.png"/>
 					</div>
 		  				
 		  				<div class="form-group" style="margin: 8px 0 8px;">
@@ -145,28 +149,19 @@
 					<h5 class="fundingH5">펀딩 소개</h5>&nbsp;<span class="essential">*</span><br>
 					<div>회원님의 펀딩 프로젝트를 소개해주세요.</div>
 				    <div>
-				    	<textarea id="summernote" name="fundingContent"></textarea>
+				    	<textarea id="summernote" name="fundingContent" required></textarea>
 				    </div><br>
 				    
 				    <h5 class="fundingH5">펀딩 목표금액</h5>&nbsp;<span class="essential">*</span><br>
-					<input class="funding-style" maxlength="40" name="targetMoney" type="number" style="width: 300px;">
+					<input class="funding-style" maxlength="40" name="targetMoney" type="number" style="width: 300px;" required>
+					<br><br>
+
+					<h5 class="fundingH5">펀딩 시작일</h5>&nbsp;<span class="essential">*</span><br>
+					<input class="funding-style" maxlength="40" id="startDate" name="fundingStart" type="date" style="width: 300px;" required>
 					<br><br>
 					
-<!-- 					<h5 class="fundingH5">펀딩 최소 후원 금액</h5>&nbsp;<br> -->
-<!-- 					<i style="color: gray;" id="i-style">기본 최소 후원 금액은 1,000원 입니다.</i><br> -->
-<!-- 					<input class="funding-style" maxlength="40" min="1000" step="10" name="minimumAmount" list="amountList" type="number" style="width: 300px;"> -->
-<!-- 					<br><br> -->
-					
-<!-- 					<datalist id="amountList"> -->
-<!-- 						<option>1000</option> -->
-<!-- 						<option>5000</option> -->
-<!-- 						<option>10000</option> -->
-<!-- 						<option>50000</option> -->
-<!-- 						<option>100000</option> -->
-<!-- 					</datalist> -->
-					
 					<h5 class="fundingH5">펀딩 종료일</h5>&nbsp;<span class="essential">*</span><br>
-					<input class="funding-style" maxlength="40" id="endDate" name="fundingEnd" type="date" style="width: 300px;">
+					<input class="funding-style" maxlength="40" id="endDate" name="fundingEnd" type="date" style="width: 300px;" required>
 					<br>
 					
 					<br>
@@ -319,8 +314,16 @@
 	      var timeOff = new Date().getTimezoneOffset()*60000;
 	      var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
 	      
-	      document.getElementById('endDate').setAttribute("min", today);
+// 	      document.getElementById('endDate').setAttribute("min", today);
+	      document.getElementById('startDate').setAttribute("min", today);
 	      console.log(today);
+	      
+	      // 펀딩 종료일 (펀딩 시작일보다 뒷 날로 고를 수 있어야 함)
+	      $('#startDate').change(function(){
+	    	  var start = $('#startDate').val();
+	    	  
+	    	  $('#endDate').attr("min", start);
+	      });
 	      
 	      // 발송 시작일 (펀딩 종료일보다 뒷 날로 고를 수 있어야 함)
 	      $('#endDate').change(function(){

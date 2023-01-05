@@ -11,7 +11,7 @@
 	
 	<insert id="insertFunding">
 		insert into funding
-		values(seq_funding.nextval, #{creatorNum}, #{fundingCate}, #{fundingTitle}, #{fundingCount}, sysdate, #{fundingEnd}, default, #{targetMoney}, default, sysdate, default, default, #{creatorNickname}, #{fundingContent}, #{fundingSummary})
+		values(seq_funding.nextval, #{creatorNum}, #{fundingCate}, #{fundingTitle}, #{fundingCount}, #{fundingStart}, #{fundingEnd}, default, #{targetMoney}, default, sysdate, default, default, #{creatorNickname}, #{fundingContent}, #{fundingSummary})
 	</insert>
 	
 	<insert id="insertImage">
@@ -26,8 +26,6 @@
 		where funding_status='Y'
 		order by funding_num desc
 	</select>
-
-
 	
 	<select id="fundingImageList" resultMap="imageResultSet">
 		select *
@@ -160,6 +158,7 @@
 		select * 
 		from review
 		where funding_num=#{fundingNum}
+		order by review_num desc
 	</select>
 	
 	<select id="getPayList" resultMap="payScheduleResultSet">
@@ -206,6 +205,22 @@
 		where funding_end <![CDATA[<]]> sysdate
 		order by funding_count desc
 	</select>
+	
+	<insert id="insertDibs">
+		insert into dibs
+		values(#{dibsId}, #{fundingNum})
+	</insert>
+	
+	<delete id="deleteDibs">
+		delete from dibs
+		where dibs_id = #{dibsId}
+	</delete>
+	
+	<select id="getReviewerNickName" resultMap="memberResultSet">
+		select member_nickname, member_id
+		from member join review on(member_id=reviewer)
+        where funding_num=#{fundingNum}
+	</select>
 
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
@@ -225,7 +240,6 @@
 		<result column="creator_name" property="creatorNickname"/>
 		<result column="funding_summary" property="fundingSummary"/>
 	</resultMap>
-
 	
 	<resultMap type="Creator" id="creatorResultSet">
 		<id column="creator_num" property="creatorNum"/>
@@ -282,12 +296,12 @@
 		<result column="funding_num" property="fundingNum"/>
 		<result column="review_content" property="reviewContent"/>
 		<result column="review_status" property="reviewStatus"/>
-		<result column="review_rating" property="reviewReating"/>
+		<result column="review_rating" property="reviewRating"/>
 	</resultMap>
 	
 	<resultMap type="PaySchedule" id="payScheduleResultSet">
-		<id column="customer_uid" property="customerUid"/>
-		<result column="merchant_uid" property="merchantUid"/>
+		<id column="customer_uid" property="customerUId"/>
+		<result column="merchant_uid" property="merchantUId"/>
 		<result column="merchant_name" property="merchantName"/>
 		<result column="buyer_name" property="buyerName"/>
 		<result column="buyer_tel" property="buyerTel"/>
@@ -304,6 +318,22 @@
 	<resultMap type="SupportCount" id="supportCountResultSet">
 		<id column="supportor" property="supportor"/>
 		<result column="funding_num" property="fundingNum"/>
+	</resultMap>
+	
+	<resultMap type="Member" id="memberResultSet">
+		<id column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_PWD" property="memberPwd"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICKNAME" property="memberNickname"/>
+		<result column="MEMBER_PHONE" property="memberPhone"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="MEMBER_ENROLL_DATE" property="memberEnrolldate"/>
+		<result column="MEMBER_GENDER" property="memberGender"/>
+		<result column="MEMBER_TYPE" property="memberType"/>
+		<result column="MEMBER_INTRODUCE" property="memberIntroduce"/>
+		<result column="MEMBER_CATE" property="memberCate"/>
+		<result column="MEMBER_STATUS" property="memberStatus"/>
 	</resultMap>
 
 </mapper>

@@ -9,8 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.FundingDibs;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
+import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
 
@@ -145,6 +147,18 @@ public class FundingDAO {
 
 	public ArrayList<Funding> getFundingEndRanking(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("fundingMapper.getFundingEndRanking");
+	}
+
+	public int insertDibs(FundingDibs dibs, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("fundingMapper.insertDibs", dibs);
+	}
+
+	public int deleteDibs(FundingDibs dibs, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("fundingMapper.deleteDibs", dibs);
+	}
+
+	public ArrayList<Member> getReviewerNickName(Integer fundingNum, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getReviewerNickName", fundingNum);
 	}
 
 	

@@ -6,9 +6,11 @@ import java.util.HashMap;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.FundingDibs;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.funding.model.vo.SupportCount;
+import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
 
@@ -71,5 +73,11 @@ public interface FundingService {
 	ArrayList<Funding> getFundingEndLatest();
 
 	ArrayList<Funding> getFundingEndRanking();
+
+	int insertDibs(FundingDibs dibs);
+
+	int deleteDibs(FundingDibs dibs);
+
+	ArrayList<Member> getReviewerNickName(Integer fundingNum);
 
 }
