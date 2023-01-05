@@ -24,6 +24,7 @@
 		<typeAlias type="com.kh.wantit.common.model.vo.BannerImage" alias="BannerImage"/>
 		<typeAlias type="com.kh.wantit.common.model.vo.Alarm" alias="Alarm"/>
 		<typeAlias type="com.kh.wantit.funding.model.vo.FundingNotice" alias="FundingNotice"/>
+		<typeAlias type="com.kh.wantit.funding.model.vo.SupportCount" alias="SupportCount"/>
 		
 		
 	</typeAliases>

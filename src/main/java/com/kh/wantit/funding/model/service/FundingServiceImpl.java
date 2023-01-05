@@ -1,15 +1,20 @@
 package com.kh.wantit.funding.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.dao.FundingDAO;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingNotice;
+import com.kh.wantit.funding.model.vo.Review;
+import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
 
 @Service("fService")
@@ -128,4 +133,52 @@ public class FundingServiceImpl implements FundingService{
 	public Funding getFundingInfo(int bId) {
 		return fDAO.getFundingInfo(bId, sqlSession);
 	}
+
+	@Override
+	public int fundingEdit(Funding f) {
+		return fDAO.fundingEdit(f, sqlSession);
+	}
+
+	@Override
+	public ArrayList<Review> getFundingReview(int fundingNum, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("fundingMapper.getFundingReview", fundingNum);
+	}
+
+	@Override
+	public ArrayList<PaySchedule> getPayList(int fundingNum) {
+		return fDAO.getPayList(fundingNum, sqlSession);
+	}
+
+	@Override
+	public int getSupportCount(int fundingNum) {
+		return fDAO.getSupportCount(fundingNum, sqlSession);
+	}
+
+	@Override
+	public int getReviewCount(int fundingNum) {
+		return fDAO.getReviewCount(fundingNum, sqlSession);
+	}
+
+	@Override
+	public int getListCountR(int fundingNum) {
+		return fDAO.getListCountR(fundingNum, sqlSession);
+	}
+
+	@Override
+	public ArrayList<Funding> getFundingIngListRanking() {
+		return fDAO.getFundingIngListRanking(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Funding> getFundingEndLatest() {
+		return fDAO.getFundingEndLatest(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Funding> getFundingEndRanking() {
+		return fDAO.getFundingEndRanking(sqlSession);
+	}
+
 }

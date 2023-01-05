@@ -19,6 +19,8 @@ import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.FundingEdit;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
@@ -208,6 +210,15 @@ public class AdminDAO {
 		int result = sqlSession.update("adminMapper.noProjectF", id);
 		System.out.println("f result = " + result);
 		return result;
+	}
+
+	public int noEditProjectF(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("adminMapper.noEditProjectF", id);
+	}
+
+	public int okEditProjectF(FundingEdit fe, SqlSessionTemplate sqlSession) {
+		int result = sqlSession.update("adminMapper.okEditPro", fe);
+		return sqlSession.update("adminMapper.okEditProjectF", fe);
 	}
 	
 //	public int noProject(SqlSessionTemplate sqlSession, String id) {

@@ -151,6 +151,61 @@
 		where funding_num=#{bId}
 	</select>
 
+	<insert id="fundingEdit">
+		insert into funding_edit
+		values(seq_funding_edit.nextval, #{fundingTitle}, #{fundingContent}, #{fundingNum}, default, sysdate, default)
+	</insert>
+	
+	<select id="getFundingReview" resultMap="reviewResultSet">
+		select * 
+		from review
+		where funding_num=#{fundingNum}
+	</select>
+	
+	<select id="getPayList" resultMap="payScheduleResultSet">
+		select *
+		from payschedule
+		where funding_num=#{fundingNum}
+	</select>
+	
+	<select id="getSupportCount" resultType="_int">
+		select count(*)
+		from support_count
+		where funding_num=#{fundingNum}
+	</select>
+	
+	<select id="getReviewCount" resultType="_int">
+		select count(*)
+		from review
+		where funding_num=#{fundingNum}
+	</select>
+	
+	<select id="getListCountR" resultType="_int">
+		select count(*)
+		from review
+		where funding_num=#{fundingNum}
+		order by review_num desc
+	</select>
+	
+	<select id="getFundingIngListRanking" resultMap="fundingResultSet">
+		select *
+		from funding
+		order by funding_count desc
+	</select>
+	
+	<select id="getFundingEndLatest" resultMap="fundingResultSet">
+		select *
+		from funding
+		where funding_end <![CDATA[<]]> sysdate
+		order by funding_num desc
+	</select>
+	
+	<select id="getFundingEndRanking" resultMap="fundingResultSet">
+		select *
+		from funding
+		where funding_end <![CDATA[<]]> sysdate
+		order by funding_count desc
+	</select>
 
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
@@ -219,6 +274,36 @@
 		<result column="funding_notice_count" property="fundingNoticeCount"/>
 		<result column="funding_notice_status" property="fundingNoticeStatus"/>
 		<result column="funding_notice_category" property="fundingNoticeCategory"/>
+	</resultMap>
+	
+	<resultMap type="Review" id="reviewResultSet">
+		<id column="review_num" property="reviewNum"/>
+		<result column="reviewer" property="reviewer"/>
+		<result column="funding_num" property="fundingNum"/>
+		<result column="review_content" property="reviewContent"/>
+		<result column="review_status" property="reviewStatus"/>
+		<result column="review_rating" property="reviewReating"/>
+	</resultMap>
+	
+	<resultMap type="PaySchedule" id="payScheduleResultSet">
+		<id column="customer_uid" property="customerUid"/>
+		<result column="merchant_uid" property="merchantUid"/>
+		<result column="merchant_name" property="merchantName"/>
+		<result column="buyer_name" property="buyerName"/>
+		<result column="buyer_tel" property="buyerTel"/>
+		<result column="buyer_addr" property="buyerAddr"/>
+		<result column="schedule_status" property="scheduleStatus"/>
+		<result column="payment_status" property="paymentStatus"/>
+		<result column="reward_buy_list" property="rewardBuyList"/>
+		<result column="card_number" property="cardNumber"/>
+		<result column="card_name" property="cardName"/>
+		<result column="funding_num" property="fundingNum"/>
+		<result column="amount" property="amount"/>
+	</resultMap>
+	
+	<resultMap type="SupportCount" id="supportCountResultSet">
+		<id column="supportor" property="supportor"/>
+		<result column="funding_num" property="fundingNum"/>
 	</resultMap>
 
 </mapper>

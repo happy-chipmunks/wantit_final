@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,12 +20,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.wantit.admin.model.vo.PageInfo;
+import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.exception.FundingException;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingNotice;
+import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.member.vo.Member;
+import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
 
 @Controller
@@ -35,14 +40,40 @@ public class FundingController {
 	
 	// 펀딩 글 목록
 	@RequestMapping("fundingList.fund") 
-	public String fundingList(Model model) {
+	public String fundingList(Model model, @RequestParam(value="ing", required=false) Integer ing, @RequestParam(value="rank", required=false) Integer rank) {
 		ArrayList<Funding> fundingList = fService.fundingList();
 		ArrayList<Image> imageList = fService.fundingImageList();
-//		System.out.println(imageList);
+//		System.out.println(fundingList);
+		System.out.println(ing);
+		System.out.println(rank);
+		ArrayList<Funding> ingRanking = new ArrayList<>();
+		ArrayList<Funding> endLatest = new ArrayList<>();
+		ArrayList<Funding> endRanking = new ArrayList<>();
+		if(ing != null && rank != null) {
+			if(ing == 1 && rank == 2) {
+				ingRanking = fService.getFundingIngListRanking();
+			}else if(ing == 2 && rank == 1){
+				endLatest = fService.getFundingEndLatest();
+			}else if(ing == 2 && rank == 2) {
+				endRanking = fService.getFundingEndRanking();
+			}
+		}
 		
-		if(fundingList != null && imageList != null) {
+		if (fundingList != null
+				&& imageList != null && ingRanking != null & endLatest != null && endRanking != null) {
 			model.addAttribute("fundingList", fundingList);
 			model.addAttribute("imageList", imageList);
+			model.addAttribute("ingRanking", ingRanking);
+			model.addAttribute("endLatest", endLatest);
+			model.addAttribute("endRanking", endRanking);
+			model.addAttribute("ing", ing);
+			model.addAttribute("rank", rank);
+			return "fundingProceed";
+		}else if(fundingList != null && imageList != null){
+			model.addAttribute("fundingList", fundingList);
+			model.addAttribute("imageList", imageList);
+			model.addAttribute("ing", ing);
+			model.addAttribute("rank", rank);
 			return "fundingProceed";
 		}else {
 			throw new FundingException("펀딩 목록 불러오기 실패");
@@ -58,8 +89,8 @@ public class FundingController {
 	// 펀딩 등록
 	@RequestMapping("insertFunding.fund")
 	public String insertFunding(@ModelAttribute Funding f, @RequestParam("file2") ArrayList<MultipartFile> files, HttpServletRequest request, @RequestParam("category") String cate, @ModelAttribute Reward r,
-													@RequestParam("rewardTitle") ArrayList<String> rewardTitleArr, @RequestParam("rewardContent") ArrayList<String> rewardContentArr, @RequestParam("rewardLimit") ArrayList<Integer> rewardLimitArr,
-													@RequestParam("rewardExpectDate") ArrayList<Date> rewardExpectDateArr, @RequestParam("rewardPrice") ArrayList<Integer> rewardPriceArr, @RequestParam("rewardShipping") ArrayList<Integer> rewardShippingArr) {
+													@RequestParam("rewardTitle[]") ArrayList<String> rewardTitleArr, @RequestParam("rewardContent[]") ArrayList<String> rewardContentArr, @RequestParam("rewardLimit[]") ArrayList<Integer> rewardLimitArr,
+													@RequestParam("rewardExpectDate[]") ArrayList<Date> rewardExpectDateArr, @RequestParam("price[]") ArrayList<Integer> rewardPriceArr, @RequestParam("shipping[]") ArrayList<Integer> rewardShippingArr) {
 		String id = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		// System.out.println(id);
 		
@@ -77,8 +108,16 @@ public class FundingController {
 		int result2 = 0;
 		int result3 = 0;
 		// System.out.println(r);
-		for(int i = 0; i < rewardTitleArr.size(); i++) {
+//		ArrayList<Reward> reward = new ArrayList<Reward>();
+		System.out.println(rewardTitleArr);
+		System.out.println(rewardContentArr);
+		System.out.println(rewardLimitArr);
+		System.out.println(rewardExpectDateArr);
+		System.out.println(rewardPriceArr);
+		System.out.println(rewardShippingArr);
+		for(int i = 0; i < rewardTitleArr.size() - 1; i++) {
 			r.setRewardTitle(rewardTitleArr.get(i));
+			System.out.println(rewardTitleArr.get(i));
 			r.setRewardContent(rewardContentArr.get(i));
 			r.setRewardLimit(rewardLimitArr.get(i));
 			r.setRewardExpectDate(rewardExpectDateArr.get(i));
@@ -163,7 +202,11 @@ public class FundingController {
 		@RequestMapping("uploadSummernoteImageFile.fund")
 		public void profileUpload(String email, MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception{
 			String root = request.getSession().getServletContext().getRealPath("resources");
-			System.out.println(root);
+//			System.out.println(request);
+//			System.out.println(request.getSession());
+//			System.out.println(request.getSession().getServletContext());
+//			System.out.println(request.getSession().getServletContext().getRealPath("resources"));
+//			System.out.println(root);
 			String savePath = root + "\\funding\\summernote";
 			
 			File folder = new File(savePath);
@@ -214,10 +257,12 @@ public class FundingController {
 		// System.out.println(bId);
 		Funding f = fService.getFunding(bId, yn);
 		Image img = fService.getImage(bId);
-		 System.out.println(img);
+//		 System.out.println(img);
+		 
+		 int supCount = fService.getSupportCount(bId);
 		
 		if(f != null) {
-			mv.addObject("f", f).addObject("img", img).addObject("bId", bId).addObject("m", m).setViewName("fundingMain");
+			mv.addObject("f", f).addObject("img", img).addObject("bId", bId).addObject("supCount", supCount).addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).setViewName("fundingMain");
 		}else {
 			throw new FundingException("펀딩 게시글 상세조회 실패");
 		}
@@ -235,11 +280,12 @@ public class FundingController {
 		int count = fService.fnListCount(bId);
 		
 		Funding f = fService.getCurrFunding(bId);
-		System.out.println(f);
+//		System.out.println(f);
 		
-		System.out.println(bId);
+//		System.out.println(bId);
 		String writer = fService.getFundingCreator(bId);
 		int writerNo = fService.getFundingCreatorNum(writer);
+		 int supCount = fService.getSupportCount(bId);
 		
 		model.addAttribute("count", count);
 		model.addAttribute("fnList", fnList);
@@ -248,6 +294,7 @@ public class FundingController {
 		model.addAttribute("bId", bId);
 		model.addAttribute("writerNo", writerNo);
 		model.addAttribute("f", f);
+		model.addAttribute("supCount", supCount);
 		return "fundingNotice";
 	}
 	
@@ -295,25 +342,95 @@ public class FundingController {
 		}
 	}
 	
-	// 펀딩하기
-//	@RequestMapping("doFunding.fund")
-//	public String doFunding(@RequestParam("bId") int bId, HttpSession session, Model model) {
-//		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
-//		
-//		Funding f = fService.getFundingInfo(bId);
-//		System.out.println(f);
-//		ArrayList<Reward> rList = fService.fundingRewardList(bId);
-////		System.out.println(rList);
-//		
-//		if(rList.size() > 0) {
-//			model.addAttribute("rList", rList);
-//			model.addAttribute("bId", bId);
-//			model.addAttribute("id", id);
-//			model.addAttribute("f", f);
-//			return "doFundingView";
-//		}else{
-//			throw new FundingException("펀딩하기 실패");
+	// 펀딩 수정하기
+	@RequestMapping("fundingEdit.fund")
+	public String fundingEdit(@RequestParam("fundingNum") int fundingNum, HttpSession session, Model model) {
+		String creatorId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		Funding f = fService.getFundingInfo(fundingNum);
+		System.out.println(f);
+		Image i = fService.getImage(fundingNum);
+		
+		model.addAttribute("creatorId", creatorId);
+		model.addAttribute("fundingNum", fundingNum);
+		model.addAttribute("f", f);
+		model.addAttribute("i", i);
+		return "fundingEdit";
+	}
+	
+	// 펀딩 수정 내용 funding_edit에 넣기
+	@RequestMapping("fundingEditSend.fund")
+	public String fundingEditSend(@ModelAttribute Funding f, @RequestParam("category") String cate) {
+		System.out.println(f);
+		f.setFundingCate(cate);
+		int result = fService.fundingEdit(f);
+		
+//		redirectAttributes.addAttribute("creatorId", creatorId);
+//		redirectAttributes.addAttribute("fundingNum", fundingNum);
+//		redirectAttributes.addAttribute("f", f);
+//		redirectAttributes.addAttribute("i", i);
+		return "fundingProceed";
+	}
+	
+	// 펀딩 리뷰 보기
+	@RequestMapping("fundingReview.fund")
+	public String fundingReview(@RequestParam("bId") int fundingNum, Model model, @RequestParam(value = "page", required = false) Integer page, HttpSession session) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = page;
+		}
+		
+		Member m = ((Member)session.getAttribute("loginUser"));
+		
+		int listCount = fService.getListCountR(fundingNum);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 8);	
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("fundingNum", fundingNum);
+		map.put("2", 2);
+		
+		ArrayList<Review> rv = fService.getFundingReview(fundingNum, pi);
+		int revCount = fService.getReviewCount(fundingNum);
+		ArrayList<PaySchedule> ps = fService.getPayList(fundingNum);
+		int supCount = fService.getSupportCount(fundingNum);
+		
+		Funding f = fService.getFundingInfo(fundingNum);
+		String writer = fService.getFundingCreator(fundingNum);
+		int writerNo = fService.getFundingCreatorNum(writer);
+		
+		model.addAttribute("fundingNum", fundingNum);
+		model.addAttribute("rv", rv);
+		model.addAttribute("ps", ps);
+		model.addAttribute("supCount", supCount);
+		model.addAttribute("f", f);
+		model.addAttribute("revCount", revCount);
+		model.addAttribute("writerNo", writerNo);
+		model.addAttribute("m", m);
+		return "fundingReview";
+	}
+	
+	// 펀딩 리스트 진행, 종료/최신순, 인기순
+//	@RequestMapping("ingList.fund")
+//	public String ingList(@RequestParam("ing") Integer ing, @RequestParam("ranking") Integer rank, Model model) {
+//		System.out.println(ing);
+//		System.out.println(rank);
+//		ArrayList<Funding> ingRanking = new ArrayList<>();
+//		ArrayList<Funding> endLatest = new ArrayList<>();
+//		ArrayList<Funding> endRanking = new ArrayList<>();
+//		if(ing != null && rank != null) {
+//			if(ing == 1 && rank == 2) {
+//				ingRanking = fService.getFundingIngListRanking();
+//			}else if(ing == 2 && rank == 1){
+//				endLatest = fService.getFundingEndLatest();
+//			}else if(ing == 2 && rank == 2) {
+//				endRanking = fService.getFundingEndRanking();
+//			}
 //		}
+//		
+//		model.addAttribute("ingRanking", ingRanking);
+//		model.addAttribute("endLatest", endLatest);
+//		model.addAttribute("endRanking", endRanking);
+//		return "redirect:fundingList.fund";
 //	}
 	
 	

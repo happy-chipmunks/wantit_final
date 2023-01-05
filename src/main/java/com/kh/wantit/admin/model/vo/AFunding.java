@@ -2,6 +2,7 @@ package com.kh.wantit.admin.model.vo;
 
 import java.sql.Date;
 
+import com.kh.wantit.funding.model.vo.FundingEdit;
 import com.kh.wantit.wanting.model.vo.Wanting;
 
 import lombok.AllArgsConstructor;
@@ -33,4 +34,5 @@ public class AFunding {
 	private String creatorNickname;
 	private String division;
 	private Wanting wanting;
+	private FundingEdit fundingEdit;
 }

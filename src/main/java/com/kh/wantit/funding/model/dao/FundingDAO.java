@@ -2,12 +2,16 @@ package com.kh.wantit.funding.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingNotice;
+import com.kh.wantit.funding.model.vo.Review;
+import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
 
 @Repository("fDAO")
@@ -104,6 +108,45 @@ public class FundingDAO {
 	public Funding getFundingInfo(int bId, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("fundingMapper.getFundingInfo", bId);
 	}
+
+	public int fundingEdit(Funding f, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("fundingMapper.fundingEdit", f);
+	}
+
+	public int getListCountR(int fundingNum, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getListCountR", fundingNum);
+	}
+	
+	public ArrayList<Review> getFundingReview(int fundingNum, PageInfo pi, SqlSessionTemplate sqlSession) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("fundingMapper.getFundingReview", fundingNum, rowBounds);
+	}
+
+	public ArrayList<PaySchedule> getPayList(int fundingNum, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getPayList", fundingNum);
+	}
+
+	public int getSupportCount(int fundingNum, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getSupportCount", fundingNum);
+	}
+
+	public int getReviewCount(int fundingNum, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getReviewCount", fundingNum);
+	}
+
+	public ArrayList<Funding> getFundingIngListRanking(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getFundingIngListRanking");
+	}
+
+	public ArrayList<Funding> getFundingEndLatest(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getFundingEndLatest");
+	}
+
+	public ArrayList<Funding> getFundingEndRanking(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getFundingEndRanking");
+	}
+
 	
 	
 }
