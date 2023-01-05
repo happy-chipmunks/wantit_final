@@ -367,7 +367,7 @@ public class MemberController {
 				   return "redirect:"+ beforeURL;   
 			   }
 		   }else{
-			   session.setAttribute("msg","ID 또는 password를 확인해주세요.");
+			   model.addAttribute("msg","ID 또는 password를 확인해주세요.");
 			   
 			   return "myPage_login";
 		   }
