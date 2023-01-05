@@ -92,7 +92,10 @@
 	    width: 100px; 
 	
 	    height: 100px;
-
+		}
+		#color{
+			background-color :9966FF;
+			
 		}
     </style>
 </head>
@@ -108,7 +111,7 @@
     	</div>
     	<hr>
     	<div class="text-end">
-          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSupporter.me'">서포터</button>
+          <button type="button" class="btn"   style="background-color: #AD699B;" onclick="location.href='${contextPath}/myPageSupporter.me'">서포터</button>
           <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreator.me'">크리에이터</button>
         </div>
        
@@ -143,10 +146,7 @@
 	   				</p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporter.me'"><b>내 정보</b></button></p>
-   				</li>
-   				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterFunding.me'"><b>펀딩</b></button></p>
+   					<p><button class="btn button" style="background-color: #AD699B; " onclick="location.href='${contextPath}/myPageSupporter.me'"><b>내 정보</b></button></p>
    				</li>
    				<li>
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterWanting.me'"><b>원팅</b></button></p>
@@ -201,9 +201,7 @@
 					<th>주소</th>
 					<td colspan="2">${ loginUser.memberAddress }</td>
 				</tr>
-				<!-- <tr>
-					<th colspan="3">dd</th>
-				</tr> -->
+				
 				<tr>
 					<th>개인정보
 						<!-- <select class="form-select" style="width: 70%;">
@@ -225,9 +223,11 @@
 					<td colspan="2">
 					<td>
 						<button class="btn btn-secondary btn-sm"  type="button" onclick="location.href='${contextPath}/updatemyinfo.me'">+수정하기</button>
-						<button class="btn btn-secondary btn-sm"  type="button" onclick="location.href='${contextPath}/deleteMember.me'">-탈퇴하기</button>
+						
+						<button class="btn btn-secondary btn-sm"  type="submit" id="deleteMember"  onclick="chcekUserId();">-탈퇴하기</button>
+						
 					</td>
-				</tr>
+				</tr>  <!-- onclick="location.href='${contextPath}/deleteMember.me'" -->
 				
 			</table>
 			</form>
@@ -254,7 +254,27 @@
 		    document.signform.submit();
 		}
 		
-		
+		var dm = document.getElementById("deleteMember");
+		function chcekUserId(){
+			var checkdelete = confirm("정말 탈퇴하시겠습니까?(탈퇴하시면 복구가 불가합니다.)");
+			if(checkdelete == true){
+				$.ajax({
+					type:"POST",
+					url:"/wantit/deleteMember.me?",
+					data: false,
+					cache:false,
+					success:function(data){
+						location.href="http://localhost:8080/wantit/home.do"
+					}
+				});
+						
+			}else{
+				return false;
+			}
+			
+			
+			
+		}
 		
 		
 		
