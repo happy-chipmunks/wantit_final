@@ -1,0 +1,159 @@
+.title{
+	font-family: 'Do Hyeon', sans-serif;
+    font-size: 30px;
+}
+
+.payhistory{
+	text-align: center;
+	 font-family: 'Noto Sans KR', sans-serif;
+}
+
+.clickArea{
+	margin: 15px;
+}
+
+.noticeAndEvent{
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 40px;
+    font-size: 50px;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.lists{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 17px;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.all{
+    border-bottom: 3px solid #8c86c7;
+}
+
+.payFundList{
+    border-bottom: 1px solid #8c86c7;
+    width: 100%;
+    height: 170px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 10px;
+}
+
+.nORe{
+    font-family: 'Do Hyeon', sans-serif;
+    color: dimgrey;
+    font-size: 19px;
+}
+
+.condition{
+    font-family: 'Do Hyeon', sans-serif;
+    color: #8c86c7;
+    font-size: 19px;
+}
+
+.imageArea{
+    padding: 10px;
+}
+
+.payFundTitle{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 20px;
+}
+
+.dateAndPayStatus{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 15px;
+    color: dimgrey;
+    padding-top: 20px;
+}
+
+.page-link{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 15px;
+    color: dimgrey;
+    border: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+.previous, .next{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.searchInput{
+    display: inline;
+    width: 200px;
+    height: 40px;
+    margin-bottom: 200px;
+    border: 0;
+}
+
+.searchNoticeAndEventBtn{
+    display: inline;
+    width: 70px;
+    margin-bottom: 200px;
+    border: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.dropdown{
+    display: inline;
+    width: 100px;
+    padding-left: 0;
+    margin-left: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.drop{
+    margin-top: 1px;
+    margin-left: 27px;
+    border-radius: 0;
+    padding-bottom: 8px;
+    border: 0;
+    
+}
+
+.dropdown-menu{
+    border: 0;
+}
+
+.dropdown-item{
+    width: 110px;
+}
+
+.historyOrReview{
+	text-align: center;
+/* 	padding: 15px; */
+	padding-top: 15px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.repayOrReview, .history {
+	background-color: #8c86c7;
+	padding: 5px;
+	margin: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.writerAndDate{
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.wantingWriter{
+	float: right;
+	
+}
+
+.boardCount{
+	float: right;
+}
+
+.wantingSummary{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 14px;
+	color: dimgray;
+}

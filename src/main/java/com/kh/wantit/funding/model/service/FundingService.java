@@ -1,4 +1,4 @@
-package com.kh.wantit.funding.model.service;
+﻿package com.kh.wantit.funding.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +63,10 @@ public interface FundingService {
 	int getSupportCount(int fundingNum);
 
 	int getReviewCount(int fundingNum);
+	int insertReview(Review review);
+
+	int checkExistReview(Review r);
+
 	
 	int getListCountR(int fundingNum);
 

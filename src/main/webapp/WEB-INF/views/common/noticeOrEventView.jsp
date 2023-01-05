@@ -13,7 +13,7 @@
         <div class="row" style="padding-top: 20px;">
             <div class="col-2"></div>
             <div class="col-8">
-                <div class="title">[크리에이터 모집]원잇 첫 펀딩 메이커 프로모션 신청자 모집(완료 시 마감)</div>
+                <div class="title">${ notice.noticeTitle }</div>
                 <br>
                 <span class="profileImageArea"><img src="" alt="" class="profileIamge"></span>
                 <span class="userInfo">WANTIT</span><br>

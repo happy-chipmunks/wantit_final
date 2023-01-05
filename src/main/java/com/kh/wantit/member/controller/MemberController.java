@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.Session;
@@ -27,8 +28,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.apache.maven.shared.invoker.SystemOutHandler;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -44,12 +43,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.kh.wantit.admin.model.vo.PageInfo;
+import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.funding.model.service.FundingService;
+import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.member.Service.MemberService;
 import com.kh.wantit.member.exception.MemberException;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
+import com.kh.wantit.pay.service.PayService;
+import com.kh.wantit.pay.vo.PaySchedule;
+import com.kh.wantit.wanting.model.service.WantingService;
+import com.kh.wantit.wanting.model.vo.Wanting;
 
 @Controller
 @SessionAttributes
@@ -63,6 +72,15 @@ public class MemberController {
 	
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+	private PayService pService;
+	
+	@Autowired
+	private FundingService fService;
+	
+	@Autowired
+	private WantingService wService;
 
 	
 	//회원가입페이지 이동
@@ -82,7 +100,24 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/myPageSupporterWanting.me")
-	public String myPageSupporterWanting() {
+	public String myPageSupporterWanting(@RequestParam(value = "page", required = false) Integer page, HttpSession session, Model model) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		int currentPage = 1;
+		if(page != null) 
+			currentPage = page;
+		
+		ArrayList<Integer> wantingNumList = wService.selectWantingNumList(id);
+		PageInfo pi = Pagination.getPageInfo(currentPage, wantingNumList.size(), 6);
+		ArrayList<Wanting> wantingList = wService.selectAttendWantList(pi, wantingNumList);
+		ArrayList<Image> imageList = wService.selectImageList();
+		
+		model.addAttribute("wantingList", wantingList);
+		model.addAttribute("imageList", imageList);
+		model.addAttribute("pi", pi);
+		
+		
+		
 		return "myPage_sup_wantingList";
 	}
 	
@@ -107,9 +142,82 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/myPageSupporterPayList.me")
-	public String myPageSupporterPayList() {
+	public String myPageSupporterPayList(@RequestParam(value = "page", required = false) Integer page,  
+																		HttpSession session, Model model) {
+		String userNickName = ((Member)session.getAttribute("loginUser")).getMemberNickname();
+		int currentPage = 1;
+		if(page != null) 
+			currentPage = page;
+		
+		int payListCount = pService.getPayListCount(userNickName);
+		PageInfo pi = Pagination.getPageInfo(currentPage, payListCount, 5);
+		ArrayList<PaySchedule> payScheduleList = pService.selectPayList(pi, userNickName);
+		ArrayList<Funding> payFundList = new ArrayList<Funding>();
+		ArrayList<Image> imageList = fService.fundingImageList();
+		
+		ArrayList<Boolean> alreadyWriteReview = new ArrayList<Boolean>();
+		
+		
+		for(PaySchedule p : payScheduleList) {
+			Funding fund = fService.getFunding(Integer.parseInt(p.getFundingNum()), false);
+			
+			Review r = new Review();
+			r.setReviewer(((Member)session.getAttribute("loginUser")).getMemberId());
+			r.setFundingNum(Integer.parseInt(p.getFundingNum()));
+			
+			int checkExistReview = fService.checkExistReview(r);
+			if(checkExistReview == 1) 
+				alreadyWriteReview.add(true);
+			 else 
+				alreadyWriteReview.add(false);
+			
+			payFundList.add(fund);
+		}
+		
+		model.addAttribute("payScheduleList", payScheduleList);
+		model.addAttribute("payFundList", payFundList);
+		model.addAttribute("imageList", imageList);
+		model.addAttribute("alreadyWriteReviewList", alreadyWriteReview);
+		model.addAttribute("pi", pi);
+		
+		
 		return "myPage_sup_payList";
 	}
+	@RequestMapping("reviewPage.me")
+	public String insertReview(@RequestParam("fundingNum") int fundingNum, @RequestParam("fundingTitle") String fundingTitle,
+													@RequestParam("rewardBuyList") String buyList, Model model) {
+		
+		model.addAttribute("fundingNum", fundingNum);
+		model.addAttribute("fundingTitle", fundingTitle);
+		model.addAttribute("buyList", buyList);
+		return "../review/writeReview";
+	}
+	
+	@RequestMapping("insertReview.me")
+	public String insertReview(@RequestParam("fundingNum") int fundingNum, @RequestParam("reviewRating") double rating,
+										@RequestParam("reviewContent") String reviewContent, HttpSession session, Model model) {
+		String userId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		Review review = new Review();
+		review.setFundingNum(fundingNum);
+		review.setReviewContent(reviewContent);
+		review.setReviewRating(rating);
+		review.setReviewer(userId);
+		
+		System.out.println(review);
+		
+		int result = fService.insertReview(review);
+		
+		if(result > 0) {
+			model.addAttribute("msg", "리뷰가 작성되었습니다 !");
+		} else {
+			//에러처리
+		}
+		return "../review/insertReviewResult";
+	}
+	
+	
+	
 	@RequestMapping("myPage_sup_message.me")
 	public String myPagesupMessage() {
 		return "myPage_sup_message";

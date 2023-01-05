@@ -25,6 +25,7 @@ public class PaySchedule {
 	private String rewardBuyList;
 	private String cardNumber;
 	private String cardName;
+	private String fundingNum;
 	private int amount;
 	private int fundingNum;
 	
@@ -40,6 +41,8 @@ public class PaySchedule {
 		this.rewardBuyList = scheduleMap.get("reward_buy_list");
 		this.cardNumber = scheduleMap.get("card_number");
 		this.cardName = scheduleMap.get("card_name");
+//		this.fundingNum = scheduleMap.get("fundingNum");
+		this.fundingNum = scheduleMap.get("fundingNum");
 		this.amount = Integer.parseInt(scheduleMap.get("amount"));
 		
 	}

@@ -1,4 +1,4 @@
-package com.kh.wantit.funding.model.service;
+﻿package com.kh.wantit.funding.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -181,4 +181,15 @@ public class FundingServiceImpl implements FundingService{
 		return fDAO.getFundingEndRanking(sqlSession);
 	}
 
+	
+	@Override
+	public int insertReview(Review review) {
+		return fDAO.insertReview(sqlSession, review);
+	}
+	
+	@Override
+	public int checkExistReview(Review r) {
+		return fDAO.checkExistReview(sqlSession, r);
+	}
+	
 }

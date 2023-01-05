@@ -1,4 +1,4 @@
-package com.kh.wantit.funding.model.dao;
+﻿package com.kh.wantit.funding.model.dao;
 
 import java.util.ArrayList;
 
@@ -100,11 +100,18 @@ public class FundingDAO {
 	public int getFundingCreatorNum(String writer, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("fundingMapper.getFundingCreatorNum", writer);
 	}
+	public int insertReview(SqlSessionTemplate sqlSession, Review review) {
+		return sqlSession.insert("fundingMapper.insertReview", review);
+	}
 
 	public ArrayList<Reward> fundingRewardList(int bId, SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("fundingMapper.fundingRewardList", bId);
 	}
+	public int checkExistReview(SqlSessionTemplate sqlSession, Review r) {
+		return sqlSession.selectOne("fundingMapper.checkExistReview", r);
+	}
 
+	
 	public Funding getFundingInfo(int bId, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("fundingMapper.getFundingInfo", bId);
 	}

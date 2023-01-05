@@ -1,4 +1,4 @@
-package com.kh.wantit.funding.model.vo;
+﻿package com.kh.wantit.funding.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +15,7 @@ public class Review {
 	private int reviewNum;
 	private String reviewer;
 	private int fundingNum;
-	private String reviewContent, reviewStatus;
-	private int reviewRating;
+	private String reviewContent;
+	private String reviewStatus;
+	private double reviewRating;
 }

@@ -150,6 +150,14 @@
 		from funding
 		where funding_num=#{bId}
 	</select>
+	<insert id="insertReview">
+		insert into review values(seq_review.nextval, #{reviewer}, #{fundingNum}, #{reviewContent}, default, #{reviewRating})
+	</insert>
+	
+	<select id="checkExistReview" resultType="_int">
+		select count(*) from review where reviewer = #{reviewer} and funding_num = #{fundingNum}
+	</select>
+
 
 	<insert id="fundingEdit">
 		insert into funding_edit

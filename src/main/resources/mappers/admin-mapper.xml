@@ -288,7 +288,21 @@
 				#{imageLevel}, #{imageBoardCate}, seq_notice.currval)
 	</insert>
 	
+	<select id="getNoticeListCount" resultType="_int">
+		select count(*) from notice where notice_status = 'Y'
+	</select>
 	
+	<select id="selectNoticeList" resultMap="noticeResultSet">
+		select * from notice
+	</select>
+	
+	<select id="selectNoticeImage" resultMap="imageResultSet">
+		select * from image where image_board_cate = 6 and image_level = 0 and image_status = 'Y'
+	</select>
+	
+	<select id="selectNotice">
+		select * from notice where notice_num = #{noticeNum}
+	</select>
 	<resultMap type="Member" id="memberResultSet">
 		<id column="MEMBER_ID" property="memberId" />
 		<result column="MEMBER_PWD" property="memberPwd" />

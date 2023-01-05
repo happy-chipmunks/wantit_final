@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 	<jsp:include page="../common/navbar.jsp"/>
@@ -28,6 +29,7 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="resources/css/navbar.css">
 
+<link rel="stylesheet" href="resources/css/myPage_sup_wantingList.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -167,92 +169,38 @@
    		</div>
    	
    		<div class="col-8">
-		<h4 align="left">나의 원팅 | 원팅 내역 <button onclick="location.href='${contextPath}/wantingWrite.want'"type="button" class="btn" style="align: right; background-color: #D6C7ED;">원팅 신청</button></h4>
-	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">혼란스런 맘이겠지 상상조차 못할 거야</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">홀린 듯 날 따라와</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">사실 보고 싶단 말에 조금 흔들려~</p>
-	            </div>
-	          </div>
-	        </div>
-	
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">1도 없어 예전의 느낌</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">바ㅣ바이바이</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">내 몸이 확 머리가 휙 돌아가 어때 지금 기분이</p>
-	            </div>
-	          </div>
-	        </div>
-	
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">그래 알겠지 알겠지 넌 날 혹하게 해</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">화려한 주인공처럼 그저 하던대로 해</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">슬픈 엔딩이라도오오</p>
-	            </div>
-	          </div>
-	        </div>
-	      </div><br>
+		<h4 align="left" class="title">원팅참여 목록</h4>
+	      <div class="row" style="padding-top: 10px;">
+            <div class="col-2"></div>
+            <div class="col-8">
+            	<c:forEach begin="0" end="${ wantingList.size()-1 }" var="i">
+            		<input type="hidden" value="${ wantingList[i].wantingNum }" id="wantingNum${ i }">
+	                <div class="row payFundList">
+	                    
+	                    <c:forEach items="${ imageList }" var="image">
+	                    	<c:if test="${ wantingList[i].wantingNum == Integer.parseInt(image.imageBoardId) }">
+	                    	
+<!-- 		                   	 <div class="col-4 imageArea"> -->
+<%-- 		                   	 	<img alt="" src="${ contextPath }/resources/wanting/${ image.imageRename }" width="100%" height="100%"> --%>
+<!-- 		                   	 </div> -->
+	                    	</c:if>
+	                    </c:forEach>
+	                    <div class="col-8">
+	                        
+	                        <div class="payFundTitle">${ wantingList[i].wantingTitle }</div>
+	                        <div class="wantingSummary">${ wantingList[i].wantingSummary }</div>
+	                        <br><br>
+	                        <div class="writerAndDate">
+		                        <span class="wantingWriter">작성자 : ${ wantingList[i].wantingWriter }</span>&nbsp;&nbsp;
+		                        <span class="boardCount">현재 참여자 수 : ${ wantingList[i].wantingCount } 명</span>
+	                        </div>
+	                      
+	                    </div>
+	                </div>
+            	</c:forEach>
+                
+               
+	      <br>
 	      <nav aria-label="Standard pagination example" class="nav justify-content-center">
         	<ul class="pagination">
 	            <li class="page-item">
@@ -280,6 +228,10 @@
 	    	</ul>
         </nav>
 	    </div>
+	  </div>
+	  <br>
+		  
+	</div>
 	  </div>
 	  <br>
 		  

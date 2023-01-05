@@ -249,6 +249,23 @@ public class AdminDAO {
 	}
 
 	
+	public ArrayList<Image> selectNoticeImage(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectNoticeImage");
+	}
+
+	public int getNoticeListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.getNoticeListCount");
+	}
+
+	public ArrayList<Notice> selectNoticeList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.selectNoticeList", null, rowBounds);
+	}
+
+	public Notice selectNotice(SqlSessionTemplate sqlSession, int noticeNum) {
+		return sqlSession.selectOne("adminMapper.selectNotice", noticeNum);
+	}
 	
 //	public int noProject(SqlSessionTemplate sqlSession, String id) {
 //		return sqlSession.update("adminMapper.noProject", id);
