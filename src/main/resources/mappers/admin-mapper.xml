@@ -50,6 +50,19 @@
 		from wanting
 	</select>
 	
+	<select id="getNotice" resultMap="noticeResultSet">
+		select *
+		from notice
+		where notice_num=#{code}
+	</select>
+	
+	<select id="getImage" resultMap="imageResultSet">
+		select *
+		from Image join notice on(notice_num = image_board_id)
+		where image_board_id=#{code} and image_board_cate=6
+	</select>
+	
+	
 	<update id="deleteMember">
 		update member
 		set member_status='N'
@@ -119,12 +132,31 @@
 		from notice
 		order by notice_num desc
 	</select>
+	
+	<select id="allNotice" resultMap="noticeResultSet">
+		select *
+		from notice
+
+		order by notice_num desc
+	</select>
+	
+	<select id="editNotice" resultMap="noticeResultSet">
+		select *
+		from notice
+		where notice_num = ${code}
+		order by notice_num desc
+	</select>
 	<!-- <update id="getAccept"> -->
 	<!-- update ads -->
 	<!-- set confirm = 'Y' -->
 	<!-- where ads_num = #{acceptDivision} -->
 	<!-- </update> -->
-
+	<select id="checkCode" resultMap="noticeResultSet">
+		select admin
+		from notice
+		where notice_num=#{code}
+	</select>
+	
 	<select id="creatorApproval" resultMap="creatorResultSet">
 		select *
 		from creator join member on(member_id=creator)
@@ -134,7 +166,7 @@
 	
 	<insert id="selectNewWrite">
 		insert into notice
-		values(seq_notice.nextval, default, #{noticeTitle}, #{noticeContent}, sysdate, sysdate, default, default, #{noticeDivision} )
+		values(seq_notice.nextval, default, #{noticeTitle}, sysdate, sysdate, default, default, #{noticeDivision}, #{noticeContent} )
 	</insert>
 	
 	<select id="businessImage" resultMap="imageResultSet">
@@ -232,11 +264,6 @@
 		set confirm='X'
 		where funding_num=#{id}
 	</update>
-<!-- 	<update id="noProject"> -->
-<!-- 		update funding -->
-<!-- 		set confirm='R' -->
-<!-- 		where funding_num=#{id} -->
-<!-- 	</update> -->
 
 	<delete id="noEditProjectF">
 		delete from funding_edit
@@ -254,6 +281,13 @@
 		set edit_confirm='Y', edit_status='Y'
 		where edit_funding_num=#{editFundingNum}
 	</update>
+	
+	<insert id="insertImage">
+		insert into image
+		values(seq_image.nextval, #{imageForm}, #{originName}, #{imageRename}, #{imageSrc}, SYSDATE, default,
+				#{imageLevel}, #{imageBoardCate}, seq_notice.currval)
+	</insert>
+	
 	
 	<resultMap type="Member" id="memberResultSet">
 		<id column="MEMBER_ID" property="memberId" />
