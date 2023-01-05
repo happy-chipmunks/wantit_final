@@ -11,6 +11,7 @@ import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.dao.FundingDAO;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingNotice;
+import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.funding.model.vo.Reward;
 
 @Service("fService")
@@ -114,4 +115,15 @@ public class FundingServiceImpl implements FundingService{
 	public Funding getCurrFunding(int bId) {
 		return fDAO.getCurrFunding(bId, sqlSession);
 	}
+	
+	@Override
+	public int insertReview(Review review) {
+		return fDAO.insertReview(sqlSession, review);
+	}
+	
+	@Override
+	public int checkExistReview(Review r) {
+		return fDAO.checkExistReview(sqlSession, r);
+	}
+	
 }

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.pay.dao.PayDAO;
 import com.kh.wantit.pay.vo.PaySchedule;
@@ -66,6 +67,14 @@ public class PayService {
 
 	public Funding getFundingInfo(int fundingNum) {
 		return pDAO.getFundingInfo(sqlSession, fundingNum);
+	}
+
+	public ArrayList<PaySchedule> selectPayList(PageInfo pi, String userNickName) {
+		return pDAO.selectPayList(sqlSession, pi, userNickName);
+	}
+
+	public int getPayListCount(String userNickName) {
+		return pDAO.getPayListCount(sqlSession, userNickName);
 	}
 
 

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.wanting.model.dao.WantingDAO;
@@ -129,7 +130,15 @@ public class WantingServiceImpl implements WantingService{
 		return wDAO.deleteWanting(sqlSession, wantingNum);
 	}
 		
+	@Override
+	public ArrayList<Integer> selectWantingNumList(String id) {
+		return wDAO.selectWantingNumList(sqlSession, id);
+	}
 
+	@Override
+	public ArrayList<Wanting> selectAttendWantList(PageInfo pi, ArrayList<Integer> wantingNumList) {
+		return wDAO.selectAttentWantList(sqlSession, pi, wantingNumList);
+	}
 
 
 	

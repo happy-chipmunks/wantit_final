@@ -184,5 +184,21 @@ public class AdminService {
 		return aDAO.selectBannerImageList(sqlSession);
 	}
 
+	public ArrayList<Image> selectNoticeImage() {
+		return aDAO.selectNoticeImage(sqlSession);
+	}
+
+	public int getNoticeListCount() {
+		return aDAO.getNoticeListCount(sqlSession);
+	}
+
+	public ArrayList<Notice> selectNoticeList(PageInfo pi) {
+		return aDAO.selectNoticeList(sqlSession, pi);
+	}
+
+	public Notice selectNotice(int noticeNum) {
+		return aDAO.selectNotice(sqlSession, noticeNum);
+	}
+
 	
 }

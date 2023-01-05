@@ -137,7 +137,16 @@
 		where wanting_num=#{wantingNum}
 	</update>
 	
+	<select id="selectWantingNumList" resultType="integer">
+		select wanting_num from wanting_attend where attender = #{id}
+	</select>
 	
+	<select id="selectAttendWantList" resultMap="wantingResultSet">
+		select * from wanting where wanting_num in
+		<foreach collection="list" open="(" close=")" separator=", " item="item">
+			#{item}
+		</foreach>
+	</select>
 	
 	<resultMap type="Wanting" id="wantingResultSet">
 		<id column="WANTING_NUM" property="wantingNum"/>

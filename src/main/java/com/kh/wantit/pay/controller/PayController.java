@@ -88,6 +88,18 @@ public class PayController {
 		return "payView";
 	}
 	
+	@RequestMapping("seeMyPaySchedule.pay") 
+		public String seeMyPaySchedule(@ModelAttribute("paySchedule") PaySchedule paySchedule, 
+																	@RequestParam("fundingTitle") String fundingTitle, Model model) {
+			
+		System.out.println("============" + paySchedule);
+		System.out.println("============" + fundingTitle);
+			model.addAttribute("fundingTitle", fundingTitle);
+			model.addAttribute("paySchedule", paySchedule);
+		return "mpToPayReceiptView";
+		}
+	
+	
 	/*
 	 * 관리자 or 크리에이터 쪽 결제상태 최신화작업
 	 */

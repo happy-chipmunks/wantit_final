@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingNotice;
+import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.funding.model.vo.Reward;
 
 @Repository("fDAO")
@@ -93,6 +94,14 @@ public class FundingDAO {
 	public Funding getCurrFunding(int bId, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("fundingMapper.getCurrFunding", bId);
 	}
-	
+
+	public int insertReview(SqlSessionTemplate sqlSession, Review review) {
+		return sqlSession.insert("fundingMapper.insertReview", review);
+	}
+
+	public int checkExistReview(SqlSessionTemplate sqlSession, Review r) {
+		return sqlSession.selectOne("fundingMapper.checkExistReview", r);
+	}
+
 	
 }

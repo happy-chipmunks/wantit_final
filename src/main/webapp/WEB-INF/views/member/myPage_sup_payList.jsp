@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 	<jsp:include page="../common/navbar.jsp"/>
@@ -13,6 +15,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+<link rel="stylesheet" href="resources/css/myPage_sup_payList.css">
 <link rel="stylesheet" href="resources/css/navbar.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -150,112 +153,71 @@
    		</div>
    	
    		<div class="col-8">
-		<h4 align="left">구매이력</h4>
-	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">제목</p>
-	              <p class="card-text">구매한 리워드 금액</p>
-	              <p class="card-text" align="right">구매 날짜</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">제목</p>
-	              <p class="card-text">구매한 리워드 금액</p>
-	              <p class="card-text" align="right">구매 날짜</p>
-	            </div>
-	          </div>
-	        </div>
-	        
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body" height="60px">
-	              <p class="card-text">제목</p>
-	              <p class="card-text">구매한 리워드 금액</p>
-	              <p class="card-text" align="right">구매 날짜</p>
-	            </div>
-	          </div>
-	        </div>
-	
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body" height="60px">
-	              <p class="card-text">제목</p>
-	              <p class="card-text">구매한 리워드 금액</p>
-	              <p class="card-text" align="right">구매 날짜</p>
-	            </div>
-	          </div>
-	        </div>
-	        
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body" height="60px">
-	              <p class="card-text">제목</p>
-	              <p class="card-text">구매한 리워드 금액</p>
-	              <p class="card-text" align="right">구매 날짜</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body" height="60px">
-	              <p class="card-text">제목</p>
-	              <p class="card-text">구매한 리워드 금액</p>
-	              <p class="card-text" align="right">구매 날짜</p>
-	            </div>
-	          </div>
-	        </div>
-	
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body" height="60px">
-	              <p class="card-text">제목</p>
-	              <p class="card-text">구매한 리워드 금액</p>
-	              <p class="card-text" align="right">구매 날짜</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body" height="60px">
-	              <p class="card-text">제목</p>
-	              <p class="card-text">구매한 리워드 금액</p>
-	              <p class="card-text" align="right">구매 날짜</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body" height="60px">
-	              <p class="card-text">제목</p>
-	              <p class="card-text">구매한 리워드 금액</p>
-	              <p class="card-text" align="right">구매 날짜</p>
-	            </div>
-	          </div>
-	        </div>
-	      </div><br>
+		<h4 align="left" class="title">구매이력</h4>
+	      <div class="row" style="padding-top: 10px;">
+            <div class="col-2"></div>
+            <div class="col-8">
+            	<c:forEach begin="0" end="${ payScheduleList.size()-1 }" var="i">
+            		<input type="hidden" value="${ payFundList[i].fundingNum }" id="fundNum${i}">
+            		<input type="hidden" value="${ payFundList[i].creatorNum }" id="creatorNum${i}">
+	                <div class="row payFundList">
+	                    
+	                    <c:forEach items="${ imageList }" var="image">
+	                    	<c:if test="${ payFundList[i].fundingNum == Integer.parseInt(image.imageBoardId) }">
+	                    	
+		                   	 <div class="col-4 imageArea">
+		                   	 	<img alt="" src="${ contextPath }/resources/funding/${ image.imageRename }" width="100%" height="100%">
+		                   	 </div>
+	                    	</c:if>
+	                    </c:forEach>
+	                    <div class="col-8">
+	                        
+	                        <div class="payFundTitle">${ payFundList[i].fundingTitle }</div>
+	                      
+	                        <div class="dateAndPayStatus">
+	                        	<c:set value="${ fn:split(payScheduleList[i].customerUId, '_') }" var="splitArray"/>
+	                            <span>펀딩 일시 : ${ splitArray[1] }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                            <c:if test="${ payScheduleList[i].paymentStatus == 'paid' }">
+		                            <span>결제 상태 : <span style="color: green;">성공</span></span>
+	                            </c:if>
+	                            <c:if test="${ payScheduleList[i].paymentStatus == 'null' }">
+		                            <span>결제 상태 : 대기</span>
+	                            </c:if>
+	                            <c:if test="${ payScheduleList[i].paymentStatus == 'failed' }">
+		                            <span>결제 상태 : <span style="color: red;">실패</span></span>
+	                            </c:if>
+	                        </div>
+	                        <form id="rePayOrReviewForm" method="post" class="rePayOrReviewForm">
+	                        	<input type="hidden" value="${ payScheduleList[i].customerUId }" name="customerUId">
+	                        	<input type="hidden" value="${ payScheduleList[i].merchantUId }" name="merchantUId">
+	                        	<input type="hidden" value="${ payScheduleList[i].merchantName }" name="merchantName">
+	                        	<input type="hidden" value="${ payScheduleList[i].buyerName }" name="buyerName">
+	                        	<input type="hidden" value="${ payScheduleList[i].buyerTel }" name="buyerTel">
+	                        	<input type="hidden" value="${ payScheduleList[i].buyerAddr }" name="buyerAddr">
+	                        	<input type="hidden" value="${ payScheduleList[i].rewardBuyList }" name="rewardBuyList">
+	                        	<input type="hidden" value="${ payScheduleList[i].cardNumber }" name="cardNumber">
+	                        	<input type="hidden" value="${ payScheduleList[i].cardName }" name="cardName">
+	                        	<input type="hidden" value="${ payScheduleList[i].amount }" name="amount">
+	                        	<input type="hidden" value="${ payScheduleList[i].paymentStatus }" name="paymentStatus">
+	                        	<input type="hidden" value="${ payFundList[i].fundingTitle }" name="fundingTitle">
+	                        	<input type="hidden" value="${ payFundList[i].fundingNum }" name="fundingNum">
+		                        <div class="historyOrReview">
+		                        	<span class="history" id="history">결제내역</span>
+		                            <c:if test="${ payScheduleList[i].paymentStatus == 'failed' }">
+			                        	<span class="repayOrReview" id="repayOrReview">재결제</span>
+		                            </c:if>
+		                            <c:if test="${ payScheduleList[i].paymentStatus == 'paid' && alreadyWriteReviewList[i] == false }">
+			                        	<span class="repayOrReview" id="repayOrReview">리뷰작성</span>
+		                            </c:if>
+		                        	
+		                        </div>
+	                        </form>
+	                    </div>
+	                </div>
+            	</c:forEach>
+                
+               
+	      <br>
 	      <nav aria-label="Standard pagination example" class="nav justify-content-center">
         	<ul class="pagination">
 	            <li class="page-item">
@@ -295,6 +257,51 @@
 	function openPopup(){
 		window.open("myPage_sup_message.jsp", "message", "width=500 height=300");
 	}
+	
+	const rePayOrReviewForm = document.getElementsByClassName('rePayOrReviewForm');
+	const history = document.getElementsByClassName('history');
+	const repayOrReview = document.getElementsByClassName('repayOrReview');
+	
+	
+	const payFundTitle = document.getElementsByClassName('payFundTitle');
+	const imageArea = document.getElementsByClassName('imageArea');
+	
+	for(let i=0 ; i<imageArea.length ; i++) {
+			imageArea[i].addEventListener('click', function() {
+				const fundNum = document.getElementById('fundNum' + i);
+				const creatorNum = document.getElementById('creatorNum' + i);
+				
+				location.href = "${ contextPath }/selectFundingBoard.fund?bId=" + fundNum.value + "&writerNo=" + creatorNum.value;
+			});
+	}
+	
+	for(let i=0 ; i<history.length ; i++) {
+		history[i].addEventListener('click', function() {
+			rePayOrReviewForm[i].action =  "${contextPath}/seeMyPaySchedule.pay";
+			rePayOrReviewForm[i].submit();
+		});
+	}
+	
+	for(let i=0 ; i<repayOrReview.length ; i++) {
+		repayOrReview[i].addEventListener('click', function() {
+			if(this.innerText == '재결제') {
+				rePayOrReviewForm[i].action =  "${contextPath}/payAgain.pay";
+				rePayOrReviewForm[i].submit();
+			} else if(this.innerText == '리뷰작성') {
+					let url = '${ contextPath }/reviewPage.me';
+					let title = '리뷰작성';
+					let status = 'width=1000, height=500, top=0, left=450';
+					
+					rePayOrReviewForm[i].target = title;
+					rePayOrReviewForm[i].action = url;
+					rePayOrReviewForm[i].method = 'post';
+					 window.open(url, title, status);
+					rePayOrReviewForm[i].submit();
+			}
+		});
+	}
+	
+	
 	</script>
 	
 

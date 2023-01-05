@@ -57,21 +57,21 @@
     height: 500px;
   }
 
-  .carousel-control-prev-cs {
+  .carousel-control-prev {
     height: 50px;
     width: 50px;
     position: absolute;
-    top: 350px;
+    top: 300px;
     left: 1400px;
     background-color: black;
     opacity: 0.4;
   }
 
-  .carousel-control-next-cs {
+  .carousel-control-next {
     height: 50px;
     width: 50px;
     position: absolute;
-    top: 350px;
+    top: 300px;
     left: 1450px;
     background-color: black;
     opacity: 0.4;

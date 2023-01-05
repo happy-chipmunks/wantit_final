@@ -15,5 +15,7 @@ public class Review {
 	private int reviewNum;
 	private String reviewer;
 	private int fundingNum;
-	private String reviewContent, reviewStatus;
+	private String reviewContent;
+	private String reviewStatus;
+	private double reviewRating;
 }

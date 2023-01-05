@@ -2,6 +2,7 @@ package com.kh.wantit.wanting.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.wanting.model.vo.Wanting;
@@ -54,6 +55,11 @@ public interface WantingService {
 	int updateWanting(Wanting w);
 
 	int deleteWanting(int wantingNum);
+
+	ArrayList<Integer> selectWantingNumList(String id);
+
+	ArrayList<Wanting> selectAttendWantList(PageInfo pi, ArrayList<Integer> wantingNumList);
+
 	
 
 }

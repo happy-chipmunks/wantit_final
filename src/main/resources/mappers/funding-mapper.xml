@@ -132,7 +132,13 @@
 		where funding_notice_num=#{bId}
 	</select>
 	
-
+	<insert id="insertReview">
+		insert into review values(seq_review.nextval, #{reviewer}, #{fundingNum}, #{reviewContent}, default, #{reviewRating})
+	</insert>
+	
+	<select id="checkExistReview" resultType="_int">
+		select count(*) from review where reviewer = #{reviewer} and funding_num = #{fundingNum}
+	</select>
 
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
@@ -201,6 +207,15 @@
 		<result column="funding_notice_count" property="fundingNoticeCount"/>
 		<result column="funding_notice_status" property="fundingNoticeStatus"/>
 		<result column="funding_notice_category" property="fundingNoticeCategory"/>
+	</resultMap>
+	
+	<resultMap type="Review" id="reviewResultSet">
+		<id column="REVIEW_NUM" property="reviewNum"/>
+		<result column="REVIEWER" property="reviewer"/>
+		<result column="FUNDING_NUM" property="fundingNum"/>
+		<result column="REVIEW_CONTENT" property="reviewContent"/>
+		<result column="REVIEW_STATUS" property="reviewStatus"/>
+		<result column="REVIEW_RATING" property="reviewRating"/>
 	</resultMap>
 
 </mapper>

@@ -17,14 +17,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.wantit.admin.model.service.AdminService;
+import com.kh.wantit.admin.model.vo.Notice;
+import com.kh.wantit.admin.model.vo.PageInfo;
+import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.member.Service.MemberService;
 import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.wanting.model.service.WantingService;
 import com.kh.wantit.wanting.model.vo.Wanting;
+import com.sun.mail.handlers.image_gif;
 
 
 
@@ -40,6 +45,8 @@ public class HomeController {
 	private FundingService fService;
 	@Autowired
 	private AdminService aService;
+	@Autowired
+	private MemberService mService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -87,7 +94,8 @@ public class HomeController {
 		model.addAttribute("wantingImageList", wantingImageList);
 		
 		
-		model.addAttribute("biList", biList);
+//		model.addAttribute("biList", biList);
+		session.setAttribute("biList", biList);
 		
 		
 		return "home";
@@ -179,10 +187,71 @@ public class HomeController {
 		return "common/searchAjaxWant";
 	}
 	
-	
+//	@RequestMapping("onlyNotice.do")
+//	public String onlyNotice(@RequestParam(value = "page", required = false) Integer page, Model model) {
+//		
+//		int currentPage = 1;
+//		if(page != null) 
+//			currentPage = page;
+//		
+//		int noticeListCount = aService.getNoticeListCount();
+//		PageInfo pi = Pagination.getPageInfo(currentPage, noticeListCount, 7);
+//		ArrayList<Notice> noticeList = aService.selectNoticeList(pi);
+//		ArrayList<Image> noticeImageList = aService.selectNoticeImage();
+//		
+//		model.addAttribute("noticeImageList", noticeImageList);
+//		model.addAttribute("noticeList", noticeList);
+//		model.addAttribute("pi", pi);
+//		return "common/noticeAndEventList";
+//	}
+//	@RequestMapping("onlyEvent.do")
+//	public String onlyEvent(@RequestParam(value = "page", required = false) Integer page, Model model) {
+//		
+//		int currentPage = 1;
+//		if(page != null) 
+//			currentPage = page;
+//		
+//		int noticeListCount = aService.getNoticeListCount();
+//		PageInfo pi = Pagination.getPageInfo(currentPage, noticeListCount, 7);
+//		ArrayList<Notice> noticeList = aService.selectNoticeList(pi);
+//		ArrayList<Image> noticeImageList = aService.selectNoticeImage();
+//		
+//		model.addAttribute("noticeImageList", noticeImageList);
+//		model.addAttribute("noticeList", noticeList);
+//		model.addAttribute("pi", pi);
+//		return "common/noticeAndEventList";
+//	}
 	@RequestMapping("noticeEvent.do")
-	public String noticeEvent() {
-		return "common/noticeAndEvent";
+	public String noticeEvent(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		
+		int currentPage = 1;
+		if(page != null) 
+			currentPage = page;
+		
+		int noticeListCount = aService.getNoticeListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, noticeListCount, 7);
+		ArrayList<Notice> noticeList = aService.selectNoticeList(pi);
+		ArrayList<Image> noticeImageList = aService.selectNoticeImage();
+		
+		model.addAttribute("noticeImageList", noticeImageList);
+		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("pi", pi);
+		return "common/noticeAndEventList";
+	}
+	
+	@RequestMapping("selectNotice.do")
+	public  String selectNotice(@RequestParam("noticeNum") int noticeNum, Model model) {
+		
+		Notice notice = aService.selectNotice(noticeNum);		
+		String id = notice.getAdmin();
+		Image img = new Image();
+		img.setImageBoardCate(3);
+		img.setImageBoardId(id);
+		Image profileImage = mService.selectcImage(img);
+		model.addAttribute("notice", notice);
+		model.addAttribute("profileImage", profileImage);
+		
+		return "common/noticeOrEventView";
 	}
 	
 	//로그인 페이지

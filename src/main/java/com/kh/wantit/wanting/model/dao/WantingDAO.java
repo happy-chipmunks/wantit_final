@@ -2,9 +2,11 @@ package com.kh.wantit.wanting.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.wanting.model.vo.Wanting;
@@ -100,6 +102,16 @@ public class WantingDAO {
 
 	public int deleteWanting(SqlSessionTemplate sqlSession, int wantingNum) {
 		return sqlSession.update("wantingMapper.deleteWanting", wantingNum);
+	}
+
+	public ArrayList<Integer> selectWantingNumList(SqlSessionTemplate sqlSession, String id) {
+		return (ArrayList)sqlSession.selectList("wantingMapper.selectWantingNumList", id);
+	}
+
+	public ArrayList<Wanting> selectAttentWantList(SqlSessionTemplate sqlSession, PageInfo pi, ArrayList<Integer> wantingNumList) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("wantingMapper.selectAttendWantList", wantingNumList, rowBounds);
 	}
 
 

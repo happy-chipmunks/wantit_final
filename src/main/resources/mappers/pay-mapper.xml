@@ -27,6 +27,7 @@
 		<result column="REWARD_BUY_LIST" property="rewardBuyList"/>
 		<result column="CARD_NUMBER" property="cardNumber"/>
 		<result column="CARD_NAME" property="cardName"/>
+		<result column="FUNDING_NUM" property="fundingNum"/>
 		<result column="AMOUNT" property="amount"/>
 	</resultMap>
 	
@@ -88,6 +89,14 @@
 		update payschedule set payment_status = #{payStatus} where merchant_uid = #{mUId}
 		
 	</update>
+	
+	<select id="getPayListCount" resultType="_int">
+		select count(*) from payschedule where buyer_name = #{userNickName}
+	</select>
+	
+	<select id="selectPayList" resultMap="payScheduleResultSet">
+		select * from payschedule where buyer_name = #{userNickName}
+	</select>
 	
 
 </mapper>
