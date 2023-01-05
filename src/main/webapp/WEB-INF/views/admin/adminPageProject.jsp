@@ -354,7 +354,7 @@
 								</h1>
 					
 								<div class="textForm">
-									<input name="replyContent" class="replyContent" readonly>${ m.fundingContent}
+									<input name="replyContent" class="replyContent" readonly value="${ m.fundingContent}">
 								</div>
 								<br>
 							

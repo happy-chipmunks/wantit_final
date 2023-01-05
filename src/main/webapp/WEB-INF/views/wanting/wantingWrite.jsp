@@ -46,11 +46,7 @@ height: 10px;
 <form class="" action="${ contextPath }/insertWanting.want" method="POST" enctype="multipart/form-data" id="wantingForm"> <!-- enctype : 이미지나 파일을 건낼 수 있음 -->
 	<h4 class="">원팅 등록하기</h4>
 	<div class="wanting-title-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
-	
-	
-	
-	
-	
+
 	<h5 class="wanting-guide-title">원팅 제목</h5>
 	<div class="wanting-guide-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	<i class="icon-help" aria-hidden="true"></i>

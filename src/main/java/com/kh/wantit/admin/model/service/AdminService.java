@@ -146,22 +146,22 @@ public class AdminService {
 	}
 	
 	public int okProjectW(String id) {
-		System.out.println("s"+id);
+//		System.out.println("s"+id);
 		return aDAO.okProjectW(sqlSession, id);
 	}
 	
 	public int okProjectF(String id) {
-		System.out.println("s"+id);
+//		System.out.println("s"+id);
 		return aDAO.okProjectF(sqlSession, id);
 	}
 	
 	public int noProjectW(String id) {
-		System.out.println("s"+id);
+//		System.out.println("s"+id);
 		return aDAO.noProjectW(sqlSession, id);
 	}
 	
 	public int noProjectF(String id) {
-		System.out.println("s"+id);
+//		System.out.println("s"+id);
 		return aDAO.noProjectF(sqlSession, id);
 	}
 //	public int noProject(String id) {
@@ -182,6 +182,34 @@ public class AdminService {
 
 	public ArrayList<BannerImage> selectBannerIamgeList() {
 		return aDAO.selectBannerImageList(sqlSession);
+	}
+
+	public int insertImage(Image img) {
+		return aDAO.insertImage(sqlSession, img);
+	}
+
+	public ArrayList<Notice> allNotice() {
+		return aDAO.allNotice(sqlSession);
+	}
+
+	public ArrayList<Notice> editNotice(String code) {
+		return aDAO.editNotice(sqlSession, code);
+	}
+
+	public String checkCode(String code) {
+		return aDAO.checkCode(sqlSession, code);
+	}
+
+	public Notice getNotice(String code, boolean yn) {
+		int result = 0;
+		if(yn) {
+			result = aDAO.addCount(code, sqlSession);
+		}
+		return aDAO.getNotice(sqlSession, code);
+	}
+
+	public Image getImage(String code) {
+		return aDAO.getImage(sqlSession, code);
 	}
 
 	

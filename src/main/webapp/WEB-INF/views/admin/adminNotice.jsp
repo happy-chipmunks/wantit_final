@@ -14,7 +14,7 @@
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.104.2">
 <title>Dashboard Template · Bootstrap v5.2</title>
-
+ 
 
 <style>
 @font-face {
@@ -222,6 +222,13 @@ input[type="checkbox"]:checked + label span {
 
 <!-- Custom styles for this template -->
 <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
+<!-- summernote -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+  <script src="resources/css/summernote-bs4.min.js"></script>
+  <script src="resources/css/summernote-ko-KR.js"></script>
 </head>
 <body id="body">
 	
@@ -283,24 +290,29 @@ input[type="checkbox"]:checked + label span {
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">공지사항 관리</h1>
-					<button type="button" class="btn btn-primary btn-lg make" id="make" type="button">
+					<button type="button" class="btn btn-primary btn-lg make" id="make" type="button" onclick="location.href='${contextPath}/noticeMake.ad'">
 						<span class="">이벤트 / 공지사항 작성</span>
 					</button>
 				</div>
+				
 				<table class="table" style="height: auto;">
 					<thead>
 						<tr>
 							<th scope="col">번호</th>
 							<th scope="col">공지사항 / 이벤트</th>
 							<th scope="col">제목</th>
-							<th scope="col">조회수</th>
 							<th scope="col">날짜</th>
 							<th scope="col">수정</th>							
 							<th scope="col">상태</th>
 						</tr>
 					</thead>
 					<tbody class="table-group-divider">
+
 						<c:forEach var="m" items="${mList }" varStatus="r">
+						
+<%-- 						<span style="display: none">${ m.noticeTitle }</span> --%>
+<%-- 						<input type="hidden" name="code" class="code" value="${ m.noticeNum }" > --%>
+									
 							<tr>
 								<th scope="row">${r.count }</th>
 								<td>
@@ -312,20 +324,23 @@ input[type="checkbox"]:checked + label span {
 									</c:if>
 								</td>
 								<td>${ m.noticeTitle }</td>
-								<td>${ m.noticeCount }</td>
 								<td>${ m.noticeCreateDate }</td>
 								<td>
+									
 									<c:if test="${ m.noticeStatus == 'N' }">
 										수정불가능
 									</c:if>
 									<c:if test="${ m.noticeStatus == 'Y' }">
-										<button class="btn btn-primary answerBtn" type="button" value="${ r.index }">글 수정</button>
+										<button class="btn btn-primary answerBtn" type="button">
+										<span style="display: none">${ m.noticeNum }</span>
+										<input type="hidden" name="title" class="title" value="${ m.noticeTitle }" >
+										글 수정</button>
 									</c:if>
 								</td>
 								<td><c:if test="${m.noticeStatus == 'Y' }">
 										<div class="btn-group">
 											<button type="button"
-												class="btn btn-sm btn-outline-danger dropdown-toggle"
+												class="btn btn-sm btn-outline-danger dropdown-toggle"	
 												data-bs-toggle="dropdown" aria-expanded="false">
 												글 삭제</button>
 											<ul class="dropdown-menu">
@@ -343,92 +358,10 @@ input[type="checkbox"]:checked + label span {
 									</c:if></td>
 							</tr>
 						</c:forEach>
+
 					</tbody>
 				</table>
-				
-				<c:forEach var="m" items="${ mList }" varStatus="r">
-					<div class="shadow p-3 mb-5 bg-body rounded myForm myForm${ r.index }">
-						<form action="${contextPath }/noticeManage.ad" method="post" class="answerForm">
-							<fieldset>
-								<h1>
-									<br>&nbsp;&nbsp;&nbsp;&nbsp;공지 수정
-								</h1>
-								<div class="textForm">
-	<%-- 									<input type="hidden" value="${ r.count }" class="reply"> --%>
-	<%-- 									<c:if test="${r.count == r.count} "> --%>
-											<textarea name="replyContentNope" class="replyContentNope">${ m.noticeTitle }</textarea>
-	<%-- 									</c:if> --%>
-								</div>
-								<br>
-								<div class="textForm">
-									<textarea name="replyContent" class="replyContent" placeholder="답변 내용">${ m.noticeContent}</textarea>
-								</div>
-								<br>
 								
-								
-								
-								<button type="button" class="btn cancel btn-primary btn-lg right" value="${ r.index }" style="float: right;">Close</button>
-								
-								<button type="button" class="btn reply btn-primary btn-lg right" style="display: inline-block; float: left;">답변</button>
-								
-								
-								<input type="hidden" name="reply" class="hiddenReply" value="" >
-								<input type="hidden" name="title" class="hiddenTitle" value="" >								
-								<input type="hidden" name="code" class="code" value="${ m.noticeNum }">
-							</fieldset>
-						</form>
-					</div>
-				</c:forEach>
-				
-				<div class="shadow p-3 mb-5 bg-body rounded myMakeForm">
-						<form action="${contextPath }/noticeManage.ad" method="post" class="answerForm">
-							<fieldset>
-								<h1>
-									<br>&nbsp;&nbsp;&nbsp;&nbsp;공지 / 이벤트 생성
-								</h1>
-								
-								<div class="checkcheck">
-								<br><br>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input type="checkbox" id="c1" name="checkcheckcheck" onclick='checkOnlyOne(this)' value="E"/>
-							    <label for="c1" style="color: black;" ><span></span>이벤트</label>
-							    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							    <input type="checkbox" id="c2" name="checkcheckcheck" onclick='checkOnlyOne(this)' value="N"/>
-							    <label for="c2" style="color: black;"><span></span>공지사항</label>
-							    <br>
-								</div>
-								<br>
-								<br>
-								<input accept="image/JPG,image/JPEG,image/GIF,image/PNG" name="wanting-file" placeholder="" type="file" id="wanting-file" style="display:none">
-								<label for="wanting-file" class="file-btn">등록하기</label>
-									<span id="file-name">선택된 파일없음</span>
-<!-- 								<br> -->
-								<div class="textForm">
-<%-- 									<input type="hidden" value="${ r.count }" class="reply"> --%>
-<%-- 									<c:if test="${r.count == r.count} "> --%>
-									<textarea name="replyContentNope" class="replyContentNope" placeholder="제목">${ m.noticeTitle }</textarea>
-<%-- 									</c:if> --%>
-								</div>
-								<br>
-								<div class="textForm">
-									<textarea name="replyContent" class="replyContent" placeholder="내용">${ m.noticeContent}</textarea>
-								</div>
-								<br>
-								
-								
-								<button type="button" class="btn makeNope btn-primary btn-lg right" value="${ r.index }" style="float: right;" >취소</button>
-								
-								<button type="button" class="btn makeNotice btn-primary btn-lg right" style="display: inline-block; float: left;">생성</button>
-								
-								
-								<input type="hidden" name="make" class="hiddenMake" value="" >
-								<input type="hidden" name="title" class="hiddenTitle" value="" >								
-								<input type="hidden" name="check" class="hiddencheck" value="" >								
-								
-							</fieldset>
-						</form>
-					</div>
-				
 				<div id="delete" class="modal fade" tabindex="-1">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content">
@@ -487,17 +420,7 @@ input[type="checkbox"]:checked + label span {
 
 	<script>
 	
-       function checkOnlyOne(element){
-           const checkboxes = document.getElementsByName("checkcheckcheck");
-           
-           checkboxes.forEach((cb) => {
-              cb.checked = false;
-           })
-           
-           element.checked = true;
-        }
-       
-       
+    
 		$(document).ready(function() {
 			$('.myForm').hide();
 		});
@@ -506,11 +429,11 @@ input[type="checkbox"]:checked + label span {
 			$('.myMakeForm').hide();
 		});
 		
-		$('.answerBtn').click(function() {
-			const num = $(this).val();
-			console.log(num);
-			$('.myForm' + num).show();
-		});
+// 		$('.answerBtn').click(function() {
+// 			const num = $(this).val();
+// 			console.log(num);
+// 			$('.myForm' + num).show();
+// 		});
 		
 		$('.make').click(function() {
 			$('.myMakeForm').show();
@@ -527,43 +450,53 @@ input[type="checkbox"]:checked + label span {
 			$('.myMakeForm').hide();
 		});
 
-		$('.reply').click(function(){
-			$(this).siblings('.hiddenReply').val($(this).siblings()[3].querySelector('textarea').value);
-			$(this).siblings('.hiddenTitle').val($(this).siblings()[1].querySelector('textarea').value);
-			console.log($(this).siblings()[8].value);
-			$(this).siblings('.code').val($(this).siblings()[8].value);
-			$(this).parent().parent('.answerForm').submit();
-		});
-		
-		
-       
-       
-       
-		$('.makeNotice').click(function(){
+		$(document).on("click", ".answerBtn", function(){
+            const code = this.children[0].innerText;
+            const title = this.children[1].value;
 			
-			$(this).siblings('.hiddenMake').val($(this).siblings()[9].querySelector('textarea').value);
-			$(this).siblings('.hiddenTitle').val($(this).siblings()[7].querySelector('textarea').value);
-			console.log($(this).siblings());
-// 			const check = $(this).siblings()[1].querySelectorAll('input');
-// 			for (var index = 0; index < check.length; index++) {
-// 				   const checkval = check[index].value;
-// 				   siblings('.hiddencheck').val(checkval);
-// 			}
-// 		   console.log($(this).siblings('.hiddenMake').val());    
-		          // 체크박스 선택된 목록 가져오기
-          const query = 'input[name="checkcheckcheck"]:checked';
-          const selectedEls = document.querySelector(query);
-// 		          console.log(selectedEls.value);
-		          
-		          $(this).siblings('.hiddencheck').val(selectedEls.value);
-// 		          console.log($(this).siblings()[4].querySelector('textarea').value)
-// 		          console.log($(this).siblings()[2].querySelector('textarea').value)
-					$(this).parent().parent('.answerForm').submit();
-
-		       
-		});
+			console.log(code);
+            console.log(title);
+            
+            location.href='${contextPath}/editNotice.ad? code=' + code + '&title=' + title;
+    	});
 		
-		//삭제 정보 넘기기
+// 		$(document).on("click", ".featured__item__pic.set-bg", function(){
+//             console.log(this);
+//             const cateNum = this.children[0].value;
+//             const cateName = this.children[1].innerText;
+//             console.log(cateNum);
+//             console.log(cateName);
+            
+//             location.href = '${contextPath}/selectCategory.su?cateName='+cateName+'&cateNum='+cateNum+'&page='+${pi.currentPage};
+//     });
+		
+//  		$('.answerBtn').click(function(){
+
+//  				$("input[name=title]").val(title);
+// 				const code = $(this).parent().parent().parent().find("input");
+				
+// 				console.log(code);
+// 				for( var i =0; i<10; i++){
+// 					console.log(title[i])
+// 				}
+// 				for(var tResult of tValue){
+// 					console.log(tResult);
+// 				}
+// 				for(var cResult of cValue){
+// 					console.log(cResult);
+// 				}
+				
+				
+
+//  		});
+ 		
+ 		
+ 	// // 			$(this).siblings('.hiddenReply').val($(this).siblings()[3].querySelector('textarea').value);
+ 	// // 			$(this).siblings('.hiddenTitle').val($(this).siblings()[1].querySelector('textarea').value);
+		 // 			$(this).siblings('.code').val($(this).siblings()[8].value);
+// 				$('.answerBtn').submit();
+		
+		//삭제 정보 넘기기	
 		const btns = $(".delete");
 		for(const btn of btns) {
 			btn.addEventListener("click", function(){
@@ -577,8 +510,10 @@ input[type="checkbox"]:checked + label span {
 		$("#modalDeleteButton").on("click", function(){
 			$("form").submit();
 		});
+					
 	</script>
-
+	
+	
 
 </body>
 </html>

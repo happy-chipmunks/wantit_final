@@ -183,32 +183,62 @@ public class AdminDAO {
 	
 	
 	public int okProjectW(SqlSessionTemplate sqlSession, String id) {
-		System.out.println("daoW"+id);
+//		System.out.println("daoW"+id);
 		int result = sqlSession.update("adminMapper.okProjectW", id);
-		System.out.println("w result = " + result);
+//		System.out.println("w result = " + result);
 		return result;
 	}
 	
 	public int okProjectF(SqlSessionTemplate sqlSession, String id) {
-		System.out.println("daoF"+id);
+//		System.out.println("daoF"+id);
 		int result = sqlSession.update("adminMapper.okProjectF", id);
-		System.out.println("f result = " + result);
+//		System.out.println("f result = " + result);
 		return result;
 	}
 	
 	public int noProjectW(SqlSessionTemplate sqlSession, String id) {
-		System.out.println("daoW"+id);
+//		System.out.println("daoW"+id);
 		int result = sqlSession.update("adminMapper.noProjectW", id);
-		System.out.println("w result = " + result);
+//		System.out.println("w result = " + result);
 		return result;
 	}
 	
 	public int noProjectF(SqlSessionTemplate sqlSession, String id) {
-		System.out.println("daoF"+id);
+//		System.out.println("daoF"+id);
 		int result = sqlSession.update("adminMapper.noProjectF", id);
-		System.out.println("f result = " + result);
+//		System.out.println("f result = " + result);
 		return result;
 	}
+
+	public int insertImage(SqlSessionTemplate sqlSession, Image img) {
+		return sqlSession.insert("adminMapper.insertImage", img);
+	}
+
+	public ArrayList<Notice> allNotice(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.allNotice");
+	}
+
+	public ArrayList<Notice> editNotice(SqlSessionTemplate sqlSession, String code) {
+		return (ArrayList)sqlSession.selectList("adminMapper.editNotice", code);
+	}
+
+	public String checkCode(SqlSessionTemplate sqlSession, String code) {
+		return sqlSession.selectOne("adminMapper.checkCode", code);
+	}
+
+	public int addCount(String code, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("adminMapper.addCount", code);
+	}
+
+	public Notice getNotice(SqlSessionTemplate sqlSession, String code) {
+		return sqlSession.selectOne("adminMapper.getNotice", code); 
+	}
+
+	public Image getImage(SqlSessionTemplate sqlSession, String code) {
+		return sqlSession.selectOne("adminMapper.getImage", code);
+	}
+
+	
 	
 //	public int noProject(SqlSessionTemplate sqlSession, String id) {
 //		return sqlSession.update("adminMapper.noProject", id);
