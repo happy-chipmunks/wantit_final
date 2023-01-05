@@ -50,15 +50,17 @@ public interface MemberService {
 
 	ArrayList<CreatorImage> selectCreatorImageList(ArrayList<Integer> memberIds);
 
-	int deleteImage(String memberId);//프로필사진 삭제
-
 	int insertcreatorImage(Image cm);//크리에이터 사진등록
 
 	Image selectcreatorImage(Image image);//크리에이터 사진 불러오기
 
 	Image selectcImage(Image cimage);//크리에이터 사진 가져오기 로그인할때
 
-	int deletecImage(int cateNum);
+	int deletesupImg(String filedelete);//마이페이지 서포터 프로필 삭제
+
+	int deleteboforeImage(Image m);
+
+	int deleteboforecImage(Image cm);
 
 	
 

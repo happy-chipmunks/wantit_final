@@ -79,7 +79,7 @@
                 <h3 style="text-align:center ">조회 결과가 없습니다.</h3>                                        
             </c:when>                                                                         
             <c:otherwise>                                                                     
-                <h3 style="text-align:center ">ID : ${chechIdresult.memberId}</h3>                                           
+                <h3 style="text-align:center ">아이디 : ${chechIdresult.memberId}</h3>                                           
             </c:otherwise>                                                                    
         </c:choose> 
         <br>

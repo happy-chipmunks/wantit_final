@@ -160,10 +160,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-	@Override
-	public int deleteImage(String memberId) {//프로필 이미지 삭제
-		return mDAO.deleteImage(sqlSession,memberId);
-	}
+	
 
 
 	@Override
@@ -183,11 +180,25 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.selectcImage(sqlSession, cimage);
 	}
 
+	@Override
+	public int deletesupImg(String filedelete) {//마이페이지 서포터프로필 삭제
+		return mDAO.deletesupImg(sqlSession,filedelete);
+	}
+
 
 	@Override
-	public int deletecImage(int cateNum) {
-		return mDAO.deletecImage(sqlSession,cateNum);
+	public int deleteboforeImage(Image m) {
+		return mDAO.deleteboforeImage(sqlSession,m);
 	}
+
+
+	@Override
+	public int deleteboforecImage(Image cm) {
+		return mDAO.deleteboforecImage(sqlSession,cm);
+	}
+
+
+	
 
 
 	

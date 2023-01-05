@@ -113,19 +113,24 @@
 			<ul>
 
 				<li  style="width: 200px; margin: auto;">
-				<c:if test="${image == null }">
+				<c:if test="${icmage == null }">
 				<img  id= "target_img" src="${ contextPath }/resources/myPageImage/뉴프로필.png" style="width: 150px; height: 150px;">
 				</c:if>
-				<c:if test="${image != null }">
+				<c:if test="${icmage != null }">
     			<img  id="target_img" src="${contextPath}/resources/member/${ icmage }" style="width: 150px; height: 150px;" class="circle-img">
     			</c:if>
-
+				<br><br>
+				<form action="${contextPath}/deletecreMemberImg.me">
+				<input type="hidden" value="${ icmage }" name="cfiledelete">
+				<button class="btn button">프로필 삭제</button>
+				</form>
+				<br><br>
 					<form name="signform" method="POST" ENCTYPE="multipart/form-data" action="${contextPath}/insertcreatorMemberImg.me">
 				    <input type="file" id="file" name="file" style="display:none;" onchange="changeValue(this)">
 				    <input type="hidden" name = "target_url">
 				    <input type="hidden" value=${ loginUser.memberId } name="memberId" >
 					</form>
-					<br>
+					
 	   				<h4><b>${ loginUser.memberNickname }</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
 	   				크리에이터<br>

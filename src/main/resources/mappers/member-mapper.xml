@@ -216,4 +216,22 @@
   		where   IMAGE_BOARD_CATE = #{imageBoardCate} 
   	</update>
 	
+	
+	<delete id="deletesupImg">
+	update  IMAGE
+	set IMAGE_STATUS = 'N'
+     WHERE IMAGE_RENAME = #{IMAGE_RENAME}
+	</delete>
+	
+	 <update id="deleteboforeImage" >
+  		update image
+  		set IMAGE_STATUS = 'N'
+  		where   IMAGE_BOARD_CATE = #{imageBoardCate} AND IMAGE_BOARD_ID = #{imageBoardId}
+  	</update> 
+	
+	 <update id="deleteboforecImage" >
+  		update image
+  		set IMAGE_STATUS = 'N'
+  		where   IMAGE_BOARD_CATE = #{imageBoardCate} AND IMAGE_BOARD_ID = #{imageBoardId}
+  	</update>  
 </mapper>

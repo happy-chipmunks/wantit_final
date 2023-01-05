@@ -159,12 +159,6 @@
    				<li>
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorAds.me'"><b>광고 의뢰</b></button></p>
    				</li>
-   				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorAlarm.me'"><b>오픈알림</b></button></p>
-   				</li>
-   				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorFollow.me'"><b>팔로우</b></button></p>
-   				</li>
 			</ul>
    		</div>
    		<div class="col-1"></div>
@@ -229,7 +223,7 @@
 	    });
 		
 		function openPopup(){
-			window.open("myPage_sup_message.jsp", "message", "width=500 height=300");
+			window.open("myPage_sup_message.me", "message", "width=500 height=300");
 		}
 	</script>
 

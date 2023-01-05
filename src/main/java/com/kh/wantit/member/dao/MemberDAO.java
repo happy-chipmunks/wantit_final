@@ -127,8 +127,20 @@ public class MemberDAO {
 	}
 
 
-	public int deletecImage(SqlSessionTemplate sqlSession, int cateNum) {
-		return sqlSession.update("memberMapper.deletecImage",cateNum);
+	
+
+	public int deletesupImg(SqlSessionTemplate sqlSession, String filedelete) {
+		return sqlSession.update("memberMapper.deletesupImg",filedelete);
+	}
+
+
+	public int deleteboforeImage(SqlSessionTemplate sqlSession, Image m) {
+		return sqlSession.update("memberMapper.deleteboforeImage",m);
+	}
+
+
+	public int deleteboforecImage(SqlSessionTemplate sqlSession, Image cm) {
+		return sqlSession.update("memberMapper.deleteboforecImage",cm);
 	}
 
 

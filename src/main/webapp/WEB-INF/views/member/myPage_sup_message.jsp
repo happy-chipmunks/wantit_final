@@ -26,7 +26,8 @@
 </head>
 <body>
 	<div class="container mt-3" style="width: 500px; height: 300px;">
-		<img src="resources/메시지.png" width="60px">&nbsp;&nbsp;&nbsp;&nbsp;<h2 style="display: inline">쪽지함</h2>
+		<img src="resources/myPageImage/메시지.png" width="60px">&nbsp;&nbsp;&nbsp;&nbsp;<h2 style="display: inline">쪽지함</h2>
+		<br><br>
 		<table class="table" id="messageList">
 			<tr onclick="$('#modal').modal('show')">
 				<td style="display: none;">쪽지 번호</td>

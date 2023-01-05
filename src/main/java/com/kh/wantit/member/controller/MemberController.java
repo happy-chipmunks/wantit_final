@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
+import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import javax.servlet.http.HttpServletRequest;
@@ -120,11 +122,7 @@ public class MemberController {
 		Member creatorCheck = mService.creatorCheck(id);
 		Creator creatorRegistration = mService.creatorRegistration(id);
 		
-//		ArrayList<Integer> memberIds = mService.allProfileImage(id);
-//		System.out.println(memberIds);
-		
-//		ArrayList<CreatorImage> imageList = mService.selectCreatorImageList(memberIds);
-//		System.out.println(imageList);
+
 		Image cimage = new Image();
 		cimage.setImageBoardCate(9);
 		cimage.setImageBoardId(id);
@@ -137,9 +135,7 @@ public class MemberController {
 		 return"myPage_creator" ;
 		 }
 		
-		 
-		 
-		 
+
 		 
 		boolean check = false;
 		if(creatorCheck.getMemberType() == "creator") {
@@ -590,10 +586,10 @@ public class MemberController {
 
 
 		 Image m = new Image();
-		 
-		 
+		 m.setImageBoardCate(3);
+		 m.setImageBoardId(memberId);
 		 if(!file.equals("")) {
-			 int deleteImg = mService.deleteImage(memberId);
+			 int supdelete = mService.deleteboforeImage(m); 
 			 
 			 
 		String[] returnArr = saveFile(file, request);
@@ -625,15 +621,19 @@ public class MemberController {
 			 System.out.println(allProfileImage);
 			 System.out.println(img);
 				/* model.addAttribute("image",img.getImageRename()); */
-			 session.setAttribute("image", img.getImageRename());
+				 session.setAttribute("image", img.getImageRename()); 
 		 }else {
 			 throw  new MemberException("프로필 사진등록 실패");
 		 }
-	
 		 return "myPage_sup";
 }	
 	 
 	 
+	private void deletebeforeImage(Image m) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@RequestMapping("insertcreatorMemberImg.me")	//크리에이터 사진등록
 	public String insertcreatorMemberImg(@RequestParam("file") MultipartFile file1 ,@RequestParam("memberId") String memberId ,HttpServletRequest request ,Model model,
 			 HttpSession session) {
@@ -644,12 +644,11 @@ public class MemberController {
 		 cm.setImageBoardCate(9);
 		 cm.setImageBoardId(memberId);
 		 
-		System.out.println("============================");
-		System.out.println(cm);
-		int cateNum = 9;
+		
+		
 		 System.out.println("크리에이터이미지 수정"+cm);
 		 if(!file1.equals("")) {
-			 int deleteImg = mService.deletecImage(cateNum);
+			 int credelete = mService.deleteboforecImage(cm);
 			 
 			 
 			 String[] returnArr = saveFile(file1, request);
@@ -681,16 +680,42 @@ public class MemberController {
 //			 System.out.println(allProfileImage);
 //			 System.out.println(img);
 				/* model.addAttribute("image",img.getImageRename()); */
-			 session.setAttribute("icmage", img.getImageRename());
+					 session.setAttribute("icmage", img.getImageRename()); 
 	
 		}else {
-			 throw  new MemberException("프로필 사진등록 실패");
+			 throw  new MemberException("프로필 삭제 후  등록");
 		}
 		 return "myPage_creator";
 }
 	
 	
 	
+	@RequestMapping("deletesupMemberImg.me")//서포터프로필 삭제
+	public String deletesupMemberImg(@RequestParam("filedelete") String filedelete,HttpSession session,Model model) {
+		
+		System.out.println(filedelete);
+		
+		int result = mService.deletesupImg(filedelete);
+		System.out.println(result);
+		if(result > 0) {
+			session.setAttribute("image", null);
+			return "myPage_sup";
+		}else {
+			return null;
+		}
+		
+	}
+	
+	@RequestMapping("deletecreMemberImg.me")
+	public String deletecreMemberImg(@RequestParam("cfiledelete") String cfiledelete,HttpSession session) {
+		
+		int result = mService.deletesupImg(cfiledelete);
+		
+		if(result > 0) {
+			session.setAttribute("icmage", null);
+		}
+		return "myPage_creator";
+	}
 }
 	
 	
