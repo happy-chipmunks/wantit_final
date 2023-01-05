@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.wanting.model.vo.Wanting;
 import com.kh.wantit.wanting.model.vo.WantingAttend;
 
@@ -37,7 +38,7 @@ public interface WantingService {
 	int updateWantingStatus(Wanting w);
 	
 	// 원팅 달성 알림 보내기
-	ArrayList<WantingAttend> getMemberList(int wantingNum);
+	ArrayList<WantingAttend> getWantingAttendList(int wantingNum);
 
 	int sendAlarm(Alarm alarm);
 	
@@ -50,10 +51,23 @@ public interface WantingService {
 	// 회원 알림 확인하기
 	int checkAlarm(int alarmNum);
 	
-	// 원팅 삭제 및 수정
-	int updateWanting(Wanting w);
+	// 원팅 참여자 리스트 - 아이디로 맴버 가져오기
+	Member getMember(String memberId);
 
-	int deleteWanting(int wantingNum);
+	// 원팅 수정 - 신청 승인 거절
+	int requestUpdateWanting(Wanting w);
+
+	int rejectUpdateWanting(int wantingNum);
+
+	int confirmUpdateWanting(int wantingNum);
+	
+	// 원팅 삭제 - 신청 승인 거절
+	int requestDeleteWanting(int wantingNum);
+
+	int rejectDeleteWanting(int wantingNum);
+
+	int confirmDeleteWanting(int wantingNum);
 	
 
+	
 }

@@ -179,12 +179,47 @@
                       
 			        <input type="hidden" class="wantingNum" value="${ wantingList[i].wantingNum }">
                     </div>
-       		     </c:forEach>
-
+       		    </c:forEach>
+				<c:if test="${ !empty loginUser }">
                     <button type="button" class="btn goWanting" onclick="location.href='${ contextPath }/wantingWrite.want'">원팅 하러가기 →</button>
+				</c:if>
+				<c:if test="${ empty loginUser }">
+                    <button type="button" class="btn goWanting" data-bs-toggle="modal" data-bs-target="#login-modal">원팅 하러가기 →</button>
+				</c:if>
                 </div>
             </div>
         </div>
+
+
+		<!-- 로그인 필요합니다 모달 -->
+		<div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        <div class="container-fluid g-0">
+		          <div class="row g-0">
+		            <div class="col-md-7">
+		              <div class="modal-wanting-right">
+		                <p class="dibs-message">
+		                  로그인이 필요합니다.<br>
+		                </p>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		      <div class="modal-footer modal-dibs-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='${contextPath}/loginenroll.me'">로그인</button>
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
 
         <!-- 펀딩예정-->
         <div class="container" style="padding-top: 20px;">

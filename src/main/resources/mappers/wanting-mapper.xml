@@ -99,25 +99,13 @@
 		where member_id=#{memberId} and alarm_check='N'
 	</select>
 	
+	
 <!-- 	원팅 달성 알림 보내기 -->
-	<select id="getMemberList" resultMap="wantingAttendResultSet">
+	<select id="getWantingAttendList" resultMap="wantingAttendResultSet">
 		select *
 		from wanting_attend
 		where wanting_num=#{wantingNum}
 	</select>
-	
-
-		
-	
-	
-	
-<!-- 	원팅 수정 및 삭제 -->
-	<update id="deleteWanting">
-		update wanting
-		set wanting_status='N'
-		where wanting_num=#{wantingNum}
-	</update>
-	
 	
 	
 <!-- 	회원 알림 확인하기 -->
@@ -128,15 +116,83 @@
 	</update>
 
 	
-<!-- 	원팅 수정 및 삭제 -->
-	<update id="updateWanting">
+<!-- 	원팅 참여자 리스트 - 아이디로 맴버 가져오기 -->
+	<select id="getMember" resultMap="memberResultSet">
+		select *
+		from member
+		where member_id=#{memberId}
+	</select>
+	
+
+<!-- 	원팅 수정 - 신청 승인 거절 -->
+	<insert id="requestUpdateWanting">
+		insert into wanting_edit
+		values(#{wantingNum}, #{wantingWriter}, #{wantingTitle}, #{wantingSummary}, #{wantingContent},
+			#{wantingShopName}, #{wantingShopAddress}, #{wantingCreateDate}, #{wantingDaysCount},
+			#{wantingCount}, #{wantingLevel}, 'E', #{wantingStatus})
+	</insert>
+
+<!-- 	거절 -->
+	<update id="rejectUpdateWanting">
 		update wanting
-		set wanting_title=#{wantingTitle}, wanting_summary=#{wantingSummary}, 
-			wanting_content=#{wantingContent}, shop_name=#{wantingShopName},
-			shop_address=#{wantingShopAddress}
+		set wanting_confirm='R'
+		where wanting_num=#{wantingNum}
+	</update>
+
+<!-- 	<update id="rejectUpdateWantinStatus">
+		update wanting_edit
+		set wanting_confirm='N'
+		where wanting_num=#{wantingNum}
+	</update> -->
+	
+	<delete id="rejectUpdateWantingDelete">
+		delete from wanting_edit
+		where wanting_num=#{wantingNum}
+	</delete>
+	
+<!-- 	승인 -->
+	<update id="confirmUpdateWanting">
+		update wanting
+		set (WANTING_TITLE, WANTING_SUMMARY, WANTING_CONTENT, SHOP_NAME, SHOP_ADDRESS)
+			= (select WANTING_TITLE, WANTING_SUMMARY, WANTING_CONTENT, SHOP_NAME, SHOP_ADDRESS
+				from wanting_edit
+				where wanting_num=#{wantingNum})
+		where wanting.wanting_num=#{wantingNum}
+	</update>
+	
+	<update id="confirmUpdateWantingStatus">
+		update wanting
+		set wanting_confirm='Y'
 		where wanting_num=#{wantingNum}
 	</update>
 	
+	<delete id="confirmUpdateWantingDelete">
+		delete from wanting_edit
+		where wanting_num=#{wantingNum}
+	</delete>
+	
+	
+<!-- 	원팅 삭제 - 신청 승인 거절 -->
+	<update id="requestDeleteWanting">
+		update wanting
+		set wanting_confirm='D'
+		where wanting_num=#{wantingNum}
+	</update>
+	
+	<update id="rejectDeleteWanting">
+		update wanting
+		set wanting_confirm='R'
+		where wanting_num=#{wantingNum}
+	</update>
+	
+	<update id="confirmDeleteWanting">
+		update wanting
+		set wanting_confirm='Y', wanting_status='N'
+		where wanting_num=#{wantingNum}
+	</update>
+
+
+
 	
 	
 	<resultMap type="Wanting" id="wantingResultSet">
@@ -182,6 +238,21 @@
 		<result column="ALARM_BOARD_ID" property="alarmBoardId"/>
 		<result column="ALARM_CHECK" property="alarmCheck"/>
 	</resultMap>
-	
+
+	<resultMap type="Member" id="memberResultSet">
+		<id column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_PWD" property="memberPwd"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICKNAME" property="memberNickname"/>
+		<result column="MEMBER_PHONE" property="memberPhone"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="MEMBER_ENROLL_DATE" property="memberEnrolldate"/>
+		<result column="MEMBER_GENDER" property="memberGender"/>
+		<result column="MEMBER_TYPE" property="memberType"/>
+		<result column="MEMBER_INTRODUCE" property="memberIntroduce"/>
+		<result column="MEMBER_CATE" property="memberCate"/>
+		<result column="MEMBER_STATUS" property="memberStatus"/>
+	</resultMap>	
 	
 </mapper>

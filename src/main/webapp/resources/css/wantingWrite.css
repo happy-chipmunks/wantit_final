@@ -11,7 +11,7 @@
     margin-bottom: 20px;
     font-size: 18px;
     font-weight: 350;
-    color: #00b2b0;
+    color: ##8c86c7;
 }
 .wanting-guide-title {
     margin: 40px 0 5px;
@@ -39,7 +39,7 @@
 }
 .wanting-write-input:focus {
     border: none;
-    outline: 1px solid #00b2b0;
+    outline: 1px solid #857BE2;
 } 
 /* .wanting-write-input::-webkit-input-placeholder { color: #f00; }  */
 /* *{-webkit-tap-highlight-color: transparent};  */
@@ -86,7 +86,7 @@
 .btn-wanting {
     margin-top: 10px;
     margin-bottom: 100px;
-    background-color: #00c4c4;
+    background-color: #786BF3;
     border: none;
     color: #fff;
     width: 100%;
@@ -97,7 +97,7 @@
     cursor: pointer;
 }
 .btn-wanting:hover {
-    background-color: #00b2b0;
+    background-color: #7063E4;
     transition-duration: .2s;
 }
 

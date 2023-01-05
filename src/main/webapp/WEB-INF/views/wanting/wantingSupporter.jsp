@@ -1,93 +1,81 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <jsp:include page="../common/navbar.jsp"></jsp:include>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>펀딩 상세페이지 - 새소식</title>
+  <title>원팅 상세페이지 - 서포터</title>
 
   <!-- CSS Files -->
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
   <link rel="stylesheet" href="resources/css/wantingMain.css" />
-  <link rel="stylesheet" href="resources/css/wantingNotice.css" />
+  <link rel="stylesheet" href="resources/css/wantingSupporter.css" />
 
   <!-- icons fonts -->
-
 
 </head>
 
 <body>
-<!-- 상단바 -->
-<jsp:include page="wantingNavbar.jsp"></jsp:include>
-
-<div class="container funding-content">
-  <div class="row g-2">
-    <!-- 왼쪽 사이드바 -->
-    <div class="col-md-9">
-      <div class="left-content">
-
-        <!-- 새소식 상단바 -->
-        <div class="container">
-          <div class="row notice-bar g-0">
-              <div class="col-9 notice-left">
-                <div class="notice">새소식<span class="notice-num"> 6</span></div>
+    <!-- 상단바 -->
+    
+    <div class="container funding-content">
+      <div class="row g-2">
+        <!-- 왼쪽 사이드바 -->
+        <div class="col-md-9">
+          <div class="left-content">
+    
+            <!-- 새소식 상단바 -->
+            <div class="container">
+              <div class="row notice-bar g-0">
+                  <div class="col-12 notice-left">
+                    <div class="notice">참여하는 서포터<span class="notice-num"> ${ wanting.wantingCount }</span></div>
+                  </div>
               </div>
-              <div class="col-3 notice-right">
-                <select class="sort">
-                  <option value="recent-order">최신순</option>
-                  <option value="past-order">과거순</option>
-                </select>
-              </div>
-          </div>
-        </div>
-        <!-- 새소식 리스트 -->
-        <div class="container">
-          <div class="notice-list" onclick="location.href='${ contextPath }/wantingNoticeDetail.want'">
-              <p class="notice-category">리워드안내</p>
-              <p class="notice-title">[깜짝 선물]2개 이상 펀딩시, 한정판 에코백 선물</p>
-              <p class="notice-date">하루 전</p>
-          </div>
-          <div class="notice-list">
-            <p class="notice-category">리워드안내</p>
-            <p class="notice-title">[깜짝 선물]2개 이상 펀딩시, 한정판 에코백 선물</p>
-            <p class="notice-date">하루 전</p>
-          </div>
-          <div class="notice-list">
-            <p class="notice-category">리워드안내</p>
-            <p class="notice-title">[깜짝 선물]2개 이상 펀딩시, 한정판 에코백 선물</p>
-            <p class="notice-date">하루 전</p>
-          </div>
-          <div class="notice-list">
-            <p class="notice-category">리워드안내</p>
-            <p class="notice-title">[깜짝 선물]2개 이상 펀딩시, 한정판 에코백 선물</p>
-            <p class="notice-date">하루 전</p>
-          </div>
-          <div class="notice-list">
-            <p class="notice-category">리워드안내</p>
-            <p class="notice-title">[깜짝 선물]2개 이상 펀딩시, 한정판 에코백 선물</p>
-            <p class="notice-date">하루 전</p>
-          </div>
-          <div class="notice-list">
-            <p class="notice-category">리워드안내</p>
-            <p class="notice-title">[깜짝 선물]2개 이상 펀딩시, 한정판 에코백 선물</p>
-            <p class="notice-date">하루 전</p>
-          </div>
-          <div class="notice-list">
-            <p class="notice-category">리워드안내</p>
-            <p class="notice-title">[깜짝 선물]2개 이상 펀딩시, 한정판 에코백 선물</p>
-            <p class="notice-date">하루 전</p>
-          </div>
-        </div>
+            </div>
+
+            <!-- 새소식 리스트 -->
+            <div class="container">
+                <ul class="">
+                <c:if test="${ empty memberList }">
+                    <div class="wanting-supporter-content wantng-supporter-list"
+                    style="width: 100%; height: 400px; border: none; align-items: center; text-align: center; margin: auto; padding: 0;">
+                        <span>원팅에 참여한 서포터가 없습니다. <br> 첫 참여자가 되어보세요!</span>
+                    </div>
+                </c:if>
+                <c:if test="${ !empty memberList }">
+					<c:forEach items="${ memberList }" var="m">
+	                    <li class="">
+	                        <a href="" class="wantng-supporter-list">
+	                            <span class="supporter-profile">
+	                                <img src="coffee.jpg"/>
+	                            </span>
+	                            <div class="wanting-supporter-content">
+	                                <span>${ m.memberNickname }</span>
+	                                <span>님이 <strong>원팅</strong>에 참여했습니다.</span>
+	                                <!-- <svg viewBox="0 0 40 40" focusable="false" role="presentation" class="supporter-list-icon" aria-hidden="true">
+	                                    <path d="M28 20L15 33l-1.4-1.4L25.2 20 13.6 8.4 15 7l13 13z"></path>
+	                                </svg> -->
+	                            </div>
+	                        </a>
+	                    </li>
+					</c:forEach><br><br><br><br><br><br>
+				</c:if>
+                </ul>
+            </div>
+    
+
 
       </div>
     </div>
 
+
     <!-- 오른쪽 사이드바 -->
-<div class="col-md-3 right-content">
+	<div class="col-md-3 right-content">
     <div class="state-box">
       <p class="remaining-day"><strong>20일 남음</strong></p>
       <div class="rate-bar"><em></em></div>

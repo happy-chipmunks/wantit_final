@@ -37,17 +37,6 @@ public class WantingController {
 	public String wantingWrite() {
 	      return "wantingWrite";
 	}
-
-	@RequestMapping("wantingNotice.want")
-	public String wantingNotice() {
-	      return "wantingNotice";
-	}
-	
-	@RequestMapping("wantingNoticeDetail.want")
-	public String wantingNoticeDetail() {
-	      return "wantingNoticeDetail";
-	}
-	
 	
 	// ==================== 원팅 작성 ====================
 	@RequestMapping("insertWanting.want")
@@ -347,7 +336,7 @@ public class WantingController {
 	// ==================== 원팅 달성 알림 보내기 함수  ====================
 	public int sendAlarm(Alarm alarm) {
 		int wantingNum = alarm.getAlarmBoardId();
-		ArrayList<WantingAttend> memberList = wService.getMemberList(wantingNum);
+		ArrayList<WantingAttend> memberList = wService.getWantingAttendList(wantingNum);
 		System.out.println(memberList); // wantingNum으로 참여자 맴버들 리스트 가져와서
 		
 		int result = 0; 
@@ -415,6 +404,31 @@ public class WantingController {
 		
 	}
 	
+	
+	// ==================== 원팅 상세보기 - 참여자 리스트 넘어가기 ====================
+	@RequestMapping("wantingNotice.want")
+	public String wantingNotice(@RequestParam("wantingNum") int wantingNum, Model model) {
+		Wanting wanting = wService.selectWanting(wantingNum);
+		ArrayList<WantingAttend> wantingAttendList = wService.getWantingAttendList(wantingNum);
+		ArrayList<Member> memberList = new ArrayList<Member>();
+		ArrayList<Image> memberImageList = new ArrayList<Image>();
+		
+		for(int i = 0; i < wantingAttendList.size(); i++) {
+			String memberId = wantingAttendList.get(i).getAttender();
+			Member member = wService.getMember(memberId);
+			memberList.add(member);
+		}
+		
+		if (wanting != null) {
+			model.addAttribute("wanting", wanting);
+			model.addAttribute("memberList", memberList);
+			return "wantingSupporter";
+		} else {
+			throw new WantingException("원팅 참여자 조회 실패");
+		}
+	}
+	
+	
 	// ==================== 원팅 수정하기 페이지 ====================
 	@RequestMapping("updateWantingView.want")
 	public String updateWantingView(@RequestParam("wantingNum") int wantingNum, Model model, HttpSession session) {
@@ -424,9 +438,6 @@ public class WantingController {
 		if( id.equals(w.getWantingWriter()) || id.equals("admin") ) {
 			ArrayList<Image> imageList = wService.selectImage(wantingNum);
 			
-			System.out.println(w);
-			System.out.println(imageList);
-
 			Image thumbnail = null;
 			for(int i = 0; i < imageList.size(); i++) {
 				if(imageList.get(i).getImageLevel() == 0) {
@@ -437,105 +448,153 @@ public class WantingController {
 			if (w != null && imageList != null) {
 				model.addAttribute("wanting", w);
 				model.addAttribute("thumbnail", thumbnail);
-				return "wantingUpdate";
+				return "wantingUpdateWrite";
 			} else {
-				throw new WantingException("원팅 상세보기 실패");
+				throw new WantingException("원팅 수정하기 페이지 실패");
 			}
 		} else {
-			throw new WantingException("원팅 상세보기 실패");
+			throw new WantingException("원팅 수정하기 페이지 실패");
 		}
 		
 	}
 
 	
-	// ==================== 원팅 수정하기 ====================
-	@RequestMapping("updateWanting.want")
-	public String updateWanting(@ModelAttribute Wanting w, @RequestParam("wanting-file") ArrayList<MultipartFile> files, HttpServletRequest request) {
+	// ==================== 원팅 수정 요청 ====================
+	@RequestMapping("requestUpdateWanting.want")
+	public String requestUpdateWanting(@ModelAttribute Wanting w, HttpServletRequest request, Model model) {
 		String id = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
-//		if( id.equals(w.getWantingWriter()) || id.equals("admin") ) {
+		//if( id.equals(w.getWantingWriter()) || id.equals("admin") ) { // writer 설정을 해줘야하나
 			
-			System.out.println(w);
-			System.out.println(files); // 받아온 파일들 ArrayList
-	
-			int result1 = wService.insertWanting(w); // 원팅 삽입
-			int result2 = 0; // 이미지 삽입
-			
-			// 이미지 속성값 설정
-			ArrayList<Image> list = new ArrayList<Image>();
-			for(int i = 0; i < files.size(); i++) {
-				MultipartFile upload = files.get(i);
-				System.out.println(upload.getOriginalFilename());
-				
-				if(!upload.getOriginalFilename().equals("")) {	//upload에 오리지날 이름이 빈칸이 아니라면
-				// if(upload != null && !upload.isEmpty()) {	// upload가 null이 아니고 upload가 비어있지 않다면
-					String[] returnArr = saveFile(upload, request, i);
-					// 파일이 upload 객체에 있는데 saveFile 함수를 거쳐서
-					// returnArr[0]에는 저장경로 returnArr[1]에는 변경한 이름이 들어있다
-	
-					if(returnArr[1] != null) {
-						// 리네임이 null이 아니라면
-						Image img = new Image(); // img에 속성값을 넣어서 추가하자
-						
-						String originFileName = upload.getOriginalFilename();
-						img.setImageForm(originFileName.substring(originFileName.lastIndexOf(".")));
-						img.setOriginName(originFileName);
-						img.setImageRename(returnArr[1]);
-						img.setImageSrc(returnArr[0]);
-						img.setImageBoardCate(4);
-						img.setImageBoardId("1");
-						list.add(img); // 받아온 files에 정보를 넣어서 Image list에 넣자
-						System.out.println(upload.getOriginalFilename() + "list넣기");
-					}
+			int result1 = wService.requestUpdateWanting(w);
+			ArrayList<Image> imageList = wService.selectImage(w.getWantingNum());
+
+			Image thumbnail = null;
+			for(int i = 0; i < imageList.size(); i++) {
+				if(imageList.get(i).getImageLevel() == 0) {
+					thumbnail = imageList.get(i);
 				}
 			}
-				
-			// 이미지 속성값 설정 - 썸네일
-			for(int i = 0; i < list.size(); i++) {
-				Image img = list.get(i);
-				if(i == 0) {
-					img.setImageLevel(0);
-				} else {
-					img.setImageLevel(1);
-				}
-				result2 = wService.insertImage(img); // 이미지 삽입
-				System.out.println(img + "삽입");
-	
-			}
 			
-			if(result1 > 0 && result2 > 0) {
-				return "redirect:wantingList.want";
+			if(result1 > 0 && imageList != null) {
+				model.addAttribute("wanting", w);
+				model.addAttribute("thumbnail", thumbnail);
+				return "wantingUpdateView";
 			} else {
-				throw new WantingException("원팅 수정 삽입 실패");
+				throw new WantingException("원팅 수정 요청 실패");
 			}
 		
-//		} else {
-//			throw new WantingException("원팅 수정 삽입 실패");
-//		}
+		//} else {
+		//	throw new WantingException("원팅 수정 요청 실패");
+		//}
 	}	
 	
-		
-	// ==================== 원팅 삭제하기 ====================
-	@RequestMapping("deleteWanting.want")
-	public String deleteWanting(@ModelAttribute Wanting w, HttpSession session) {
+	
+	// ==================== 원팅 수정 거절 ====================
+	@RequestMapping("rejectUpdateWanting.want")
+	public String rejectUpdateWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session/*, RedirectAttributes redirectAttributes*/) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
-		if(id == w.getWantingWriter() || id == "admin") {
+		Wanting wanting = wService.selectWanting(wantingNum);
+		if( id.equals(wanting.getWantingWriter()) || id.equals("admin") ) {
 			
-			int wantingNum = w.getWantingNum();
-			int result = wService.deleteWanting(wantingNum);
+			int result = wService.rejectUpdateWanting(wantingNum);
 			
-			if(result > 0) {
-				return "redirect: list.bo";
+			if(result > 1) {
+				//redirectAttributes.addAttribute("wantingNum", wantingNum);
+				return "redirect:wantingList.want";
 			} else {
-				throw new WantingException("원팅 삭제 실패");
+				throw new WantingException("원팅 수정 요청 실패");
+			}
+		} else {
+			throw new WantingException("원팅 수정 요청 실패");
+		}		
+	}	
+	
+	
+	// ==================== 원팅 수정 승인 ====================
+	@RequestMapping("confirmUpdateWanting.want")
+	public String confirmUpdateWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		Wanting wanting = wService.selectWanting(wantingNum);
+		if( id.equals(wanting.getWantingWriter()) || id.equals("admin") ) {
+			
+			int result = wService.confirmUpdateWanting(wantingNum);
+			
+			if(result > 2) {
+				return "redirect:wantingList.want";
+			} else {
+				throw new WantingException("원팅 수정 승인 실패");
 			}
 			
 		} else {
-			throw new WantingException("원팅 삭제 실패");
+			throw new WantingException("원팅 수정 승인 실패");
 		}
 	}
-
 	
-	// ==================== 원팅 작성 - 이미지 deleteFile 메소드  ====================
+		
+	// ==================== 원팅 삭제 요청 ====================
+	@RequestMapping("requestDeleteWanting.want")
+	public String deleteWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session/*, RedirectAttributes redirectAttributes*/) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		Wanting wanting = wService.selectWanting(wantingNum);
+		if( id.equals(wanting.getWantingWriter()) || id.equals("admin") ) {
+			
+			int result = wService.requestDeleteWanting(wantingNum);
+			
+			if(result > 0) {
+				//redirectAttributes.addAttribute("wantingNum", wantingNum);
+				return "redirect:wantingList.want";
+			} else {
+				throw new WantingException("원팅 삭제 요청 실패");
+			}
+		} else {
+			throw new WantingException("원팅 삭제 요청 실패");
+		}		
+	}
+	
+	
+	// ==================== 원팅 삭제 거절 ====================
+	@RequestMapping("rejectDeleteWanting.want")
+	public String rejectDeleteWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session/*, RedirectAttributes redirectAttributes*/) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		Wanting wanting = wService.selectWanting(wantingNum);
+		if( id.equals(wanting.getWantingWriter()) || id.equals("admin") ) {
+			
+			int result = wService.rejectDeleteWanting(wantingNum);
+			
+			if(result > 0) {
+				//redirectAttributes.addAttribute("wantingNum", wantingNum);
+				return "redirect:wantingList.want";
+			} else {
+				throw new WantingException("원팅 삭제 요청 실패");
+			}
+		} else {
+			throw new WantingException("원팅 삭제 요청 실패");
+		}		
+	}	
+	
+	
+	// ==================== 원팅 삭제 승인 ====================
+	@RequestMapping("confirmDeleteWanting.want")
+	public String confirmDeleteWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		Wanting wanting = wService.selectWanting(wantingNum);
+		if( id.equals(wanting.getWantingWriter()) || id.equals("admin") ) {
+			
+			int result = wService.confirmDeleteWanting(wantingNum);
+			
+			if(result > 0) {
+				return "redirect:wantingList.want";
+			} else {
+				throw new WantingException("원팅 삭제 승인 실패");
+			}
+			
+		} else {
+			throw new WantingException("원팅 삭제 승인 실패");
+		}
+	}
+	
+	
+	// ==================== 원팅 삭제 - 이미지 deleteFile 메소드  ====================
 	public void deleteFile(String fileName, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		// WEB-INF안에 있는 resources(정적파일관리)를 도달하려고 하는 경로

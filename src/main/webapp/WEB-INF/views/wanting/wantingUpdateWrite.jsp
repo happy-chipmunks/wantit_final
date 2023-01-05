@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>원팅 작성하기</title>
+  <title>원팅 수정하기</title>
 
   <!-- CSS Files -->
   <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
@@ -33,14 +33,25 @@
 	<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 		<ol class="breadcrumb">
 		  <li class="breadcrumb-item"><a href="#" onclick="location.href='${ contextPath }/myPageSupporter.me'">마이페이지</a></li>
-		  <li class="breadcrumb-item active" aria-current="page">원팅등록</li>
+		  <li class="breadcrumb-item active" aria-current="page">원팅수정</li>
 		</ol>
 	</nav>
 <!-- 	<input placeholder="" type="file"  name="wanting-file"> -->
 	
 	
-<form class="" action="${ contextPath }/updateWanting.want" method="POST" enctype="multipart/form-data" id="wantingForm"> <!-- enctype : 이미지나 파일을 건낼 수 있음 -->
+<form class="" action="${ contextPath }/requestUpdateWanting.want" method="POST" enctype="multipart/form-data" id="wantingForm"> <!-- enctype : 이미지나 파일을 건낼 수 있음 -->
 	<h4 class="">원팅 수정하기</h4>
+
+<!-- 	값 전달 input tag -->
+	<input type="hidden" name="wantingNum" value="${ wanting.wantingNum }">
+	<input type="hidden" name="wantingWriter" value="${ wanting.wantingWriter }">
+	<input type="hidden" name="wantingCreateDate" value="${ wanting.wantingCreateDate }">
+	<input type="hidden" name="wantingDaysCount" value="${ wanting.wantingDaysCount }">
+	<input type="hidden" name="wantingCount" value="${ wanting.wantingCount }">
+	<input type="hidden" name="wantingLevel" value="${ wanting.wantingLevel }">
+	<input type="hidden" name="wantingStatus" value="${ wanting.wantingStatus }">
+	<input type="hidden" name="wantingConfirm" value="${ wanting.wantingConfirm }">
+	
 	<div class="wanting-title-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
 	
 	<h5 class="wanting-guide-title">원팅 제목</h5>
@@ -54,7 +65,7 @@
 	<input class="wanting-write-input" placeholder="내용을 입력해 주세요" maxlength="80" name="wantingSummary" type="text" value="${ wanting.wantingSummary }" name="wantingSummary">
 
 	<h5 class="wanting-guide-title">대표이미지</h5>
-	<input accept="image/JPG,image/JPEG,image/GIF,image/PNG" name="wanting-file" placeholder="" type="file" id="wanting-file" style="display:none">
+	<input accept="image/JPG,image/JPEG,image/GIF,image/PNG" name="wanting-file" placeholder="" type="file" id="wanting-file" style="display:none" disabled>
 	<div class="wanting-guide-detail">
 		원팅 맨 위에서 가장 먼저 보여 주고 싶은 영상이나 사진을 등록해주세요.
 		<br>2MB 이하의 JPG, JPEG, GIF, PNG 파일이 등록됩니다. 여러 장 등록돼요.
@@ -93,7 +104,7 @@
 	<div class="wanting-guide-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
     <textarea id="summernote" name="wantingContent">${ wanting.wantingContent }</textarea>
 
-	<button class="btn-wanting" data-bs-toggle="modal" data-bs-target="#wanting-modal" id="btn-submit">원팅 제출</button>
+	<button class="btn-wanting" data-bs-toggle="modal" data-bs-target="#wanting-modal" id="btn-submit">원팅 수정 요청</button>
 
 </form>
 </div>

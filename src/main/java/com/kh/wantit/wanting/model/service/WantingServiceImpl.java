@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.wanting.model.dao.WantingDAO;
 import com.kh.wantit.wanting.model.vo.Wanting;
 import com.kh.wantit.wanting.model.vo.WantingAttend;
@@ -88,8 +89,8 @@ public class WantingServiceImpl implements WantingService{
 	
 	// 원팅 달성 알림 보내기
 	@Override
-	public ArrayList<WantingAttend> getMemberList(int wantingNum) {
-		return wDAO.getMemberList(sqlSession, wantingNum);
+	public ArrayList<WantingAttend> getWantingAttendList(int wantingNum) {
+		return wDAO.getWantingAttendList(sqlSession, wantingNum);
 	}
 	
 	public int sendAlarm (Alarm alarm) {
@@ -118,16 +119,46 @@ public class WantingServiceImpl implements WantingService{
 	}
 	
 	
-	// 원팅 수정 및 삭제
+	// 원팅 참여자 리스트 - 아이디로 맴버 가져오기
 	@Override
-	public int updateWanting(Wanting w) {
-		return wDAO.updateWanting(sqlSession, w);
+	public Member getMember(String memberId) {
+		return wDAO.getMember(sqlSession, memberId);
+	}
+
+	
+	// 원팅 수정 - 신청 승인 거절
+	@Override
+	public int requestUpdateWanting(Wanting w) {
+		return wDAO.requestUpdateWanting(sqlSession, w);
+	}
+	
+	@Override
+	public int rejectUpdateWanting(int wantingNum) {
+		return wDAO.rejectUpdateWanting(sqlSession, wantingNum);
 	}
 
 	@Override
-	public int deleteWanting(int wantingNum) {
-		return wDAO.deleteWanting(sqlSession, wantingNum);
+	public int confirmUpdateWanting(int wantingNum) {
+	return wDAO.confirmUpdateWanting(sqlSession, wantingNum);
 	}
+	
+		
+	// 원팅 삭제 - 신청 승인 거절
+	@Override
+	public int requestDeleteWanting(int wantingNum) {
+		return wDAO.requestDeleteWanting(sqlSession, wantingNum);
+	}
+	
+	@Override
+	public int rejectDeleteWanting(int wantingNum) {
+		return wDAO.rejectDeleteWanting(sqlSession, wantingNum);
+	}
+
+	@Override
+	public int confirmDeleteWanting(int wantingNum) {
+		return wDAO.confirmDeleteWanting(sqlSession, wantingNum);
+	}
+
 		
 
 

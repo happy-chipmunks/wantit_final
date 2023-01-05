@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.wanting.model.vo.Wanting;
 import com.kh.wantit.wanting.model.vo.WantingAttend;
 
@@ -66,8 +67,8 @@ public class WantingDAO {
 
 	
 	// 원팅 달성 알림 보내기
-	public ArrayList<WantingAttend> getMemberList(SqlSessionTemplate sqlSession, int wantingNum) {
-		return (ArrayList)sqlSession.selectList("wantingMapper.getMemberList", wantingNum);
+	public ArrayList<WantingAttend> getWantingAttendList(SqlSessionTemplate sqlSession, int wantingNum) {
+		return (ArrayList)sqlSession.selectList("wantingMapper.getWantingAttendList", wantingNum);
 	}
 
 	public int sendAlarm(SqlSessionTemplate sqlSession, Alarm alarm) {
@@ -92,15 +93,51 @@ public class WantingDAO {
 		return sqlSession.update("wantingMapper.checkAlarm", alarmNum);
 	}
 	
+	
+	// 원팅 참여자 리스트 - 아이디로 맴버 가져오기
+	public Member getMember(SqlSessionTemplate sqlSession, String memberId) {
+		return sqlSession.selectOne("wantingMapper.getMember", memberId);
+	}
+	
 
-	// 원팅 수정 및 삭제
-	public int updateWanting(SqlSessionTemplate sqlSession, Wanting w) {
-		return sqlSession.update("wantingMapper.updateWanting", w);
+	// 원팅 수정 - 신청 승인 거절
+	public int requestUpdateWanting(SqlSessionTemplate sqlSession, Wanting w) {
+		return sqlSession.insert("wantingMapper.requestUpdateWanting", w);
+	}
+	
+	public int rejectUpdateWanting(SqlSessionTemplate sqlSession, int wantingNum) {
+		int result1 = sqlSession.update("wantingMapper.rejectUpdateWanting", wantingNum);
+		//int result2 = sqlSession.update("wantingMapper.rejectUpdateWantinStatus", wantingNum);
+		int result3 = sqlSession.update("wantingMapper.rejectUpdateWantingDelete", wantingNum);
+		return (result1 + result3);		
 	}
 
-	public int deleteWanting(SqlSessionTemplate sqlSession, int wantingNum) {
-		return sqlSession.update("wantingMapper.deleteWanting", wantingNum);
+	public int confirmUpdateWanting(SqlSessionTemplate sqlSession, int wantingNum) {
+		int result1 = sqlSession.update("wantingMapper.confirmUpdateWanting", wantingNum);
+		int result2 = sqlSession.update("wantingMapper.confirmUpdateWantingStatus", wantingNum);
+		int result3 = sqlSession.update("wantingMapper.confirmUpdateWantingDelete", wantingNum);
+		return (result1 + result2 + result3);		
 	}
+	
+
+	// 원팅 삭제 - 신청 승인 거절
+	public int requestDeleteWanting(SqlSessionTemplate sqlSession, int wantingNum) {
+		return sqlSession.update("wantingMapper.requestDeleteWanting", wantingNum);
+	}
+	
+	public int rejectDeleteWanting(SqlSessionTemplate sqlSession, int wantingNum) {
+		return sqlSession.update("wantingMapper.rejectDeleteWanting", wantingNum);
+	}
+	
+	public int confirmDeleteWanting(SqlSessionTemplate sqlSession, int wantingNum) {
+		return sqlSession.update("wantingMapper.confirmDeleteWanting", wantingNum);
+	}
+
+	public int dfd(SqlSessionTemplate sqlSession, int wantingNum) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 
 	

@@ -36,7 +36,7 @@ p {margin: 0;}
     margin-bottom: 20px;
     text-align: center;
     line-height: 20px;
-    color: lightblue;
+    color: #9086EB;
     font-size: 16px;
     font-weight: 400;
 }
@@ -182,7 +182,7 @@ p {margin: 0;}
     place-items: center;
 }
 .btn-funding {
-    background-color: #00c4c4;
+    background-color: #9086EB;
     border: none;
     color: #fff;
     width: 100%;
@@ -193,7 +193,7 @@ p {margin: 0;}
     cursor: pointer;
 }
 .btn-funding:hover {
-    background-color: #00b2b0;
+    background-color: #7063E4;
     transition-duration: .2s;
 }
 .btn-funding-small {
