@@ -52,7 +52,7 @@
   <div class="row">
     <div class="col-2 offset-2"><a class="tab-link" href="${ contextPath }/selectFundingBoard.fund?bId=${bId}&writerNo=${writerNo}">정보 </a></div>
     <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund?bId=${bId}" style="font-weight: 1000px; color:black;">새소식 </a></div>
-    <div class="col-2"><a class="tab-link" href="#">리뷰 </a></div>
+    <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingReview.fund?bId=${bId}">리뷰 </a></div>
     <div class="col-2"><a class="tab-link" href="#">서포터 <span class="count-total">4</span></a></div>
   </div>
 </div>
@@ -139,28 +139,33 @@
         <p class="remaining-day"><strong>20일 남음</strong></p>
         <div class="rate-bar"><em></em></div>
         <p class="achievement-rate"><strong>10540</strong>% 달성</p>
-        <p class="total-amount"><strong>52,700,000</strong>원 펀딩</p>
-        <p class="total-supporter"><strong>1,282</strong>명의 서포터</p>
+        <p class="total-amount"><strong>${ f.currentMoney }</strong>원 펀딩</p>
+        <p class="total-supporter"><strong>${ supCount }</strong>명의 서포터</p>
       </div>
       
       <div class="container goal-box">
         <div class="row g-0">
           <div class="col-3"><strong>목표금액</strong></div>
-          <div class="col-9"><p class="goal-amount">1,000,000원</p></div>
+          <div class="col-9"><p class="goal-amount">${ f.targetMoney }</p></div>
         </div>
         <div class="row g-0">
           <div class="col-3"><strong>펀딩 기간</strong></div>
-          <div class="col-9"><p class="fundint-period">2022.12.08 ~ 2023.01.29
+          <div class="col-9"><p class="fundint-period">${ f.fundingStart } ~ ${ f.fundingEnd }
           </p></div>
         </div>
         <div class="row g-0">
           <div class="col-3"><strong>결제</strong></div>
-          <div class="col-9"><p class="perchase-procedure">목표금액 달성시 2023.01.30에 결제 진행</p></div>
+          <div class="col-9"><p class="perchase-procedure">목표금액 달성시 ${ f.fundingEnd }에 결제 진행</p></div>
         </div>
       </div>
 
       <div class="container funding-buttons g-0">
-        <button onclick="" class="btn-funding">원팅하기</button>
+        <c:if test="${ login != null }">
+		 	<button class="btn-funding" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ bId }'">펀딩하기</button>
+		</c:if>
+		<c:if test="${ login == null }">
+		 	<button class="btn-funding" onclick="noLogin()">펀딩하기</button>
+		</c:if>
         <div class="row g-1">
           <div class="col-sm-4"><button onclick="" class="btn-funding-small">
             <img src="resources/img/heart.png"/>
@@ -254,6 +259,11 @@
     			});
     		}
     	}
+		  
+		  // 펀딩하기(로그인X)
+		  function noLogin(){
+			alert('로그인 후 이용해주세요.');
+		}
   </script>
 </body>
 </html>

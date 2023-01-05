@@ -20,6 +20,8 @@ import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.FundingEdit;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
@@ -182,6 +184,14 @@ public class AdminService {
 
 	public ArrayList<BannerImage> selectBannerIamgeList() {
 		return aDAO.selectBannerImageList(sqlSession);
+	}
+
+	public int noEditProjectF(String id) {
+		return aDAO.noEditProjectF(id, sqlSession);
+	}
+
+	public int okEditProjectF(FundingEdit fe) {
+		return aDAO.okEditProjectF(fe, sqlSession);
 	}
 
 	

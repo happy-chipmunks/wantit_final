@@ -2,6 +2,8 @@
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.wantit.admin.model.exception.AdminException;
 import com.kh.wantit.admin.model.service.AdminService;
 import com.kh.wantit.admin.model.vo.AFunding;
-import com.kh.wantit.admin.model.vo.AReply;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.FundingReport;
@@ -23,6 +24,7 @@ import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.admin.model.vo.Reply;
 import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.funding.model.vo.FundingEdit;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
@@ -37,8 +39,11 @@ public class AdminController {
 	}
 
 	// 프로젝트 승인/거절
-	@RequestMapping("/projectManage.ad")
-	public String projectManage(@RequestParam(value = "page", required = false) Integer page, Model model) {
+	
+	@RequestMapping("projectManage.ad")
+	public String projectManage(@RequestParam(value = "page", required = false) Integer page, Model model, HttpSession session) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = page;
@@ -47,17 +52,18 @@ public class AdminController {
 		ArrayList<Integer> listCount = aService.getListCountPM(1);
 
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount.get(0) + listCount.get(1), 10);
-
+		
 		ArrayList<AFunding> mList = aService.selectOkList(pi, 1);
+		
 		ArrayList<Integer> rCountList = new ArrayList<Integer>();
 		int count = mList.size();
-
+		
 		model.addAttribute("pi", pi);
 		model.addAttribute("mList", mList);
 		model.addAttribute("mCount", count);
 		model.addAttribute("rCountList", rCountList);
-
 		return "adminPageProject";
+		
 	}
 
 	// 프로젝트 컨펌
@@ -78,6 +84,27 @@ public class AdminController {
 		}
 	}
 	
+	// 프로젝트 수정 승인
+		@RequestMapping("confirmEditProject.ad")
+		public String okEditProject(@RequestParam("id") int id, @RequestParam("type") String type, @RequestParam("fundingContent") String content) {
+			System.out.println(id);
+			System.out.println(type);
+			System.out.println(content);
+			if ( type.equals("E")) {
+				FundingEdit fe = new FundingEdit();
+				fe.setEditFundingNum(id);
+				fe.setFundingEditContent(content);
+				int result1 = aService.okEditProjectF(fe);
+				return "redirect:projectManage.ad";
+//			}else if( type.equals("W")){
+//				System.out.println("w");
+//				int result2 = aService.okProjectW(id);
+//				return "redirect:projectManage.ad";
+			}else{
+				throw new AdminException("프로젝트 승인 실패");
+			}
+		}
+	
 	//프로젝트 거절
 	@RequestMapping("refuseProject.ad")
 	public String noProject(@RequestParam("id") String id, @RequestParam("type") String type) {
@@ -95,6 +122,25 @@ public class AdminController {
 			throw new AdminException("프로젝트 승인 실패");
 		}
 	}
+	
+	//프로젝트 수정 거절
+		@RequestMapping("refuseEditProject.ad")
+		public String noEditProject(@RequestParam("id") String id, @RequestParam("type") String type) {
+			System.out.println(id);
+			System.out.println(type);
+			if ( type.equals("F")) {
+				System.out.println("f");
+				int result1 = aService.noEditProjectF(id);
+				return "redirect:projectManage.ad";
+//			}else if( type.equals("W")){
+//				System.out.println("w");
+//				int result2 = aService.noProjectW(id);
+//				return "redirect:projectManage.ad";
+			}else {
+				throw new AdminException("프로젝트 승인 실패");
+			}
+		}
+		
 //	// 회원 강퇴
 //	@RequestMapping("noProject.ad")
 //	public String noProject(@RequestParam("id") String id) {

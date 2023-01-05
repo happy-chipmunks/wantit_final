@@ -152,18 +152,18 @@
 					<input class="funding-style" maxlength="40" name="targetMoney" type="number" style="width: 300px;">
 					<br><br>
 					
-					<h5 class="fundingH5">펀딩 최소 후원 금액</h5>&nbsp;<br>
-					<i style="color: gray;" id="i-style">기본 최소 후원 금액은 1,000원 입니다.</i><br>
-					<input class="funding-style" maxlength="40" min="1000" step="10" name="minimumAmount" list="amountList" type="number" style="width: 300px;">
-					<br><br>
+<!-- 					<h5 class="fundingH5">펀딩 최소 후원 금액</h5>&nbsp;<br> -->
+<!-- 					<i style="color: gray;" id="i-style">기본 최소 후원 금액은 1,000원 입니다.</i><br> -->
+<!-- 					<input class="funding-style" maxlength="40" min="1000" step="10" name="minimumAmount" list="amountList" type="number" style="width: 300px;"> -->
+<!-- 					<br><br> -->
 					
-					<datalist id="amountList">
-						<option>1000</option>
-						<option>5000</option>
-						<option>10000</option>
-						<option>50000</option>
-						<option>100000</option>
-					</datalist>
+<!-- 					<datalist id="amountList"> -->
+<!-- 						<option>1000</option> -->
+<!-- 						<option>5000</option> -->
+<!-- 						<option>10000</option> -->
+<!-- 						<option>50000</option> -->
+<!-- 						<option>100000</option> -->
+<!-- 					</datalist> -->
 					
 					<h5 class="fundingH5">펀딩 종료일</h5>&nbsp;<span class="essential">*</span><br>
 					<input class="funding-style" maxlength="40" id="endDate" name="fundingEnd" type="date" style="width: 300px;">
@@ -188,31 +188,31 @@
 					</table>
 					
 					<!-- 리워드 추가 모달 -->
-					<div class="modal fade" id="rewardAdd" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+					<div class="modal fade" id="rewardAdd" aria-hidden="true" data-bs-backdrop="static" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 					  <div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content">
 						  	<div class="modal-header">
 						        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">REWARD ADD</h1>
 						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						    </div>
-						 	<div class="modal-body" style="text-align: left">
-							    	리워드 아이템<input type="text" class="form-control input" id="reward-name" name="rewardTitle">
-							    	리워드 설명<input class="form-control input" style="height: 100px" id="reward-content" name="rewardContent">
-							      	수량 제한<input type="number" class="form-control input" id="reward-quantity" name="rewardLimit">
-							      	발송 시작일<input type="date" class="form-control input" id="reward-shipmentDate" name="rewardExpectDate">
-							      	금액<input type="number" class="form-control input" id="reward-donationPrice" name="price">
-							      	배송비<input type="number" class="form-control input" id="reward-deliveryCharge" name="shipping">
+						 	<div id="modalBody" class="modal-body" style="text-align: left">
+							    	리워드 아이템<input type="text" class="form-control input reward" id="reward-name" name="rewardTitle[]">
+							    	리워드 설명<input class="form-control input reward" style="height: 100px" id="reward-content" name="rewardContent[]">
+							      	수량 제한<input type="number" class="form-control input reward" id="reward-quantity" name="rewardLimit[]">
+							      	발송 시작일<input type="date" class="form-control input reward" id="reward-shipmentDate" name="rewardExpectDate[]">
+							      	금액<input type="number" class="form-control input reward" id="reward-donationPrice" name="price[]">
+							      	배송비<input type="number" class="form-control input reward" id="reward-deliveryCharge" name="shipping[]">
 							 </div>
 							 <div class="modal-footer">
 								<button type="button" class="btn btn-primary" id="sendBtn">보내기</button>
-						      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+<!-- 						      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button> -->
 							 </div>
 				    	</div> 
 					  </div>
 					</div>
 				</div>
-			</div>
-			<button class="btn btn-primary" id="insertBtn" style="align: center;">펀딩 제출</button><br><br>
+			</div><br>
+			<div style="text-align: center;"><button class="btn btn-primary" id="insertBtn" style="align: center;">펀딩 제출</button></div><br><br>
 	    </form>
     	
 	
@@ -236,14 +236,24 @@
 		// 리워드 추가
 			$('#sendBtn').click(function(){
 				$('#rewardTable').show();
-				var title = $('#rewardAdd').find('input[name="rewardTitle"]').val();
-				var content = $('#rewardAdd').find('input[name="rewardContent"]').val();
-				var quantity = $('#rewardAdd').find('input[name="rewardLimit"]').val();
-				var postingDate = $('#rewardAdd').find('input[name="rewardExpectDate"]').val();
-				var donationPrice = $('#rewardAdd').find('input[name="rewardPrice"]').val();
-				var deliveryCharge = $('#rewardAdd').find('input[name="rewardShipping"]').val();
-				$('#rewardTable').append("<tr name='reward'><td><input type='checkbox' name='checkBox'></td><td><input type='hidden' value=" + title + " name='rewardTitle'>" + title + "</td><td><input type='hidden' value=" + content + " name='rewardContent'>" + content + "</td><td><input type='hidden' value=" + quantity + " name='rewardLimit'>" + quantity + "</td><td><input type='hidden' value=" + postingDate + " name='rewardExpectDate'>" + postingDate + "</td><td><input type='hidden' value=" + donationPrice + " name='rewardPrice'>" + donationPrice + "</td><td><input type='hidden' value=" + deliveryCharge + " name='rewardShipping'>" + deliveryCharge + "</td>");
+				var title = $('#rewardAdd').find('input[name="rewardTitle[]"]').val();
+				var content = $('#rewardAdd').find('input[name="rewardContent[]"]').val();
+				var quantity = $('#rewardAdd').find('input[name="rewardLimit[]"]').val();
+				var postingDate = $('#rewardAdd').find('input[name="rewardExpectDate[]"]').val();
+				var donationPrice = $('#rewardAdd').find('input[name="price[]"]').val();
+				var deliveryCharge = $('#rewardAdd').find('input[name="shipping[]"]').val();
+				$('#rewardTable').append("<tr name='reward'><td><input type='checkbox' name='checkBox'></td><td><input type='hidden' value=" + title + " name='rewardTitle[]'>" + title + "</td><td><input type='hidden' value=" + content + " name='rewardContent[]'>" + content + "</td><td><input type='hidden' value=" + quantity + " name='rewardLimit[]'>" + quantity + "</td><td><input type='hidden' value=" + postingDate + " name='rewardExpectDate[]'>" + postingDate + "</td><td><input type='hidden' value=" + donationPrice + " name='price[]'>" + donationPrice + "</td><td><input type='hidden' value=" + deliveryCharge + " name='shipping[]'>" + deliveryCharge + "</td>");
 			});
+		
+		// 리워드 추가 모달 닫을 시..cos
+// 		$('.btn-close').on('click', function (e) {
+// 			$('#reward-name').val("");
+// 			$('#reward-content').val("");
+// 			$('#reward-quantity').val("");
+// 			$('#reward-shipmentDate').val("");
+// 			$('#reward-donaitionPrice').val("");
+// 			$('#reward-deliveryCharge').val("")
+// 		});
 		
 		 // 선택 리워드 삭제
 		 function delRow(){

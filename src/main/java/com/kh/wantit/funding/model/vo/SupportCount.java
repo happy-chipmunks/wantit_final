@@ -6,15 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Review {
-	private int reviewNum;
-	private String reviewer;
+public class SupportCount {
+	private String suppotor;
 	private int fundingNum;
-	private String reviewContent, reviewStatus;
-	private int reviewRating;
 }

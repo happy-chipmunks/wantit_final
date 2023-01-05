@@ -196,6 +196,11 @@
         
         select wanting_num, WANTING_TITLE, WANTING_CONTENT, wanting_confirm, CREATE_DATE, WANTING_STATUS, 'W' division
         from wanting 
+        
+        union all
+        
+        select edit_funding_num, funding_edit_title, funding_edit_content,  edit_confirm, CREATE_DATE, EDIT_STATUS, 'E' division
+        from funding_edit
         order by create_date desc
 	</select>
 	
@@ -232,6 +237,23 @@
 <!-- 		set confirm='R' -->
 <!-- 		where funding_num=#{id} -->
 <!-- 	</update> -->
+
+	<delete id="noEditProjectF">
+		delete from funding_edit
+		where edit_fundint_num=#{id}
+	</delete>
+	
+	<update id="okEditProjectF">
+		update funding
+		set confirm='Y', funding_content=#{fundingEditContent}
+		where funding_num=#{editFundingNum}
+	</update>
+	
+	<update id="okEditPro">
+		update funding_edit
+		set edit_confirm='Y', edit_status='Y'
+		where edit_funding_num=#{editFundingNum}
+	</update>
 	
 	<resultMap type="Member" id="memberResultSet">
 		<id column="MEMBER_ID" property="memberId" />
