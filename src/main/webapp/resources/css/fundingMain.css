@@ -79,7 +79,7 @@ p {margin: 0;}
 .notification {
     margin-top: 12px;
     padding: 16px;
-    background: rgba(0, 196, 196, 0.1);
+    background: #8c86c7;
     border-radius: 8px;
 }
 .notification p:nth-of-type(1) {
@@ -183,7 +183,7 @@ p {margin: 0;}
     place-items: center;
 }
 .btn-funding {
-    background-color: #00c4c4;
+    background-color: #8c86c7;
     border: none;
     color: #fff;
     width: 100%;

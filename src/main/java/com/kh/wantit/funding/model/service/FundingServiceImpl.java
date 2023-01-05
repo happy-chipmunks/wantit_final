@@ -1,7 +1,6 @@
 ﻿package com.kh.wantit.funding.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,8 +11,10 @@ import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.dao.FundingDAO;
 import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.FundingDibs;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
+import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
 
@@ -192,4 +193,19 @@ public class FundingServiceImpl implements FundingService{
 		return fDAO.checkExistReview(sqlSession, r);
 	}
 	
+	@Override
+	public int insertDibs(FundingDibs dibs) {
+		return fDAO.insertDibs(dibs, sqlSession);
+	}
+
+	@Override
+	public int deleteDibs(FundingDibs dibs) {
+		return fDAO.deleteDibs(dibs, sqlSession);
+	}
+
+	@Override
+	public ArrayList<Member> getReviewerNickName(Integer fundingNum) {
+		return fDAO.getReviewerNickName(fundingNum, sqlSession);
+	}
+
 }

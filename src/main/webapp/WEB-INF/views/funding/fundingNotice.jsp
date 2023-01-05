@@ -45,7 +45,7 @@
 
 <body>
 <div class="funding-header text-center">
-  <p class="title-info">${ f.fundingCate }</p>
+  <p class="title-info" style="color: #8c86c7;">${ f.fundingCate }</p>
   <h2 class="title"><a href="#">${ f.fundingTitle }</a></h2>
 </div>
 <div class="container-fluid text-center funding-category">
@@ -161,10 +161,10 @@
 
       <div class="container funding-buttons g-0">
         <c:if test="${ login != null }">
-		 	<button class="btn-funding" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ bId }'">펀딩하기</button>
+		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ bId }'">펀딩하기</button>
 		</c:if>
 		<c:if test="${ login == null }">
-		 	<button class="btn-funding" onclick="noLogin()">펀딩하기</button>
+		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">펀딩하기</button>
 		</c:if>
         <div class="row g-1">
           <div class="col-sm-4"><button onclick="" class="btn-funding-small">
@@ -197,53 +197,54 @@
   			$('#noticeWrite').hide();
   		}
   	
-  		// summernote
-		  $(document).ready(function() {
-		      $('#summernote').summernote({
-		    	  placeholder: '펀딩 프로젝트의 새소식을 작성해주세요.',
-		        tabsize: 2,
-		        height: 500,
-		        toolbar: [
-		        	['fontname', ['fontname']],
-		            ['fontsize', ['fontsize']],
-		            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-		            ['color', ['forecolor','color']],
-		            ['table', ['table']],
-		            ['para', ['ul', 'ol', 'paragraph']],
-		            ['height', ['height']],
-		            ['insert',['picture']],
-		            ['view', ['fullscreen', 'codeview' ,'help']]
-		        ],
-		        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-		        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-		    callbacks: {
-		    	onImageUpload : function(files, editor, welEditable){		// 이미지 첨부하는 부분
-		    		for(var i = files.length - 1; i >= 0; i--){
-		    			uploadSummernoteImageFile(files[i], this);
-		    		}
-		    	}
-		    }
-		 	 })
-		 });
-  		
-		  function uploadSummernoteImageFile(file, el){
-	        	var data = new FormData();
-	        	data.append("file", file);
-	        	$.ajax({
-	        		data: data,
-	        		type: "POST",
-	        		url: "${contextPath}/uploadSummernoteImageFile.fund",
-	        		cache: false,
-	        		contentType: false,
-	        		enctype: 'multipart/form-data',
-	        		processData: false,
-	        		success: function(data){
-	        			console.log(data);
-	        			// 항상 업로드된 파일의 url이 있어야 한다.
-	        			$(el).summernote('editor.insertImage', "/funding-summernote/" + data);
+  	// summernote
+	      $('#summernote').summernote({
+	    	  lang: "ko-KR",
+	    	  placeholder: '펀딩 프로젝트 내용을 작성해주세요.',
+	        tabsize: 2,
+	        height: 550,
+	        toolbar: [
+	        	['fontname', ['fontname']],
+	            ['fontsize', ['fontsize']],
+	            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+	            ['color', ['forecolor','color']],
+	            ['table', ['table']],
+	            ['para', ['ul', 'ol', 'paragraph']],
+	            ['height', ['height']],
+	            ['insert',['picture']],
+	            ['view', ['fullscreen', 'codeview' ,'help']]
+	        ],
+	        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+	        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+	        callbacks: {
+	        	onImageUpload : function(files, editor, welEditable){		// 이미지 첨부하는 부분
+	        		for(var i = 0; i < files.length; i++){
+	        			sendFile(files[i], this);
 	        		}
-	        	});
-	        } 
+	        	}
+	        }
+   	 });
+	 
+      function sendFile(file, el){
+      	var form_data = new FormData();
+      	form_data.append('file', file);
+      	$.ajax({
+      		data: form_data,
+      		type: "POST",
+      		url: '${contextPath}/uploadSummernoteImageFile.fund',
+      		cache: false,
+      		contentType: false,
+      		enctype: 'multipart/form-data',
+      		processData: false,
+      		success: function(img_name){
+      			$(".spinner-border").css("display","none");
+          		
+          		console.log(img_name);
+      			// 항상 업로드된 파일의 url이 있어야 한다.
+      			$(el).summernote('editor.insertImage', "/funding-summernote/" + img_name);
+      		}
+      	});
+      } 
 		  
 		  // 상세보기
 		  window.onload = () =>{

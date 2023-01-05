@@ -16,24 +16,13 @@
   <link rel="stylesheet" href="resources/css/bootstrap-custom.css" />
 
 <style>
-	.btn-funding-edit {
-	    background-color: gray;
-	    border: none;
-	    color: #fff;
-	    width: 100%;
-	    height: 48px;
-	    text-align: center;
-	    vertical-align: middle;
-	    border-radius: 2px;
-	    cursor: pointer;
-	}
 </style>
 
 </head>
 <body>
   <div class="funding-header text-center">
     <div class="background"></div>
-    <p class="title-info">${ f.fundingCate }</p>
+    <p class="title-info" style="color: #8c86c7;">${ f.fundingCate }</p>
     <h2 class="title"><a href="#">${ f.fundingTitle }</a></h2>
   </div>
   <div class="container-fluid text-center funding-category">
@@ -59,12 +48,12 @@
 			<h4>${ f.fundingSummary }</h4>
 			
 	        <!-- 안내사항 -->
-	        <div class="notification">
-	          <p>
+	        <div class="notification" style="background-color: #8c86c7;">
+	          <p style="color: white;">
 	            <strong>목표 금액</strong> <span>${ f.targetMoney }</span><br>
 	            <strong>펀딩 기간</strong> <span>${ f.fundingStart } ~ ${ f.fundingEnd }</span><br>
 	          </p>
-	          <p>
+	          <p style="color: white;">
 	            100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제가 진행되지 않습니다.
 	          </p>
 	        </div>
@@ -114,18 +103,26 @@
         <div class="container funding-buttons g-0">
 <!--           <button class="btn-funding" data-bs-toggle="modal" data-bs-target="#funding-modal">펀딩하기</button> -->
 		<c:if test="${ m != null }">
-		 	<button class="btn-funding" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ bId }'">펀딩하기</button>
+		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ bId }'">펀딩하기</button>
 		</c:if>
 		<c:if test="${ m == null }">
-		 	<button class="btn-funding" onclick="noLogin()">펀딩하기</button>
+		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">펀딩하기</button>
 		</c:if>
           <div class="row g-1">
-            <div class="col-sm-4"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#dibs-modal">
-              <img src="resources/img/heart.png"/>
+          <c:if test="${ !ok }">
+            <div class="col-sm-6"><button onclick="location.href='${contextPath}/insertDibs.fund?=fundingNum=${ bId }&id=${ login }'" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#dibs-modal">
+              <img src="${ contextPath }/resources/funding/찜X1.png"/>
               <span class="dips-count">5</span></button>
             </div>
-            <div class="col-sm-4"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#share-modal">공유하기</button></div>
-            <div class="col-sm-4"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#report-modal">신고하기</button></div>
+           </c:if>
+           <c:if test="${ ok }">
+            <div class="col-sm-6"><button onclick="location.href='${contextPath}/deleteDibs.fund?=fundingNum=${ bId }&id=${ login }'" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#dibs-modal">
+              <img src="${ contextPath }/resources/funding/찜1.png"/>
+              <span class="dips-count">5</span></button>
+            </div>
+           </c:if>
+            <div class="col-sm-6"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#share-modal"><img src="resources/wanting/share.png"/>공유하기</button></div>
+<!--             <div class="col-sm-4"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#report-modal">신고하기</button></div> -->
             <c:if test="${ !yn }">
             	<div><button class="btn-funding-edit" onclick="location.href='${contextPath}/fundingEdit.fund?fundingNum=${ bId }'">펀딩 수정하기</button></div>
             </c:if>
@@ -209,29 +206,6 @@
 </div>
 
 
-<!-- 신고하기 완료 -->
-<div class="modal fade" id="report-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-funding-right">
-          <p class="dibs-message">
-            신고가 완료되었습니다.<br>
-            ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-          </p>
-        </div>
-      </div>
-      <div class="modal-footer modal-dibs-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- 공유하기 완료 -->
 <div class="modal fade" id="share-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -267,33 +241,6 @@
  </div>
 </div>
 
-<!-- 신고하기 완료 -->
-<div class="modal fade" id="report-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid g-0">
-          <div class="row g-0">
-            <div class="col-md-7">
-              <div class="modal-funding-right">
-                <p class="dibs-message">
-                  신고가 완료되었습니다.<br>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer modal-dibs-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
   <!-- cursor -->

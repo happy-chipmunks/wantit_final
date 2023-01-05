@@ -26,6 +26,7 @@ import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.exception.FundingException;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.FundingDibs;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.member.vo.Member;
@@ -262,7 +263,7 @@ public class FundingController {
 		 int supCount = fService.getSupportCount(bId);
 		
 		if(f != null) {
-			mv.addObject("f", f).addObject("img", img).addObject("bId", bId).addObject("supCount", supCount).addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).setViewName("fundingMain");
+			mv.addObject("f", f).addObject("img", img).addObject("bId", bId).addObject("login", login).addObject("supCount", supCount).addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).setViewName("fundingMain");
 		}else {
 			throw new FundingException("펀딩 게시글 상세조회 실패");
 		}
@@ -309,7 +310,7 @@ public class FundingController {
 		int result = fService.insertFundingNotice(fn);
 		
 		if(result > 0) {
-			return "redirect:fundingNotice.fund";
+			return "fundingNotice";
 		}else {
 			throw new FundingException("새소식 작성 실패");
 		}
@@ -374,7 +375,7 @@ public class FundingController {
 	
 	// 펀딩 리뷰 보기
 	@RequestMapping("fundingReview.fund")
-	public String fundingReview(@RequestParam("bId") int fundingNum, Model model, @RequestParam(value = "page", required = false) Integer page, HttpSession session) {
+	public String fundingReview(@RequestParam("bId") Integer fundingNum, Model model, @RequestParam(value = "page", required = false) Integer page, HttpSession session) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = page;
@@ -385,10 +386,6 @@ public class FundingController {
 		int listCount = fService.getListCountR(fundingNum);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 8);	
 		
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("fundingNum", fundingNum);
-		map.put("2", 2);
-		
 		ArrayList<Review> rv = fService.getFundingReview(fundingNum, pi);
 		int revCount = fService.getReviewCount(fundingNum);
 		ArrayList<PaySchedule> ps = fService.getPayList(fundingNum);
@@ -398,6 +395,9 @@ public class FundingController {
 		String writer = fService.getFundingCreator(fundingNum);
 		int writerNo = fService.getFundingCreatorNum(writer);
 		
+		ArrayList<Member> reviewerNick = fService.getReviewerNickName(fundingNum);
+		System.out.println(reviewerNick);
+		
 		model.addAttribute("fundingNum", fundingNum);
 		model.addAttribute("rv", rv);
 		model.addAttribute("ps", ps);
@@ -406,7 +406,42 @@ public class FundingController {
 		model.addAttribute("revCount", revCount);
 		model.addAttribute("writerNo", writerNo);
 		model.addAttribute("m", m);
+		model.addAttribute("pi", pi);
+		model.addAttribute("reviewerNick", reviewerNick);
 		return "fundingReview";
+	}
+	
+	// 펀딩 찜하기
+	@RequestMapping("insertDibs.fund")
+	public String insertDibs(@RequestParam("fundingNum") int fundingNum, @RequestParam("id") String id, Model model) {
+		FundingDibs dibs = new FundingDibs(id, fundingNum);
+		
+		boolean ok = false;
+		int result = fService.insertDibs(dibs);
+		if(result > 0) {
+			ok = true;
+			model.addAttribute("ok", ok);
+			model.addAttribute("id", id);
+			model.addAttribute("fundingNum", fundingNum);
+			return "redirect:selectFundingBoard.fund";
+		}else {
+			throw new FundingException("찜하기 실패");
+		}
+	}
+	
+	@RequestMapping("deleteDibs.fund")
+	public String deleteDibs(@RequestParam("fundingNum") int fundingNum, @RequestParam("id") String id, Model model) {
+		FundingDibs dibs = new FundingDibs(id, fundingNum);
+		
+		int result = fService.deleteDibs(dibs);
+		
+		if(result > 0) {
+			model.addAttribute("fundingNum", fundingNum);
+			model.addAttribute("id", id);
+			return "redirect:selectFundingBoard.fund";
+		}else {
+			throw new FundingException("찜하기 취소 실패");
+		}
 	}
 	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순
