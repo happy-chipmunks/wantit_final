@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <jsp:include page="../common/navbar.jsp"></jsp:include>
@@ -61,7 +62,7 @@
 	        <!-- 안내사항 -->
 	        <div class="notification">
 	          <p>
-	            <strong>목표 금액</strong> <span>${ f.targetMoney }</span><br>
+	            <strong>목표 금액</strong> <span class="toLocaleMoney">${ f.targetMoney }</span><br>
 	            <strong>펀딩 기간</strong> <span>${ f.fundingStart } ~ ${ f.fundingEnd }</span><br>
 	          </p>
 	          <p>
@@ -88,17 +89,22 @@
       <!-- 오른쪽 사이드바 -->
       <div class="col-md-3 right-content">
         <div class="state-box">
-          <p class="remaining-day"><strong>20일 남음</strong></p>
-          <div class="rate-bar"><em></em></div>
-          <p class="achievement-rate"><strong>0</strong>% 달성</p>
-          <p class="total-amount"><strong>${ f.currentMoney }</strong>원 펀딩</p>
+          <jsp:useBean id="now" class="java.util.Date"/>
+          <fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowFmtTime" scope="request"/>
+           <fmt:parseNumber value="${ f.fundingEnd.time / (1000*60*60*24) }" integerOnly="true" var="feFmtTime" scope="request"/>
+          <p class="remaining-day"><strong>${feFmtTime - nowFmtTime + 1 }일 남음</strong></p>
+          <div style="height: 2px; width: 100%; background-color: gray;"><span id="progressBar" style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
+          <fmt:formatNumber value="${ f.currentMoney / f.targetMoney }" type="percent" var="percentage"/>
+          <input type="hidden" value="${ percentage }" id="progressBarPercent">
+          <p class="achievement-rate"><strong>${ percentage }</strong> 달성</p>
+          <p class="total-amount"><strong class="toLocaleMoney">${ f.currentMoney }</strong>원 펀딩</p>
           <p class="total-supporter"><strong>${ supCount }</strong>명의 서포터</p>
         </div>
         
         <div class="container goal-box">
           <div class="row g-0">
             <div class="col-3"><strong>목표금액</strong></div>
-            <div class="col-9"><p class="goal-amount">${ f.targetMoney } 원</p></div>
+            <div class="col-9"><p class="goal-amount toLocaleMoney">${ f.targetMoney }</p></div>
           </div>
           <div class="row g-0">
             <div class="col-3"><strong>펀딩 기간</strong></div>
@@ -308,6 +314,24 @@
 	<script>
 		function noLogin(){
 			alert('로그인 후 이용해주세요.');
+		}
+		
+		changeMoney();
+		function changeMoney() {
+			const targetMoney = document.getElementsByClassName('toLocaleMoney');
+    		for(const span of targetMoney) {
+    			const before = parseInt(span.innerText);
+    			span.innerText = " " + before.toLocaleString() + "원";
+    		}
+		}
+		
+		const progressBar = document.getElementById('progressBar');
+		const progressBarPercent = document.getElementById('progressBarPercent');
+		const percent = parseInt(progressBarPercent.value.substring(0, progressBarPercent.value.length-1));
+		if(percent >= 100) {
+			progressBar.style.width = "100%";
+		} else {
+			progressBar.style.width = percent + "%";
 		}
 	</script>
 

@@ -43,6 +43,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -179,8 +180,9 @@ public class PayController {
 	}
 	
 	@RequestMapping("cancelPaySchedule.pay")
-	public String cancelPaySchedule(@RequestParam("customerUId") String customerUId, 
-			@RequestParam("merchantUId") String merchantUId, @RequestParam("buyerName") String buyerName, Model model) {
+	public String cancelPaySchedule(@RequestParam("customerUId") String customerUId, @RequestParam("fundingNum") int fundingNum,
+			@RequestParam("merchantUId") String merchantUId, @RequestParam("buyerName") String buyerName, 
+			@RequestParam("amount") int totalAmount, @RequestParam("rewardCount") int[] rewardCount, Model model, RedirectAttributes re) {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("customerUId", customerUId);
@@ -229,8 +231,19 @@ public class PayController {
 						unscheduleMap.put("buyer_name", buyerName);
 						
 						int updateScheduleStatus = pService.updateScheduleStatus(unscheduleMap);
-						System.out.println(updateScheduleStatus);
-						model.addAttribute("cancelPayScuccess", "cancelPayScuccess");
+						Map<String, Integer> updateCurrentMoneyMap = new HashMap<String, Integer>();
+						updateCurrentMoneyMap.put("fundingNum", fundingNum);
+						updateCurrentMoneyMap.put("totalAmount", totalAmount);
+						updateCurrentMoneyMap.put("calculate", 0);
+						pService.updateCurrentMoney(updateCurrentMoneyMap);
+						re.addAttribute("cancelPayScuccess", "cancelPayScuccess");
+						
+						ArrayList<Reward> rewardList = pService.getRewardList(fundingNum);
+						for(int i=0 ; i<rewardList.size() ; i++) {
+							Reward r = rewardList.get(i);
+							r.setRewardSellCount(r.getRewardSellCount() - rewardCount[i]);
+							pService.rollBackSellCount(r);
+						}
 					}
 				}
 				
@@ -248,7 +261,7 @@ public class PayController {
 		} else {
 			throw new PayException("해당 결제정보가 존재하지 않습니다.");
 		}
-		return "../home";
+		return "redirect:home.do";
 	}
 	
 	@RequestMapping("loginTest.pay")
@@ -299,7 +312,7 @@ public class PayController {
 			System.out.println(billingMap.get("customer_uid"));
 			
 			//아임포트 결제예약
-			scheduleMap = paySchedule(fundingTitle, fundingEnd, totalAmount, buyerName, buyerTel, buyerFullAddress, accessToken, billingMap.get("customer_uid"));
+			scheduleMap = paySchedule(fundingTitle, fundingEnd, totalAmount, buyerName, buyerTel, buyerFullAddress, accessToken, billingMap.get("customer_uid"), fundingNum);
 			System.out.println(scheduleMap.toString());
 			System.out.println(buyerName);
 			
@@ -312,10 +325,10 @@ public class PayController {
 						map.put("rewardNum", rewardNum[i]);
 						map.put("rewardCount", rewardCount[i]);
 						if(i != rewardCount.length - 1) {
-							sb.append(i+1 + ". " + rewardTitle[i]);
+							sb.append(i+1 + ". " + rewardTitle[i] + "count=" + rewardCount[i]);
 							sb.append("/");
 						} else {
-							sb.append(i+1 + ". " + rewardTitle[i]);
+							sb.append(i+1 + ". " + rewardTitle[i] + "count=" + rewardCount[i]);
 						}
 						
 						pService.changeRewardSellCount(map);
@@ -411,7 +424,7 @@ public class PayController {
 	 */
 	private Map<String, String> paySchedule(String fundingTitle, Date scheduleDate, int totalAmount, 
 																			String buyerName, String buyerTel, String buyerFullAddress, 
-																			String accessToken, String customer_uid) {
+																			String accessToken, String customer_uid, int fundingNum) {
 		String responseMessage = "";
 		
 		String merchant_uid = "";
@@ -494,6 +507,11 @@ public class PayController {
 					default: break;
 					}
 				}
+				Map<String, Integer> updateCurrentMoneyMap = new HashMap<String, Integer>();
+				updateCurrentMoneyMap.put("fundingNum", fundingNum);
+				updateCurrentMoneyMap.put("totalAmount", totalAmount);
+				updateCurrentMoneyMap.put("calculate", 1);
+				pService.updateCurrentMoney(updateCurrentMoneyMap);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

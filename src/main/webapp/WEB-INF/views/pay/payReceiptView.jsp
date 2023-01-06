@@ -21,6 +21,7 @@
                     <c:forEach begin="0" end="${ fn:length(rewardTitles)-1 }" var="i" varStatus="status">
                     	<span class="fontOnly">${ status.index + 1 }. ${rewardTitles[i] } </span>
                     	<span class="fontOnly">&nbsp;&nbsp;&nbsp;${ rewardCount[i] }개</span><br>
+                    	<input type="hidden" name="rewardCount" value="${ rewardCount[i] }">
                     </c:forEach>
                         
  
@@ -60,6 +61,13 @@
                         <input type="hidden" name="customerUId" id="" value="${ paySchedule.customerUId }">
                         <input type="hidden" name="merchantUId" id="" value="${ paySchedule.merchantUId }">
                         <input type="hidden" name="buyerName" value="${ paySchedule.buyerName }">
+                        <input type="hidden" name="fundingNum" value="${ paySchedule.fundingNum }">
+                        <input type="hidden" name="amount" value="${ paySchedule.amount }">
+                        <c:set value="${ fn:split(paySchedule.rewardBuyList, '/') }" var="buyListArray"/>
+                        <c:forEach items="${ buyListArray }" var="index">
+                        	<c:set value="${ fn:split(index, 'count=') }" var="split"/>
+                        	<input type="hidden" name="rewardCount" value="${ split[1] }">
+                        </c:forEach>
                         <button  class="btn btn-outline btnPayCancel">결제 예약 취소하기</button>
                     </form>
                     

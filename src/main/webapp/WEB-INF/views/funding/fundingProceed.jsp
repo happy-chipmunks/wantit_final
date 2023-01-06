@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <jsp:include page="../common/navbar.jsp"></jsp:include>
@@ -40,11 +41,11 @@
           
           
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <button class="carousel-control-prev-cs" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <button class="carousel-control-next-cs" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
@@ -221,168 +222,41 @@
             <div class="col-md-1"></div>
             <div class="col-md-10" style="padding: 30px;">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                	<c:if test="${ ing == null }">
-                	<c:forEach items="${ fundingList }" var="fl">
-                		<c:if test="${fn:contains(fl.confirm, 'Y') || fn:contains(fl.confirm, 'E')}">
-		          		<c:set var="isNotInserted" value="true"/>
-                		<div class="col fundingList">
-	                        <div class="card shadow-sm fundinglist">
-	                          		<c:forEach items="${ imageList }" var="i">
-		                          		<c:if test="${ fl.fundingNum eq i.imageBoardId and isNotInserted}">
-		                          			<c:if test="${ i.imageRename != '' }">
-		                          				<img src="${ contextPath }/resources/funding/${i.imageRename}" height="225" alt="...">
-		                          				<c:set var ="isNotInserted" value="false"/>
-		                          			</c:if>
-		                          		</c:if>
-		                          	</c:forEach>
-		                         	<c:if test="${isNotInserted }">
-		                         		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">NO IMAGE</text></svg>    
-		                          	</c:if>
-		                          	
-	                          <div class="card-body">
-	                              <div style="padding-bottom: 10px;">
-	                              	<input class="bId" type="hidden" value="${ fl.fundingNum }">
-	                              	<input class="writer" type="hidden" value="${ fl.creatorNum }">
-	                                  <span class="cate">${ fl.fundingCate }</span>
-	                                  <c:set var="title" value="${ fn:substring(fl.fundingTitle, 0, 15) }..."/>
-	                                  <span class="fundName">${ title }</span>
-	                              </div>
-<%-- 	                              <c:set var="content" value="${ fn:substring(fl.fundingContent, 0, 18) }..."/> --%>
-<%-- 	                              <p class="card-text">${ content }</p> --%>
-	                              <div class="d-flex justify-content-between align-items-center">
-	                                    <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-	                                </div>
-	                                <span>26%</span>
-	                                <span>${ fl.currentMoney }</span>
-	                                <span class="remainDate">15일 남음</span>
-	                          </div>
-	                        </div>
-	                     </div>
-	                    </c:if>
-                	</c:forEach>
-                	</c:if>
-                	<c:if test="${ ing != null }">
-                		<c:if test="${ ing == 1 && rank == 2 }">
-		                	<c:forEach items="${ ingRanking }" var="ir">
-		                		<c:if test="${fn:contains(ir.confirm, 'Y') || fn:contains(ir.confirm, 'E')}">
-				          		<c:set var="isNotInserted" value="true"/>
-		                		<div class="col fundingList">
-			                        <div class="card shadow-sm fundinglist">
-			                          		<c:forEach items="${ imageList }" var="i">
-				                          		<c:if test="${ ir.fundingNum eq i.imageBoardId and isNotInserted}">
-				                          			<c:if test="${ i.imageRename != '' }">
-				                          				<img src="${ contextPath }/resources/funding/${i.imageRename}" height="225" alt="...">
-				                          				<c:set var ="isNotInserted" value="false"/>
-				                          			</c:if>
-				                          		</c:if>
-				                          	</c:forEach>
-				                         	<c:if test="${isNotInserted }">
-				                         		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">NO IMAGE</text></svg>    
-				                          	</c:if>
-			              					
-			                          <div class="card-body">
-			                              <div style="padding-bottom: 10px;">
-			                              	<input class="bId" type="hidden" value="${ ir.fundingNum }">
-			                              	<input class="writer" type="hidden" value="${ ir.creatorNum }">
-			                                  <span class="cate">${ ir.fundingCate }</span>
-			                                  <c:set var="title" value="${ fn:substring(ir.fundingTitle, 0, 15) }..."/>
-			                                  <span class="fundName">${ title }</span>
-			                              </div>
-		<%-- 	                              <c:set var="content" value="${ fn:substring(fl.fundingContent, 0, 18) }..."/> --%>
-		<%-- 	                              <p class="card-text">${ content }</p> --%>
-			                              <div class="d-flex justify-content-between align-items-center">
-			                                    <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-			                                </div>
-			                                <span>26%</span>
-			                                <span>${ ir.currentMoney }</span>
-			                                <span class="remainDate">15일 남음</span>
-			                          </div>
-			                        </div>
-			                     </div>
-			                    </c:if>
-		                	</c:forEach>
-	                	</c:if>
-	                	<c:if test="${ ing == 2 && rank == 1 }">
-		                	<c:forEach items="${ endLatest}" var="el">
-		                		<c:if test="${fn:contains(el.confirm, 'Y') || fn:contains(el.confirm, 'E')}">
-				          		<c:set var="isNotInserted" value="true"/>
-		                		<div class="col fundingList">
-			                        <div class="card shadow-sm fundinglist">
-			                          		<c:forEach items="${ imageList }" var="i">
-				                          		<c:if test="${ el.fundingNum eq i.imageBoardId and isNotInserted}">
-				                          			<c:if test="${ i.imageRename != '' }">
-				                          				<img src="${ contextPath }/resources/funding/${i.imageRename}" height="225" alt="...">
-				                          				<c:set var ="isNotInserted" value="false"/>
-				                          			</c:if>
-				                          		</c:if>
-				                          	</c:forEach>
-				                         	<c:if test="${isNotInserted }">
-				                         		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">NO IMAGE</text></svg>    
-				                          	</c:if>
-			              					
-			                          <div class="card-body">
-			                              <div style="padding-bottom: 10px;">
-			                              	<input class="bId" type="hidden" value="${ el.fundingNum }">
-			                              	<input class="writer" type="hidden" value="${ el.creatorNum }">
-			                                  <span class="cate">${ el.fundingCate }</span>
-			                                  <c:set var="title" value="${ fn:substring(el.fundingTitle, 0, 15) }..."/>
-			                                  <span class="fundName">${ title }</span>
-			                              </div>
-		<%-- 	                              <c:set var="content" value="${ fn:substring(fl.fundingContent, 0, 18) }..."/> --%>
-		<%-- 	                              <p class="card-text">${ content }</p> --%>
-			                              <div class="d-flex justify-content-between align-items-center">
-			                                    <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-			                                </div>
-			                                <span>26%</span>
-			                                <span>${ el.currentMoney }</span>
-			                                <span class="remainDate">15일 남음</span>
-			                          </div>
-			                        </div>
-			                     </div>
-			                    </c:if>
-		                	</c:forEach>
-	                	</c:if>
-	                	<c:if test="${ ing == 2 && rank == 2 }">
-		                	<c:forEach items="${ endRanking }" var="er">
-		                		<c:if test="${fn:contains(er.confirm, 'Y') || fn:contains(er.confirm, 'E')}">
-				          		<c:set var="isNotInserted" value="true"/>
-		                		<div class="col fundingList">
-			                        <div class="card shadow-sm fundinglist">
-			                          		<c:forEach items="${ imageList }" var="i">
-				                          		<c:if test="${ er.fundingNum eq i.imageBoardId and isNotInserted}">
-				                          			<c:if test="${ i.imageRename != '' }">
-				                          				<img src="${ contextPath }/resources/funding/${i.imageRename}" height="225" alt="...">
-				                          				<c:set var ="isNotInserted" value="false"/>
-				                          			</c:if>
-				                          		</c:if>
-				                          	</c:forEach>
-				                         	<c:if test="${isNotInserted }">
-				                         		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">NO IMAGE</text></svg>    
-				                          	</c:if>
-			              					
-			                          <div class="card-body">
-			                              <div style="padding-bottom: 10px;">
-			                              	<input class="bId" type="hidden" value="${ er.fundingNum }">
-			                              	<input class="writer" type="hidden" value="${ er.creatorNum }">
-			                                  <span class="cate">${ er.fundingCate }</span>
-			                                  <c:set var="title" value="${ fn:substring(er.fundingTitle, 0, 15) }..."/>
-			                                  <span class="fundName">${ title }</span>
-			                              </div>
-		<%-- 	                              <c:set var="content" value="${ fn:substring(fl.fundingContent, 0, 18) }..."/> --%>
-		<%-- 	                              <p class="card-text">${ content }</p> --%>
-			                              <div class="d-flex justify-content-between align-items-center">
-			                                    <div style="height: 2px; width: 100%; background-color: gray;"><span style="display: block; background-color: #e8acef; height: 2px; width: 26%;"></span></div>
-			                                </div>
-			                                <span>26%</span>
-			                                <span>${ er.currentMoney }</span>
-			                                <span class="remainDate">15일 남음</span>
-			                          </div>
-			                        </div>
-			                     </div>
-			                    </c:if>
-		                	</c:forEach>
-	                	</c:if>
-                	</c:if>
+                	<c:forEach items="${ fundingList }" var="fund">
+        			<!--  펀딩중인 것만 -->
+        			 <div class="col cardDecoration">
+        			 	<input type="hidden" name="bId" class="bId" value="${ fund.fundingNum }">
+        			 	<input type="hidden" name="writer" class="writer" value="${ fund.creatorNum }">
+                		<div class="card shadow-sm fundinglist">
+                  			<c:forEach items="${ imageList }" var="image">
+                  					<c:if test="${ image.imageBoardId == fund.fundingNum }">
+                  					
+	                  					<img alt="" src="${ contextPath }/resources/funding/${ image.imageRename }" width="100%" height="225">
+                  					</c:if>
+                  				</c:forEach>
+      
+                  		<div class="card-body">
+                      		<p class="card-text">${ fund.fundingTitle }</p>
+                      			<div style="padding-bottom: 10px;">
+                         		 <span class="cate">${ fund.fundingCate }</span>
+                          		<span class="fundName">${ fund.creatorNickname }</span>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center">
+                            <div style="height: 2px; width: 100%; background-color: gray;"><span class="progressBar" style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
+                        </div>
+                        <fmt:formatNumber value="${ fund.currentMoney / fund.targetMoney }" type="percent" var="percentage"/>
+                        <input type="hidden" value="${ percentage }" class="progressBarPercent">
+                        <jsp:useBean id="now" class="java.util.Date"/>
+                        <fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowFmtTime" scope="request"/>
+                        <fmt:parseNumber value="${ fund.fundingEnd.time / (1000*60*60*24) }" integerOnly="true" var="feFmtTime" scope="request"/>
+                        <span class="fontOnly">${ percentage }</span>
+                        <span class="fundingProceedMoney">${ fund.currentMoney }</span>
+                        <span class="remainDate" style="float: right;">${feFmtTime - nowFmtTime + 1 }일 남음</span>
+                  </div>
+                </div>
+              </div>
+        	</c:forEach>
+                	
                 </div>
             </div>
         </div>
@@ -390,7 +264,7 @@
     
     <script>
     	window.onload = () =>{
-    		var boards = document.getElementsByClassName('fundingList');
+    		var boards = document.getElementsByClassName('cardDecoration');
     		for(var board of boards){
     			board.addEventListener('click', function(){
     				const bId = this.querySelector('.bId').value;
@@ -402,6 +276,23 @@
     			});
     		}
     	}
+    	
+    	const fundingProceedMoney = document.getElementsByClassName('fundingProceedMoney');
+		for(const span of fundingProceedMoney) {
+			const before = parseInt(span.innerText);
+			span.innerText = " " + before.toLocaleString() + "원";
+		}
+		
+		const progressBar = document.getElementsByClassName('progressBar');
+		const progressBarPercent = document.getElementsByClassName('progressBarPercent');
+		for(let i=0 ; i<progressBar.length ; i++) {
+			const percent = parseInt(progressBarPercent[i].value.substring(0, progressBarPercent[i].value.length-1));
+			if(percent >= 100) {
+    			progressBar[i].style.width = "100%";
+			} else {
+				progressBar[i].style.width = percent + "%";
+			}
+		}
     	
 //     	$('.cateDropDown').on('click', function(){
 //     		$.ajax({

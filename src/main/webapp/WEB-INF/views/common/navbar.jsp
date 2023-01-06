@@ -164,12 +164,15 @@
 								<div  class="swTitle">최근 검색어</div>
 								<div class="recentWords">
 									<%
+									
 										Cookie[] cookies = request.getCookies();
-										for(Cookie cookie : cookies) {
-									 		String ckName = cookie.getName();
-									 		String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
-									 		
-											if(!ckName.equals("JSESSIONID")) {
+										if(cookies != null) {
+				
+											for(Cookie cookie : cookies) {
+										 		String ckName = cookie.getName();
+										 		String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
+										 		
+												if(!ckName.equals("JSESSIONID")) {
 											
 									 %>
 									 
@@ -182,6 +185,7 @@
 											<br>
 										</div>	
 									<%
+												}
 											}
 										}
 									%>

@@ -56,13 +56,23 @@
                     <span class="fontOnly" style="float: right;">카드번호 : </span>
                     <br><br>
                     
-                    <c:if test="${ paySchedule.paymentStatus == 'null' }">
+                    <c:if test="${ paySchedule.paymentStatus == 'null' && paySchedule.scheduleStatus == 'scheduled' }">
 	                    <form action="${ contextPath }/cancelPaySchedule.pay" method="post">
 	                        <input type="hidden" name="customerUId" id="" value="${ paySchedule.customerUId }">
 	                        <input type="hidden" name="merchantUId" id="" value="${ paySchedule.merchantUId }">
 	                        <input type="hidden" name="buyerName" value="${ paySchedule.buyerName }">
+	                        <input type="hidden" name="fundingNum" value="${ paySchedule.fundingNum }">
+	                        <input type="hidden" name="amount" value="${ paySchedule.amount }">
+                        	<c:forEach items="${ buyList }" var="index">
+                        		<c:set value="${ fn:split(index, 'count=') }" var="split"/>
+                        		<input type="hidden" name="rewardCount" value="${ split[1] }">
+                        	</c:forEach>
 	                        <button  class="btn btn-outline btnPayCancel">결제 예약 취소하기</button>
 	                    </form>
+                    </c:if>
+                    
+                    <c:if test="${ paySchedule.paymentStatus == 'null' && paySchedule.scheduleStatus == 'revoked' }">
+	                    <button  class="btn btn-outline btnPayCancel" onclick="javascript:history.back();">뒤로가기</button>
                     </c:if>
                     
                     <c:if test="${ paySchedule.paymentStatus == 'failed' }">

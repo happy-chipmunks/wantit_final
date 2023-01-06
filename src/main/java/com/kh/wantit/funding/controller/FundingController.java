@@ -31,6 +31,7 @@ import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
+import com.sun.mail.handlers.image_gif;
 
 @Controller
 public class FundingController {
@@ -235,7 +236,15 @@ public class FundingController {
 	
 	// 펀딩 오픈 예정 페이지 이동
 	@RequestMapping("fundingComingSoon.fund")
-	public String fundingComingSoon() {
+	public String fundingComingSoon(Model model) {
+		
+		ArrayList<Funding> fundingList = fService.fundingList();
+		ArrayList<Image> imageList = fService.fundingImageList();
+		
+		System.out.println("fundingList : " + fundingList);
+		System.out.println("iamgeList : " + imageList);
+		model.addAttribute("fundingList", fundingList);
+		model.addAttribute("imageList", imageList);
 		return "fundingComingSoon";
 	}
 	

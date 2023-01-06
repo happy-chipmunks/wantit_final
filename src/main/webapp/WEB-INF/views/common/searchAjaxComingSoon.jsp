@@ -18,8 +18,15 @@
 	        	<c:forEach items="${ fundingList }" var="fund">
 	        	
 		            <div class="col cardDecoration">
+		            	<input type="hidden" name="bId" class="bId" value="${ fund.fundingNum }">
+        			 	<input type="hidden" name="writer" class="writer" value="${ fund.creatorNum }">
                 		<div class="card shadow-sm fundinglist">
-                 			 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                			<c:forEach items="${ imageList }" var="image">
+	                  					<c:if test="${ image.imageBoardId == fund.fundingNum }">
+	                  					
+		                  					<img alt="" src="${ contextPath }/resources/funding/${ image.imageRename }" width="100%" height="225">
+	                  					</c:if>
+	                  				</c:forEach>
       
                   			<div class="card-body">
                       			<p class="card-text">${ fund.fundingTitle }</p>
@@ -37,5 +44,18 @@
 	           
 	            
 	    </div>
+	    <script type="text/javascript">
+	    var boards = document.getElementsByClassName('cardDecoration');
+		for(var board of boards){
+			board.addEventListener('click', function(){
+				const bId = this.querySelector('.bId').value;
+				console.log(bId);	// 선택한 펀딩 게시글 번호를 가지고 오는가
+				const writerNo = this.querySelector('.writer').value;
+				console.log(writerNo);	// 선택한 펀딩 게시글 작성자 번호를 가지고 오는가
+				
+				location.href='${contextPath}/selectFundingBoard.fund?bId=' + bId + '&writerNo=' + writerNo;
+			});
+		}
+	    </script>
 </body>
 </html>
