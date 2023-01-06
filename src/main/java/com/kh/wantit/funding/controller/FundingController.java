@@ -221,7 +221,7 @@ public class FundingController {
 				System.out.println("파일 전송 에러 : " + e.getMessage());
 			}
 			
-			System.out.println("파일경로: " + renamePath);
+//			System.out.println("파일경로: " + renamePath);
 			PrintWriter out = response.getWriter();
 			
 			out.println(renameFileName);
@@ -297,6 +297,7 @@ public class FundingController {
 		String writer = fService.getFundingCreator(bId);
 		int writerNo = fService.getFundingCreatorNum(writer);
 		 int supCount = fService.getSupportCount(bId);
+		 int dibsCount = fService.getDibsCount(bId);
 		
 		model.addAttribute("count", count);
 		model.addAttribute("fnList", fnList);
@@ -306,6 +307,7 @@ public class FundingController {
 		model.addAttribute("writerNo", writerNo);
 		model.addAttribute("f", f);
 		model.addAttribute("supCount", supCount);
+		model.addAttribute("dibsCount", dibsCount);
 		return "fundingNotice";
 	}
 	
@@ -324,7 +326,6 @@ public class FundingController {
 		}else {
 			throw new FundingException("새소식 작성 실패");
 		}
-		
 	}
 	
 	// 새소식 상세조회
@@ -353,11 +354,14 @@ public class FundingController {
 		Funding f = fService.getCurrFunding(bId);
 //		System.out.println(bId);
 		
+		int dibsCount = fService.getDibsCount(bId);
+		
 		if(fn != null) {
 			model.addAttribute("login", login);
 			model.addAttribute("fn", fn);
 			model.addAttribute("bId", bId);
 			model.addAttribute("f", f);
+			model.addAttribute("dibsCount", dibsCount);
 			return "fundingNoticeDetail";
 		}else {
 			throw new FundingException("새소식 상세조회 실패");
@@ -415,6 +419,7 @@ public class FundingController {
 		Funding f = fService.getFundingInfo(fundingNum);
 		String writer = fService.getFundingCreator(fundingNum);
 		int writerNo = fService.getFundingCreatorNum(writer);
+		int dibsCount = fService.getDibsCount(fundingNum);
 		
 		ArrayList<Member> reviewerNick = fService.getReviewerNickName(fundingNum);
 //		System.out.println(reviewerNick);
@@ -429,6 +434,7 @@ public class FundingController {
 		model.addAttribute("m", m);
 		model.addAttribute("pi", pi);
 		model.addAttribute("reviewerNick", reviewerNick);
+		model.addAttribute("dibsCount", dibsCount);
 		return "fundingReview";
 	}
 	

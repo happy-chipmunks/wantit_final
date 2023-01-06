@@ -28,7 +28,7 @@
 		    font-style: normal;
 		}
 		
-	*{ font-family: 'NanumSquareNeo-Variable' }
+	body{ font-family: 'NanumSquareNeo-Variable' }
 </style>
 
 

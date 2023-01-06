@@ -38,7 +38,7 @@
 		    font-style: normal;
 		}
 		
-	*{ font-family: 'NanumSquareNeo-Variable' }
+	body{ font-family: 'NanumSquareNeo-Variable' }
   </style>
 
 
@@ -54,7 +54,7 @@
     <div class="col-2 offset-2"><a class="tab-link" href="${ contextPath }/selectFundingBoard.fund?bId=${bId}&writerNo=${writerNo}">정보 </a></div>
     <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund?bId=${bId}" style="font-weight: 1000px; color:black;">새소식 </a></div>
     <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingReview.fund?bId=${bId}">리뷰 </a></div>
-    <div class="col-2"><a class="tab-link" href="#">서포터 <span class="count-total">4</span></a></div>
+    <div class="col-2"><a class="tab-link" href="#">서포터 <span class="count-total"> ${ supCount }</span></a></div>
   </div>
 </div>
 
