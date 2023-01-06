@@ -122,7 +122,7 @@
 	<select id="getFundingNotice" resultMap="fundingNoticeResultSet">
 		select *
 		from funding_notice
-		where funding_num=#{bId}
+		where funding_notice_writer=#{writer}
 	</select>
 	
 	<insert id="insertReward">
@@ -132,8 +132,8 @@
 	
 	<select id="getCurrFunding" resultMap="fundingResultSet">
 		select *
-		from funding join funding_notice using(funding_num)
-		where funding_notice_num=#{bId}
+		from funding
+		where funding_num=#{bId}
 	</select>
 	
 	<!-- 펀딩 리워드 -->
@@ -177,7 +177,7 @@
 	
 	<select id="getSupportCount" resultType="_int">
 		select count(*)
-		from support_count
+		from payschedule
 		where funding_num=#{fundingNum}
 	</select>
 	

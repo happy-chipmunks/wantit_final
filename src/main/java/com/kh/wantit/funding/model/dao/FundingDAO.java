@@ -87,8 +87,8 @@ public class FundingDAO {
 		return sqlSession.update("fundingMapper.addNoticeCount", bId);
 	}
 
-	public FundingNotice getFundingNotice(int bId, SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("fundingMapper.getFundingNotice", bId);
+	public ArrayList<FundingNotice> getFundingNotice(String writer, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getFundingNotice", writer);
 	}
 
 	public int insertReward(Reward r, SqlSessionTemplate sqlSession) {

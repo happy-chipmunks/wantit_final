@@ -23,20 +23,30 @@
 	  Kakao.init('9d6a7c5e2b95f01e1fdfee7c815cc918'); // 사용하려는 앱의 JavaScript 키 입력
 	</script>
 	
+	<style>
+		@font-face {
+		    font-family: 'NanumSquareNeo-Variable';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		.font{font-family: 'NanumSquareNeo-Variable';}
+	</style>
 
 </head>
 <body>
-  <div class="funding-header text-center">
+  <div class="funding-header text-center font">
     <div class="background"></div>
     <p class="title-info" style="color: #8c86c7;">${ f.fundingCate }</p>
     <h2 class="title"><a href="#">${ f.fundingTitle }</a></h2>
   </div>
-  <div class="container-fluid text-center funding-category">
+  <div class="container-fluid text-center funding-category font">
     <div class="row">
       <div class="col-2 offset-2"><a class="tab-link" href="${ contextPath }/selectFundingBoard.fund?bId=${f.fundingNum}&writerNo=${creatorNum}" style="font-weight: 1000px; color:black;">정보 </a></div>
       <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund?bId=${f.fundingNum}">새소식 </a></div>
       <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingReview.fund?bId=${f.fundingNum}">리뷰 </a></div>
-      <div class="col-2"><a class="tab-link" href="#">서포터 <span class="count-total"></span></a></div>
+      <div class="col-2"><a class="tab-link" href="#">서포터 ${ supCount } <span class="count-total"></span></a></div>
     </div>
   </div>
 
@@ -44,14 +54,13 @@
     <div class="row g-2">
       <!-- 왼쪽 사이드바 -->
       <div class="col-md-9">
-      
       		<!-- 정보 -->
 	      <div class="left-content">
 	        <!-- 대표 이미지-->
 	        <img src="${ contextPath }/resources/funding/${img.imageRename}" alt="..." width="100%" height="600px">
 			
 			<!-- 펀딩 요약 -->
-			<h4>${ f.fundingSummary }</h4>
+			<h4 class="font m-3">${ f.fundingSummary }</h4>
 			
 	        <!-- 안내사항 -->
 	        <div class="notification" style="background-color: #8c86c7;">
@@ -69,7 +78,7 @@
 	          <strong>크라우드펀딩 제대로 알고 펀딩하자</strong>
 	          <button class="more-button">자세히 알아보기</button>
 	        </div>
-	
+	        
 	        <!-- 상품 상세설명 -->
 	        <div class="funding-detail">
 	          <p><strong>펀딩 이야기</strong></p>
@@ -81,7 +90,7 @@
       </div>
 
       <!-- 오른쪽 사이드바 -->
-      <div class="col-md-3 right-content">
+      <div class="col-md-3 right-content font">
         <div class="state-box">
           <jsp:useBean id="now" class="java.util.Date"/>
           <fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowFmtTime" scope="request"/>

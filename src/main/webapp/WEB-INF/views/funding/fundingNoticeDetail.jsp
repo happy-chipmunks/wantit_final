@@ -15,15 +15,23 @@
   <link rel="stylesheet" href="resources/css/fundingMain.css" />
   <link rel="stylesheet" href="resources/css/fundingNotice.css" />
 
-  <!-- icons fonts -->
-
+<style>
+	@font-face {
+		    font-family: 'NanumSquareNeo-Variable';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+	*{ font-family: 'NanumSquareNeo-Variable' }
+</style>
 
 </head>
 
 <body>
 <div class="funding-header text-center">
-  <p class="title-info">${ fn.fundingNoticeCategory }</p>
-  <h2 class="title"><a href="#">${ fn.fundingNoticeTitle }</a></h2>
+  <p class="title-info">${ f.fundingCate }</p>
+  <h2 class="title"><a href="#">${ f.fundingTitle }</a></h2>
 </div>
 <div class="container-fluid text-center funding-category">
   <div class="row">
@@ -41,7 +49,7 @@
       <div class="left-content">
 
         <!-- 새소식 제목 -->
-        <button class="to-list btn btn-light" style="float: right;" onclick="location.href='${contextPath}/fundingNotice.fund'">< 목록으로 이동</button>
+        <button class="to-list btn btn-light" style="float: right;" onclick="location.href='${contextPath}/fundingNotice.fund?bId=${ bId }'">< 목록으로 이동</button>
         <div class="notice-header">
           <p class="notice-category">${fn.fundingNoticeCategory}</p>
           <p class="notice-title">${fn.fundingNoticeTitle}</p>

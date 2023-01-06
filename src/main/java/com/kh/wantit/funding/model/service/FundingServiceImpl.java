@@ -102,12 +102,12 @@ public class FundingServiceImpl implements FundingService{
 	}
 
 	@Override
-	public FundingNotice getFundingNotice(int bId, boolean yn) {
+	public ArrayList<FundingNotice> getFundingNotice(String writer, int bId, boolean yn) {
 		int result = 0;
 		if(yn) {
 			result = fDAO.addNoticeCount(bId, sqlSession);
 		}
-		return fDAO.getFundingNotice(bId, sqlSession);
+		return fDAO.getFundingNotice(writer, sqlSession);
 	}
 
 	@Override

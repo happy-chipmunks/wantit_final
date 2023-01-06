@@ -44,7 +44,7 @@ public interface FundingService {
 
 	int fnListCount(int bId);
 
-	FundingNotice getFundingNotice(int bId, boolean yn);
+	ArrayList<FundingNotice> getFundingNotice(String writer, int bId, boolean yn);
 
 	int insertReward(Reward r);
 
@@ -65,6 +65,7 @@ public interface FundingService {
 	int getSupportCount(int fundingNum);
 
 	int getReviewCount(int fundingNum);
+	
 	int insertReview(Review review);
 
 	int checkExistReview(Review r);

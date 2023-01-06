@@ -291,7 +291,7 @@ public class FundingController {
 		int count = fService.fnListCount(bId);
 		
 		Funding f = fService.getCurrFunding(bId);
-//		System.out.println(f);
+		System.out.println(f);
 		
 //		System.out.println(bId);
 		String writer = fService.getFundingCreator(bId);
@@ -329,7 +329,7 @@ public class FundingController {
 	
 	// 새소식 상세조회
 	@RequestMapping("selectFundingNoticeBoard.fund")
-	public String selectFundingNoticeBoard(@RequestParam("bId") int bId, @RequestParam("writer") String writer, HttpSession session, Model model) {
+	public String selectFundingNoticeBoard(@RequestParam("bId") int bId, @RequestParam("writer") String writer, @RequestParam("fundingNoticeNum") int fundingNoticeNum, HttpSession session, Model model) {
 		Member m = (Member)session.getAttribute("loginUser");
 		String login = null;
 		boolean yn = false;
@@ -340,13 +340,24 @@ public class FundingController {
 			yn = true;
 		}
 		
-		FundingNotice fn = fService.getFundingNotice(bId, yn);
-//		System.out.println(fn);
+		ArrayList<FundingNotice> fnList = fService.getFundingNotice(writer, bId, yn);
+		System.out.println(fnList);
+		FundingNotice fn = new FundingNotice();
+		for(int i=0; i<fnList.size(); i++) {
+			if(fnList.get(i).getFundingNoticeNum() == fundingNoticeNum) {
+				fn = fnList.get(i);
+				System.out.println(fnList.get(i));
+			}
+		}
+		
+		Funding f = fService.getCurrFunding(bId);
 //		System.out.println(bId);
 		
 		if(fn != null) {
 			model.addAttribute("login", login);
 			model.addAttribute("fn", fn);
+			model.addAttribute("bId", bId);
+			model.addAttribute("f", f);
 			return "fundingNoticeDetail";
 		}else {
 			throw new FundingException("새소식 상세조회 실패");
@@ -406,7 +417,7 @@ public class FundingController {
 		int writerNo = fService.getFundingCreatorNum(writer);
 		
 		ArrayList<Member> reviewerNick = fService.getReviewerNickName(fundingNum);
-		System.out.println(reviewerNick);
+//		System.out.println(reviewerNick);
 		
 		model.addAttribute("fundingNum", fundingNum);
 		model.addAttribute("rv", rv);
