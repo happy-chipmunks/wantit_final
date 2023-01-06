@@ -192,7 +192,7 @@
 						    </div>
 						 	<div id="modalBody" class="modal-body" style="text-align: left">
 							    	리워드 아이템<input type="text" class="form-control input reward" id="reward-name" name="rewardTitle[]">
-							    	리워드 설명<input class="form-control input reward" style="height: 100px" id="reward-content" name="rewardContent[]">
+							    	리워드 설명<input type="text" class="form-control input reward" style="height: 100px" id="reward-content" name="rewardContent[]">
 							      	수량 제한<input type="number" class="form-control input reward" id="reward-quantity" name="rewardLimit[]">
 							      	발송 시작일<input type="date" class="form-control input reward" id="reward-shipmentDate" name="rewardExpectDate[]">
 							      	금액<input type="number" class="form-control input reward" id="reward-donationPrice" name="price[]">
@@ -237,7 +237,7 @@
 				var postingDate = $('#rewardAdd').find('input[name="rewardExpectDate[]"]').val();
 				var donationPrice = $('#rewardAdd').find('input[name="price[]"]').val();
 				var deliveryCharge = $('#rewardAdd').find('input[name="shipping[]"]').val();
-				$('#rewardTable').append("<tr name='reward'><td><input type='checkbox' name='checkBox'></td><td><input type='hidden' value=" + title + " name='rewardTitle[]'>" + title + "</td><td><input type='hidden' value=" + content + " name='rewardContent[]'>" + content + "</td><td><input type='hidden' value=" + quantity + " name='rewardLimit[]'>" + quantity + "</td><td><input type='hidden' value=" + postingDate + " name='rewardExpectDate[]'>" + postingDate + "</td><td><input type='hidden' value=" + donationPrice + " name='price[]'>" + donationPrice + "</td><td><input type='hidden' value=" + deliveryCharge + " name='shipping[]'>" + deliveryCharge + "</td>");
+				$('#rewardTable').append("<tr name='reward'><td><input type='checkbox' name='checkBox'></td><td><input type='hidden' value='" + title + "'name='rewardTitle[]'>" + title + "</td><td><input type='hidden' value='" + content + "' name='rewardContent[]'>" + content + "</td><td><input type='hidden' value=" + quantity + " name='rewardLimit[]'>" + quantity + "</td><td><input type='hidden' value=" + postingDate + " name='rewardExpectDate[]'>" + postingDate + "</td><td><input type='hidden' value=" + donationPrice + " name='price[]'>" + donationPrice + "</td><td><input type='hidden' value=" + deliveryCharge + " name='shipping[]'>" + deliveryCharge + "</td>");
 			});
 		
 		// 리워드 추가 모달 닫을 시..cos
