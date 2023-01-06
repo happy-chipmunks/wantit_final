@@ -244,6 +244,13 @@
 		where funding_num=#{bId}
 	</select>
 	
+	<!-- 펀딩 수정 시 펀딩 테이블 confirm update -->
+	<update id="fundingConfirmUpdate">
+		update funding
+		set funding_confirm='E'
+		where funding_num=#{fundingNum}
+	</update>
+	
 	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>

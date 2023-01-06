@@ -39,6 +39,16 @@
 		}
 		
 	body{ font-family: 'NanumSquareNeo-Variable' }
+	
+	.creator-info{
+			    border: 1px solid #8c86c7;
+		    	border-radius: 8px;
+		    	padding: 16px;
+		}
+		
+		.i{color: #8c86c7;}
+		
+		.btn{outline: 1px solid #8c86c7;}
   </style>
 
 
@@ -199,9 +209,30 @@
 <!--             <div class="col-sm-4"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#report-modal">신고하기</button></div> -->
           </div>
         </div>
+         <hr>
+        
+        <div>
+        	<div class="container creator-info" style="text-align:center;">
+        		<div class="mb-2">
+	        		<a>
+		        		<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="50" height="50">
+		        		<span style="font-size: 20px;">닉네임</span>
+	        		</a>
+        		</div>
+        		<div class="mb-2">
+<!--         			<span>만족도</span> -->
+        			<span class="ps-3"><i class="bi bi-person-fill fs-4"></i>&nbsp;&nbsp;팔로워 0명</span>
+        		</div>
+        		<div>
+        			<button class="btn"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        			<button class="btn"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+        		</div>
+        	</div>
+      	</div>
       </div>
   </div>
 </div>
+<br><br>
 
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

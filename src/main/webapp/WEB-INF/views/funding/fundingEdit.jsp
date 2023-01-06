@@ -96,9 +96,6 @@
 	
     <div class="container">
     	<h1 id="planning"><b>프로젝트 기획</b></h1>
-    	<div class="text-end">
-          <button type="button" onclick="location.href='${contextPath}/fundingMain.fund'" class="btn btn-secondary">··· 미리보기</button>
-        </div>
     </div>
 	
 	<div>

@@ -219,4 +219,9 @@ public class FundingServiceImpl implements FundingService{
 		return fDAO.getDibs(bId, sqlSession);
 	}
 
+	@Override
+	public int fundingConfirmUpdate(int fundingNum) {
+		return fDAO.fundingConfirmUpdate(fundingNum, sqlSession);
+	}
+
 }

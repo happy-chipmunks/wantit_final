@@ -391,6 +391,10 @@ public class FundingController {
 		f.setFundingCate(cate);
 		int result = fService.fundingEdit(f);
 		
+		int fundingNum = f.getFundingNum();
+		// 펀딩 confirm 'E'로 update(관리자 리스트 뿌리기 위해)
+		int result2 = fService.fundingConfirmUpdate(fundingNum);
+		
 //		redirectAttributes.addAttribute("creatorId", creatorId);
 //		redirectAttributes.addAttribute("fundingNum", fundingNum);
 //		redirectAttributes.addAttribute("f", f);
@@ -465,6 +469,12 @@ public class FundingController {
 		}else {
 			throw new FundingException("찜하기 취소 실패");
 		}
+	}
+	
+	// 크리에이터 문의
+	@RequestMapping("creatorMessage.fund")
+	public String creatorMessage() {
+		return "creatorMessage";
 	}
 	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순

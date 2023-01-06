@@ -281,9 +281,16 @@
 	    document.signform.submit();
 	}
 	
-	    function openPopup(){
-			window.open("myPage_sup_message.jsp", "message", "width=500 height=300");
-		}
+// 	    function openPopup(){
+// 			window.open("myPage_sup_message.jsp", "message", "width=500 height=300");
+// 		}
+
+		// 크리에이터 문의
+		 	function openPopup(){
+				var url = "creatorMessage.fund";
+				var name="creatorMessage";
+				window.open(url, name, "width=500 height=300");
+			}
 	    
 	    const fileInput = document.getElementById("businessLicense");
 	    fileInput.onchange = () =>{

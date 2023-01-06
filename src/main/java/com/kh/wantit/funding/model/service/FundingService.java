@@ -89,5 +89,7 @@ public interface FundingService {
 	int getDibsCount(int bId);
 
 	ArrayList<FundingDibs> getDibs(int bId);
+	
+	int fundingConfirmUpdate(int fundingNum);
 
 }

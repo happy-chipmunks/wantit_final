@@ -177,6 +177,10 @@ public class FundingDAO {
 		return (ArrayList)sqlSession.selectList("fundingMapper.getDibs", bId);
 	}
 
+	public int fundingConfirmUpdate(int fundingNum, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("fundingMapper.fundingConfirmUpdate", fundingNum);
+	}
+
 	
 	
 }
