@@ -208,6 +208,7 @@
 				$("#targetArea").html(contents);
 				const listSize = document.getElementById('listSize');
 				var searchListCount = document.getElementById('searchListCount');
+				
 				searchListCount.innerText = listSize.value + '개';
 			}
 			

@@ -2,7 +2,9 @@
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -69,6 +71,14 @@ public class HomeController {
 		ArrayList<Funding> fundingList = fService.fundingList();
 		
 		ArrayList<BannerImage> biList = aService.selectBannerIamgeList();
+		ArrayList<Funding> bannerFundList = new ArrayList<Funding>();
+		for(BannerImage bi : biList) {
+			String imageBoardId = aService.getImageBoardId(bi.getImageNum());
+			Funding f = aService.getFundingInfo(Integer.parseInt(imageBoardId));
+			
+			bannerFundList.add(f);
+		}
+		
 		ArrayList<Image> fundingImageList = fService.fundingImageList();
 		
 		ArrayList<Funding> fundingComingSoonList = new ArrayList<Funding>();
@@ -100,8 +110,7 @@ public class HomeController {
 		
 		model.addAttribute("fundingImageList", fundingImageList);
 		
-		
-//		model.addAttribute("biList", biList);
+		model.addAttribute("bannerFundList", bannerFundList);
 		session.setAttribute("biList", biList);
 		
 		
@@ -117,17 +126,23 @@ public class HomeController {
 		System.out.println(cate);
 		ArrayList<Image> imageList = fService.fundingImageList();
 		
+		Map<String, String> searchMap = new HashMap<String, String>();
 		if(searchText != null) {
-			fundingList = fService.searchFundingList(searchText);
-			wantingList = wService.searchWantingList(searchText);
+			searchMap.put("cateOrContent", "content");
+			searchMap.put("searchText", searchText);
+			fundingList = fService.searchFundingList(searchMap);
+			wantingList = wService.searchWantingList(searchMap);
 			model.addAttribute("searchText", searchText);
 			model.addAttribute("wantingList", wantingList);
 		} else if(cate != null) {
-			fundingList = fService.searchFundingList(cate);
+			searchMap.put("cateOrContent", "cate");
+			searchMap.put("cate", cate);
+			fundingList = fService.searchFundingList(searchMap);
 			model.addAttribute("cate", cate);
 		}
-		model.addAttribute("imageList", imageList);
 		model.addAttribute("fundingList", fundingList);
+		model.addAttribute("imageList", imageList);
+		System.out.println(fundingList);
 		
 		return "common/searchView";
 	}
@@ -139,11 +154,18 @@ public class HomeController {
 		ArrayList<Funding> fundingList = new ArrayList<Funding>();
 		ArrayList<Image> imageList = fService.fundingImageList();
 		
-		if(searchText != null) {
-			fundingList = fService.searchFundingList(searchText);
+		Map<String, String> searchMap = new HashMap<String, String>();
+		System.out.println("============================]" + searchText);
+		System.out.println("============================]" + cate);
+		if(!searchText.equals("")) {
+			searchMap.put("cateOrContent", "content");
+			searchMap.put("searchText", searchText);
+			fundingList = fService.searchFundingList(searchMap);
 			model.addAttribute("searchText", searchText);
 		} else if(cate != null) {
-			fundingList = fService.searchFundingList(cate);
+			searchMap.put("cateOrContent", "cate");
+			searchMap.put("cate", cate);
+			fundingList = fService.searchFundingList(searchMap);
 			model.addAttribute("cate", cate);
 		}
 		
@@ -153,7 +175,6 @@ public class HomeController {
 				fundingFPList.add(f);
 			}
 		}
-		
 		model.addAttribute("fundingList", fundingFPList);
 		model.addAttribute("imageList", imageList);
 		return "common/searchAjaxProceed";
@@ -167,11 +188,16 @@ public class HomeController {
 		ArrayList<Funding> fundingList = new ArrayList<Funding>();
 		ArrayList<Image> imageList = fService.fundingImageList();
 		
-		if(searchText != null) {
-			fundingList = fService.searchFundingList(searchText);
+		Map<String, String> searchMap = new HashMap<String, String>();
+		if(!searchText.equals("")) {
+			searchMap.put("cateOrContent", "content");
+			searchMap.put("searchText", searchText);
+			fundingList = fService.searchFundingList(searchMap);
 			model.addAttribute("searchText", searchText);
 		} else if(cate != null) {
-			fundingList = fService.searchFundingList(cate);
+			searchMap.put("cateOrContent", "cate");
+			searchMap.put("cate", cate);
+			fundingList = fService.searchFundingList(searchMap);
 			model.addAttribute("cate", cate);
 		}
 		
@@ -190,7 +216,11 @@ public class HomeController {
 	
 	@RequestMapping("searchWant.do")
 	public String searchWant(@RequestParam("searchText") String searchText, Model model) {
-		ArrayList<Wanting> wantingList = wService.searchWantingList(searchText);
+		
+		Map<String, String> searchMap = new HashMap<String, String>();
+		searchMap.put("cateOrContent", "content");
+		searchMap.put("searchText", searchText);
+		ArrayList<Wanting> wantingList = wService.searchWantingList(searchMap);
 		ArrayList<Image> imageList = wService.selectImageList();
 		
 		model.addAttribute("wantingList", wantingList);

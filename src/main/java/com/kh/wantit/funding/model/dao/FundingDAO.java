@@ -1,6 +1,7 @@
 ﻿package com.kh.wantit.funding.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -29,8 +30,8 @@ public class FundingDAO {
 		return (ArrayList)sqlSession.selectList("fundingMapper.fundingList");
 	}
 
-	public ArrayList<Funding> searchFundingList(SqlSessionTemplate sqlSession, String searchText) {
-		return (ArrayList)sqlSession.selectList("fundingMapper.searchFundingList", searchText);
+	public ArrayList<Funding> searchFundingList(SqlSessionTemplate sqlSession, Map<String, String> searchMap) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.searchFundingList", searchMap);
 	}
 
 	public String getCreatorName(SqlSessionTemplate sqlSession, String id) {

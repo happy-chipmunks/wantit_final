@@ -1,6 +1,7 @@
 package com.kh.wantit.wanting.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -79,8 +80,8 @@ public class WantingDAO {
 
 	
 	// 원팅 검색
-	public ArrayList<Wanting> searchWantingList(SqlSessionTemplate sqlSession, String searchText) {
-		return (ArrayList)sqlSession.selectList("wantingMapper.searchWantingList", searchText);
+	public ArrayList<Wanting> searchWantingList(SqlSessionTemplate sqlSession, Map<String, String> searchMap) {
+		return (ArrayList)sqlSession.selectList("wantingMapper.searchWantingList", searchMap);
 	}	
 	
 	

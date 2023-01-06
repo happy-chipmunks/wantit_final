@@ -238,5 +238,14 @@ public class AdminService {
 		return aDAO.selectNotice(sqlSession, noticeNum);
 	}
 
+	public String getImageBoardId(int imageNum) {
+		return aDAO.getImageBoardId(sqlSession, imageNum);
+	}
+
+	public Funding getFundingInfo(int imageBoardId) {
+		return aDAO.getFundingInfo(sqlSession, imageBoardId);
+	}
+
+
 	
 }

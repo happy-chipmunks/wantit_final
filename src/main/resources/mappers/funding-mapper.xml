@@ -43,10 +43,10 @@
 <!-- 			select * from funding where funding_cate = #{cate} -->
 <!-- 		</if> -->
 		<choose>
-			<when test="searchText != null">
+			<when test="cateOrContent == 'content'">
 				select * from funding where funding_title like '%' || #{searchText} || '%'
 			</when>
-			<when test="cate != null">
+			<when test="cateOrContent == 'cate'">
 				select * from funding where funding_cate = #{cate}
 			</when>
 		</choose>

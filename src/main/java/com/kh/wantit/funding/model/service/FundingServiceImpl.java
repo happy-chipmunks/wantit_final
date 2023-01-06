@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -42,8 +43,8 @@ public class FundingServiceImpl implements FundingService{
 	}
 	
 	@Override
-	public ArrayList<Funding> searchFundingList(String searchText) {
-		return fDAO.searchFundingList(sqlSession, searchText);
+	public ArrayList<Funding> searchFundingList(Map<String, String> searchMap) {
+		return fDAO.searchFundingList(sqlSession, searchMap);
 	}
 
 	@Override

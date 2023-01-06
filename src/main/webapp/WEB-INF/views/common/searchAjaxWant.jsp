@@ -13,7 +13,11 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body>
+
 	        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="BigArea">
+				<c:if test="${ cantSearchCate == 1 }">
+					<div class="alertMessage">카테고리로는 원팅 검색할 수 없습니다. 키워드로 검색해주세요 !</div>
+				</c:if>
 	        	<input type="hidden" value="${ wantingList.size() }"  id="listSize">
 	       		<input type="hidden" value="${ wantAjax }" id="wantAjax">
 	        	<c:forEach items="${ wantingList }" var="want">

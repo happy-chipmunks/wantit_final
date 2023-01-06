@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Image;
@@ -20,7 +21,7 @@ public interface FundingService {
 
 	ArrayList<Funding> fundingList();
 
-	ArrayList<Funding> searchFundingList(String searchText);
+	ArrayList<Funding> searchFundingList(Map<String, String> searchMap);
 
 	String getCreatorName(String id);
 

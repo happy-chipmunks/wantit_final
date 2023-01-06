@@ -264,6 +264,7 @@
 				postBtn.style.display = "";
 				firstAddress.value = "";
 				secondAddress.value = "";
+				secondAddress.removeAttribute('readonly');
 			});
 			
             

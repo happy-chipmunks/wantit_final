@@ -1,6 +1,7 @@
 ﻿package com.kh.wantit.wanting.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Alarm;
@@ -44,7 +45,7 @@ public interface WantingService {
 	int sendAlarm(Alarm alarm);
 	
 	// 원팅 검색
-	ArrayList<Wanting> searchWantingList(String searchText);
+	ArrayList<Wanting> searchWantingList(Map<String, String> searchMap);
 	
 	// 회원 전체 알림 가져오기
 	ArrayList<Alarm> selectAlarmList(String id);
