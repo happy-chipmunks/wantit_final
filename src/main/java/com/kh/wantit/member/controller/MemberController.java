@@ -426,19 +426,22 @@ public class MemberController {
 		
 		//회원수정 메소드
 		@RequestMapping("/updatemember.me")
-		public String updatemember(@ModelAttribute Member member,@RequestParam("memberPwd2")String memberPwd2,HttpSession session,
+		public String updatemember(@ModelAttribute Member member,HttpSession session,
 								   @RequestParam("memberAddress") String add1,@RequestParam("memberAddress2") String add2) {
-			if(!member.getMemberPwd().equals(memberPwd2)) {
-				throw new MemberException("비밀번호가 일치하지 않습니다.");
-			}
-			String rawPwd = member.getMemberPwd();
-			String enPwd = bcrypt.encode(rawPwd);
-			member.setMemberPwd(enPwd);
+			
+			String Address = add1+"// "+add2;
+			System.out.println("=================================");
+			System.out.println(Address);
+			System.out.println("=================================");
+			System.out.println(member);
+			member.setMemberAddress(Address);
 			
 			int result = mService.updateInfo(member);
 			
 			System.out.println(member);
 			if(result>0) {
+				session.removeAttribute("loginUser");
+				session.setAttribute("loginUser", member);
 				return "redirect:/myPageinfo.me";
 			} else {
 				throw new MemberException("회원 정보 수정에 실패하셨습니다.");
@@ -737,10 +740,6 @@ public class MemberController {
 }	
 	 
 	 
-	private void deletebeforeImage(Image m) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@RequestMapping("insertcreatorMemberImg.me")	//크리에이터 사진등록
 	public String insertcreatorMemberImg(@RequestParam("file") MultipartFile file1 ,@RequestParam("memberId") String memberId ,HttpServletRequest request ,Model model,
@@ -784,10 +783,7 @@ public class MemberController {
 			 
 			 Image img = mService.selectcreatorImage(image);
 			 
-//			 ArrayList<Integer> allProfileImage = mService.allProfileImage(memberId);
-//			 System.out.println(allProfileImage);
-//			 System.out.println(img);
-				/* model.addAttribute("image",img.getImageRename()); */
+
 					 session.setAttribute("icmage", img.getImageRename()); 
 	
 		}else {
@@ -824,6 +820,10 @@ public class MemberController {
 		}
 		return "myPage_creator";
 	}
+	
+	
+	
+	
 }
 	
 	

@@ -157,6 +157,8 @@
    		</div>
    		<div class="col-1"></div>
    		<div class="col-6">
+   		<br>
+   			
    			<div class="container">
 				<h4 align="left"><b>광고 의뢰</b></h4>
 				<h6>광고는 상단 롤링 배너에 게시됩니다.<br> 배너는 메인페이지, 펀딩페이지, 원팅페이지에 게시됩니다.</h6>
