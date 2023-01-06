@@ -16,8 +16,13 @@
   <link rel="stylesheet" href="resources/css/fundingMain.css" />
   <link rel="stylesheet" href="resources/css/bootstrap-custom.css" />
 
-<style>
-</style>
+	<!-- kakao share -->
+	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+	  integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
+	<script>
+	  Kakao.init('9d6a7c5e2b95f01e1fdfee7c815cc918'); // 사용하려는 앱의 JavaScript 키 입력
+	</script>
+	
 
 </head>
 <body>
@@ -148,76 +153,28 @@
 
 
 <!-- 모달 -->
-<!-- 공유하기 완료 -->
-<div class="modal fade" id="share-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-funding-right">
-          <p class="dibs-message">
-            공유하기는 버튼이 떠야하나<br>
-            카카오 / 네이버 / 페이스북 이런거
-          </p>
-        </div>
-      </div>
-      <div class="modal-footer modal-dibs-footer">
-        <div class="container">
-          <div class="row g-2">
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn">다른 펀딩 둘러보기</button>
-            </div>
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn">내 찜 목록보기</button>
-            </div>
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- 공유하기 완료 -->
-<div class="modal fade" id="share-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-funding-right">
-          <p class="dibs-message">
-            공유하기는 나중에 할게요.<br>
-            마이페이지 찜하기 모아보기에서 확인하실 수 있습니다.
-          </p>
-        </div>
-      </div>
-      <div class="modal-footer modal-dibs-footer">
-        <div class="container">
-          <div class="row g-2">
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn">다른 펀딩 둘러보기</button>
-            </div>
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn">내 찜 목록보기</button>
-            </div>
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button>
-            </div>
-          </div>
-     	</div>
-      </div>
-   </div>
- </div>
-</div>
+<!-- 공유하기 -->
+	<div class="modal fade" id="share-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="modal-wanting-right">
+				<a id="kakaotalk-sharing-btn" class="link-icon kakao" href="javascript:;">카카오톡</a>
+				<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();">페이스북</a>
+		        <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
+	        </div>
+	      </div>
+	      <div class="modal-footer modal-dibs-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='${contextPath}/fundingList.fund'">다른 펀딩 둘러보기</button>&nbsp;&nbsp;
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	      </div>
+		</div>
+	  </div>
+	</div>
 
 
 
@@ -252,6 +209,43 @@
 		} else {
 			progressBar.style.width = percent + "%";
 		}
+		
+		// 펀딩 공유하기 ========================================
+	    function shareTwitter() {
+	        var sendText = "If You WANT IT, You Can Get It!"; // 전달할 텍스트
+	        let fundingNum = ${ f.fundingNum };
+	        let writerNo = ${ creatorNum };
+	        var sendUrl = "http://localhost:8080/wantit/selectFundingBoard.fund?bId=" + fundingNum + "&writerNo=" + writerNo; // 전달할 URL
+	        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+	    }
+	    function shareFacebook() {
+	        var sendUrl = "http://localhost:8080/wantit/selectFundingBoard.fund?bId=" + fundingNum + "&writerNo=" + writerNo; // 전달할 URL
+	        window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+	    }
+	    
+	    // 원팅 공유하기 - 카카오톡 ========================================
+		Kakao.Share.createDefaultButton({
+	    container: '#kakaotalk-sharing-btn',
+	    objectType: 'feed',
+	    content: {
+	      title: '${ f.fundingTitle }',
+	      description: '함께 만들어나가는 원팅',
+	      imageUrl:
+			'${ contextPath }/resources/funding/${img.imageRename}',
+	      link: {
+	        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+	        webUrl: 'http://localhost:8080/wantit/selectFundingBoard.fund?bId=${f.fundingNum}&writerNo=${writerNum}',
+	      },
+	    },
+	    buttons: [
+	      {
+	        title: '원잇 사이트로 이동',
+	        link: {
+	          webUrl: 'http://localhost:8080/wantit/home.do',
+	        },
+	      },
+	    ],
+	  	});
 	</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
