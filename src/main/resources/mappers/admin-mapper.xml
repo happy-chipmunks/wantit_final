@@ -303,6 +303,15 @@
 	<select id="selectNotice">
 		select * from notice where notice_num = #{noticeNum}
 	</select>
+	
+	<select id="getImageBoardId" resultType="string">
+		select image_board_id from image where image_num = #{iamgeNum}
+	</select>
+	
+	<select id="getFundingInfo" resultMap="fundingResultSet">
+		select funding_num, creator_num from funding where funding_num = #{imageBoardId}
+	</select>
+	
 	<resultMap type="Member" id="memberResultSet">
 		<id column="MEMBER_ID" property="memberId" />
 		<result column="MEMBER_PWD" property="memberPwd" />

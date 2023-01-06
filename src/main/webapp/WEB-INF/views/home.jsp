@@ -59,13 +59,17 @@
         	<c:forEach items="${ biList }" var="bi" varStatus="status">
         		<c:if test="${ status.index == 0 }">
 		          <div class="carousel-item active">
-		            <img alt="" src="${ contextPath }/resources/bannerImage/${ bi.imageRename }">		  
+		          	<a href="${contextPath}/selectFundingBoard.fund?bId=${ bannerFundList[status.index].fundingNum }&writerNo=${ bannerFundList[status.index].creatorNum }">
+			            <img alt="" src="${ contextPath }/resources/bannerImage/${ bi.imageRename }">		  
+		          	</a>
 		    
 		          </div>
         		</c:if>
         		<c:if test="${ status.index != 0 }">
 		          <div class="carousel-item">
+		          	<a href="${contextPath}/selectFundingBoard.fund?bId=${ bannerFundList[status.index].fundingNum }&writerNo=${ bannerFundList[status.index].creatorNum }">
 						<img alt="" src="${ contextPath }/resources/bannerImage/${ bi.imageRename }">		    
+		          	</a>
 		          </div>
         		</c:if>
         	</c:forEach>
@@ -87,7 +91,7 @@
       <div class="container" style="margin-top: 20px; border-bottom: 1px solid white; padding-bottom: 20px;">
         <div class="row">
             <div class="col-md-8">
-                <strong class="d-inline-block mb-2 mainTitle" style="font-size: 35px; color: #8c86c7; padding-left: 20px;">인기있는 펀딩<a href="${ contextPath }/payView.pay?fundingNum=9999"> 결제테스트</a><a href="${ contextPath }/payStatusRenewal.pay?fundingNum=9999">결제상태갱신</a> </strong>
+                <strong class="d-inline-block mb-2 mainTitle" style="font-size: 35px; color: #8c86c7; padding-left: 20px;">인기있는 펀딩<a href="${ contextPath }/payStatusRenewal.pay?fundingNum=9999">결제상태갱신</a> </strong>
 <!-- 			테스트 구간 -->
 
 <!--                 테스트구간 -->
@@ -104,7 +108,9 @@
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 	<c:forEach items="${ fundingProceedList }" var="fp" varStatus="status">
                 	
-	                    <div class="col">
+	                    <div class="col cardDecoration">
+	                    	<input type="hidden" value="${ fp.creatorNum }" class="writer">
+	        				<input type="hidden" value="${ fp.fundingNum }" class="bId">
 	                        <div class="card shadow-sm fundinglist">
 	                        	<c:forEach items="${ fundingImageList }" var="fundImage">
 	                        		<c:if test="${ fp.fundingNum == fundImage.imageBoardId }">
@@ -223,8 +229,9 @@
 
 				<c:forEach items="${ fundingComingSoonList }" var="fcs">
 				
-	                <div class="col-2">
-	                    
+	                <div class="col-2 cardDecoration">
+	                    <input type="hidden" value="${ fcs.creatorNum }" class="writer">
+	        			<input type="hidden" value="${ fcs.fundingNum }" class="bId">
 	                    <div class="card shadow-sm fundinglist">
 		                    <c:forEach items="${ fundingImageList }" var="fundImage">
 		                        		<c:if test="${ fcs.fundingNum == fundImage.imageBoardId }">
@@ -300,6 +307,19 @@
     				progressBar[i].style.width = percent + "%";
 				}
     		}
+    		var boards = document.getElementsByClassName('cardDecoration');
+    		for(var board of boards){
+    			board.addEventListener('click', function(){
+    				const bId = this.querySelector('.bId').value;
+    				console.log(bId);	// 선택한 펀딩 게시글 번호를 가지고 오는가
+    				const writerNo = this.querySelector('.writer').value;
+    				console.log(writerNo);	// 선택한 펀딩 게시글 작성자 번호를 가지고 오는가
+    				
+    				location.href='${contextPath}/selectFundingBoard.fund?bId=' + bId + '&writerNo=' + writerNo;
+    			});
+    		}
+    		
+    		
     		
     </script>
 <% request.removeAttribute("cancelPayScuccess"); %>

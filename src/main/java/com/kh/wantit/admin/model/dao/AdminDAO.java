@@ -266,6 +266,15 @@ public class AdminDAO {
 	public Notice selectNotice(SqlSessionTemplate sqlSession, int noticeNum) {
 		return sqlSession.selectOne("adminMapper.selectNotice", noticeNum);
 	}
+
+	public String getImageBoardId(SqlSessionTemplate sqlSession, int imageNum) {
+		return sqlSession.selectOne("adminMapper.getImageBoardId", imageNum);
+	}
+
+	public Funding getFundingInfo(SqlSessionTemplate sqlSession, int imageBoardId) {
+		return sqlSession.selectOne("adminMapper.getFundingInfo", imageBoardId);
+	}
+
 	
 //	public int noProject(SqlSessionTemplate sqlSession, String id) {
 //		return sqlSession.update("adminMapper.noProject", id);

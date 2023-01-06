@@ -1,6 +1,7 @@
 package com.kh.wantit.wanting.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,8 +102,8 @@ public class WantingServiceImpl implements WantingService{
 	
 	// 원팅 검색
 	@Override
-	public ArrayList<Wanting> searchWantingList(String searchText) {
-		return wDAO.searchWantingList(sqlSession, searchText);
+	public ArrayList<Wanting> searchWantingList(Map<String, String> searchMap) {
+		return wDAO.searchWantingList(sqlSession, searchMap);
 	}
 
 	

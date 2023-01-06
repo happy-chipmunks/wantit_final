@@ -86,3 +86,11 @@
   	font-size : 30px;
   	padding: 50px;
   }
+  
+  .alertMessage{
+  	font-family: 'Do Hyeon', sans-serif;
+    font-size: 40px;
+    text-align: center;
+    width: 600px;
+    padding-left: 400px;
+  }
