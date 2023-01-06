@@ -253,7 +253,7 @@
 					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
 					        </div>
 					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5 style="display: inline">팔로우 중인 계정 명</h5>
+					          <h5 style="display: inline">팔로우 중인 계정 명</h5>이름
 					          <div align="right">
 					          	<label class="switch">
 								  <input type="checkbox" id="check">
@@ -271,7 +271,7 @@
 					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
 					        </div>
 					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5>팔로우 중인 계정 명</h5>
+					          <h5>팔로우 중인 계정 명</h5>이름1
 					          <div align="right">
 					          	<label class="switch">
 								  <input type="checkbox" id="check2">
@@ -289,7 +289,7 @@
 					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
 					        </div>
 					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5>팔로우 중인 계정 명</h5>
+					          <h5>팔로우 중인 계정 명</h5>이름2
 					          <div align="right">
 					          	<label class="switch">
 								  <input type="checkbox" id="check3">
@@ -307,7 +307,7 @@
 					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
 					        </div>
 					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5>팔로우 중인 계정 명</h5>
+					          <h5>팔로우 중인 계정 명</h5>이름3
 					          <div align="right">
 					          	<label class="switch">
 								  <input type="checkbox" id="check4">
@@ -325,7 +325,7 @@
 					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
 					        </div>
 					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5>팔로우 중인 계정 명</h5>
+					          <h5>팔로우 중인 계정 명</h5>이름4
 					          <div align="right">
 					          	<label class="switch">
 								  <input type="checkbox" id="check5">
@@ -343,9 +343,9 @@
 					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
 					        </div>
 					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5>팔로우 중인 계정 명</h5>
+					          <h5>팔로우 중인 계정 명</h5>이름5
 					          <div align="right">
-					          	<label class="switch">
+					          	<label class="switch">누군가
 								  <input type="checkbox" id="check6">
 								  <span class="slider round"></span>
 								</label>

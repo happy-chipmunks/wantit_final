@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -199,7 +200,10 @@
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td colspan="2">${ loginUser.memberAddress }</td>
+					<c:set value="${ fn:split(loginUser.memberAddress, ' // ') }" var="addrArray"/>
+					<td colspan="2">${ addrArray[0]} ${ addrArray[1]} ${ addrArray[2]} ${ addrArray[3]} 
+						 ${ addrArray[4]} ${ addrArray[5]}  ${ addrArray[6]}</td>
+					
 				</tr>
 				
 				<tr>
@@ -216,8 +220,9 @@
 				</tr>
 				<tr>
 					<th>배송받을 주소</th>
-					<td colspan="3">
-					${ loginUser.memberAddress }</td>
+					<c:set value="${ fn:split(loginUser.memberAddress, ' // ') }" var="addrArray"/>
+					<td colspan="3">${ addrArray[0]} ${ addrArray[1]} ${ addrArray[2]} ${ addrArray[3]} 
+						 ${ addrArray[4]} ${ addrArray[5]}  ${ addrArray[6]}</td>
 				</tr>
 				<tr>
 					<td colspan="2">

@@ -865,7 +865,7 @@
              
         </div>
         <br>
-    	<div class="input-group mb-3">
+    	<!-- <div class="input-group mb-3">
             <div class="form-floating">
               <input type="password" class="form-control" id="memberPwd" name="memberPwd" required>
               <label for="memberPwd">*비밀번호 </label>
@@ -877,7 +877,7 @@
               <input type="password" class="form-control" id="memberPwd2" name="memberPwd2" required>
               <label for="memberPwd2">*비밀번호 확인</label>
             </div>
-        </div>
+        </div> -->
         <br>
     	<div class="input-group mb-3">
             <div class="form-floating">
