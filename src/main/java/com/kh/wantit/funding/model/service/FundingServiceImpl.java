@@ -208,4 +208,14 @@ public class FundingServiceImpl implements FundingService{
 		return fDAO.getReviewerNickName(fundingNum, sqlSession);
 	}
 
+	@Override
+	public int getDibsCount(int bId) {
+		return fDAO.getDibsCount(bId, sqlSession);
+	}
+
+	@Override
+	public ArrayList<FundingDibs> getDibs(int bId) {
+		return fDAO.getDibs(bId, sqlSession);
+	}
+
 }

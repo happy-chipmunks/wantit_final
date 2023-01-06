@@ -46,8 +46,8 @@ public class FundingController {
 		ArrayList<Funding> fundingList = fService.fundingList();
 		ArrayList<Image> imageList = fService.fundingImageList();
 //		System.out.println(fundingList);
-		System.out.println(ing);
-		System.out.println(rank);
+//		System.out.println(ing);
+//		System.out.println(rank);
 		ArrayList<Funding> ingRanking = new ArrayList<>();
 		ArrayList<Funding> endLatest = new ArrayList<>();
 		ArrayList<Funding> endRanking = new ArrayList<>();
@@ -130,7 +130,6 @@ public class FundingController {
 			System.out.println(r);
 		}
 		
-		
 		ArrayList<Image> list = new ArrayList<Image>();
 		for(int j = 0; j < files.size(); j++) {
 			MultipartFile upload = files.get(j);
@@ -167,7 +166,6 @@ public class FundingController {
 		} else { 
 			 throw new FundingException("펀딩 등록 실패"); 
 		}
-		 
 	}
 	
 	// 이미지 저장
@@ -204,11 +202,6 @@ public class FundingController {
 		@RequestMapping("uploadSummernoteImageFile.fund")
 		public void profileUpload(String email, MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception{
 			String root = request.getSession().getServletContext().getRealPath("resources");
-//			System.out.println(request);
-//			System.out.println(request.getSession());
-//			System.out.println(request.getSession().getServletContext());
-//			System.out.println(request.getSession().getServletContext().getRealPath("resources"));
-//			System.out.println(root);
 			String savePath = root + "\\funding\\summernote";
 			
 			File folder = new File(savePath);
@@ -263,16 +256,24 @@ public class FundingController {
 		if(!writerCheckId.equals(login)) {
 			yn = true;
 		}
-		
-		// System.out.println(bId);
+
 		Funding f = fService.getFunding(bId, yn);
 		Image img = fService.getImage(bId);
-//		 System.out.println(img);
 		 
 		 int supCount = fService.getSupportCount(bId);
+		 int dibsCount = fService.getDibsCount(bId);
+		 
+		 boolean ok = false;
+		 ArrayList<FundingDibs> dibs = fService.getDibs(bId);
+		 for(int i = 0; i < dibs.size(); i++) {
+			 System.out.println(dibs.get(i));
+			 if(dibs.get(i).getDibsId().equals(login)) {
+				 ok = true;
+			 }
+		 }
 		
 		if(f != null) {
-			mv.addObject("f", f).addObject("img", img).addObject("bId", bId).addObject("login", login).addObject("supCount", supCount).addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).setViewName("fundingMain");
+			mv.addObject("f", f).addObject("img", img).addObject("ok", ok).addObject("dibs", dibs).addObject("bId", bId).addObject("dibsCount", dibsCount).addObject("login", login).addObject("supCount", supCount).addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).setViewName("fundingMain");
 		}else {
 			throw new FundingException("펀딩 게시글 상세조회 실패");
 		}
@@ -358,7 +359,7 @@ public class FundingController {
 		String creatorId = ((Member)session.getAttribute("loginUser")).getMemberId();
 		
 		Funding f = fService.getFundingInfo(fundingNum);
-		System.out.println(f);
+//		System.out.println(f);
 		Image i = fService.getImage(fundingNum);
 		
 		model.addAttribute("creatorId", creatorId);
@@ -422,32 +423,28 @@ public class FundingController {
 	
 	// 펀딩 찜하기
 	@RequestMapping("insertDibs.fund")
-	public String insertDibs(@RequestParam("fundingNum") int fundingNum, @RequestParam("id") String id, Model model) {
+	public ModelAndView insertDibs(@RequestParam("fundingNum") int fundingNum, @RequestParam("id") String id, ModelAndView mv, @RequestParam("writerNo") int writerNo) {
 		FundingDibs dibs = new FundingDibs(id, fundingNum);
 		
-		boolean ok = false;
 		int result = fService.insertDibs(dibs);
 		if(result > 0) {
-			ok = true;
-			model.addAttribute("ok", ok);
-			model.addAttribute("id", id);
-			model.addAttribute("fundingNum", fundingNum);
-			return "redirect:selectFundingBoard.fund";
+			mv.addObject("bId", fundingNum).addObject("id", id).addObject("writerNo", writerNo).setViewName("redirect:selectFundingBoard.fund");
+			return mv;
 		}else {
 			throw new FundingException("찜하기 실패");
 		}
 	}
 	
+	// 찜하기 취소
 	@RequestMapping("deleteDibs.fund")
-	public String deleteDibs(@RequestParam("fundingNum") int fundingNum, @RequestParam("id") String id, Model model) {
+	public ModelAndView deleteDibs(@RequestParam("fundingNum") int fundingNum, @RequestParam("id") String id, ModelAndView mv, @RequestParam("writerNo") int writerNo) {
 		FundingDibs dibs = new FundingDibs(id, fundingNum);
 		
 		int result = fService.deleteDibs(dibs);
 		
 		if(result > 0) {
-			model.addAttribute("fundingNum", fundingNum);
-			model.addAttribute("id", id);
-			return "redirect:selectFundingBoard.fund";
+			mv.addObject("bId", fundingNum).addObject("id", id).addObject("writerNo", writerNo).setViewName("redirect:selectFundingBoard.fund");
+			return mv;
 		}else {
 			throw new FundingException("찜하기 취소 실패");
 		}

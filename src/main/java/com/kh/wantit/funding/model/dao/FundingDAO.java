@@ -168,6 +168,14 @@ public class FundingDAO {
 		return (ArrayList)sqlSession.selectList("fundingMapper.getReviewerNickName", fundingNum);
 	}
 
+	public int getDibsCount(int bId, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getDibsCount", bId);
+	}
+
+	public ArrayList<FundingDibs> getDibs(int bId, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getDibs", bId);
+	}
+
 	
 	
 }
