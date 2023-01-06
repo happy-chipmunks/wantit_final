@@ -57,7 +57,7 @@
     height: 500px;
   }
 
-  .carousel-control-prev {
+  .carousel-control-prev-cs {
     height: 50px;
     width: 50px;
     position: absolute;
@@ -65,9 +65,10 @@
     left: 1400px;
     background-color: black;
     opacity: 0.4;
+    border: 0;
   }
 
-  .carousel-control-next {
+  .carousel-control-next-cs {
     height: 50px;
     width: 50px;
     position: absolute;
@@ -75,6 +76,7 @@
     left: 1450px;
     background-color: black;
     opacity: 0.4;
+    border: 0;
   }
 
   .cateArea{

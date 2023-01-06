@@ -77,6 +77,14 @@ public class PayService {
 		return pDAO.getPayListCount(sqlSession, userNickName);
 	}
 
+	public void updateCurrentMoney(Map<String, Integer> updateCurrentMoneyMap) {
+		pDAO.updateCurrentMoney(sqlSession, updateCurrentMoneyMap);
+	}
+
+	public void rollBackSellCount(Reward r) {
+		pDAO.rollBackSellCount(sqlSession, r);
+	}
+
 
 //	public int updatePayStatus(PaySchedule ps) {
 //		return pDAO.updatePayStatus(sqlSession, ps);

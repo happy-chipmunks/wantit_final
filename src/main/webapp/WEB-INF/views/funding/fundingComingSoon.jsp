@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <jsp:include page="../common/navbar.jsp"></jsp:include>
@@ -39,11 +40,11 @@
           
           
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <button class="carousel-control-prev-cs" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <button class="carousel-control-next-cs" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
@@ -203,84 +204,56 @@
 
             </div>
         </div>
-
+		<c:set value="<%= new java.util.Date() %>" var="today"></c:set>
+		<fmt:formatDate value="${ today }" pattern="yyyy-MM-dd" var="fmtToday"/>
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10" style="padding: 30px;">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col">
-                        <div class="card shadow-sm fundinglist">
-                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-              
-                          <div class="card-body">
-                              <div style="padding-bottom: 10px;">
-                                  <span class="cate">홈/리빙</span>
-                                  <span class="fundName">괄호프로젝트</span>
-                              </div>
-                              <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                              <button type="button" class="btn alarmApl"><i class="bi bi-bell"></i>12/12(월) 오픈 알람신청</button>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm fundinglist">
-                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-              
-                          <div class="card-body">
-                              <div style="padding-bottom: 10px;">
-                                  <span class="cate">홈/리빙</span>
-                                  <span class="fundName">괄호프로젝트</span>
-                              </div>
-                              <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                              <button type="button" class="btn alarmApl"><i class="bi bi-bell"></i>12/12(월) 오픈 알람신청</button>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm fundinglist">
-                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-              
-                          <div class="card-body">
-                              <div style="padding-bottom: 10px;">
-                                  <span class="cate">홈/리빙</span>
-                                  <span class="fundName">괄호프로젝트</span>
-                              </div>
-                              <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                              <button type="button" class="btn alarmApl"><i class="bi bi-bell"></i>12/12(월) 오픈 알람신청</button>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm fundinglist">
-                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-              
-                          <div class="card-body">
-                              <div style="padding-bottom: 10px;">
-                                  <span class="cate">홈/리빙</span>
-                                  <span class="fundName">괄호프로젝트</span>
-                              </div>
-                              <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                              <button type="button" class="btn alarmApl"><i class="bi bi-bell"></i>12/12(월) 오픈 알람신청</button>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm fundinglist">
-                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-              
-                          <div class="card-body">
-                              <div style="padding-bottom: 10px;">
-                                  <span class="cate">홈/리빙</span>
-                                  <span class="fundName">괄호프로젝트</span>
-                              </div>
-                              <p class="card-text">황금빛 매력덩어리! 네팔의 향과 만난 고려청자/달항아리 황동 인센스 홀더</p>
-                              <button type="button" class="btn alarmApl"><i class="bi bi-bell"></i>12/12(월) 오픈 알람신청</button>
-                          </div>
-                        </div>
-                    </div>
+                	<c:forEach items="${ fundingList }" var="fund">
+	                    <c:if test="${ fmtToday < fund.fundingStart }">
+	        			<!--  펀딩예정인 것만 -->
+	        			<div class="col cardDecoration">
+	        				<input type="hidden" value="${ fund.creatorNum }" class="writer">
+	        				<input type="hidden" value="${ fund.fundingNum }" class="bId">
+	                		<div class="card shadow-sm fundinglist">
+	                  				<c:forEach items="${ imageList }" var="image">
+	                  					<c:if test="${ image.imageBoardId == fund.fundingNum }">
+	                  					
+		                  					<img alt="" src="${ contextPath }/resources/funding/${ image.imageRename }" width="100%" height="225">
+	                  					</c:if>
+	                  				</c:forEach>
+	      
+	                  			<div class="card-body">
+	                      			<p class="card-text">${ fund.fundingTitle }</p>
+	                      			<div style="padding-bottom: 10px;">
+	                          			<span class="cate">${ fund.fundingCate }</span>
+	                          			<span class="fundName">${ fund.creatorNickname }</span>
+	                      			</div>
+	                      			<fmt:formatDate value="${ fund.fundingStart }"  pattern="MM-dd(E)" var="openDate"/>
+	                      		<button type="button" class="btn alarmApl"><i class="bi bi-bell"></i>${ openDate } 오픈 알람신청</button>
+	                 	 </div>
+	                </div>
+	            </div>
+	        		</c:if>
+                	</c:forEach>
+                    
                 </div>
             </div>
         </div> 
     </div>
+    <script type="text/javascript">
+    var boards = document.getElementsByClassName('cardDecoration');
+	for(var board of boards){
+		board.addEventListener('click', function(){
+			const bId = this.querySelector('.bId').value;
+			console.log(bId);	// 선택한 펀딩 게시글 번호를 가지고 오는가
+			const writerNo = this.querySelector('.writer').value;
+			console.log(writerNo);	// 선택한 펀딩 게시글 작성자 번호를 가지고 오는가
+			
+			location.href='${contextPath}/selectFundingBoard.fund?bId=' + bId + '&writerNo=' + writerNo;
+		});
+	}
+    </script>
 </body>
 </html>

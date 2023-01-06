@@ -50,7 +50,7 @@
 	</resultMap>
 	
 	<select id="getRewardList" resultMap="rewardResultSet">
-		select * from reward where funding_num = #{fundingNum}
+		select * from reward where funding_num = #{fundingNum} order by reward_num asc
 	</select>
 	
 	<select id="getFundingTitle" resultType="string">
@@ -98,5 +98,20 @@
 		select * from payschedule where buyer_name = #{userNickName}
 	</select>
 	
+	<update id="updateCurrentMoney">
+		
+		update funding set current_money = 
+		<if test="calculate == 1">
+			current_money + #{totalAmount} 
+		</if>
+		<if test="calculate == 0">
+			current_money - #{totalAmount} 
+		</if>
+		where funding_num = #{fundingNum}
+	</update>
+	
+	<update id="rollBackSellCount">
+		update reward set reward_sellcount = #{rewardSellCount} where reward_num = #{rewardNum}
+	</update>
 
 </mapper>

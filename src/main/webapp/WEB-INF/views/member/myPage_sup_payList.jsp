@@ -177,8 +177,11 @@
 	                            <c:if test="${ payScheduleList[i].paymentStatus == 'paid' }">
 		                            <span>결제 상태 : <span style="color: green;">성공</span></span>
 	                            </c:if>
-	                            <c:if test="${ payScheduleList[i].paymentStatus == 'null' }">
+	                            <c:if test="${ payScheduleList[i].paymentStatus == 'null' && payScheduleList[i].scheduleStatus == 'scheduled'}">
 		                            <span>결제 상태 : 대기</span>
+	                            </c:if>
+	                            <c:if test="${ payScheduleList[i].paymentStatus == 'null' && payScheduleList[i].scheduleStatus == 'revoked'}">
+		                            <span>결제 상태 : <span style="color: orange;">취소</span></span>
 	                            </c:if>
 	                            <c:if test="${ payScheduleList[i].paymentStatus == 'failed' }">
 		                            <span>결제 상태 : <span style="color: red;">실패</span></span>
@@ -196,15 +199,16 @@
 	                        	<input type="hidden" value="${ payScheduleList[i].cardName }" name="cardName">
 	                        	<input type="hidden" value="${ payScheduleList[i].amount }" name="amount">
 	                        	<input type="hidden" value="${ payScheduleList[i].paymentStatus }" name="paymentStatus">
+	                        	<input type="hidden" value="${ payScheduleList[i].scheduleStatus }" name="scheduleStatus">
 	                        	<input type="hidden" value="${ payFundList[i].fundingTitle }" name="fundingTitle">
 	                        	<input type="hidden" value="${ payFundList[i].fundingNum }" name="fundingNum">
 		                        <div class="historyOrReview">
-		                        	<span class="history" id="history">결제내역</span>
+		                        	<span class="history" id="history" style="float: right;">결제내역</span>
 		                            <c:if test="${ payScheduleList[i].paymentStatus == 'failed' }">
-			                        	<span class="repayOrReview" id="repayOrReview">재결제</span>
+			                        	<span class="repayOrReview" id="repayOrReview" style="float: right;">재결제</span>
 		                            </c:if>
 		                            <c:if test="${ payScheduleList[i].paymentStatus == 'paid' && alreadyWriteReviewList[i] == false }">
-			                        	<span class="repayOrReview" id="repayOrReview">리뷰작성</span>
+			                        	<span class="repayOrReview" id="repayOrReview" style="float: right;">리뷰작성</span>
 		                            </c:if>
 		                        	
 		                        </div>

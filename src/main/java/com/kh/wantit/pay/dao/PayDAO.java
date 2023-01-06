@@ -75,6 +75,14 @@ public class PayDAO {
 		return sqlSession.selectOne("payMapper.getPayListCount", userNickName);
 	}
 
+	public void updateCurrentMoney(SqlSessionTemplate sqlSession, Map<String, Integer> updateCurrentMoneyMap) {
+		sqlSession.update("payMapper.updateCurrentMoney", updateCurrentMoneyMap);
+	}
+
+	public void rollBackSellCount(SqlSessionTemplate sqlSession, Reward r) {
+		sqlSession.update("payMapper.rollBackSellCount", r);
+	}
+
 
 //	public int updatePayStatus(SqlSessionTemplate sqlSession, PaySchedule ps) {
 //		return sqlSession.update("payMapper.updatePayStatus", ps);

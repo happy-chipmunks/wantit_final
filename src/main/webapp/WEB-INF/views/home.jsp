@@ -106,7 +106,11 @@
                 	
 	                    <div class="col">
 	                        <div class="card shadow-sm fundinglist">
-	                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+	                        	<c:forEach items="${ fundingImageList }" var="fundImage">
+	                        		<c:if test="${ fp.fundingNum == fundImage.imageBoardId }">
+	                        			<img alt="" src="${ contextPath }/resources/funding/${ fundImage.imageRename }" width="100%" height="225">
+	                        		</c:if>
+	                        	</c:forEach>
 	              
 	                          <div class="card-body">
 	                              <div style="padding-bottom: 10px;">
@@ -222,14 +226,18 @@
 	                <div class="col-2">
 	                    
 	                    <div class="card shadow-sm fundinglist">
-	                      <svg class="bd-placeholder-img card-img-top" width="100%" height="175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+		                    <c:forEach items="${ fundingImageList }" var="fundImage">
+		                        		<c:if test="${ fcs.fundingNum == fundImage.imageBoardId }">
+		                        			<img alt="" src="${ contextPath }/resources/funding/${ fundImage.imageRename }" width="100%" height="175">
+		                        		</c:if>
+		                     </c:forEach>
 	          
 	                      <div class="card-body">
 	                          <div class="cateAndName">
 	                              <span class="cate">${ fcs.fundingCate }</span>
 	                              <span class="fundName">${ fcs.fundingTitle }</span>
 	                          </div>
-	                            <p class="card-text">${ fcs.fundingContent }</p>
+	                            <p class="card-text">${ fcs.fundingSummary }</p>
 	                          
 	                            <i class="bi bi-bag-heart likeIcon"> </i><span> 365</span>
 	                                <fmt:parseNumber value="${ fcs.fundingStart.time / (1000*60*60*24) }" integerOnly="true" var="fcsFmtTime" scope="request"/>

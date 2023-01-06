@@ -54,7 +54,8 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, HttpSession session) {
+	public String home(Locale locale, Model model, HttpSession session, 
+			@RequestParam(value = "cancelPayScuccess", required = false) String cancelPayScuccess) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		if(session.getAttribute("loginUser") != null) {
@@ -68,6 +69,7 @@ public class HomeController {
 		ArrayList<Funding> fundingList = fService.fundingList();
 		
 		ArrayList<BannerImage> biList = aService.selectBannerIamgeList();
+		ArrayList<Image> fundingImageList = fService.fundingImageList();
 		
 		ArrayList<Funding> fundingComingSoonList = new ArrayList<Funding>();
 		ArrayList<Funding> fundingProceedList = new ArrayList<Funding>();
@@ -86,12 +88,17 @@ public class HomeController {
 			}
 		}
 
-		
+		System.out.println("cancelPayScuccess  " + cancelPayScuccess);
+		if(cancelPayScuccess != null) {
+			model.addAttribute("cancelPayScuccess", cancelPayScuccess);
+		}
 		model.addAttribute("fundingComingSoonList", fundingComingSoonList);
 		model.addAttribute("fundingProceedList", fundingProceedList);
 		
 		model.addAttribute("wantingList", wantingList);
 		model.addAttribute("wantingImageList", wantingImageList);
+		
+		model.addAttribute("fundingImageList", fundingImageList);
 		
 		
 //		model.addAttribute("biList", biList);
@@ -108,6 +115,7 @@ public class HomeController {
 		ArrayList<Wanting> wantingList = new ArrayList<Wanting>();
 		System.out.println(searchText);
 		System.out.println(cate);
+		ArrayList<Image> imageList = fService.fundingImageList();
 		
 		if(searchText != null) {
 			fundingList = fService.searchFundingList(searchText);
@@ -118,7 +126,7 @@ public class HomeController {
 			fundingList = fService.searchFundingList(cate);
 			model.addAttribute("cate", cate);
 		}
-		
+		model.addAttribute("imageList", imageList);
 		model.addAttribute("fundingList", fundingList);
 		
 		return "common/searchView";
@@ -129,6 +137,7 @@ public class HomeController {
 		ArrayList<Funding> fundingFPList = new ArrayList<Funding>();
 		
 		ArrayList<Funding> fundingList = new ArrayList<Funding>();
+		ArrayList<Image> imageList = fService.fundingImageList();
 		
 		if(searchText != null) {
 			fundingList = fService.searchFundingList(searchText);
@@ -146,6 +155,7 @@ public class HomeController {
 		}
 		
 		model.addAttribute("fundingList", fundingFPList);
+		model.addAttribute("imageList", imageList);
 		return "common/searchAjaxProceed";
 	}
 	
@@ -155,6 +165,7 @@ public class HomeController {
 		ArrayList<Funding> fundingFCSList = new ArrayList<Funding>();
 		
 		ArrayList<Funding> fundingList = new ArrayList<Funding>();
+		ArrayList<Image> imageList = fService.fundingImageList();
 		
 		if(searchText != null) {
 			fundingList = fService.searchFundingList(searchText);
@@ -172,6 +183,7 @@ public class HomeController {
 		}
 		
 		model.addAttribute("fundingList", fundingFCSList);
+		model.addAttribute("imageList", imageList);
 		
 		return "common/searchAjaxComingSoon";
 	}
