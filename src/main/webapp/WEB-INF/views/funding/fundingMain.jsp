@@ -110,21 +110,29 @@
 		</c:if>
           <div class="row g-1">
           <c:if test="${ !ok }">
-            <div class="col-sm-6"><button onclick="location.href='${contextPath}/insertDibs.fund?=fundingNum=${ bId }&id=${ login }'" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#dibs-modal">
+          	<c:if test="${ m == null }">
+            <div class="col-sm-6"><button onclick="noLogin()" class="btn-funding-small">
               <img src="${ contextPath }/resources/funding/찜X1.png"/>
-              <span class="dips-count">5</span></button>
+              <span class="dips-count">${ dibsCount }</span></button>
             </div>
            </c:if>
+           <c:if test="${ m != null }">
+            <div class="col-sm-6"><button onclick="location.href='${contextPath}/insertDibs.fund?fundingNum=${ f.fundingNum }&id=${ login }&writerNo=${creatorNum}'" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#dibs-modal">
+              <img src="${ contextPath }/resources/funding/찜X1.png"/>
+              <span class="dips-count">${ dibsCount }</span></button>
+            </div>
+            </c:if>
+           </c:if>
            <c:if test="${ ok }">
-            <div class="col-sm-6"><button onclick="location.href='${contextPath}/deleteDibs.fund?=fundingNum=${ bId }&id=${ login }'" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#dibs-modal">
+            <div class="col-sm-6"><button onclick="location.href='${contextPath}/deleteDibs.fund?fundingNum=${ f.fundingNum }&id=${ login }&writerNo=${creatorNum}'" class="btn-funding-small">
               <img src="${ contextPath }/resources/funding/찜1.png"/>
-              <span class="dips-count">5</span></button>
+              <span class="dips-count">${ dibsCount }</span></button>
             </div>
            </c:if>
             <div class="col-sm-6"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#share-modal"><img src="resources/wanting/share.png"/>공유하기</button></div>
 <!--             <div class="col-sm-4"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#report-modal">신고하기</button></div> -->
             <c:if test="${ !yn }">
-            	<div><button class="btn-funding-edit" onclick="location.href='${contextPath}/fundingEdit.fund?fundingNum=${ bId }'">펀딩 수정하기</button></div>
+            	<div><button class="btn-funding-edit" onclick="location.href='${contextPath}/fundingEdit.fund?fundingNum=${ f.fundingNum }'">펀딩 수정하기</button></div>
             </c:if>
           </div>
         </div>
@@ -134,42 +142,6 @@
 
 
 <!-- 모달 -->
-<!-- 찜하기 완료 -->
-<div class="modal fade" id="dibs-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-funding-right">
-          <p class="dibs-message">
-            찜하기가 완료되었습니다.<br>
-            마이페이지 찜하기 모아보기에서 확인하실 수 있습니다.
-          </p>
-        </div>
-      </div>
-      <div class="modal-footer modal-dibs-footer">
-        <div class="container">
-          <div class="row g-2">
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn">다른 펀딩 둘러보기</button>
-            </div>
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn">내 찜 목록보기</button>
-            </div>
-            <div class="col-sm-4">
-              <button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <!-- 공유하기 완료 -->
 <div class="modal fade" id="share-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

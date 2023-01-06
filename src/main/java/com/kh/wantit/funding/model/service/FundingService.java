@@ -84,4 +84,8 @@ public interface FundingService {
 
 	ArrayList<Member> getReviewerNickName(Integer fundingNum);
 
+	int getDibsCount(int bId);
+
+	ArrayList<FundingDibs> getDibs(int bId);
+
 }
