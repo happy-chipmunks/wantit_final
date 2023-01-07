@@ -160,39 +160,42 @@
    		<br>
    			
    			<div class="container">
-				<h4 align="left"><b>광고 의뢰</b></h4>
-				<h6>광고는 상단 롤링 배너에 게시됩니다.<br> 배너는 메인페이지, 펀딩페이지, 원팅페이지에 게시됩니다.</h6>
-				<br>
-				<h5><b>광고할 프로젝트 선택하기</b></h5>
-	    		<select class="form-select" style="width: 425px;">
-	    			<option>[푸드] 백종원이 인정한 터키식 디저트 카이막</option>
-	    		</select>
-	    		<br>
-	    		<h5><b>광고할 상품 선택 & 기간 설정</b></h5>
-	    		선택하신 프로젝트의 광고 진행 기간을 설정해주세요.<br>
-	    		<input type="date" style="width: 200px;"> ~ 
-	    		<input type="date" style="width: 200px;">
-	    		
-	    		<div>
-	    		<br>
-	    			<h5><b>소재 등록하기</b></h5>
-	    			<div class="selectCover" style="padding-left: 0;">
-					 	<img id="cover" style="width: 200px; height: 200px;" src="resources/대체이미지.png"/>
+   				<form action="${ contextPath }/adsRequest.me" method="post" enctype="multipart/form-data">
+					<h4 align="left"><b>광고 의뢰</b></h4>
+					<h6>광고는 상단 롤링 배너에 게시됩니다.<br> 배너는 메인페이지, 펀딩페이지, 원팅페이지에 게시됩니다.</h6>
+					<br>
+					<h5><b>광고할 프로젝트 선택하기</b></h5>
+		    		<select class="form-select" style="width: 425px;" name="fundingNum">
+		    			<c:forEach items="${ fundingList }" var="fund">
+		    				<option value="${ fund.fundingNum }">${ fund.fundingTitle }</option>
+		    			</c:forEach>
+		    		</select>
+		    		<br>
+		    		<h5><b>광고할 상품 선택 & 기간 설정</b></h5>
+		    		선택하신 프로젝트의 광고 진행 기간을 설정해주세요.<br>
+		    		<input type="date" style="width: 200px;" name="adsStart"> ~ 
+		    		<input type="date" style="width: 200px;" name="adsEnd">
+		    		
+		    		<div>
+		    		<br>
+		    			<h5><b>소재 등록하기</b></h5>
+		    			<div class="selectCover" style="padding-left: 0;">
+						 	<img id="cover" style="width: 200px; height: 200px;" src="resources/대체이미지.png"/>
+						</div>
+				        <div class="form-group" style="margin: 8px 0 8px;">
+							<input id="fileName" class="form-control" value="파일선택" disabled="disabled" style="width:30%; display: inline;">
+									<div class="fileRegiBtn">
+										<label for="myFileUp">파일등록하기</label>
+										<input type="file" id="myFileUp" name="file">
+									</div>
+						</div>
 					</div>
-			        <div class="form-group" style="margin: 8px 0 8px;">
-						<input id="fileName" class="form-control" value="파일선택" disabled="disabled" style="width:30%; display: inline;">
-								<div class="fileRegiBtn">
-									<label for="myFileUp">파일등록하기</label>
-									<input type="file" id="myFileUp">
-								</div>
-					</div>
-				</div>
-				<br>
-				<h5><b>메인 카피</b></h5>
-				한 줄 당 띄어쓰기 포함 최대 32자(최대 2줄) 줄바꿈 사용 가능, 특수문자 사용 불가
-				<textarea style="resize: none; height:" maxlength="32"></textarea>
-				<br>
-				<button class="btn btn-secondary">광고 신청하기</button>
+					<br>
+					<h5><b>광고 가격</b></h5>
+					<input type="number" name="adsPrice">
+					<br>
+					<button class="btn btn-secondary">광고 신청하기</button>
+   				</form>
 			</div>    		
 		</div>
 	</div>

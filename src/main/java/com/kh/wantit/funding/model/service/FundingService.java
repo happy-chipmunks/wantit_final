@@ -100,4 +100,7 @@ public interface FundingService {
 
 	ArrayList<Funding> sortCateList(String cate);
 
+	ArrayList<Funding> getUserFundingList(String userId);
+
+
 }

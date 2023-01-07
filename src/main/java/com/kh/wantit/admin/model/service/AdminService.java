@@ -246,6 +246,14 @@ public class AdminService {
 		return aDAO.getFundingInfo(sqlSession, imageBoardId);
 	}
 
+	public int insertAds(Ads ads) {
+		return aDAO.insertAds(sqlSession, ads);
+	}
+
+	public int insertBannerImage(BannerImage bi) {
+		return aDAO.insertBannerImage(sqlSession, bi);
+	}
+
 
 	
 }

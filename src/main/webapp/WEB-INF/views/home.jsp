@@ -60,7 +60,8 @@
         		<c:if test="${ status.index == 0 }">
 		          <div class="carousel-item active">
 		          	<a href="${contextPath}/selectFundingBoard.fund?bId=${ bannerFundList[status.index].fundingNum }&writerNo=${ bannerFundList[status.index].creatorNum }">
-			            <img alt="" src="${ contextPath }/resources/bannerImage/${ bi.imageRename }">		  
+			            <img alt="" src="${ contextPath }/resources/bannerImage/${ bi.imageRename }">		 
+<!-- 			            경로 bannerImage말고 member로 변경  -->
 		          	</a>
 		    
 		          </div>

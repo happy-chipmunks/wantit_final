@@ -197,6 +197,11 @@ public class MemberServiceImpl implements MemberService {
 	public int deleteboforecImage(Image cm) {
 		return mDAO.deleteboforecImage(sqlSession,cm);
 	}
+	
+	@Override
+	public int getImageNum(Image img) {
+		return mDAO.getImageNum(sqlSession, img);
+	}
 
 
 

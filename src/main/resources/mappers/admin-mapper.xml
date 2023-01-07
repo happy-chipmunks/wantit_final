@@ -237,7 +237,7 @@
 	</select>
 	
 	<select id="selectBannerImageList" resultMap="bannerImageResultSet">
-		select * from image join banner_image using(image_num) where banner_status = 'Y'
+		select * from image join banner_image using(image_num) where banner_status = 'Y' and confirm = 'Y'
 	</select>
 	
 	
@@ -311,6 +311,14 @@
 	<select id="getFundingInfo" resultMap="fundingResultSet">
 		select funding_num, creator_num from funding where funding_num = #{imageBoardId}
 	</select>
+	
+	<insert id="insertAds">
+		insert into ads values(seq_ads.nextval, #{fundingNum}, #{adsPrice}, 'N', default, #{adsStart}, #{adsEnd}, default)
+	</insert>
+	
+	<insert id="insertBannerImage">
+		insert into banner_image values(#{imageNum}, #{startDate}, #{endDate}, 'N', 'Y')
+	</insert>
 	
 	<resultMap type="Member" id="memberResultSet">
 		<id column="MEMBER_ID" property="memberId" />

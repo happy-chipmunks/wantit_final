@@ -196,6 +196,11 @@ public class FundingDAO {
 		return (ArrayList)sqlSession.selectList("fundingMapper.sortCateList", cate);
 	}
 
+	public ArrayList<Funding> getUserFundingList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getUserFundingList", userId);
+	}
+
+
 	
 	
 }

@@ -275,6 +275,14 @@ public class AdminDAO {
 		return sqlSession.selectOne("adminMapper.getFundingInfo", imageBoardId);
 	}
 
+	public int insertAds(SqlSessionTemplate sqlSession, Ads ads) {
+		return sqlSession.insert("adminMapper.insertAds", ads);
+	}
+
+	public int insertBannerImage(SqlSessionTemplate sqlSession, BannerImage bi) {
+		return sqlSession.insert("adminMapper.insertBannerImage", bi);
+	}
+
 	
 //	public int noProject(SqlSessionTemplate sqlSession, String id) {
 //		return sqlSession.update("adminMapper.noProject", id);

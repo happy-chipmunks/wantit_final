@@ -241,5 +241,9 @@ public class FundingServiceImpl implements FundingService{
 	public ArrayList<Funding> sortCateList(String cate) {
 		return fDAO.sortCateList(sqlSession, cate);
 	}
-
+	
+	@Override
+	public ArrayList<Funding> getUserFundingList(String userId) {
+		return fDAO.getUserFundingList(sqlSession, userId);
+	}
 }

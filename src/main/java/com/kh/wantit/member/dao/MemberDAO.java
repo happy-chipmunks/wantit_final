@@ -145,6 +145,16 @@ public class MemberDAO {
 	}
 
 
+	public ArrayList<Funding> getUserFundingList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("memberMapper.getUserFundingList", userId);
+	}
+
+
+	public int getImageNum(SqlSessionTemplate sqlSession, Image img) {
+		return sqlSession.selectOne("memberMapper.getImageNum", img);
+	}
+
+
 
 
 	

@@ -282,6 +282,12 @@
 		select * from funding where funding_status = 'Y' and funding_cate = #{cate}
 	</select>
 	
+	<select id="getUserFundingList" resultMap="fundingResultSet">
+		select * from funding join creator using(creator_num) where creator = #{userId}
+	</select>
+	
+	
+	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>

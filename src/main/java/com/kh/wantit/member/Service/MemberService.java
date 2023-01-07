@@ -63,6 +63,9 @@ public interface MemberService {
 
 	int deleteboforecImage(Image cm);
 
+	int getImageNum(Image img);
+
+
 
 	
 

@@ -25,8 +25,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.wantit.admin.model.service.AdminService;
+import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
+import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
@@ -61,6 +64,9 @@ public class MemberController {
 	
 	@Autowired
 	private WantingService wService;
+	
+	@Autowired
+	private AdminService aService;
 
 	
 	//회원가입페이지 이동
@@ -268,9 +274,51 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/myPageCreatorAds.me")
-	public String myPageCreatorAds() {
+	public String myPageCreatorAds(HttpSession session, Model model) {
+		String userId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		ArrayList<Funding> fundingList = fService.getUserFundingList(userId);
+		
+		model.addAttribute("fundingList", fundingList);
 		return "myPage_creator_ads";
 	}
+	
+	@RequestMapping("adsRequest.me")
+	public String adsRequest(@ModelAttribute Ads ads, @RequestParam("file") MultipartFile file, 
+												HttpServletRequest req, Model model) {
+		System.out.println(ads);
+		int insertAds = aService.insertAds(ads);
+		
+		Image img = new Image();
+		String[] returnArr = saveFile(file, req);
+		String file2 = file.getOriginalFilename();
+		if(returnArr[1] != null) {
+			img.setImageForm(file2.substring(file2.lastIndexOf(".")));
+			img.setOriginName(file.getOriginalFilename());
+			img.setImageRename(returnArr[1]);
+			img.setImageSrc(returnArr[0]);
+			img.setImageBoardCate(8);
+			img.setImageLevel(0);
+			img.setImageBoardId(String.valueOf(ads.getFundingNum()));
+		}
+		
+		int result = mService.insertmemberImage(img);
+		int imageNum = mService.getImageNum(img);
+		
+		BannerImage bi = new BannerImage();
+		bi.setStartDate(ads.getAdsStart());
+		bi.setEndDate(ads.getAdsEnd());
+		bi.setImageNum(imageNum);
+		
+		int insertBannerImage = aService.insertBannerImage(bi);
+		
+		if(insertAds > 0 && result > 0 && insertBannerImage <= 0) {
+			throw new MemberException("광고 의뢰 실패");
+		} else {
+			return "redirect:myPageCreator.me";
+		}
+		
+	}
+	
 	
 	// 중복검사 결과 확인 메서드
 		public String getResult(int count) {

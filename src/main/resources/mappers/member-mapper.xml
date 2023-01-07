@@ -129,16 +129,16 @@
 		<result column="creator_name" property="creatorName"/>
 	</resultMap>
 	
-	<resultMap type="Image" id="ImageResultSet">
-		<id column="creator_num" property="creatorNum"/>
-		<result column="creator" property="creator"/>
-		<result column="business_type" property="businessType"/>
-		<result column="business_number" property="businessNumber"/>
-		<result column="manager_name" property="managerName"/>
-		<result column="manager_phone" property="managerPhone"/>
-		<result column="manage_email" property="managerEmail"/>
-		<result column="creator_name" property="creatorName"/>
-	</resultMap>
+<!-- 	<resultMap type="Image" id="ImageResultSet"> -->
+<!-- 		<id column="creator_num" property="creatorNum"/> -->
+<!-- 		<result column="creator" property="creator"/> -->
+<!-- 		<result column="business_type" property="businessType"/> -->
+<!-- 		<result column="business_number" property="businessNumber"/> -->
+<!-- 		<result column="manager_name" property="managerName"/> -->
+<!-- 		<result column="manager_phone" property="managerPhone"/> -->
+<!-- 		<result column="manage_email" property="managerEmail"/> -->
+<!-- 		<result column="creator_name" property="creatorName"/> -->
+<!-- 	</resultMap> -->
 	
 	<resultMap type="Image" id="imageResultSet">
 		<id column="IMAGE_NUM" property="imageNum"/>
@@ -234,5 +234,10 @@
   		set IMAGE_STATUS = 'N'
   		where   IMAGE_BOARD_CATE = #{imageBoardCate} AND IMAGE_BOARD_ID = #{imageBoardId}
   	</update>  
+  	
+  	<select id="getImageNum" resultType="_int">
+  		select image_num from image where image_board_cate = #{imageBoardCate} and image_board_id = #{imageBoardId}
+  	</select>
+  	
   	
 </mapper>
