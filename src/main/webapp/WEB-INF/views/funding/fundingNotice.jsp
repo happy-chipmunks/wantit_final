@@ -269,7 +269,15 @@
       		}
       	});
       } 
-		  
+      changeMoney();
+		function changeMoney() {
+			const targetMoney = document.getElementsByClassName('toLocaleMoney');
+  		for(const span of targetMoney) {
+  			const before = parseInt(span.innerText);
+  			span.innerText = " " + before.toLocaleString() + "원";
+  		}
+		}  
+      	
 		  // 상세보기
 		  window.onload = () =>{
     		var boards = document.getElementsByClassName('notice-list');

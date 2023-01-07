@@ -90,4 +90,8 @@ public interface FundingService {
 
 	ArrayList<FundingDibs> getDibs(int bId);
 
+	ArrayList<Funding> getMyFundingList(String nickName);
+
+	ArrayList<Funding> popularList();
+
 }

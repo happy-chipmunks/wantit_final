@@ -177,6 +177,14 @@ public class FundingDAO {
 		return (ArrayList)sqlSession.selectList("fundingMapper.getDibs", bId);
 	}
 
+	public ArrayList<Funding> getMyFundingList(SqlSessionTemplate sqlSession, String nickName) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getMyFundingList", nickName);
+	}
+
+	public ArrayList<Funding> popularList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.popularList");
+	}
+
 	
 	
 }

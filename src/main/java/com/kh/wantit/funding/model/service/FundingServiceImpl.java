@@ -219,4 +219,13 @@ public class FundingServiceImpl implements FundingService{
 		return fDAO.getDibs(bId, sqlSession);
 	}
 
+	@Override
+	public ArrayList<Funding> getMyFundingList(String nickName) {
+		return fDAO.getMyFundingList(sqlSession, nickName);
+	}
+	
+	@Override
+	public ArrayList<Funding> popularList() {
+		return fDAO.popularList(sqlSession);
+	}
 }

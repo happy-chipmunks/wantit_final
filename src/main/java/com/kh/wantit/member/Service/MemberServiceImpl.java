@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.member.dao.MemberDAO;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
@@ -197,8 +198,6 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.deleteboforecImage(sqlSession,cm);
 	}
 
-
-	
 
 
 	

@@ -261,7 +261,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/myPageCreatorFunding.me")
-	public String myPageCreatorFunding() {
+	public String myPageCreatorFunding(HttpSession session, Model model) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		ArrayList<Funding> myFundingList = fService.getMyFundingList(id);
+		ArrayList<Image> imageList = fService.fundingImageList();
+		
+		model.addAttribute("fundingList", myFundingList);
+		model.addAttribute("imageList", imageList);
+		
 		return "myPage_creator_fundingList";
 	}
 	

@@ -461,6 +461,17 @@ public class FundingController {
 		}
 	}
 	
+	@RequestMapping("popular.fund")
+	public String popularList(Model model) {
+		ArrayList<Funding> popularList = fService.popularList();
+		ArrayList<Image> imageList = fService.fundingImageList();
+		
+		model.addAttribute("fundingList", popularList);
+		model.addAttribute("imageList", imageList);
+		
+		return "ajaxFundingProceed";
+	}
+	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순
 //	@RequestMapping("ingList.fund")
 //	public String ingList(@RequestParam("ing") Integer ing, @RequestParam("ranking") Integer rank, Model model) {

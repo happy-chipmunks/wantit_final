@@ -184,3 +184,11 @@
   i{
     color: #8c86c7;
   }
+  
+  .creatorName{
+  		color : dimgrey;
+  		font-size : 14px;
+  		 font-family: 'Noto Sans KR', sans-serif;
+  		 border-left: 1px solid dimgrey;
+  		 padding-left: 2px;
+  }

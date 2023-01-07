@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/css/fundingProceed.css">
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body>
     <!--배너광고, 이벤트-->
@@ -197,16 +198,8 @@
                 <ul class="sortList">
 <!--                     <li class="sortType">최신순</li> -->
                     <li class="sortType">
-                        <select class="cateDropDown" aria-label="Default select example" name="listType">
-                            <option selected>전체</option>
-                            <option onclick="location.href=${contextPath}/fundingList.fund?ing=1" value="1" >진행중</option>
-                            <option onclick="location.href=${contextPath}/fundingList.fund?ing=2" value="2">종료된</option>
-                          </select>
-                    </li>
-                    <li class="sortType">
-                        <select class="cateDropDown" aria-label="Default select example" name="rankingList">
-                            <option onclick="location.href=${contextPath}/fundingList.fund?rank=1" value="1">최신순</option>
-                            <option onclick="location.href=${contextPath}/fundingList.fund?rank=2" value="2">인기순</option>
+                        <span id="recent">최신순</span>&nbsp;&nbsp;&nbsp;
+                        <span id="popular">인기순</span>
 <!--                             <option value="2">Two</option> -->
 <!--                             <option value="3">Three</option> -->
                           </select>
@@ -218,43 +211,47 @@
             </div>
         </div>
 
+		<c:set value="<%= new java.util.Date() %>" var="today"></c:set>
+		<fmt:formatDate value="${ today }" pattern="yyyy-MM-dd" var="fmtToday"/>
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10" style="padding: 30px;">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="targetArea">
                 	<c:forEach items="${ fundingList }" var="fund">
-        			<!--  펀딩중인 것만 -->
-        			 <div class="col cardDecoration">
-        			 	<input type="hidden" name="bId" class="bId" value="${ fund.fundingNum }">
-        			 	<input type="hidden" name="writer" class="writer" value="${ fund.creatorNum }">
-                		<div class="card shadow-sm fundinglist">
-                  			<c:forEach items="${ imageList }" var="image">
-                  					<c:if test="${ image.imageBoardId == fund.fundingNum }">
-                  					
-	                  					<img alt="" src="${ contextPath }/resources/funding/${ image.imageRename }" width="100%" height="225">
-                  					</c:if>
-                  				</c:forEach>
-      
-                  		<div class="card-body">
-                      		<p class="card-text">${ fund.fundingTitle }</p>
-                      			<div style="padding-bottom: 10px;">
-                         		 <span class="cate">${ fund.fundingCate }</span>
-                          		<span class="fundName">${ fund.creatorNickname }</span>
-                      </div>
-                      <div class="d-flex justify-content-between align-items-center">
-                            <div style="height: 2px; width: 100%; background-color: gray;"><span class="progressBar" style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
-                        </div>
-                        <fmt:formatNumber value="${ fund.currentMoney / fund.targetMoney }" type="percent" var="percentage"/>
-                        <input type="hidden" value="${ percentage }" class="progressBarPercent">
-                        <jsp:useBean id="now" class="java.util.Date"/>
-                        <fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowFmtTime" scope="request"/>
-                        <fmt:parseNumber value="${ fund.fundingEnd.time / (1000*60*60*24) }" integerOnly="true" var="feFmtTime" scope="request"/>
-                        <span class="fontOnly">${ percentage }</span>
-                        <span class="fundingProceedMoney">${ fund.currentMoney }</span>
-                        <span class="remainDate" style="float: right;">${feFmtTime - nowFmtTime + 1 }일 남음</span>
-                  </div>
-                </div>
-              </div>
+                	<c:if test="${ fmtToday > fund.fundingStart }">
+	        			<!--  펀딩중인 것만 -->
+	        			 <div class="col cardDecoration">
+	        			 	<input type="hidden" name="bId" class="bId" value="${ fund.fundingNum }">
+	        			 	<input type="hidden" name="writer" class="writer" value="${ fund.creatorNum }">
+	                		<div class="card shadow-sm fundinglist">
+	                  			<c:forEach items="${ imageList }" var="image">
+	                  					<c:if test="${ image.imageBoardId == fund.fundingNum }">
+	                  					
+		                  					<img alt="" src="${ contextPath }/resources/funding/${ image.imageRename }" width="100%" height="225">
+	                  					</c:if>
+	                  				</c:forEach>
+	      
+	                  		<div class="card-body">
+	                      		<p class="card-text">${ fund.fundingTitle }</p>
+	                      			<div style="padding-bottom: 10px;">
+	                         		 <span class="cate">${ fund.fundingCate }</span>
+	                          		<span class="fundName">${ fund.creatorNickname }</span>
+	                      </div>
+	                      <div class="d-flex justify-content-between align-items-center">
+	                            <div style="height: 2px; width: 100%; background-color: gray;"><span class="progressBar" style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
+	                        </div>
+	                        <fmt:formatNumber value="${ fund.currentMoney / fund.targetMoney }" type="percent" var="percentage"/>
+	                        <input type="hidden" value="${ percentage }" class="progressBarPercent">
+	                        <jsp:useBean id="now" class="java.util.Date"/>
+	                        <fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowFmtTime" scope="request"/>
+	                        <fmt:parseNumber value="${ fund.fundingEnd.time / (1000*60*60*24) }" integerOnly="true" var="feFmtTime" scope="request"/>
+	                        <span class="fontOnly">${ percentage }</span>
+	                        <span class="fundingProceedMoney">${ fund.currentMoney }</span>
+	                        <span class="remainDate" style="float: right;">${feFmtTime - nowFmtTime + 1 }일 남음</span>
+	                  </div>
+	                </div>
+	              </div>
+                	</c:if>
         	</c:forEach>
                 	
                 </div>
@@ -300,7 +297,54 @@
 //     			d
 //     		});
 //     	});
+    	const popular = document.getElementById('popular');
+    	popular.addEventListener('click', function() {
+    		$.ajax({
+    			url : '${contextPath}/popular.fund',
+    			success : (data)=> {
+    				console.log(data);
+    				changeHtmlView(data);
+    				changeMoney();
+    				changeProgressBar();
+    			},
+    			error : (data)=> {
+    				
+    			}
+    			
+    		});
+    	});
     	
+    	const recent = document.getElementById('recent');
+    	recent.addEventListener('click', function() {
+    		location.href='${ contextPath }/fundingList.fund';
+    	});
+    	
+    	function changeHtmlView(data) {
+			var html = jQuery('<div>').html(data);
+			var contents = html.find("div#BigArea").html();
+			$("#targetArea").html(contents);
+		}
+    	
+    	function changeMoney() {
+			const fundingProceedMoney = document.getElementsByClassName('fundingProceedMoney');
+    		for(const span of fundingProceedMoney) {
+    			const before = parseInt(span.innerText);
+    			span.innerText = " " + before.toLocaleString() + "원";
+    		}
+		}
+		
+		function changeProgressBar() {
+    		const progressBar = document.getElementsByClassName('progressBar');
+    		const progressBarPercent = document.getElementsByClassName('progressBarPercent');
+    		for(let i=0 ; i<progressBar.length ; i++) {
+				const percent = parseInt(progressBarPercent[i].value.substring(0, progressBarPercent[i].value.length-1));
+				if(percent >= 100) {
+	    			progressBar[i].style.width = "100%";
+				} else {
+    				progressBar[i].style.width = percent + "%";
+				}
+    		}
+		}
     </script>
     
 </body>

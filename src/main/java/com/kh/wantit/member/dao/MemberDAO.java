@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
@@ -142,6 +143,8 @@ public class MemberDAO {
 	public int deleteboforecImage(SqlSessionTemplate sqlSession, Image cm) {
 		return sqlSession.update("memberMapper.deleteboforecImage",cm);
 	}
+
+
 
 
 	
