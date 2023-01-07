@@ -99,7 +99,7 @@
 	
 	
 	
-	<select id="creatorCheck" resultMap="memberResultSet">
+	<select id="creatorCheck" resultType="string">
 		select member_type
 		from member
 		where member_id=#{id}

@@ -55,7 +55,7 @@ public class MemberDAO {
 	}
 
 
-	public Member creatorCheck(String id, SqlSessionTemplate sqlSession) {
+	public String creatorCheck(String id, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("memberMapper.creatorCheck", id);
 	}
 

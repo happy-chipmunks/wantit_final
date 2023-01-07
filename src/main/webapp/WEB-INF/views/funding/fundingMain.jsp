@@ -19,6 +19,7 @@
 	<!-- kakao share -->
 	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
 	  integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script>
 	  Kakao.init('9d6a7c5e2b95f01e1fdfee7c815cc918'); // 사용하려는 앱의 JavaScript 키 입력
 	</script>
@@ -41,7 +42,7 @@
 		
 		.i{color: #8c86c7;}
 		
-		.btn{outline: 1px solid #8c86c7;}
+		.btn-creator{outline: 1px solid #8c86c7;}
 		
 	</style>
 
@@ -190,8 +191,14 @@
         			<span class="ps-3"><i class="bi bi-person-fill fs-4"></i>&nbsp;&nbsp;팔로워 0명</span>
         		</div>
         		<div>
-        			<button class="btn" onclick="location.href=${contextPath}/sendMassage.me"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        			<button class="btn"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+        			<c:if test="${ yn }">
+        				<button class="btn btn-creator" data-bs-toggle="modal" data-bs-target="#inquiry"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        				<button class="btn btn-creator"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+        			</c:if>
+        			<c:if test="${ !yn }">
+        				<button class="btn btn-creator"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        				<button class="btn btn-creator"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+        			</c:if>
         		</div>
         	</div>
       	</div>
@@ -202,6 +209,47 @@
 
 
 <!-- 모달 -->
+		<!-- 문의하기 모달 -->
+		<form action="${ contextPath }/sendMessage.fund?fundingNum=${f.fundingNum}&creatorId=${creatorNum}&cate=${f.fundingCate}" method="POST">
+			<div class="modal fade font" id="inquiry" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+			  <div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+					  	<div class="modal-header">
+					        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">문의</h1>
+					        <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+					    </div>
+					 	<div class="modal-body" style="text-align: left">
+					 			카테고리
+					 			<select name="category" id="cate" class="form-select" required>
+				   					<option>테크·가전</option>
+				   					<option>패션·잡화</option>
+				   					<option>뷰티</option>
+				   					<option>음식</option>
+				   					<option>홈·리빙</option>
+				   					<option>여행·레저</option>
+				   					<option>스포츠</option>
+				   					<option>캐릭터·굿즈</option>
+				   					<option>베이비·키즈</option>
+				   					<option>반려동물</option>
+				   					<option>게임</option>
+				   					<option>컬쳐·아티스트</option>
+				   					<option>출판</option>
+				   					<option>클래스·컨설팅</option>
+				   				</select>
+						    	제목<input type="text" class="form-control input" id="title" name="messageTitle">
+	<!-- 					    	내용<input class="form-control input" style="height: 150px" name="messageContent"> -->
+								내용<textarea name="messageContent" id="content" class="form-control" style="resize:none; height:200px;"></textarea>
+						      	<br>
+						 </div>
+						 <div class="modal-footer pt-2">
+							<button class="btn btn-primary btn-inquiry">보내기</button>&nbsp;
+					      	<button type="button" class="btn btn-secondary btn-inquiry close" data-bs-dismiss="modal">취소</button>
+						 </div>
+			    	</div> 
+			  </div>
+			</div>
+		</form>
+
 <!-- 공유하기 -->
 	<div class="modal fade" id="share-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered">
@@ -295,6 +343,14 @@
 	      },
 	    ],
 	  	});
+	    
+		//  문의 모달 닫을 시
+		$('.close').on('click', function (e) {
+			$('#title').val('');
+			$('#content').val("");
+			console.log("#cate option:eq(0)");
+		    $("#cate option:eq(0)").prop('selected', true);
+		});
 	</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

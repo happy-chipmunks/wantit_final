@@ -8,6 +8,7 @@ import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingDibs;
+import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.funding.model.vo.SupportCount;
@@ -99,5 +100,7 @@ public interface FundingService {
 	ArrayList<Funding> sortList(String sortType);
 
 	ArrayList<Funding> sortCateList(String cate);
+
+	int insertInquiry(FundingMessage fm);
 
 }

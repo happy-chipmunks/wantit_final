@@ -208,7 +208,7 @@ public class MemberController {
 	public String myPageCreator(HttpSession session, Model model) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		
-		Member creatorCheck = mService.creatorCheck(id);
+		String creatorCheck = mService.creatorCheck(id);
 		Creator creatorRegistration = mService.creatorRegistration(id);
 		
 
@@ -227,7 +227,7 @@ public class MemberController {
 
 		 
 		boolean check = false;
-		if(creatorCheck.getMemberType() == "creator") {
+		if(creatorCheck.equals("creator")) {
 			check = true;
 			
 			

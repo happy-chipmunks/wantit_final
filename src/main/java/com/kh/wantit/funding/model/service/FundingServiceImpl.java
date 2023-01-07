@@ -13,6 +13,7 @@ import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.dao.FundingDAO;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingDibs;
+import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.member.vo.Member;
@@ -240,6 +241,11 @@ public class FundingServiceImpl implements FundingService{
 	@Override
 	public ArrayList<Funding> sortCateList(String cate) {
 		return fDAO.sortCateList(sqlSession, cate);
+	}
+
+	@Override
+	public int insertInquiry(FundingMessage fm) {
+		return fDAO.insertInquiry(fm, sqlSession);
 	}
 
 }

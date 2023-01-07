@@ -200,7 +200,7 @@
 							      	배송비<input type="number" class="form-control input reward" id="reward-deliveryCharge" name="shipping[]">
 							 </div>
 							 <div class="modal-footer">
-								<button type="button" class="btn btn-primary" id="sendBtn">보내기</button>
+								<button type="button" class="btn btn-primary" id="sendBtn">추가</button>
 <!-- 						      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button> -->
 							 </div>
 				    	</div> 
@@ -242,14 +242,14 @@
 			});
 		
 		// 리워드 추가 모달 닫을 시..cos
-// 		$('.btn-close').on('click', function (e) {
-// 			$('#reward-name').val("");
-// 			$('#reward-content').val("");
-// 			$('#reward-quantity').val("");
-// 			$('#reward-shipmentDate').val("");
-// 			$('#reward-donaitionPrice').val("");
-// 			$('#reward-deliveryCharge').val("")
-// 		});
+		$('.btn-close').on('click', function (e) {
+			$('#reward-name').val("");
+			$('#reward-content').val("");
+			$('#reward-quantity').val("");
+			$('#reward-shipmentDate').val("");
+			$('#reward-donaitionPrice').val("");
+			$('#reward-deliveryCharge').val("")
+		});
 		
 		 // 선택 리워드 삭제
 		 function delRow(){
