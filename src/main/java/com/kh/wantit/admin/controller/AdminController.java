@@ -18,26 +18,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.wantit.admin.model.exception.AdminException;
 import com.kh.wantit.admin.model.service.AdminService;
 import com.kh.wantit.admin.model.vo.AFunding;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
-import com.kh.wantit.admin.model.vo.FundingReport;
+import com.kh.wantit.admin.model.vo.EdReply;
 import com.kh.wantit.admin.model.vo.NReply;
+import com.kh.wantit.admin.model.vo.NoReply;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.admin.model.vo.Reply;
 import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Image;
-import com.kh.wantit.funding.model.exception.FundingException;
-import com.kh.wantit.funding.model.vo.Funding;
-import com.kh.wantit.funding.model.vo.FundingEdit;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
+import com.kh.wantit.wanting.exception.WantingException;
 
 @Controller
 public class AdminController {
@@ -51,154 +49,104 @@ public class AdminController {
 
 	// 프로젝트 승인/거절
 	
-	@RequestMapping("projectManage.ad")
-	public String projectManage(@RequestParam(value = "page", required = false) Integer page, Model model, HttpSession session) {
-		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
-		
-		int currentPage = 1;
-		if (page != null) {
-			currentPage = page;
+		@RequestMapping("projectManage.ad")
+		public String projectManage(@RequestParam(value = "page", required = false) Integer page, Model model, HttpSession session) {
+			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+			
+			int currentPage = 1;
+			if (page != null) {
+				currentPage = page;
+			}
+
+			ArrayList<Integer> listCount = aService.getListCountPM(1);
+
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount.get(0) + listCount.get(1), 10);
+			
+			ArrayList<AFunding> mList = aService.selectOkList(pi, 1);
+			
+			ArrayList<Integer> rCountList = new ArrayList<Integer>();
+			int count = mList.size();
+			
+//			System.out.println(mList);
+			model.addAttribute("pi", pi);
+			model.addAttribute("mList", mList);
+			model.addAttribute("mCount", count);
+			model.addAttribute("rCountList", rCountList);
+			return "adminPageProject";
+			
 		}
 
-		ArrayList<Integer> listCount = aService.getListCountPM(1);
-
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount.get(0) + listCount.get(1), 10);
-		
-		ArrayList<AFunding> mList = aService.selectOkList(pi, 1);
-		
-		ArrayList<Integer> rCountList = new ArrayList<Integer>();
-		int count = mList.size();
-		
-//		System.out.println(mList);
-		model.addAttribute("pi", pi);
-		model.addAttribute("mList", mList);
-		model.addAttribute("mCount", count);
-		model.addAttribute("rCountList", rCountList);
-		return "adminPageProject";
-		
-	}
-
-	// 프로젝트 컨펌
-	@RequestMapping("confirmProject.ad")
-	public String okProject(@RequestParam("id") String id, @RequestParam("type") String type) {
-//		System.out.println(id);
-//		System.out.println(type);
-		if ( type.equals("F")) {
-//			System.out.println("f");
-			int result1 = aService.okProjectF(id);
-			return "redirect:projectManage.ad";
-		}else if( type.equals("W")){
-//			System.out.println("w");
-			int result2 = aService.okProjectW(id);
-			return "redirect:projectManage.ad";
-		}else{
-			throw new AdminException("프로젝트 승인 실패");
-		}
-	}
-	
-	// 프로젝트 수정 승인
-		@RequestMapping("confirmEditProject.ad")
-		public String okEditProject(@RequestParam("id") int id, @RequestParam("type") String type, @RequestParam("fundingContent") String content) {
-			System.out.println(id);
-			System.out.println(type);
-			System.out.println(content);
-			if ( type.equals("E")) {
-				FundingEdit fe = new FundingEdit();
-				fe.setEditFundingNum(id);
-				fe.setFundingEditContent(content);
-				int result1 = aService.okEditProjectF(fe);
+		// 프로젝트 컨펌
+		@RequestMapping("confirmProject.ad")
+		public String okProject(@RequestParam("id") String id, @RequestParam("type") String type) {
+//			System.out.println(id);
+//			System.out.println(type);
+			if ( type.equals("F")) {
+//				System.out.println("f");
+				int result1 = aService.okProjectF(id);
 				return "redirect:projectManage.ad";
-//			}else if( type.equals("W")){
+			}else if( type.equals("W")){
 //				System.out.println("w");
-//				int result2 = aService.okProjectW(id);
-//				return "redirect:projectManage.ad";
+				int result2 = aService.okProjectW(id);
+				return "redirect:projectManage.ad";
 			}else{
 				throw new AdminException("프로젝트 승인 실패");
 			}
 		}
-	
-	//프로젝트 거절
-	@RequestMapping("refuseProject.ad")
-	public String noProject(@RequestParam("id") String id, @RequestParam("type") String type) {
-//		System.out.println(id);
-//		System.out.println(type);
-		if ( type.equals("F")) {
-//			System.out.println("f");
-			int result1 = aService.noProjectF(id);
-			return "redirect:projectManage.ad";
-		}else if( type.equals("W")){
-//			System.out.println("w");
-			int result2 = aService.noProjectW(id);
-			return "redirect:projectManage.ad";
-		}else{
-			throw new AdminException("프로젝트 승인 실패");
-		}
-	}
-	
-	//프로젝트 수정 거절
-		@RequestMapping("refuseEditProject.ad")
-		public String noEditProject(@RequestParam("id") String id, @RequestParam("type") String type) {
-			System.out.println(id);
-			System.out.println(type);
+		
+		// 프로젝트 수정 승인
+			@RequestMapping("confirmEditProject.ad")
+			public String okEditProject(@RequestParam("id") int id, @RequestParam("type") String type) {
+				System.out.println(id);
+				System.out.println(type);
+				if ( type.equals("F")) {
+					int result1 = aService.okEditProjectF(id);
+					return "redirect:projectManage.ad";
+				}else if( type.equals("W")){
+					int result2 = aService.okEditProjectW(id);
+					return "redirect:projectManage.ad";
+				}else{
+					throw new AdminException("프로젝트 승인 실패");
+				}
+			}
+		
+		//프로젝트 거절
+		@RequestMapping("refuseProject.ad")
+		public String noProject(@RequestParam("id") String id, @RequestParam("type") String type) {
+//			System.out.println(id);
+//			System.out.println(type);
 			if ( type.equals("F")) {
-				System.out.println("f");
-				int result1 = aService.noEditProjectF(id);
+//				System.out.println("f");
+				int result1 = aService.noProjectF(id);
 				return "redirect:projectManage.ad";
-//			}else if( type.equals("W")){
+			}else if( type.equals("W")){
 //				System.out.println("w");
-//				int result2 = aService.noProjectW(id);
-//				return "redirect:projectManage.ad";
-			}else {
+				int result2 = aService.noProjectW(id);
+				return "redirect:projectManage.ad";
+			}else{
 				throw new AdminException("프로젝트 승인 실패");
 			}
 		}
 		
-//	// 회원 강퇴
-//	@RequestMapping("noProject.ad")
-//	public String noProject(@RequestParam("id") String id) {
-//		int result = aService.noProject(id);
-//		if (result > 0) {
-//			return "redirect:projectManage.ad";
-//		} else {
-//			throw new AdminException("인생");
-//		}
-//	}
-
-	// 펀딩신고관리
-	@RequestMapping("fundingManage.ad")
-	public String fundingManage(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		int currentPage = 1;
-		if (page != null) {
-			currentPage = page;
-		}
-		int listCountF = aService.getListCountRF(1);
-
-		PageInfo piF = Pagination.getPageInfo(currentPage, listCountF, 10);
-
-		ArrayList<FundingReport> fList = aService.selectFundingReport(piF, 1);
-		ArrayList<Integer> rCountList = new ArrayList<Integer>();
-//		System.out.println(fList);
-		int countF = fList.size();
-
-		model.addAttribute("piF", piF);
-		model.addAttribute("fList", fList);
-		model.addAttribute("fCount", countF);
-		model.addAttribute("rCountList", rCountList);
-
-		return "adminFundingReportManagement";
-	}
-
-	// 글 삭제
-	@RequestMapping("deleteFunding.ad")
-	public String deleteFunding(@RequestParam("id") String id) {
-		int result = aService.deleteFunding(id);
-		if (result > 0) {
-			return "redirect:fundingManage.ad";
-		} else {
-			throw new AdminException("글 삭제에 실패하였습니다.");
-		}
-	}
-
+		//프로젝트 수정 거절
+			@RequestMapping("refuseEditProject.ad")
+			public String noEditProject(@RequestParam("id") String id, @RequestParam("type") String type) {
+				System.out.println(id);
+				System.out.println(type);
+				if ( type.equals("F")) {
+					System.out.println("f");
+					int result1 = aService.noEditProjectF(id);
+					int result2 = aService.noEditProjectFF(id);
+					return "redirect:projectManage.ad";
+//				}else if( type.equals("W")){
+//					System.out.println("w");
+//					int result2 = aService.noProjectW(id);
+//					return "redirect:projectManage.ad";
+				}else {
+					throw new AdminException("프로젝트 승인 실패");
+				}
+			}
+	
 	// 리뷰신고관리
 	@RequestMapping("reviewManage.ad")
 	public String reviewManage(@RequestParam(value = "page", required = false) Integer page, Model model) {
@@ -445,42 +393,82 @@ public class AdminController {
 		out.close(); // 닫아줘야 한다
 	}
 	
+    
+    //공지사항 수정 페이지 가고
+    @RequestMapping("editNotice.ad")
+    public String editNotice(@RequestParam("code") int code, @RequestParam("division") String division, Model model, HttpSession session) {
+        System.out.println(code);
+        System.out.println(division);
+        NoReply nr = new NoReply();
+        nr.setCode(code);
+        nr.setDivision(division);
+        // 원팅 가져오기
+        Notice n = aService.selectNoticeDetail(nr);
+        
+        // 이미지 가져와서 썸네일만 보내기
+        ArrayList<Image> imageList = aService.selectImage(code);
+        Image thumbnail = null;
+        for(int i = 0; i < imageList.size(); i++) {
+            if(imageList.get(i).getImageLevel() == 0) {
+                thumbnail = imageList.get(i);
+            }
+        }
+        //System.out.println("원팅 상세보기 이미지 : " + imageList);
+
+        if (n != null && imageList != null) {
+            model.addAttribute("notice", n);
+            model.addAttribute("thumbnail", thumbnail);
+            return "adminNoticeEdit";
+        } else {
+            throw new WantingException("원팅 상세보기 실패");
+        }
+        
+    }
 	//공지사항 수정
 	@RequestMapping("noticeEdit.ad")
 	public String editNotice() {
 			return "adminNoticeEdit";
 	}
 	
-	//공지사항 수정
-//	@RequestMapping("editNotice.ad")
-//	public ModelAndView editNotice(@RequestParam("code") String code, @RequestParam("title") String title, HttpSession session, ModelAndView mv) {
-//		Member m = (Member)session.getAttribute("loginUser");
-//		String login = null;
-//		if(m != null) {
-//			login = m.getMemberId();
-//		}
-//		
-//		boolean yn = false;
-//		String writerCheckId = aService.checkWriter(creatorNum);
-//		if(!writerCheckId.equals(login)) {
-//			yn = true;
-//		}
-//		
-//		// System.out.println(bId);
-//		Notice n = aService.getNotice(code, yn);
-//		Image img = aService.getImage(code);
-////		 System.out.println(img);
-//		 
-//		 int supCount = aService.getSupportCount(code);
-//		
-//		if(n != null) {
-//			mv.addObject("n", n).addObject("img", img).addObject("code", code).addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).setViewName("fundingMain");
-//		}else {
-//			throw new FundingException("펀딩 게시글 상세조회 실패");
-//		}
-//		return mv;
-//	}
-// 
+    //공지사항 수정완료
+    @RequestMapping("editConfirm.ad")
+    public String editConfirm(@RequestParam("code") int code, @RequestParam("division") String division, @RequestParam("title") String title, @RequestParam("content") String content,
+            @ModelAttribute Notice n, HttpServletRequest request, Model model) {
+            
+        System.out.println(code);
+        System.out.println(content);
+        System.out.println(division);
+        System.out.println(title);
+            EdReply er = new EdReply();
+            er.setCode(code);
+            er.setDivision(division);
+            er.setTitle(title);
+            er.setContent(content);
+            
+            int result1 = aService.confirmNotice(er);
+            ArrayList<Image> imageList = aService.selectImage(n.getNoticeNum());
+
+            Image thumbnail = null;
+            for(int i = 0; i < imageList.size(); i++) {
+                if(imageList.get(i).getImageLevel() == 0) {
+                    thumbnail = imageList.get(i);
+                }
+            }
+            
+            if(result1 > 0 && imageList != null) {
+                model.addAttribute("notice", n);
+                model.addAttribute("thumbnail", thumbnail);
+                return "redirect:noticeManage.ad";
+            } else {
+                throw new AdminException("공지 수정 요청 실패");
+            }
+        
+        //} else {
+        //    throw new WantingException("원팅 수정 요청 실패");
+        //}
+    }    
+
+ 	
 	
 	// 글 삭제
 	@RequestMapping("deleteNotice.ad")

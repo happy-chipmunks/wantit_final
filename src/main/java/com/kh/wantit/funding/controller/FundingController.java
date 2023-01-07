@@ -48,9 +48,9 @@ public class FundingController {
 //		System.out.println(fundingList);
 //		System.out.println(ing);
 //		System.out.println(rank);
-		ArrayList<Funding> ingRanking = new ArrayList<>();
-		ArrayList<Funding> endLatest = new ArrayList<>();
-		ArrayList<Funding> endRanking = new ArrayList<>();
+		ArrayList<Funding> ingRanking = new ArrayList<Funding>();
+		ArrayList<Funding> endLatest = new ArrayList<Funding>();
+		ArrayList<Funding> endRanking = new ArrayList<Funding>();
 		if(ing != null && rank != null) {
 			if(ing == 1 && rank == 2) {
 				ingRanking = fService.getFundingIngListRanking();

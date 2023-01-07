@@ -9,8 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.kh.wantit.admin.model.vo.AFunding;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
+import com.kh.wantit.admin.model.vo.EdReply;
 import com.kh.wantit.admin.model.vo.FundingReport;
 import com.kh.wantit.admin.model.vo.NReply;
+import com.kh.wantit.admin.model.vo.NoReply;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
@@ -216,9 +218,9 @@ public class AdminDAO {
 		return sqlSession.delete("adminMapper.noEditProjectF", id);
 	}
 
-	public int okEditProjectF(FundingEdit fe, SqlSessionTemplate sqlSession) {
-		int result = sqlSession.update("adminMapper.okEditPro", fe);
-		return sqlSession.update("adminMapper.okEditProjectF", fe);
+	public int okEditProjectF(int id, SqlSessionTemplate sqlSession) {
+		int result = sqlSession.update("adminMapper.okEditPro", id);
+		return sqlSession.update("adminMapper.okEditProjectF", id);
 	}
 	public int insertImage(SqlSessionTemplate sqlSession, Image img) {
 		return sqlSession.insert("adminMapper.insertImage", img);
@@ -281,6 +283,28 @@ public class AdminDAO {
 
 	public int insertBannerImage(SqlSessionTemplate sqlSession, BannerImage bi) {
 		return sqlSession.insert("adminMapper.insertBannerImage", bi);
+	}
+
+	public int noEditProjectFF(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("adminMapper.noEditProjectFF", id);
+	}
+
+	public int okEditProjectW(int id, SqlSessionTemplate sqlSession) {
+		int result = sqlSession.update("adminMapper.okEditProW", id);
+		return sqlSession.update("adminMapper.okEditProjectW", id);
+	}
+
+	public Notice selectNoticeDetail(SqlSessionTemplate sqlSession, NoReply nr) {
+		return sqlSession.selectOne("adminMapper.selectNoticeDetail", nr);
+	}
+
+	public ArrayList<Image> selectImage(SqlSessionTemplate sqlSession, int code) {
+		return (ArrayList) sqlSession.selectList("adminMapper.selectImage", code);
+	}
+
+
+	public int confirmNotice(SqlSessionTemplate sqlSession, EdReply er) {
+		return sqlSession.update("adminMapper.confirmNotice", er);
 	}
 
 	

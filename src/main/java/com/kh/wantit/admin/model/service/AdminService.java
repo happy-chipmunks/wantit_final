@@ -10,8 +10,10 @@ import com.kh.wantit.admin.model.dao.AdminDAO;
 import com.kh.wantit.admin.model.vo.AFunding;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
+import com.kh.wantit.admin.model.vo.EdReply;
 import com.kh.wantit.admin.model.vo.FundingReport;
 import com.kh.wantit.admin.model.vo.NReply;
+import com.kh.wantit.admin.model.vo.NoReply;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
@@ -190,8 +192,8 @@ public class AdminService {
 		return aDAO.noEditProjectF(id, sqlSession);
 	}
 
-	public int okEditProjectF(FundingEdit fe) {
-		return aDAO.okEditProjectF(fe, sqlSession);
+	public int okEditProjectF(int id) {
+		return aDAO.okEditProjectF(id, sqlSession);
 	}
 
 	public int insertImage(Image img) {
@@ -252,6 +254,27 @@ public class AdminService {
 
 	public int insertBannerImage(BannerImage bi) {
 		return aDAO.insertBannerImage(sqlSession, bi);
+	}
+
+	public int okEditProjectW(int id) {
+		return aDAO.okEditProjectW(id, sqlSession);
+	}
+
+	public int noEditProjectFF(String id) {
+		return aDAO.noEditProjectFF(id, sqlSession);
+	}
+
+	 public Notice selectNoticeDetail(NoReply nr) {
+        return aDAO.selectNoticeDetail(sqlSession, nr);
+    }
+
+
+    public ArrayList<Image> selectImage(int code) {
+        return aDAO.selectImage(sqlSession, code);
+    }
+	    
+	public int confirmNotice(EdReply er) {
+		return aDAO.confirmNotice(sqlSession, er);
 	}
 
 
