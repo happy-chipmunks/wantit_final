@@ -2,10 +2,13 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
+import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
@@ -62,6 +65,12 @@ public interface MemberService {
 	int deleteboforeImage(Image m);
 
 	int deleteboforecImage(Image cm);
+
+	int getMsgDontReadListCount(String id);
+
+	int getMsgListCount(String id);
+
+	ArrayList<FundingMessage> getMsgList(String id, PageInfo pi);
 
 
 	

@@ -30,6 +30,7 @@ import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.member.Service.MemberService;
 import com.kh.wantit.member.exception.MemberException;
@@ -810,22 +811,30 @@ public class MemberController {
 	
 	 // 크리에이터 받은 쪽지
 		@RequestMapping("creatorMessage.me")
-		public String creatorMessage(@RequestParam("msgType") Integer msgType, HttpSession session) {
+		public String creatorMessage(Model model, HttpSession session, @RequestParam(value="page", required=false) Integer page) {
 			Member m = (Member)session.getAttribute("loginUser");
 			String id = m.getMemberId();
 			
-			int type = 0;
-			if(msgType == 1) {
-				// 받은 편지
-				type = 1;
-			}else if(msgType == 2) {
-				// 보낸 편지
-				type = 2;
+			int currentPage = 1;
+			if(page != null && page > 1) {
+				currentPage = page;
 			}
 			
-			Map<String, Object> map = new HashMap<String, Object>();
+			int dontReadListCount = mService.getMsgDontReadListCount(id);
+			int msgListCount = mService.getMsgListCount(id);
 			
-			return "myPage_creator_message";
+			PageInfo pi = Pagination.getPageInfo(currentPage, msgListCount, 10);
+			
+			ArrayList<FundingMessage> msgList = mService.getMsgList(id, pi);
+			if(msgList != null) {
+				model.addAttribute("msgList", msgList);
+				model.addAttribute("pi", pi);
+				model.addAttribute("dontReadListCount", dontReadListCount);
+				return "myPage_creator_message";
+			}else {
+				throw new MemberException("쪽지 불러오기 실패. 다시 시도해 주세요");
+			}
+			
 		}
 	
 	

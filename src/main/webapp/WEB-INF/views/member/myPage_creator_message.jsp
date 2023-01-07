@@ -29,71 +29,74 @@
 	<div class="container mt-3" style="width: 500px; height: 300px;">
 		<img src="resources/myPageImage/메시지.png" width="60px">&nbsp;&nbsp;&nbsp;&nbsp;<h2 style="display: inline">쪽지함</h2>
 		<br><br>
-		<div style="text-align: right;">
-			<button class="btn mBtn me-2 btn-sm" onclick="location.href='${contextPath}/creatorMessage.me?msgType=1'">받은 쪽지</button><button class="btn mBtn btn-sm" onclick="loaction.href='${contextPath}/creatorMessage.me?msgType=2'">보낸 쪽지</button>
-		</div><br>
 		<div style="height: 450px">
-			<table class="table" id="messageList">
-				<tr onclick="$('#modal').modal('show')">
-					<td style="display: none;">쪽지 번호</td>
-					<td>쪽지 제목</td>
-					<td>보낸이</td>
-					<td>보낸날짜</td>
-					<td>답변 여부</td>
-				</tr>
-				<tr>
-					<td style="display: none;">쪽지 번호</td>
-					<td>쪽지 제목</td>
-					<td>보낸이</td>
-					<td>보낸날짜</td>
-					<td>답변 여부</td>
-				</tr>
-				<tr>
-					<td style="display: none;">쪽지 번호</td>
-					<td>쪽지 제목</td>
-					<td>보낸이</td>
-					<td>보낸날짜</td>
-					<td>답변 여부</td>
-				</tr>
-				<tr>
-					<td style="display: none;">쪽지 번호</td>
-					<td>쪽지 제목</td>
-					<td>보낸이</td>
-					<td>보낸날짜</td>
-					<td>답변 여부</td>
-				</tr>
-			</table>
+			
+				<table class="table" id="messageList">
+					<tr onclick="$('.message').modal('show')">
+						<th>문의 번호</th>
+						<th>제목</th>
+						<th>보낸이</th>
+						<th>보낸날짜</th>
+						<th>답변 여부</th>
+					</tr>
+					<c:if test="${ pi.maxPage > 0  }">
+						<c:forEach items="${ msgList }" var="m">
+							<tr>
+								<td>${ m.messageCode }</td>
+								<td>${ m.messageTitle }</td>
+								<td>${ m.sender }</td>
+								<td>${ m.messageDate }</td>
+								<td>
+									<c:if test="${ m.replyStatus == 'N' }">
+										<button>답변하기</button>
+									</c:if>
+									<c:if test="${ m.replyStatus == 'Y' }">
+										<button>문의보기</button>
+									</c:if>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+				</table>
+				<c:if test="${ pi.maxPage == 0 }">
+						<div class="mx-auto my-auto" style="text-align:center;">
+			      			쪽지함이 비었습니다.
+			      		</div>
+		      	</c:if>
+			
 		</div>
-		 <nav aria-label="Standard pagination example" class="nav justify-content-center">
-        	<ul class="pagination">
-	            <li class="page-item">
-	            	<c:url var="goBack" value="${ loc }">
-	            		<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
-	            	</c:url>
-	            	<a class="page-link" href="${ goBack }" aria-label="Previous">
-	            		<span aria-hidden="true">&laquo;</span>
-	              	</a>
-	            </li>
-	            <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-	            	<c:url var="goNum" value="${ loc }">
-	            		<c:param name="page" value="${ p }"></c:param>
-	            	</c:url>
-	            	<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
-	            </c:forEach>
-	            <li class="page-item">
-	            	<c:url var="goNext" value="${ loc }">
-	            		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
-	            	</c:url>
-	            	<a class="page-link" href="${ goNext }" aria-label="Next">
-	            		<span aria-hidden="true">&raquo;</span>
-	            	</a>
-	            </li>
-	    	</ul>
-        </nav>
+		<c:if test="${ pi.maxPage > 0 }">
+			 <nav aria-label="Standard pagination example" class="nav justify-content-center">
+	        	<ul class="pagination">
+		            <li class="page-item">
+		            	<c:url var="goBack" value="${ loc }">
+		            		<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
+		            	</c:url>
+		            	<a class="page-link" href="${ goBack }" aria-label="Previous">
+		            		<span aria-hidden="true">&laquo;</span>
+		              	</a>
+		            </li>
+		            <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+		            	<c:url var="goNum" value="${ loc }">
+		            		<c:param name="page" value="${ p }"></c:param>
+		            	</c:url>
+		            	<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
+		            </c:forEach>
+		            <li class="page-item">
+		            	<c:url var="goNext" value="${ loc }">
+		            		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
+		            	</c:url>
+		            	<a class="page-link" href="${ goNext }" aria-label="Next">
+		            		<span aria-hidden="true">&raquo;</span>
+		            	</a>
+		            </li>
+		    	</ul>
+	        </nav>
+	      </c:if>
 	</div>
 	
 	<!-- 쪽지함 -->
-	<div class="modal fade" id="modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+	<div class="modal fade message" id="modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 	  <div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 			  	<div class="modal-header">
