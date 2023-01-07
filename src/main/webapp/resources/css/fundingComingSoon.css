@@ -181,3 +181,7 @@
     color: white;
     background-color: #8c86c7;
   }
+  
+    .carousel-control-prev, .carousel-control-next {
+  	width: 10%;
+   }

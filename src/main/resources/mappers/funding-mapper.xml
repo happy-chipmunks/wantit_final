@@ -258,6 +258,30 @@
 		select funding_num, creator_num, funding_cate, funding_title, funding_count, funding_start, funding_end, current_money, target_money, confirm, create_date, modify_date, funding_status, creator_name, funding_summary, (current_money / target_money) percent from funding where funding_status='Y' order by percent desc
 	</select>
 	
+	<select id="sortList" resultMap="fundingResultSet">
+		<choose>
+			<when test="sortType == '오픈임박순'">
+				select * from funding where funding_status = 'Y' order by funding_start asc
+			</when>
+			<when test="sortType == '찜하기순'">
+				select e.funding_num, e.creator_num, e.funding_cate, e.funding_title, e.funding_count, 
+							e.funding_start, e.funding_end, e.current_money, e.target_money, e.confirm, e.create_date, e.modify_date, 
+							e.funding_status, e.creator_name, funding_summary 
+								from funding e full join dibs d on(e.funding_num = d.funding_num) 
+									group by e.funding_num, e.creator_num, e.funding_cate, e.funding_title, e.funding_count, 
+													e.funding_start, e.funding_end, e.current_money, e.target_money, e.confirm, e.create_date, e.modify_date, 
+													e.funding_status, e.creator_name, e.funding_summary having funding_status = 'Y'
+												order by count(dibs_id) desc
+			</when>
+<!-- 			<when test="sortType == '알림신청순'"> -->
+<!-- 			</when> -->
+		</choose>
+	</select>
+	
+	<select id="sortCateList" resultMap="fundingResultSet">
+		select * from funding where funding_status = 'Y' and funding_cate = #{cate}
+	</select>
+	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>

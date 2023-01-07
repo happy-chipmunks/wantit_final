@@ -231,5 +231,15 @@ public class FundingServiceImpl implements FundingService{
 	public ArrayList<Funding> popularList() {
 		return fDAO.popularList(sqlSession);
 	}
+	
+	@Override
+	public ArrayList<Funding> sortList(String sortType) {
+		return fDAO.sortList(sqlSession, sortType);
+	}
+
+	@Override
+	public ArrayList<Funding> sortCateList(String cate) {
+		return fDAO.sortCateList(sqlSession, cate);
+	}
 
 }

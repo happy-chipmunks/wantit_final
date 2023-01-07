@@ -58,8 +58,9 @@
             <div class="carousel-inner">
               <div class="carousel-item active cateArea">
                 <div class="row">
-                    <div class="col-1 cateItemArea"></div>
+                    <div class="col-1 cateItemArea1"></div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="테크·가전" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-home-appliance-3659944.png" class="cateImage" alt="">
                         </div>
@@ -69,6 +70,7 @@
                         
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="패션·잡화" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-fashion-7417634.png" class="cateImage" alt="">
                         </div>
@@ -77,6 +79,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="뷰티" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-cosmetics-3501241.png" class="cateImage" alt="">
                         </div>
@@ -85,6 +88,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="음식" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-ozoni-3736059.png" class="cateImage" alt="">
                         </div>
@@ -93,6 +97,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="홈·리빙" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/living-room.png" class="cateImage" alt="">
                         </div>
@@ -101,6 +106,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="여행·레저" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-tourism-8171604.png" class="cateImage" alt="">
                         </div>
@@ -109,6 +115,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="스포츠" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-sports-4163736.png" class="cateImage" alt="">
                         </div>
@@ -117,6 +124,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="캐릭터·굿즈" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-character-1577156.png" class="cateImage" alt="">
                         </div>
@@ -128,9 +136,10 @@
               </div>
               <div class="carousel-item cateArea">
                 <div class="row">
-                    <div class="col-1 cateItemArea"></div>
+                    <div class="col-1 cateItemArea1"></div>
 
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="베이비·키즈" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-baby-2234018.png" class="cateImage" alt="">
                         </div>
@@ -139,6 +148,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="반려동물" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-dog-2272310.png" class="cateImage" alt="">
                         </div>
@@ -147,6 +157,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="게임" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-game-controller-2331852.png" class="cateImage" alt="">
                         </div>
@@ -155,6 +166,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="컬쳐·아티스트" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/painting.png" class="cateImage" alt="">
                         </div>
@@ -163,6 +175,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="출판" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-books-2702069.png" class="cateImage" alt="">
                         </div>
@@ -171,6 +184,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="클래스·컨설팅" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-elearning-2704382.png" class="cateImage" alt="">
                         </div>
@@ -199,7 +213,8 @@
 <!--                     <li class="sortType">최신순</li> -->
                     <li class="sortType">
                         <span id="recent">최신순</span>&nbsp;&nbsp;&nbsp;
-                        <span id="popular">인기순</span>
+                        <span id="popular">인기순</span>&nbsp;&nbsp;&nbsp;
+                        <span id="dibs">찜하기순</span>
 <!--                             <option value="2">Two</option> -->
 <!--                             <option value="3">Three</option> -->
                           </select>
@@ -310,9 +325,43 @@
     			error : (data)=> {
     				
     			}
-    			
     		});
     	});
+    	
+    	const cateItemArea = document.getElementsByClassName('cateItemArea');
+    	for(const area of cateItemArea) {
+    		area.addEventListener('click', function() {
+    			const cateText = $(this).children('input')[0].defaultValue;
+    			$.ajax({
+    				url : '${ contextPath }/sortCate.fund',
+    				data : {'cate' : cateText, 'page' : 'proceed'},
+    				success : (data)=> {
+    					changeHtmlView(data);
+        				changeMoney();
+        				changeProgressBar();
+    				},
+    				error : (data)=> {
+    					
+    				}
+    			});
+    		});
+    	}
+    	const dibs = document.getElementById('dibs');
+    	dibs.addEventListener('click', function() {
+    		$.ajax({
+    			url : '${ contextPath }/sort.fund',
+    			data : {'type' : '찜하기순', 'page' : 'proceed'},
+    			success : (data)=> {
+    				changeHtmlView(data);
+    				changeMoney();
+    				changeProgressBar();
+    			},
+    			error : (data)=> {
+    				
+    			}
+    		});
+    	});
+    	
     	
     	const recent = document.getElementById('recent');
     	recent.addEventListener('click', function() {

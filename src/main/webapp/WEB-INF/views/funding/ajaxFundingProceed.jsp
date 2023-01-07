@@ -12,8 +12,11 @@
 <link rel="stylesheet" href="resources/css/fundingProceed.css">
 </head>
 <body>
+	<c:set value="<%= new java.util.Date() %>" var="today"></c:set>
+		<fmt:formatDate value="${ today }" pattern="yyyy-MM-dd" var="fmtToday"/>
 	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="BigArea">
-                	<c:forEach items="${ fundingList }" var="fund">
+                <c:forEach items="${ fundingList }" var="fund">
+					<c:if test="${ fmtToday > fund.fundingStart }">
         			<!--  펀딩중인 것만 -->
         			 <div class="col cardDecoration">
         			 	<input type="hidden" name="bId" class="bId" value="${ fund.fundingNum }">
@@ -46,6 +49,7 @@
                   </div>
                 </div>
               </div>
+              </c:if>
         	</c:forEach>
                 	
                 </div>

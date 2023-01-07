@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/css/fundingComingSoon.css">
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body>
     <!--배너광고, 이벤트-->
@@ -56,8 +57,9 @@
             <div class="carousel-inner">
               <div class="carousel-item active cateArea">
                 <div class="row">
-                    <div class="col-1 cateItemArea"></div>
+                    <div class="col-1 cateItemArea1"></div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="테크·가전" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-home-appliance-3659944.png" class="cateImage" alt="">
                         </div>
@@ -67,6 +69,7 @@
                         
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="패션·잡화" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-fashion-7417634.png" class="cateImage" alt="">
                         </div>
@@ -75,6 +78,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="뷰티" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-cosmetics-3501241.png" class="cateImage" alt="">
                         </div>
@@ -83,6 +87,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="음식" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-ozoni-3736059.png" class="cateImage" alt="">
                         </div>
@@ -91,6 +96,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="홈·리빙" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/living-room.png" class="cateImage" alt="">
                         </div>
@@ -99,6 +105,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="여행·레저" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-tourism-8171604.png" class="cateImage" alt="">
                         </div>
@@ -107,6 +114,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="스포츠" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-sports-4163736.png" class="cateImage" alt="">
                         </div>
@@ -115,6 +123,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="캐릭터·굿즈" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-character-1577156.png" class="cateImage" alt="">
                         </div>
@@ -126,9 +135,10 @@
               </div>
               <div class="carousel-item cateArea">
                 <div class="row">
-                    <div class="col-1 cateItemArea"></div>
+                    <div class="col-1 cateItemArea1"></div>
 
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="베이비·키즈" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-baby-2234018.png" class="cateImage" alt="">
                         </div>
@@ -137,6 +147,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="반려동물" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-dog-2272310.png" class="cateImage" alt="">
                         </div>
@@ -145,6 +156,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="게임" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-game-controller-2331852.png" class="cateImage" alt="">
                         </div>
@@ -153,6 +165,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="컬쳐·아티스트" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/painting.png" class="cateImage" alt="">
                         </div>
@@ -161,6 +174,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="출판" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-books-2702069.png" class="cateImage" alt="">
                         </div>
@@ -169,6 +183,7 @@
                         </div>
                     </div>
                     <div class="col-1 cateItemArea">
+                    	<input type="hidden" value="클래스·컨설팅" class="cateText">
                         <div class="cateItem">
                             <img src="${ contextPath }/resources/cateImage/free-icon-elearning-2704382.png" class="cateImage" alt="">
                         </div>
@@ -194,10 +209,10 @@
             <div class="col-10">
                 <span class="cateTitleOrAll">전체</span>
                 <ul class="sortList">
-                    <li class="sortType">최신순</li>
+                    <li class="sortType">최신등록순</li>
                     <li class="sortType">알람신청순</li>
                     <li class="sortType">찜하기순</li>
-                    <li class="sortType">오픈임박순</li>
+                    <li class="sortType" id="sortStartDate">오픈임박순</li>
                 </ul>
                 <br>
                 <hr style="border: 2px solid dimgray;">
@@ -209,7 +224,7 @@
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10" style="padding: 30px;">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="targetArea">
                 	<c:forEach items="${ fundingList }" var="fund">
 	                    <c:if test="${ fmtToday < fund.fundingStart }">
 	        			<!--  펀딩예정인 것만 -->
@@ -253,6 +268,63 @@
 			
 			location.href='${contextPath}/selectFundingBoard.fund?bId=' + bId + '&writerNo=' + writerNo;
 		});
+	}
+	
+	const cateItemArea = document.getElementsByClassName('cateItemArea');
+	for(const area of cateItemArea) {
+		area.addEventListener('click', function() {
+			const cateText = $(this).children('input')[0].defaultValue;
+			$.ajax({
+				url : '${ contextPath }/sortCate.fund',
+				data : {'cate' : cateText, 'page' : 'comingSoon'},
+				success : (data)=> {
+					console.log(data);
+					changeHtmlView(data);
+				},
+				error : (data)=> {
+					
+				}
+			});
+		});
+	}
+	
+	function changeHtmlView(data) {
+		var html = jQuery('<div>').html(data);
+		var contents = html.find("div#BigArea").html();
+		$("#targetArea").html(contents);
+	}
+	const sortType = document.getElementsByClassName('sortType');
+	for(const li of sortType) {
+		li.addEventListener('click', function() {
+			switch(this.innerText) {
+			case '최신등록순':
+				location.href='${ contextPath }/fundingComingSoon.fund';
+				break;
+			case '알림신청순':
+				callAjax(this.innerText);
+				break;
+			case '찜하기순':
+				callAjax(this.innerText);
+				break;
+			case '오픈임박순':
+				callAjax(this.innerText);
+				break;
+			}
+		});
+		
+	}
+	
+	function callAjax(type) {
+		$.ajax({
+			url : '${ contextPath }/sort.fund',
+			data : {'type': type, 'page' : 'comingSoon'},
+			success : (data)=> {
+				changeHtmlView(data);
+			},
+			error : (data)=> {
+				
+			}
+		})
 	}
     </script>
 </body>

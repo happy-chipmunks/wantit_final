@@ -96,4 +96,8 @@ public interface FundingService {
 
 	ArrayList<Funding> popularList();
 
+	ArrayList<Funding> sortList(String sortType);
+
+	ArrayList<Funding> sortCateList(String cate);
+
 }

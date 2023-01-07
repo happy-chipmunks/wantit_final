@@ -188,6 +188,14 @@ public class FundingDAO {
 		return (ArrayList)sqlSession.selectList("fundingMapper.popularList");
 	}
 
+	public ArrayList<Funding> sortList(SqlSessionTemplate sqlSession, String sortType) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.sortList", sortType);
+	}
+
+	public ArrayList<Funding> sortCateList(SqlSessionTemplate sqlSession, String cate) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.sortCateList", cate);
+	}
+
 	
 	
 }

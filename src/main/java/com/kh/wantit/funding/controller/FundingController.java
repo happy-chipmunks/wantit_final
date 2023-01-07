@@ -482,6 +482,40 @@ public class FundingController {
 		return "ajaxFundingProceed";
 	}
 	
+	@RequestMapping("sort.fund")
+	public String sortFundingComingSoon(@RequestParam("type") String sortType,
+																		@RequestParam("page") String page, Model model) {
+		ArrayList<Funding> sortList = fService.sortList(sortType);
+		ArrayList<Image> imageList = fService.fundingImageList();
+		
+		model.addAttribute("fundingList", sortList);
+		model.addAttribute("imageList", imageList);
+		
+		if(page.equals("proceed")) {
+			return "ajaxFundingProceed";
+		} else {
+			return "ajaxFundingComingSoon";
+		}
+	}
+	
+	@RequestMapping("sortCate.fund")
+	public String sortCateFundingList(@RequestParam("cate") String cate, 
+																@RequestParam("page") String page, Model model) {
+		
+		ArrayList<Funding> sortCateList = fService.sortCateList(cate);
+		ArrayList<Image> imageList = fService.fundingImageList();
+		System.out.println("sortcateList : " + sortCateList);
+		
+		model.addAttribute("fundingList", sortCateList);
+		model.addAttribute("imageList", imageList);
+		
+		if(page.equals("proceed")) {
+			return "ajaxFundingProceed";
+		} else {
+			return "ajaxFundingComingSoon";
+		}
+	}
+	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순
 //	@RequestMapping("ingList.fund")
 //	public String ingList(@RequestParam("ing") Integer ing, @RequestParam("ranking") Integer rank, Model model) {
