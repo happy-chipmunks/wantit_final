@@ -234,4 +234,5 @@
   		set IMAGE_STATUS = 'N'
   		where   IMAGE_BOARD_CATE = #{imageBoardCate} AND IMAGE_BOARD_ID = #{imageBoardId}
   	</update>  
+  	
 </mapper>

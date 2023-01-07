@@ -250,7 +250,13 @@
 		set funding_confirm='E'
 		where funding_num=#{fundingNum}
 	</update>
+	<select id="getMyFundingList" resultMap="fundingResultSet">
+		select * from funding join creator using(creator_num) where creator = #{id} order by create_date desc
+	</select>
 	
+	<select id="popularList" resultMap="fundingResultSet">
+		select funding_num, creator_num, funding_cate, funding_title, funding_count, funding_start, funding_end, current_money, target_money, confirm, create_date, modify_date, funding_status, creator_name, funding_summary, (current_money / target_money) percent from funding where funding_status='Y' order by percent desc
+	</select>
 	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>

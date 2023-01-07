@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 	<jsp:include page="../common/navbar.jsp"/>
@@ -78,6 +79,13 @@
 	    height: 100px;
 
 		}
+		
+		.renewalBtn, .editFundBtn{
+			width: 100%;
+			border: 0;
+			background-color: #8c86c7;
+			margin-top: 5px;
+		}
     </style>
 
 </head>
@@ -124,121 +132,86 @@
    				</li>
 			</ul>
    		</div>
-   	
    		<div class="col-8">
-		<h4 align="left">나의 펀딩 | 진행 중인 펀딩 <button onclick="location.href='${contextPath}/fundingWrite.fund'" type="button" class="btn" style="align: right; background-color: #D6C7ED;">펀딩 신청</button></h4>
-	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">혼란스런 맘이겠지 상상조차 못할 거야</p>
+	   		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="targetArea">
+	        <c:set var="today" value="<%=new java.util.Date() %>"></c:set>
+	        <fmt:formatDate value="${ today }" pattern="yyyy-MM-dd" var="fmtToday"/>
+	        	<c:forEach items="${ fundingList }" var="fund">
+	        		<c:if test="${ fmtToday >= fund.fundingStart }">
+	        			<!--  펀딩중인 것만 -->
+	        			 <div class="col cardDecoration">
+	                		<div class="card shadow-sm fundinglist">
+	        			 	<input type="hidden" name="bId" class="bId" value="${ fund.fundingNum }">
+	        			 	<input type="hidden" name="writer" class="writer" value="${ fund.creatorNum }">
+	                		<c:forEach items="${ imageList }" var="image">
+		                  					<c:if test="${ image.imageBoardId == fund.fundingNum }">
+		                  					
+			                  					<img alt="" src="${ contextPath }/resources/funding/${ image.imageRename }" width="100%" height="225">
+		                  					</c:if>
+		                  				</c:forEach>
+	      
+	                  		<div class="card-body">
+	                      		<p class="card-text">${ fund.fundingTitle }</p>
+	                      			<div style="padding-bottom: 10px;">
+	                      </div>
+	                      <div class="d-flex justify-content-between align-items-center">
+	                            <div style="height: 2px; width: 100%; background-color: gray;"><span class="progressBar" style="display: block; background-color: #8c86c7; height: 2px; width: 26%;"></span></div>
+	                        </div>
+	                        <fmt:formatNumber value="${ fund.currentMoney / fund.targetMoney }" type="percent" var="percentage"/>
+	                        <input type="hidden" value="${ percentage }" class="progressBarPercent">
+	                        <jsp:useBean id="now" class="java.util.Date"/>
+	                        <fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowFmtTime" scope="request"/>
+	                        <fmt:parseNumber value="${ fund.fundingEnd.time / (1000*60*60*24) }" integerOnly="true" var="feFmtTime" scope="request"/>
+	                        <span class="fontOnly">${ percentage }</span>
+	                        <span class="fundingProceedMoney">${ fund.currentMoney }</span>
+	                        <span class="remainDate" style="float: right;">${feFmtTime - nowFmtTime + 1 }일 남음</span>
+	                  </div>
+	                </div>
+	                	<c:if test="${ feFmtTime - nowFmtTime + 1 <= 0 && (fund.currentMoney / fund.targetMoney) >= 1}">
+	                        	<button class="renewalBtn">결제상태 갱신</button>
+	                        </c:if>
+	                        <c:if test="${ feFmtTime - nowFmtTime + 1 > 0 && (fund.currentMoney / fund.targetMoney) < 1}">
+	                        	<button class="editFundBtn" >펀딩 수정</button>
+	                        </c:if>
+	                        <input type="hidden"  class="fn" value="${ fund.fundingNum }">
+	              </div>
+	        		</c:if>
+	        		<c:if test="${ fmtToday < fund.fundingStart }">
+	        			<!--  펀딩예정인 것만 -->
+	        			<div class="col cardDecoration">
+	                		<div class="card shadow-sm fundinglist">
+	                			<input type="hidden" name="bId" class="bId" value="${ fund.fundingNum }">
+	        			 		<input type="hidden" name="writer" class="writer" value="${ fund.creatorNum }">
+	                 			 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></svg>
+	      
+	                  			<div class="card-body">
+	                      			<p class="card-text">${ fund.fundingTitle }</p>
+	                      			<div style="padding-bottom: 10px;">
+	                          			<span class="cate">${ fund.fundingCate }</span>
+	                          			<span class="fundName">${ fund.creatorNickname }</span>
+	                      			</div>
+	                      			<fmt:formatDate value="${ fund.fundingStart }"  pattern="MM-dd(E)" var="openDate"/>
+	                      		<button type="button" class="btn alarmApl"><i class="bi bi-bell"></i>${ openDate } 오픈 알람신청</button>
+	                 	 </div>
+	                </div>
+	                	<c:if test="${ feFmtTime - nowFmtTime + 1 <= 0 && (fund.currentMoney / fund.targetMoney) >= 1}">
+	                        	<button class="renewalBtn">결제상태 갱신</button>
+	                        </c:if>
+	                        <c:if test="${ feFmtTime - nowFmtTime + 1 > 0 && (fund.currentMoney / fund.targetMoney) < 1}">
+	                        	<button class="editFundBtn" >펀딩 수정</button>
+	                        </c:if>
+	                        <input type="hidden"  class="fn" value="${ fund.fundingNum }">
 	            </div>
+	        		</c:if>
+	        		
+	            			
+	        		
+	        	</c:forEach>
+	            
+	            
+	            
 	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">홀린 듯 날 따라와</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">사실 보고 싶단 말에 조금 흔들려~</p>
-	            </div>
-	          </div>
-	        </div>
-	
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">1도 없어 예전의 느낌</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">바ㅣ바이바이</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">내 몸이 확 머리가 휙 돌아가 어때 지금 기분이</p>
-	            </div>
-	          </div>
-	        </div>
-	
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">그래 알겠지 알겠지 넌 날 혹하게 해</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">화려한 주인공처럼 그저 하던대로 해</p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	              <p class="card-text">슬픈 엔딩이라도오오</p>
-	            </div>
-	          </div>
-	        </div>
-	      </div><br>
-	      <nav aria-label="Standard pagination example" class="nav justify-content-center">
-        	<ul class="pagination">
-	            <li class="page-item">
-	            	<c:url var="goBack" value="${ loc }">
-	            		<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
-	            	</c:url>
-	            	<a class="page-link" href="${ goBack }" aria-label="Previous">
-	            		<span aria-hidden="true">&laquo;</span>
-	              	</a>
-	            </li>
-	            <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-	            	<c:url var="goNum" value="${ loc }">
-	            		<c:param name="page" value="${ p }"></c:param>
-	            	</c:url>
-	            	<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
-	            </c:forEach>
-	            <li class="page-item">
-	            	<c:url var="goNext" value="${ loc }">
-	            		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
-	            	</c:url>
-	            	<a class="page-link" href="${ goNext }" aria-label="Next">
-	            		<span aria-hidden="true">&raquo;</span>
-	            	</a>
-	            </li>
-	    	</ul>
-        </nav>
-	    </div>
+   		</div>
 	  </div>
 	  <br>
 		  
@@ -250,6 +223,57 @@
 	<script>
 	function openPopup(){
 		window.open("myPage_sup_message.me", "message", "width=500 height=300");
+	}
+	changeMoney();
+	changeProgressBar();
+	function changeMoney() {
+		const fundingProceedMoney = document.getElementsByClassName('fundingProceedMoney');
+		for(const span of fundingProceedMoney) {
+			const before = parseInt(span.innerText);
+			span.innerText = " " + before.toLocaleString() + "원";
+		}
+	}
+	
+	function changeProgressBar() {
+		const progressBar = document.getElementsByClassName('progressBar');
+		const progressBarPercent = document.getElementsByClassName('progressBarPercent');
+		for(let i=0 ; i<progressBar.length ; i++) {
+			const percent = parseInt(progressBarPercent[i].value.substring(0, progressBarPercent[i].value.length-1));
+			if(percent >= 100) {
+    			progressBar[i].style.width = "100%";
+			} else {
+				progressBar[i].style.width = percent + "%";
+			}
+		}
+	}
+	
+	var boards = document.getElementsByClassName('fundinglist');
+	for(var board of boards){
+		board.addEventListener('click', function(){
+			const bId = this.querySelector('.bId').value;
+			console.log(bId);	// 선택한 펀딩 게시글 번호를 가지고 오는가
+			const writerNo = this.querySelector('.writer').value;
+			console.log(writerNo);	// 선택한 펀딩 게시글 작성자 번호를 가지고 오는가
+			
+			location.href='${contextPath}/selectFundingBoard.fund?bId=' + bId + '&writerNo=' + writerNo;
+		});
+	}
+	
+	const renewalBtn = document.getElementsByClassName('renewalBtn');
+	const editFundBtn = document.getElementsByClassName('editFundBtn');
+	
+	for(const btn of renewalBtn) {
+		btn.addEventListener('click', function() {
+			const fn = document.querySelector('.fn');
+			location.href='${ contextPath }/payStatusRenewal.pay?fundingNum=' + fn.value;
+		});
+	}
+	for(const btn of editFundBtn) {
+		btn.addEventListener('click', function(e) {
+			
+			const fn = document.querySelector('.fn');
+			location.href='${ contextPath }/fundingEdit.fund?fundingNum=' + fn.value;
+		});
 	}
 	</script>
 

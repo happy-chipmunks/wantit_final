@@ -92,4 +92,8 @@ public interface FundingService {
 	
 	int fundingConfirmUpdate(int fundingNum);
 
+	ArrayList<Funding> getMyFundingList(String nickName);
+
+	ArrayList<Funding> popularList();
+
 }

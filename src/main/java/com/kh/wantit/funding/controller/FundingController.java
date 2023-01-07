@@ -1,4 +1,4 @@
-package com.kh.wantit.funding.controller;
+﻿package com.kh.wantit.funding.controller;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -475,6 +475,16 @@ public class FundingController {
 	@RequestMapping("creatorMessage.fund")
 	public String creatorMessage() {
 		return "creatorMessage";
+	}
+	@RequestMapping("popular.fund")
+	public String popularList(Model model) {
+		ArrayList<Funding> popularList = fService.popularList();
+		ArrayList<Image> imageList = fService.fundingImageList();
+		
+		model.addAttribute("fundingList", popularList);
+		model.addAttribute("imageList", imageList);
+		
+		return "ajaxFundingProceed";
 	}
 	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순

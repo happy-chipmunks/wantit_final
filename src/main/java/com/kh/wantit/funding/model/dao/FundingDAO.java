@@ -180,6 +180,13 @@ public class FundingDAO {
 	public int fundingConfirmUpdate(int fundingNum, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("fundingMapper.fundingConfirmUpdate", fundingNum);
 	}
+	public ArrayList<Funding> getMyFundingList(SqlSessionTemplate sqlSession, String nickName) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getMyFundingList", nickName);
+	}
+
+	public ArrayList<Funding> popularList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.popularList");
+	}
 
 	
 	

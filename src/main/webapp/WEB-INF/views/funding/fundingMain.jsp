@@ -131,13 +131,21 @@
           </div>
         </div>
 
+		<c:set value="<%= new java.util.Date() %>" var="today"></c:set>
+		<fmt:formatDate value="${ today }" pattern="yyyy-MM-dd" var="fmtToday"/>
         <div class="container funding-buttons g-0">
 <!--           <button class="btn-funding" data-bs-toggle="modal" data-bs-target="#funding-modal">펀딩하기</button> -->
-		<c:if test="${ m != null }">
+		<c:if test="${ m != null && fmtToday > f.fundingStart}">
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ bId }'">펀딩하기</button>
 		</c:if>
-		<c:if test="${ m == null }">
+		<c:if test="${ m == null && fmtToday > f.fundingStart }">
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">펀딩하기</button>
+		</c:if>
+		<c:if test="${ m != null && fmtToday < f.fundingStart}">
+		 	<button class="btn-funding" style="background-color: #8c86c7;">오픈예정 알림신청</button>
+		</c:if>
+		<c:if test="${ m == null && fmtToday < f.fundingStart }">
+		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">오픈예정 알림신청</button>
 		</c:if>
           <div class="row g-1">
           <c:if test="${ !ok }">

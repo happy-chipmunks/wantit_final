@@ -223,5 +223,13 @@ public class FundingServiceImpl implements FundingService{
 	public int fundingConfirmUpdate(int fundingNum) {
 		return fDAO.fundingConfirmUpdate(fundingNum, sqlSession);
 	}
+	public ArrayList<Funding> getMyFundingList(String nickName) {
+		return fDAO.getMyFundingList(sqlSession, nickName);
+	}
+	
+	@Override
+	public ArrayList<Funding> popularList() {
+		return fDAO.popularList(sqlSession);
+	}
 
 }
