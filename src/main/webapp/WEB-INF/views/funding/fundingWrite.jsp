@@ -238,7 +238,7 @@
 				var postingDate = $('#rewardAdd').find('input[name="rewardExpectDate[]"]').val();
 				var donationPrice = $('#rewardAdd').find('input[name="price[]"]').val();
 				var deliveryCharge = $('#rewardAdd').find('input[name="shipping[]"]').val();
-				$('#rewardTable').append("<tr name='reward'><td><input type='checkbox' name='checkBox'></td><td><input type='hidden' value='" + title + "'name='rewardTitle[]'>" + title + "</td><td><input type='hidden' value='" + content + "' name='rewardContent[]'>" + content + "</td><td><input type='hidden' value=" + quantity + " name='rewardLimit[]'>" + quantity + "</td><td><input type='hidden' value=" + postingDate + " name='rewardExpectDate[]'>" + postingDate + "</td><td><input type='hidden' value=" + donationPrice + " name='price[]'>" + donationPrice + "</td><td><input type='hidden' value=" + deliveryCharge + " name='shipping[]'>" + deliveryCharge + "</td>");
+				$('#rewardTable').append("<tr name='reward'><td><input type='checkbox' name='checkBox'></td><td><input type='hidden' value='" + title + "'name='rewardTitle[]'>" + title + "</td><td><textarea name='rewardContent[]' style='resize:none; background-color:transparent; border:none;' readonly>" + content + "</textarea></td><td><input type='hidden' value=" + quantity + " name='rewardLimit[]'>" + quantity + "</td><td><input type='hidden' value=" + postingDate + " name='rewardExpectDate[]'>" + postingDate + "</td><td><input type='hidden' value=" + donationPrice + " name='price[]'>" + donationPrice + "</td><td><input type='hidden' value=" + deliveryCharge + " name='shipping[]'>" + deliveryCharge + "</td>");
 			});
 		
 		// 리워드 추가 모달 닫을 시..cos
