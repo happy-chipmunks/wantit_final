@@ -287,9 +287,9 @@
 
 		// 크리에이터 문의
 		 	function openPopup(){
-				var url = "creatorMessage.fund";
+				var url = "creatorMessage.me";
 				var name="creatorMessage";
-				window.open(url, name, "width=500 height=300");
+				window.open(url, name, "width=500 height=600");
 			}
 	    
 	    const fileInput = document.getElementById("businessLicense");

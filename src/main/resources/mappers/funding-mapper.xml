@@ -247,7 +247,7 @@
 	<!-- 펀딩 수정 시 펀딩 테이블 confirm update -->
 	<update id="fundingConfirmUpdate">
 		update funding
-		set funding_confirm='E'
+		set confirm='E'
 		where funding_num=#{fundingNum}
 	</update>
 	

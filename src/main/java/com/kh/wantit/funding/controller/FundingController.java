@@ -471,11 +471,6 @@ public class FundingController {
 		}
 	}
 	
-	// 크리에이터 문의
-	@RequestMapping("creatorMessage.fund")
-	public String creatorMessage() {
-		return "creatorMessage";
-	}
 	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순
 //	@RequestMapping("ingList.fund")

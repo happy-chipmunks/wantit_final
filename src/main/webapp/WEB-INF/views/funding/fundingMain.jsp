@@ -182,7 +182,7 @@
         			<span class="ps-3"><i class="bi bi-person-fill fs-4"></i>&nbsp;&nbsp;팔로워 0명</span>
         		</div>
         		<div>
-        			<button class="btn" onclick="location.href=${contextPath}/sednMassage.fund"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        			<button class="btn" onclick="location.href=${contextPath}/sendMassage.me"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
         			<button class="btn"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
         		</div>
         	</div>
