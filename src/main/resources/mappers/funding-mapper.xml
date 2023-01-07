@@ -287,6 +287,10 @@
 	</select>
 	
 	
+	<insert id="insertInquiry">
+		insert into funding_message
+		values(seq_funding_message.nextval, #{sender}, #{receiver}, #{fundingNum}, #{messageTitle}, #{messageContent}, #{messageCate}, sysdate, default, #{replyContent}, sysdate, default)
+	</insert>
 	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>

@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,12 +26,12 @@ import com.kh.wantit.funding.model.exception.FundingException;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingDibs;
+import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
-import com.sun.mail.handlers.image_gif;
 
 @Controller
 public class FundingController {
@@ -514,6 +513,23 @@ public class FundingController {
 		} else {
 			return "ajaxFundingComingSoon";
 		}
+	}
+	
+	// 펀딩 문의하기
+	@RequestMapping("sendMassage.fund")
+	public String sendMassage(@RequestParam("fundingNum") int fundingNum, HttpSession session, Model model, @ModelAttribute FundingMessage fm, @RequestParam("creatorId") int creatorNum, @RequestParam("cate") String cate) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		String creatorId = fService.getFundingCreator(fundingNum);
+		fm.setFundingNum(fundingNum);
+		fm.setSender(id);
+		fm.setReceiver(creatorId);
+		fm.setMessageCate(cate);
+		
+		int result = fService.insertInquiry(fm);
+		
+		model.addAttribute("creatorNum", creatorNum);
+		model.addAttribute("fundingNum", fundingNum);
+		return "redirect:selectFundingBoard.fund";
 	}
 	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순
