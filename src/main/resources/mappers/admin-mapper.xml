@@ -240,7 +240,6 @@
 		select * from image join banner_image using(image_num) where banner_status = 'Y' and confirm = 'Y'
 	</select>
 	
-	
 	<update id="okProjectW">
 		update wanting
 		set wanting_confirm='Y'
@@ -267,19 +266,35 @@
 
 	<delete id="noEditProjectF">
 		delete from funding_edit
-		where edit_fundint_num=#{id}
+		where edit_funding_num=#{id}
 	</delete>
+	
+	<update id="noEditProjectFF">
+		update funding
+		set confirm='R'
+		where funding_num=#{id}
+	</update>
 	
 	<update id="okEditProjectF">
 		update funding
-		set confirm='Y', funding_content=#{fundingEditContent}
-		where funding_num=#{editFundingNum}
+		set confirm='C'
+		where funding_num=#{id}
 	</update>
 	
 	<update id="okEditPro">
 		update funding_edit
 		set edit_confirm='Y', edit_status='Y'
-		where edit_funding_num=#{editFundingNum}
+	</update>
+	
+	<update id="okEditProjectW">
+		update wanting
+		set confirm='C'
+		where wanting_num=#{id}
+	</update>
+	
+	<update id="okEditProW">
+		update wanting_edit
+		set wanting_confirm='Y', edit_status='Y'
 	</update>
 	
 	<insert id="insertImage">
@@ -319,6 +334,31 @@
 	<insert id="insertBannerImage">
 		insert into banner_image values(#{imageNum}, #{startDate}, #{endDate}, 'N', 'Y')
 	</insert>
+	
+	<update id="noEditProjectFF">
+		update funding
+		set confirm='R'
+		where funding_num=#{id}
+	</update>
+	
+	<update id="confirmNotice">
+        update notice
+        set notice_content=#{content}, notice_title=#{title}, notice_division=#{division}
+        where notice_num = #{code}
+    </update>
+    
+    <select id="selectNoticeDetail" resultMap="noticeResultSet">
+    	select *
+    	from notice
+    	where notice_num =#{code} and notice_division = #{division}
+    </select>
+    
+    <select id ="selectImage" resultMap="imageResultSet">
+    	select *
+    	from image
+    	where image_board_cate = 6 and image_board_id =#{code} and image_status='Y'
+    </select>
+	
 	
 	<resultMap type="Member" id="memberResultSet">
 		<id column="MEMBER_ID" property="memberId" />
