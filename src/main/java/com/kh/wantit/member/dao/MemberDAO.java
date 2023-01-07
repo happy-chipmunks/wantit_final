@@ -1,14 +1,15 @@
 package com.kh.wantit.member.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
-import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 
@@ -142,6 +143,22 @@ public class MemberDAO {
 
 	public int deleteboforecImage(SqlSessionTemplate sqlSession, Image cm) {
 		return sqlSession.update("memberMapper.deleteboforecImage",cm);
+	}
+
+	public int getMsgDontReadListCount(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.getMsgDontReadListCount", id);
+	}
+
+
+	public int getMsgListCount(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.getMsgListCount", id);
+	}
+
+
+	public ArrayList<FundingMessage> getMsgList(String id, PageInfo pi, SqlSessionTemplate sqlSession) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getMsgList", id, rowBounds);
 	}
 
 

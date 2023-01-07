@@ -238,6 +238,42 @@
   	<select id="getImageNum" resultType="_int">
   		select image_num from image where image_board_cate = #{imageBoardCate} and image_board_id = #{imageBoardId}
   	</select>
+
+  	<select id="getMsgDontReadListCount" resultType="_int">
+		select count(*)
+		from funding_message
+		where MESSAGE_READ_STATUS = 'N' and RECEIVER = #{id}
+	</select>
+	
+	<select id="getMsgListCount" resultType="_int">
+		select count(*)
+		from funding_message
+		where receiver=#{id}
+	</select>
+	
+	<select id="getMsgList" resultMap="fundingMessageResultSet">
+		select *
+		from funding_message
+		where receiver=#{id}
+		order by message_code desc
+	</select>
+	
+	<resultMap type="FundingMessage" id="fundingMessageResultSet">
+		<id column="message_code" property="messageCode"/>
+		<result column="sender" property="sender"/>
+		<result column="receiver" property="receiver"/>
+		<result column="funding_num" property="fundingNum"/>
+		<result column="message_title" property="messageTitle"/>
+		<result column="message_content" property="messageContent"/>
+		<result column="message_cate" property="messageCate"/>
+		<result column="message_date" property="messageDate"/>
+		<result column="message_read_status" property="messageReadStatus"/>
+		<result column="reply_content" property="replyContent"/>
+		<result column="reply_date" property="replyDate"/>
+		<result column="reply_status" property="replyStatus"/>
+	</resultMap>
+  	
+  	
   	
   	
 </mapper>
