@@ -471,11 +471,6 @@ public class FundingController {
 		}
 	}
 	
-	// 크리에이터 문의
-	@RequestMapping("creatorMessage.fund")
-	public String creatorMessage() {
-		return "creatorMessage";
-	}
 	@RequestMapping("popular.fund")
 	public String popularList(Model model) {
 		ArrayList<Funding> popularList = fService.popularList();

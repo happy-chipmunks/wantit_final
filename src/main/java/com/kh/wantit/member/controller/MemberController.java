@@ -1,33 +1,17 @@
 ﻿package com.kh.wantit.member.controller;
 
-import java.util.Random;
 import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Random;
-import javax.servlet.http.HttpSession;
-import java.util.Random;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import java.util.Random;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.collections.bag.SynchronizedSortedBag;
-import org.apache.maven.shared.invoker.SystemOutHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -38,15 +22,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
-import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
@@ -828,7 +808,25 @@ public class MemberController {
 		return "myPage_creator";
 	}
 	
-	
+	 // 크리에이터 받은 쪽지
+		@RequestMapping("creatorMessage.me")
+		public String creatorMessage(@RequestParam("msgType") Integer msgType, HttpSession session) {
+			Member m = (Member)session.getAttribute("loginUser");
+			String id = m.getMemberId();
+			
+			int type = 0;
+			if(msgType == 1) {
+				// 받은 편지
+				type = 1;
+			}else if(msgType == 2) {
+				// 보낸 편지
+				type = 2;
+			}
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			return "myPage_creator_message";
+		}
 	
 	
 }
