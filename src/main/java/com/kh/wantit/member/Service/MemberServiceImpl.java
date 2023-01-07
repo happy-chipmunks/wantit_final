@@ -2,15 +2,18 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
+import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.member.dao.MemberDAO;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
@@ -32,7 +35,6 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.enroll(sqlSession, member);
 
 	}
-
 	
 	  @Override public Member login(Member member) {
 		  return mDAO.login(sqlSession,member); }
@@ -196,6 +198,24 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int deleteboforecImage(Image cm) {
 		return mDAO.deleteboforecImage(sqlSession,cm);
+	}
+
+
+	@Override
+	public int getMsgDontReadListCount(String id) {
+		return mDAO.getMsgDontReadListCount(id, sqlSession);
+	}
+
+
+	@Override
+	public int getMsgListCount(String id) {
+		return mDAO.getMsgListCount(id, sqlSession);
+	}
+
+
+	@Override
+	public ArrayList<FundingMessage> getMsgList(String id, PageInfo pi) {
+		return mDAO.getMsgList(id, pi, sqlSession);
 	}
 
 
