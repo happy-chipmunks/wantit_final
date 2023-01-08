@@ -335,11 +335,6 @@
 		insert into banner_image values(#{imageNum}, #{startDate}, #{endDate}, 'N', 'Y')
 	</insert>
 	
-	<update id="noEditProjectFF">
-		update funding
-		set confirm='R'
-		where funding_num=#{id}
-	</update>
 	
 	<update id="confirmNotice">
         update notice
