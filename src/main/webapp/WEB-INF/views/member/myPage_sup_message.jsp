@@ -74,7 +74,7 @@
 												      	<br>
 												 </div>
 												 <div class="modal-footer pt-2">
-												 	답변 내용<textarea readonly class="form-control" style="resize:none; height:200px;">${ sml.replyContent }</textarea>
+												 	${ sml.replyDate } | 문의 답변<textarea readonly class="form-control" style="resize:none; height:200px;">${ sml.replyContent }</textarea>
 											      	<button type="button" class="btn btn-secondary btn-inquiry close" data-bs-dismiss="modal">닫기</button>
 												 </div>
 									    	</div> 
