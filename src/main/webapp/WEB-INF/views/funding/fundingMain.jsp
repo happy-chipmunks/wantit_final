@@ -88,7 +88,7 @@
 	        <div class="about-funding">
 	          <span class="icon"></span>
 	          <strong>크라우드펀딩 제대로 알고 펀딩하자</strong>
-	          <button class="more-button">자세히 알아보기</button>
+	          <button class="more-button" onclick="$('#more').modal('show')">자세히 알아보기</button>
 	        </div>
 	        
 	        <!-- 상품 상세설명 -->
@@ -294,7 +294,27 @@
 		</div>
 	  </div>
 	</div>
-
+	
+	<!-- 자세히 알아보기 -->
+	<div class="modal" tabindex="-1" id="more">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title"><b>크라우드 펀딩이란?</b></h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        펀딩은 리워드를 단순히 구매하는 쇼핑이 아닌 <b>크리에이터의 새로운 제품・서비스 제작 과정을 지원하는 것입니다.</b><br>
+				따라서, 펀딩은 전자상거래법상 통신판매에 해당하지 않으므로 단순 변심으로 인한 환불 등 관련 규정이 적용되지 않습니다.<br>
+				<b>단, 펀딩 종료 전까지 언제든지 펀딩을 취소할 수 있습니다.</b>
+	      </div>
+	      <div class="modal-footer mb-2"><br>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>&nbsp;
+<!-- 	        <button type="button" class="btn btn-primary">Save changes</button> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 
   <!-- cursor -->
