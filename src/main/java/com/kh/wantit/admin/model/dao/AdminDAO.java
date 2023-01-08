@@ -307,6 +307,10 @@ public class AdminDAO {
 		return sqlSession.update("adminMapper.confirmNotice", er);
 	}
 
+	public void plusNoticeCount(SqlSessionTemplate sqlSession, int noticeNum) {
+		sqlSession.update("adminMapper.plusNoticeCount", noticeNum);
+	}
+
 	
 //	public int noProject(SqlSessionTemplate sqlSession, String id) {
 //		return sqlSession.update("adminMapper.noProject", id);

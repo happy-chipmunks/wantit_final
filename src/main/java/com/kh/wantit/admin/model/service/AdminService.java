@@ -277,6 +277,10 @@ public class AdminService {
 		return aDAO.confirmNotice(sqlSession, er);
 	}
 
+	public void plusNoticeCount(int noticeNum) {
+		aDAO.plusNoticeCount(sqlSession, noticeNum);
+	}
+
 
 	
 }

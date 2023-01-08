@@ -136,14 +136,9 @@
 						href="${ contextPath }/fundingList.fund">펀딩</a></li>
 					<li class="nav-item"><a class="nav-link mx-3"
 						href="${ contextPath }/fundingComingSoon.fund">펀딩예정</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle mx-3" href="#" id="navbarDropdown"
-						role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							더보기 </a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="${ contextPath }/noticeEvent.do">공지사항</a></li>
-							<li><a class="dropdown-item" href="#">이벤트</a></li>
-							
+					<li class="nav-item"><a class="nav-link mx-3" 
+						href="${ contextPath }/noticeEvent.do">공지사항/이벤트</a>
+													
 						</ul>
 					</li>
 				</ul>

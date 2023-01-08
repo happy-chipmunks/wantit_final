@@ -14,13 +14,7 @@
         <div class="row">
             <div class="col-5"></div>
             <div class="col-2">
-                <h2 class="noticeAndEvent">공지사항</h2>
-                <div class="row">
-                    <div class="col lists all"><a href="${ contextPath }/noticeEvent.do">전체</a></div>
-                    <div class="col lists">공지</div>
-                    <div class="col lists">이벤트</div>
-                    
-                </div>
+                <h2 class="noticeAndEvent">공지사항/이벤트</h2>
             </div>
 
         </div>
@@ -40,7 +34,6 @@
 	                        <span class="condition">
 	                        	<c:if test="${ noticeList[i].noticeStatus == 'Y' && noticeList[i].noticeDivision == 'E' }">진행중</c:if>
 	                        	<c:if test="${ noticeList[i].noticeStatus == 'N' && noticeList[i].noticeDivision == 'E' }">마감</c:if>
-	                        	<c:if test="${ noticeList[i].noticeStatus == 'Y' && noticeList[i].noticeDivision == 'N' }">???!</c:if>
 	                        </span> 
 	                        <br>
 	                        <div class="nOReContent">${ noticeList[i].noticeTitle }</div>
@@ -87,21 +80,6 @@
 	            </li>
 	    	</ul>
         </nav>
-        <div class="row  justify-content-center">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle drop" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="true">
-                  선택
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-
-                  <li><a class="dropdown-item" href="#">제목+내용</a></li>
-                  <li><a class="dropdown-item" href="#">제목</a></li>
-                  <li><a class="dropdown-item" href="#">내용</a></li>
-                </ul>
-              </div>
-            <input type="text" class="searchInput">
-            <button class="searchNoticeAndEventBtn">검색</button>
-        </div>
 
 
 
@@ -112,7 +90,7 @@
     		noticeAndEventList[i].addEventListener('click', function() {
     			const noticeNum = document.getElementById('noticeNum' + i);
     			
-    			location.href = '${ contextPath }/selectNotice.do?noticeNum=' noticeNum.value;
+    			location.href = '${ contextPath }/selectNotice.do?noticeNum=' + noticeNum.value;
     		});
     	}
     </script>

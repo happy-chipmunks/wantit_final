@@ -15,12 +15,13 @@
             <div class="col-8">
                 <div class="title">${ notice.noticeTitle }</div>
                 <br>
-                <span class="profileImageArea"><img src="" alt="" class="profileIamge"></span>
-                <span class="userInfo">WANTIT</span><br>
-                <span class="writeDate">2023.01.03</span>
-                <div class="content">내용</div>
+                <div class="writeDate">${ notice.noticeModifyDate }</div>
+                <br><br>
+                <div class="content">
+                	${ notice.noticeContent }
+                </div>
 
-                <div class="goToList">목록으로 돌아가기</div>
+                <div class="goToList" id="goToList">목록으로 돌아가기</div>
             </div>
             
             
@@ -28,6 +29,11 @@
         </div>
     
     </div>
-    <span class="goToTop"><i class="bi bi-chevron-double-up goTopIcon"></i></span>
+    <script type="text/javascript">
+    	const goToList = document.getElementById('goToList');
+    	goToList.addEventListener('click', function() {
+    		window.history.back();
+    	});
+    </script>
 </body>
 </html>

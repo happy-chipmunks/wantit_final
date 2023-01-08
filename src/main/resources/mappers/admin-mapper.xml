@@ -315,7 +315,7 @@
 		select * from image where image_board_cate = 6 and image_level = 0 and image_status = 'Y'
 	</select>
 	
-	<select id="selectNotice">
+	<select id="selectNotice" resultMap="noticeResultSet">
 		select * from notice where notice_num = #{noticeNum}
 	</select>
 	
@@ -353,6 +353,10 @@
     	from image
     	where image_board_cate = 6 and image_board_id =#{code} and image_status='Y'
     </select>
+    
+    <update id="plusNoticeCount">
+    	update notice set notice_count = notice_count + 1 where notice_num = #{noticeNum}
+    </update>
 	
 	
 	<resultMap type="Member" id="memberResultSet">

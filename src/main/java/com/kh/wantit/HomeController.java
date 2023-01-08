@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.apache.maven.doxia.site.decoration.Banner;
@@ -286,16 +287,16 @@ public class HomeController {
 	}
 	
 	@RequestMapping("selectNotice.do")
-	public  String selectNotice(@RequestParam("noticeNum") int noticeNum, Model model) {
+	public  String selectNotice(@RequestParam("noticeNum") int noticeNum, HttpSession session, Model model) {
 		
-		Notice notice = aService.selectNotice(noticeNum);		
-		String id = notice.getAdmin();
-		Image img = new Image();
-		img.setImageBoardCate(3);
-		img.setImageBoardId(id);
-		Image profileImage = mService.selectcImage(img);
+		Notice notice = aService.selectNotice(noticeNum);
+		String userId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		if(!userId.equals("admin")) {
+			aService.plusNoticeCount(noticeNum);
+		}
+		
 		model.addAttribute("notice", notice);
-		model.addAttribute("profileImage", profileImage);
 		
 		return "common/noticeOrEventView";
 	}
