@@ -1,10 +1,12 @@
 ﻿package com.kh.wantit.funding.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
+import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.exception.FundingException;
 import com.kh.wantit.funding.model.service.FundingService;
@@ -29,6 +35,7 @@ import com.kh.wantit.funding.model.vo.FundingDibs;
 import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
+import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
@@ -258,6 +265,7 @@ public class FundingController {
 
 		Funding f = fService.getFunding(bId, yn);
 		Image img = fService.getImage(bId);
+		Creator creator = fService.getCreatorInfo(creatorNum);
 		 
 		 int supCount = fService.getSupportCount(bId);
 		 int dibsCount = fService.getDibsCount(bId);
@@ -270,9 +278,29 @@ public class FundingController {
 				 ok = true;
 			 }
 		 }
+		 
+			ArrayList<Funding> fundingList = fService.getFundingListFromCreatorNum(creatorNum);
+			ArrayList<Review> reviewList = fService.getReviewList(creatorNum);
+			double reviewAverage = 0;
+			for(Review r : reviewList) {
+				reviewAverage += r.getReviewRating();
+			}
+			reviewAverage = reviewAverage / reviewList.size();
+			int totalAmount = 0;
+			int totalSupCount = 0;
+			for(Funding fund : fundingList) {
+				totalAmount += fund.getCurrentMoney();
+				int sc = fService.getSupportCount(fund.getFundingNum());
+				
+				totalSupCount += sc;
+			}
 		
 		if(f != null) {
-			mv.addObject("f", f).addObject("img", img).addObject("ok", ok).addObject("dibs", dibs).addObject("bId", bId).addObject("dibsCount", dibsCount).addObject("login", login).addObject("supCount", supCount).addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).setViewName("fundingMain");
+			mv.addObject("f", f).addObject("img", img).addObject("ok", ok).addObject("dibs", dibs).addObject("bId", bId)
+			.addObject("dibsCount", dibsCount).addObject("login", login).addObject("supCount", supCount)
+			.addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).addObject("creator", creator)
+			.addObject("reviewAverage", reviewAverage).addObject("totalAmount", totalAmount).addObject("totalSupCount", totalSupCount).addObject("reviewCount", reviewList.size())
+			.setViewName("fundingMain");
 		}else {
 			throw new FundingException("펀딩 게시글 상세조회 실패");
 		}
@@ -312,7 +340,7 @@ public class FundingController {
 	
 	// 새소식 작성
 	@RequestMapping("insertFundingNotice.fund")
-	public String insertFundingNotice(@ModelAttribute FundingNotice fn, HttpSession session, @RequestParam("fundingNoticeNum") int fundingNoticeNum, @RequestParam("category") String cate) {
+	public String insertFundingNotice(@ModelAttribute FundingNotice fn, HttpSession session, @RequestParam("fundingNoticeNum") int fundingNoticeNum, @RequestParam("category") String cate, Model model) {
 		String writer = ((Member)session.getAttribute("loginUser")).getMemberId();
 		fn.setFundingNoticeWriter(writer);
 		fn.setFundingNum(fundingNoticeNum);
@@ -321,7 +349,8 @@ public class FundingController {
 		int result = fService.insertFundingNotice(fn);
 		
 		if(result > 0) {
-			return "fundingNotice";
+			model.addAttribute("bId", fundingNoticeNum);
+			return "redirect:fundingNotice.fund";
 		}else {
 			throw new FundingException("새소식 작성 실패");
 		}
@@ -339,6 +368,8 @@ public class FundingController {
 		if(!writer.equals(login)) {
 			yn = true;
 		}
+		
+		int writerNo = fService.getCreatorNum(writer);
 		
 		ArrayList<FundingNotice> fnList = fService.getFundingNotice(writer, bId, yn);
 		System.out.println(fnList);
@@ -361,6 +392,8 @@ public class FundingController {
 			model.addAttribute("bId", bId);
 			model.addAttribute("f", f);
 			model.addAttribute("dibsCount", dibsCount);
+			model.addAttribute("m", m);
+			model.addAttribute("writerNo", writerNo);
 			return "fundingNoticeDetail";
 		}else {
 			throw new FundingException("새소식 상세조회 실패");
@@ -516,20 +549,152 @@ public class FundingController {
 	}
 	
 	// 펀딩 문의하기
-	@RequestMapping("sendMassage.fund")
-	public String sendMassage(@RequestParam("fundingNum") int fundingNum, HttpSession session, Model model, @ModelAttribute FundingMessage fm, @RequestParam("creatorId") int creatorNum, @RequestParam("cate") String cate) {
+	@RequestMapping("sendMessage.fund")
+	public String sendMassage(@RequestParam("fundingNum") int fundingNum, HttpSession session, Model model, @ModelAttribute FundingMessage fm, @RequestParam("creatorId") int creatorNum) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		String creatorId = fService.getFundingCreator(fundingNum);
 		fm.setFundingNum(fundingNum);
 		fm.setSender(id);
 		fm.setReceiver(creatorId);
-		fm.setMessageCate(cate);
 		
 		int result = fService.insertInquiry(fm);
 		
-		model.addAttribute("creatorNum", creatorNum);
-		model.addAttribute("fundingNum", fundingNum);
+		model.addAttribute("writerNo", creatorNum);
+		model.addAttribute("bId", fundingNum);
 		return "redirect:selectFundingBoard.fund";
+	}
+	
+	@RequestMapping("goToCreator.fund")
+	public String goToCreatorProject(@RequestParam("creatorNum") int creatorNum, 
+																@RequestParam("page") String page, Model model) {
+		
+		Creator creator = fService.getCreatorInfo(creatorNum);
+		ArrayList<Funding> fundingList = fService.getFundingListFromCreatorNum(creatorNum);
+		ArrayList<Review> reviewList = fService.getReviewList(creatorNum);
+		double reviewAverage = 0;
+		for(Review r : reviewList) {
+			reviewAverage += r.getReviewRating();
+		}
+		reviewAverage = reviewAverage / reviewList.size();
+		int totalAmount = 0;
+		int totalSupCount = 0;
+		for(Funding f : fundingList) {
+			totalAmount += f.getCurrentMoney();
+			int supCount = fService.getSupportCount(f.getFundingNum());
+			
+			totalSupCount += supCount;
+		}
+		
+		model.addAttribute("totalSupCount", totalSupCount);
+		model.addAttribute("fundingList", fundingList);
+		model.addAttribute("creator", creator);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewAverage", reviewAverage);
+		model.addAttribute("totalAmount", totalAmount);
+		
+		if(page.equals("project")) {
+			return "../creatorDetail/creatorDetailMain";
+		} else {
+			return "../creatorDetail/creatorDetailInfo";
+		}
+	}
+	
+	@RequestMapping("applyAlarm.fund")
+	public void applyAlarm(@RequestParam("fundingNum") int fundingNum, @RequestParam("fundingTitle") String fundingTitle,
+												@RequestParam("fundingStart") Date fundingStart, HttpServletRequest req, HttpServletResponse resp) {
+		
+		String userId = ((Member)req.getSession().getAttribute("loginUser")).getMemberId();
+		
+		Alarm alarm = new Alarm();
+		alarm.setMemberId(userId);
+		alarm.setAlarmBoardCate(1);
+		alarm.setAlarmBoardId(fundingNum);
+		alarm.setAlarmMsg(fundingTitle + " - 펀딩이 오픈하였습니다 ! ");
+		alarm.setAlarmDate(fundingStart);
+		
+		int alreadyApplyAlarm = fService.checkAlreadyApplyAlarm(alarm);
+		HashMap<String, String> map = new HashMap<String, String>();
+		if(alreadyApplyAlarm >= 1) {
+			map.put("result", "failed");
+		} else {
+			int result = fService.insertAlarm(alarm);
+			
+			if(result >= 1) {
+				map.put("result", "success");
+			} else {
+				map.put("result", "failed");
+			}
+		}
+		resp.setContentType("application/json; charset=UTF-8");
+		GsonBuilder gb = new GsonBuilder();
+		GsonBuilder gb2 = gb.setDateFormat("yyyy-MM-dd");
+		Gson gson = gb2.create();
+		try {
+			gson.toJson(map, resp.getWriter());
+		} catch (JsonIOException | IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	// 펀딩한 서포터
+	@RequestMapping("fundingSupportor.fund")
+	public String fundingSupportor(@RequestParam("bId") int fundingNum, Model model, HttpSession session) {
+		ArrayList<PaySchedule> psList = fService.fundingSupportor(fundingNum);
+		int psListCount = fService.getSupportCount(fundingNum);
+		
+		ArrayList<Member> member = new ArrayList<>();
+		ArrayList<Image> memberImageList = new ArrayList<Image>(); 
+		for(int i = 0; i < psList.size(); i++) {
+			Member memberr = fService.getMember(psList.get(i).getBuyerName());
+			for(int j = 0; j < psList.size(); j++) {
+				String memberId = memberr.getMemberId();
+				System.out.println(memberId);
+				Image image = fService.getMemberImage(memberId);
+				System.out.println(image);
+				memberImageList.add(image);
+			}
+//			System.out.println(memberr);
+			member.add(memberr);
+		}
+		System.out.println(member);
+		System.out.println(memberImageList);
+		
+		Funding f = fService.getFundingInfo(fundingNum);
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		String login = null;
+		if(m != null) {
+			login = m.getMemberId();
+		}
+		
+		boolean yn = false;
+		String writerCheckId = fService.checkWriter(f.getCreatorNum());
+		if(!writerCheckId.equals(login)) {
+			yn = true;
+		}
+		
+		int dibsCount = fService.getDibsCount(fundingNum);
+		 
+		 boolean ok = false;
+		 ArrayList<FundingDibs> dibs = fService.getDibs(fundingNum);
+		 for(int i = 0; i < dibs.size(); i++) {
+			 System.out.println(dibs.get(i));
+			 if(dibs.get(i).getDibsId().equals(login)) {
+				 ok = true;
+			 }
+		 }
+		
+		model.addAttribute("psList", psList);
+		model.addAttribute("psListCount", psListCount);
+		model.addAttribute("bId", fundingNum);
+		model.addAttribute("member", member);
+		model.addAttribute("memberImageList", memberImageList);
+		model.addAttribute("f", f);
+		model.addAttribute("yn", yn);
+		model.addAttribute("dibsCount", dibsCount);
+		model.addAttribute("ok", ok);
+		return "fundingSupporter";
 	}
 	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순

@@ -275,19 +275,22 @@
     </div>
     
     <script>
-    	window.onload = () =>{
-    		var boards = document.getElementsByClassName('cardDecoration');
-    		for(var board of boards){
-    			board.addEventListener('click', function(){
-    				const bId = this.querySelector('.bId').value;
-    				console.log(bId);	// 선택한 펀딩 게시글 번호를 가지고 오는가
-    				const writerNo = this.querySelector('.writer').value;
-    				console.log(writerNo);	// 선택한 펀딩 게시글 작성자 번호를 가지고 오는가
-    				
-    				location.href='${contextPath}/selectFundingBoard.fund?bId=' + bId + '&writerNo=' + writerNo;
-    			});
-    		}
-    	}
+//     	window.onload = () =>{
+			cardClickEvent();
+			function cardClickEvent() {
+	    		var boards = document.getElementsByClassName('cardDecoration');
+	    		for(var board of boards){
+	    			board.addEventListener('click', function(){
+	    				const bId = this.querySelector('.bId').value;
+	    				console.log(bId);	// 선택한 펀딩 게시글 번호를 가지고 오는가
+	    				const writerNo = this.querySelector('.writer').value;
+	    				console.log(writerNo);	// 선택한 펀딩 게시글 작성자 번호를 가지고 오는가
+	    				
+	    				location.href='${contextPath}/selectFundingBoard.fund?bId=' + bId + '&writerNo=' + writerNo;
+	    			});
+	    		}
+			}
+//     	}
     	
     	const fundingProceedMoney = document.getElementsByClassName('fundingProceedMoney');
 		for(const span of fundingProceedMoney) {
@@ -306,12 +309,6 @@
 			}
 		}
     	
-//     	$('.cateDropDown').on('click', function(){
-//     		$.ajax({
-//     			url: "${contextPath}/ingList.fund"
-//     			d
-//     		});
-//     	});
     	const popular = document.getElementById('popular');
     	popular.addEventListener('click', function() {
     		$.ajax({
@@ -321,6 +318,7 @@
     				changeHtmlView(data);
     				changeMoney();
     				changeProgressBar();
+    				cardClickEvent();
     			},
     			error : (data)=> {
     				
@@ -339,6 +337,7 @@
     					changeHtmlView(data);
         				changeMoney();
         				changeProgressBar();
+        				cardClickEvent();
     				},
     				error : (data)=> {
     					
@@ -355,6 +354,7 @@
     				changeHtmlView(data);
     				changeMoney();
     				changeProgressBar();
+    				cardClickEvent();
     			},
     			error : (data)=> {
     				

@@ -221,8 +221,11 @@
 	        readURL(this);
 	    });
 		
-		function openPopup(){
-			window.open("myPage_sup_message.me", "message", "width=500 height=300");
+		// 크리에이터 문의
+	 	function openPopup(){
+			var url = "creatorMessage.me";
+			var name="creatorMessage";
+			window.open(url, name, "width=700 height=600");
 		}
 	</script>
 

@@ -149,7 +149,7 @@
 		where funding_num=#{bId}
 	</select>
 	<insert id="insertReview">
-		insert into review values(seq_review.nextval, #{reviewer}, #{fundingNum}, #{reviewContent}, default, #{reviewRating})
+		insert into review values(seq_review.nextval, #{reviewer}, #{fundingNum}, #{reviewContent}, default, #{reviewRating}, #{creatorNum})
 	</insert>
 	
 	<select id="checkExistReview" resultType="_int">
@@ -286,11 +286,49 @@
 		select * from funding join creator using(creator_num) where creator = #{userId}
 	</select>
 	
-	
 	<insert id="insertInquiry">
 		insert into funding_message
-		values(seq_funding_message.nextval, #{sender}, #{receiver}, #{fundingNum}, #{messageTitle}, #{messageContent}, #{messageCate}, sysdate, default, #{replyContent}, sysdate, default)
+		values(seq_funding_message.nextval, #{sender}, #{receiver}, #{fundingNum}, #{messageTitle}, #{messageContent}, #{messageCate}, sysdate, default, null, sysdate, default)
 	</insert>
+	
+	<select id="getCreatorInfo" resultMap="creatorResultSet">
+		select * from creator where creator_num = #{creatorNum}
+	</select>
+	
+	<select id="getFundingListFromCreatorNum" resultMap="fundingResultSet">
+		select * from funding where creator_num = #{creatorNum}
+	</select>
+	
+	<select id="getReviewList"  resultMap="reviewResultSet">
+		select * from review where creator_num = #{creatorNum}
+	</select>
+	
+	<insert id="insertAlarm">
+		insert into alarm values(seq_alarm.nextval, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, default, #{alarmDate}, 'N')
+	</insert>
+	
+	<select id="checkAlreadyApplyAlarm" resultType="_int">
+		select count(*) from alarm where member_id = #{memberId} and alarm_board_cate = 1 and alarm_board_id = #{alarmBoardId}
+	</select>
+	
+	<select id="fundingSupportor" resultMap="payScheduleResultSet">
+		select *
+		from payschedule
+		where funding_num=#{fundingNum}
+		order by CUSTOMER_UID desc
+	</select>
+	
+	<select id="getMember" resultMap="memberResultSet">
+		select *
+		from member
+		where member_nickname=#{buyerName}
+	</select>
+	
+	<select id="getMemberImage" resultMap="imageResultSet">
+		select * 
+		from image
+		where image_board_cate=3 and image_board_id=#{memberId} and image_status='Y'
+	</select>
 	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
@@ -367,6 +405,7 @@
 		<result column="review_content" property="reviewContent"/>
 		<result column="review_status" property="reviewStatus"/>
 		<result column="review_rating" property="reviewRating"/>
+		<result column="creator_num" property="creatorNum"/>
 	</resultMap>
 	
 	<resultMap type="PaySchedule" id="payScheduleResultSet">
@@ -410,4 +449,14 @@
 		<id column="dibs_id" property="dibsId"/>
 		<result column="funding_num" property="fundingNum"/>
 	</resultMap>
+	
+	<resultMap type="Alarm" id="alarmResultSet">
+		<id column="ALARM_NUM" property="alarmNum"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="ALARM_MSG" property="alarmMsg"/>
+		<result column="ALARM_BOARD_CATE" property="alarmBoardCate"/>
+		<result column="ALARM_BOARD_ID" property="alarmBoardId"/>
+		<result column="ALARM_CHECK" property="alarmCheck"/>
+	</resultMap>
+	
 </mapper>

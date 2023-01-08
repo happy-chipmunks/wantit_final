@@ -19,34 +19,25 @@
         <div class="row justify-content-md-center">
             <div class="col-lg-6 creatorInfo">
                 <strong class="creatorName">
-                    온유어브랜딩
+                    ${ creator.creatorName }
                     
                     <i class="bi bi-share shareIcon"></i>
                     
                 </strong>
                 <br>
-                <span class="creatorCate">기타</span>
-                <span class="creatorCate">출판</span>
-                <br>
-                <div class="creatorContent">
-                    모든 문의는 카카오톡 채널 @온유어브랜딩 으로 부탁드립니다.<br>
-                    💻 블로그 하나로, 대기업 퇴사 후 하고 싶은 일과 좋아하는 일만 하며 살아가는 해피엘린입니다.<br>
-                    📍 온유어브랜딩 운영 | 블로그 마케팅 <br>
-                    📍  9년차 블로거 | 전자책 출간 | 마케팅 강의
-                </div>
                 <hr style="color:dimgray;">
                 <div class="row">
                     <div class="col creator-statistics">
                         <i class="bi bi-star-fill" style="color: #e8acef;"></i>
-                        평점 4.5 (1300개)
+                        평점 ${ reviewAverage } (${ reviewList.size() }개)
                     </div>
                     <div class="col creator-statistics">
                         <i class="bi bi-piggy-bank-fill" style="color: #e8acef;"></i>
-                        누적액수 2억원+
+                        누적액수 ${ totalAmount }
                     </div>
                     <div class="col creator-statistics">
                         <i class="bi bi-people-fill" style="color: #e8acef;"></i>
-                        서포터수 2048명
+                        서포터수 ${ totalSupCount }명
                     </div>
                 </div>
                 <div class="row" style="padding-top: 15px;">
@@ -65,8 +56,8 @@
                 </div>
 
                 <div class="goFunding">
-                    <h4 class="gf2">진행중인 펀딩 🔥</h4>
-                    <span class="fundListCount">1건</span>
+                    <h4 class="gf2">진행/진행예정 펀딩 🔥</h4>
+                    <span class="fundListCount">${ fundingList.size() }건</span>
                 </div>
                 <div style="padding-bottom: 20px;">
                     <div class="gfImage">
@@ -77,30 +68,6 @@
                     <span class="gfMoney"> ᐧ 36,871,400 원</span>
                     <span class="gfRemainDate">30일 남음</span>
                 </div>
-                <div class="endFunding">
-                    <h4 class="ef2">종료된 펀딩 🕒</h4>
-                    <span class="fundListCount">2건</span>
-                </div>
-                <div class="row" style="padding-bottom: 20px;">
-                    <div class="col-6 efList">
-                        <div class="efImage">
-                            <!--이미지 태그-->
-                        </div>
-                        <p class="efTitle">[2.3억  폭주/1위]하루 1시간 블로그로 대기업 퇴사! 23년은 월급독립</p>
-                        <span class="efPercent">7374%</span>
-                        <span class="efMoney"> ᐧ 36,871,400 원</span>
-                        
-                    </div>
-                    <div class="col-6 efList">
-                        <div class="efImage">
-                            <!--이미지 태그-->
-                        </div>
-                        <p class="efTitle">[2.3억  폭주/1위]하루 1시간 블로그로 대기업 퇴사! 23년은 월급독립</p>
-                        <span class="efPercent">7374%</span>
-                        <span class="efMoney"> ᐧ 36,871,400 원</span>
-                        
-                    </div>
-                </div>
 
             </div>
             
@@ -109,10 +76,10 @@
         <div class="row justify-content-md-center">
             <div class="col-lg-6 fInfo">
                 <div class="ff">구매자 후기</div>
-                <span class="ffCount">(734개)</span>
+                <span class="ffCount">(${ reviewList.size() }개)</span>
                 <div style="right: 0; position: absolute; padding-right: 60px;">
                     <span class="totalStar">
-                        전체 평점 4.5
+                        전체 평점 ${ reviewAverage }
                         <i class="bi bi-star-fill starAvg"></i>
                         <i class="bi bi-star-fill starAvg"></i>
                         <i class="bi bi-star-fill starAvg"></i>

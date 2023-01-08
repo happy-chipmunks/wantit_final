@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
+import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingDibs;
@@ -12,6 +13,7 @@ import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.funding.model.vo.SupportCount;
+import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
@@ -104,5 +106,22 @@ public interface FundingService {
 	ArrayList<Funding> getUserFundingList(String userId);
 
 	int insertInquiry(FundingMessage fm);
+
+	Creator getCreatorInfo(int creatorNum);
+
+	ArrayList<Funding> getFundingListFromCreatorNum(int creatorNum);
+
+	ArrayList<Review> getReviewList(int creatorNum);
+
+	int insertAlarm(Alarm alarm);
+
+	int checkAlreadyApplyAlarm(Alarm alarm);
+
+
+	ArrayList<PaySchedule> fundingSupportor(int fundingNum);
+
+	Member getMember(String buyerName);
+
+	Image getMemberImage(String buyerName);
 
 }

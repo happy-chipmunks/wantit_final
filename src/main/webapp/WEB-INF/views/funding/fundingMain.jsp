@@ -58,7 +58,7 @@
       <div class="col-2 offset-2"><a class="tab-link" href="${ contextPath }/selectFundingBoard.fund?bId=${f.fundingNum}&writerNo=${creatorNum}" style="font-weight: 1000px; color:black;">정보 </a></div>
       <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund?bId=${f.fundingNum}">새소식 </a></div>
       <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingReview.fund?bId=${f.fundingNum}">리뷰 </a></div>
-      <div class="col-2"><a class="tab-link" href="#">서포터 ${ supCount } <span class="count-total"></span></a></div>
+      <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingSupportor.fund?bId=${f.fundingNum}">서포터 ${ supCount } <span class="count-total"></span></a></div>
     </div>
   </div>
 
@@ -143,7 +143,12 @@
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">펀딩하기</button>
 		</c:if>
 		<c:if test="${ m != null && fmtToday < f.fundingStart}">
-		 	<button class="btn-funding" style="background-color: #8c86c7;">오픈예정 알림신청</button>
+		 	<button class="btn-funding" style="background-color: #8c86c7;" id="applyAlarmBtn">
+		 		오픈예정 알림신청
+		 		<input type="hidden" value="${ f.fundingNum }" class="bId">
+				<input type="hidden" value="${ f.fundingTitle }" class="fundingTitle">
+				<input type="hidden" value="${ f.fundingStart }" class="fundingStart">
+		 	</button>
 		</c:if>
 		<c:if test="${ m == null && fmtToday < f.fundingStart }">
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">오픈예정 알림신청</button>
@@ -180,11 +185,41 @@
         
         <div>
         	<div class="container creator-info" style="text-align:center;">
-        		<div class="mb-2">
+        		<div class="mb-2" id="goToInfo">
 	        		<a>
 		        		<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="50" height="50">
-		        		<span style="font-size: 20px;">닉네임</span>
+		        		<span style="font-size: 20px;">${ creator.creatorName }</span>
+		        		<input type="hidden" value="${ creator.creatorNum }" id="creatorNum">
 	        		</a>
+        		</div>
+        		<div class="mb-2">
+        			<i class="bi bi-star-fill" style="color: #e8acef;"></i>
+        			<span class="dohyeonFont">평점 -</span>
+        			<span class="dohyeonFont">${ reviewAverage } (${ reviewCount }개)</span>
+        			<br>
+        			<i class="bi bi-piggy-bank-fill" style="color: #e8acef;"></i>
+        			<span  class="dohyeonFont">누적액수 - </span>
+        			<span class="dohyeonFont" id="ta">${ totalAmount }</span>
+        			<br>
+        			<i class="bi bi-people-fill" style="color: #e8acef;"></i>
+        			<span  class="dohyeonFont">서포터수 - </span>
+        			<span class="dohyeonFont">${ totalSupCount }</span>
+        			<br><br>
+        			<span>기업형태 : </span>
+        			<c:if test="${ creator.businessType eq 'N'.charAt(0) }"><span>개인기업</span></c:if>
+        			<c:if test="${ creator.businessType eq 'Y'.charAt(0) }"><span>단체기업</span></c:if>
+        			<br>
+        			<span>대표자 이름 : </span>
+        			<span>${ creator.managerName }</span>
+        			<br>
+        			<span>이메일 : </span>
+        			<span>${ creator.managerEmail }</span>
+        			<br>
+        			<span>대표전화 : </span>
+        			<span>${ creator.managerPhone }</span>
+        			<br>
+        			<span>사업자등록번호 : </span>
+        			<span>${ creator.businessNumber }</span>
         		</div>
         		<div class="mb-2">
 <!--         			<span>만족도</span> -->
@@ -210,7 +245,7 @@
 
 <!-- 모달 -->
 		<!-- 문의하기 모달 -->
-		<form action="${ contextPath }/sendMessage.fund?fundingNum=${f.fundingNum}&creatorId=${creatorNum}&cate=${f.fundingCate}" method="POST">
+		<form action="${ contextPath }/sendMessage.fund?fundingNum=${f.fundingNum}&creatorId=${creatorNum}" method="POST">
 			<div class="modal fade font" id="inquiry" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 			  <div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
@@ -220,21 +255,8 @@
 					    </div>
 					 	<div class="modal-body" style="text-align: left">
 					 			카테고리
-					 			<select name="category" id="cate" class="form-select" required>
-				   					<option>테크·가전</option>
-				   					<option>패션·잡화</option>
-				   					<option>뷰티</option>
-				   					<option>음식</option>
-				   					<option>홈·리빙</option>
-				   					<option>여행·레저</option>
-				   					<option>스포츠</option>
-				   					<option>캐릭터·굿즈</option>
-				   					<option>베이비·키즈</option>
-				   					<option>반려동물</option>
-				   					<option>게임</option>
-				   					<option>컬쳐·아티스트</option>
-				   					<option>출판</option>
-				   					<option>클래스·컨설팅</option>
+					 			<select name="messageCate" id="cate" class="form-select">
+				   					<option>${ f.fundingCate }</option>
 				   				</select>
 						    	제목<input type="text" class="form-control input" id="title" name="messageTitle">
 	<!-- 					    	내용<input class="form-control input" style="height: 150px" name="messageContent"> -->
@@ -289,6 +311,29 @@
 			alert('로그인 후 이용해주세요.');
 		}
 		
+		const applyAlarmBtn = document.getElementById('applyAlarmBtn');
+		applyAlarmBtn.addEventListener('click', function() {
+			const fundingNum = this.querySelector('.bId').value;
+			const fundingTitle = this.querySelector('.fundingTitle').value;
+			const fundingStart = this.querySelector('.fundingStart').value;
+			$.ajax({
+				url : '${ contextPath }/applyAlarm.fund',
+				data : {'fundingNum' : fundingNum, 'fundingTitle' : fundingTitle, 'fundingStart' : fundingStart},
+				success : (data)=> {
+					console.log(data.result);
+					if(data.result == 'success') {
+						alert('오픈 알림신청이 되었습니다 !');
+					} else {
+						alert('이미 신청을 한 펀딩상품입니다 !');
+					}
+				},
+				error : (data)=> {
+					console.log(data);
+				}
+						
+			});
+		});
+		
 		changeMoney();
 		function changeMoney() {
 			const targetMoney = document.getElementsByClassName('toLocaleMoney');
@@ -339,17 +384,37 @@
 	        title: '원잇 사이트로 이동',
 	        link: {
 	          webUrl: 'http://localhost:8080/wantit/home.do',
-	        },
+       	   },
 	      },
 	    ],
 	  	});
 	    
-		//  문의 모달 닫을 시
+	//  문의 모달 닫을 시
 		$('.close').on('click', function (e) {
 			$('#title').val('');
 			$('#content').val("");
 			console.log("#cate option:eq(0)");
 		    $("#cate option:eq(0)").prop('selected', true);
+		});
+		
+		window.onload=()=> {
+			const ta = document.getElementById('ta');
+			const before = parseInt(ta.innerText);
+			ta.innerText = before.toLocaleString() + "원";
+		}
+		
+	
+// 	//  문의 모달 보낼 시
+// 		$('.btn-inquiry').on('click', function (e) {
+// 			$('#title').val('');
+// 			$('#content').val("");
+// 			console.log("#cate option:eq(0)");
+// 		    $("#cate option:eq(0)").prop('selected', true);
+// 		});
+		
+		// 문의 모달 보낼 시
+		$('.btn-inquiry').on('click', function (e){
+			$('#inquiry').modal('hide');
 		});
 	</script>
 

@@ -275,6 +275,10 @@ p {margin: 0;}
     border-top: none;
 }
 
+.dohyeonFont {
+	font-family: 'Do Hyeon', sans-serif;
+}
+
 
 
 /* ==================== 모달 - 찜버튼 ==================== */

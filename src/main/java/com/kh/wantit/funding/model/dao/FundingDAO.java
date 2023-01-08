@@ -8,12 +8,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
+import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingDibs;
 import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
+import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
@@ -203,6 +205,38 @@ public class FundingDAO {
 
 	public int insertInquiry(FundingMessage fm, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("fundingMapper.insertInquiry", fm);
+	}
+
+	public Creator getCreatorInfo(SqlSessionTemplate sqlSession, int creatorNum) {
+		return sqlSession.selectOne("fundingMapper.getCreatorInfo", creatorNum);
+	}
+
+	public ArrayList<Funding> getFundingListFromCreatorNum(SqlSessionTemplate sqlSession, int creatorNum) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getFundingListFromCreatorNum", creatorNum);
+	}
+
+	public ArrayList<Review> getReviewList(SqlSessionTemplate sqlSession, int creatorNum) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getReviewList", creatorNum);
+	}
+
+	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm alarm) {
+		return sqlSession.insert("fundingMapper.insertAlarm", alarm);
+	}
+
+	public int checkAlreadyApplyAlarm(SqlSessionTemplate sqlSession, Alarm alarm) {
+		return sqlSession.selectOne("fundingMapper.checkAlreadyApplyAlarm", alarm);
+	}
+
+	public ArrayList<PaySchedule> fundingSupportor(int fundingNum, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.fundingSupportor", fundingNum);
+	}
+
+	public Member getMember(String buyerName, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getMember", buyerName);
+	}
+
+	public Image getMemberImage(String memberId, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getMemberImage", memberId);
 	}
 
 

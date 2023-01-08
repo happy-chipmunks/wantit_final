@@ -18,4 +18,5 @@ public class Review {
 	private String reviewContent;
 	private String reviewStatus;
 	private double reviewRating;
+	private int creatorNum;
 }

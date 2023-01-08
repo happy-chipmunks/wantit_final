@@ -429,7 +429,7 @@
 		});
 		
 		function openPopup(){
-			window.open("myPage_sup_message.me", "message", "width=500 height=300");
+			window.open("myPage_sup_message.me", "message", "width=700 height=600");
 		}
 	</script>
 
