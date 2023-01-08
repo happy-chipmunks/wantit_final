@@ -172,6 +172,7 @@
 				<c:forEach items="${ alarmList }" var="a">
  				<tr>
  					<td>
+ 						<input type="hidden" id="alarm_num" value="${ a.alarmNum }">
  						<input type="hidden" id="alarm_board_cate" value="${ a.alarmBoardCate }">
  						<input type="hidden" id="alarm_board_id" value="${ a.alarmBoardId }">
  						
@@ -246,15 +247,16 @@
 		for(const td of tds1){
 			td.addEventListener('click', function(){
 				const input = this.parentElement.querySelectorAll('input');
-				const alarmBoardCate = parseInt(input[0].value);
-				const alarmBoardId = parseInt(input[1].value);
+				const alarmNum = parseInt(input[0].value);
+				const alarmBoardCate = parseInt(input[1].value);
+				const alarmBoardId = parseInt(input[2].value);
 				
 				console.log("보드아이디 : " + alarmBoardId);
 				if(alarmBoardCate == 1) {
-    				location.href='${contextPath}/selectFundingBoard.fund?bId=' + alarmBoardId + '&writerNo=' + writerNo; // 크리에이터 넘...을 가져와야함...
+    				location.href='${contextPath}/selectFundingBoard.fund?bId=' + alarmBoardId + '&alarmNum=' + alarmNum;
 				}
 				if(alarmBoardCate == 4) {
-					location.href = '${contextPath}/selectWanting.want?wantingNum='+ alarmBoardId;
+					location.href = '${contextPath}/selectWanting.want?wantingNum='+ alarmBoardId + '&alarmNum=' + alarmNum;
 				}
 			});
 		}

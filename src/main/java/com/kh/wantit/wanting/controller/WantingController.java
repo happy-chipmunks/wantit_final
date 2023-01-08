@@ -215,9 +215,15 @@ public class WantingController {
 	}
 	
 	
-	// ==================== 원팅 상세보기 ====================
+	// ==================== 원팅 상세보기 (알림 지우면서) ====================
 	@RequestMapping("selectWanting.want")
-	public String selectWanting(@RequestParam("wantingNum") int wantingNum, Model model, HttpSession session) {
+	public String selectWanting(@RequestParam("wantingNum") int wantingNum, @RequestParam(value="alarmNum", required=false) Integer alarmNum, Model model, HttpSession session) {
+		
+		// 알림에서 넘어오면 읽으면서 알림 지우기
+		if(alarmNum != null) {
+			int result = wService.checkAlarm(alarmNum);
+		}
+		
 		
 		// 원팅 가져오기
 		Wanting w = wService.selectWanting(wantingNum);
@@ -354,54 +360,6 @@ public class WantingController {
 			result = 0; // 모든 member에게 알림을 못 보냈으면 결과값 0
 		}
 		return result;
-	}
-	
-	
-	// ==================== 원팅 알림 지우면서 상세보기 ====================
-	@RequestMapping("alarmSelectWanting.want")
-	public String alarmSelectWanting(@RequestParam("wantingNum") int wantingNum, @RequestParam("alarmNum") int alarmNum, Model model, HttpSession session) {
-		
-		// 알림 지우기 !!
-		int result2 = wService.checkAlarm(alarmNum);
-
-		// 원팅 가져오기
-		Wanting w = wService.selectWanting(wantingNum);
-		//System.out.println("원팅 상세보기 원팅 : " + w);
-		
-		// 작성자인지 확인하는 건 프론트에서
-		// 사용자가 원팅했는지 확인하기
-		boolean wantingYN = false;
-		if(session.getAttribute("loginUser") != null) {
-			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
-			WantingAttend join = new WantingAttend(id, wantingNum);
-			//System.out.println(join);
-			int result = wService.getWantingYN(join);
-			if(result > 0) {
-				wantingYN = true; 
-			} else {
-				wantingYN = false;
-			}
-		}
-		
-		// 이미지 가져와서 썸네일만 보내기
-		ArrayList<Image> imageList = wService.selectImage(wantingNum);
-		Image thumbnail = null;
-		for(int i = 0; i < imageList.size(); i++) {
-			if(imageList.get(i).getImageLevel() == 0) {
-				thumbnail = imageList.get(i);
-			}
-		}
-		System.out.println("원팅 상세보기 이미지 : " + imageList);
-
-		if (w != null && imageList != null && result2 != 0) {
-			model.addAttribute("wanting", w);
-			model.addAttribute("wantingYN", wantingYN);
-			model.addAttribute("thumbnail", thumbnail);
-			return "wantingMain";
-		} else {
-			throw new WantingException("알림 확인 및 원팅 상세보기 실패");
-		}
-		
 	}
 	
 	

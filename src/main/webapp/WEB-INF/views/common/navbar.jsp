@@ -236,7 +236,7 @@
 						</c:if>		 
 						</a>
 		
-						<!-- 알림 -->
+						<!-- 알림 -------------------------->
 						<div class="dropdown">
 						<c:if test="${ !empty alarmList }">
 							<img src="resources/wanting/notification-y.png" style="width:35px; margin: 10px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
@@ -250,11 +250,11 @@
 							</c:if>
 							<c:forEach items="${ alarmList }" var="a">
 								<c:if test="${ a.alarmBoardCate == 1}">
-							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectWanting.want?wantingNum=${ a.alarmBoardId }'">${ a.alarmMsg }</a></li>
+							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectFundingBoard.fund?bId=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
 								</c:if>
 								<c:if test="${ a.alarmBoardCate == 4}">
 									<input type="hidden" id="wanting-alarmNum" value="${ a.alarmNum }">
-							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/alarmSelectWanting.want?wantingNum=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
+							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectWanting.want?wantingNum=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
 								</c:if>
 						    </c:forEach>
 						    <li><hr class="dropdown-divider"></li>

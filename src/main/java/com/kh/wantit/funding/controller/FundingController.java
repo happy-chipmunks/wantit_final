@@ -39,12 +39,16 @@ import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
+import com.kh.wantit.wanting.model.service.WantingService;
 
 @Controller
 public class FundingController {
 	
 	@Autowired
 	private FundingService fService;
+	
+	@Autowired
+	private WantingService wService;
 	
 	// 펀딩 글 목록
 	@RequestMapping("fundingList.fund") 
@@ -250,7 +254,14 @@ public class FundingController {
 	
 	// 펀딩 게시글 상세조회
 	@RequestMapping("selectFundingBoard.fund")
-	public ModelAndView selectFundingBoard(@RequestParam("bId") int bId, @RequestParam("writerNo") int creatorNum, HttpSession session, ModelAndView mv) {
+	public ModelAndView selectFundingBoard(@RequestParam("bId") int bId, HttpSession session, ModelAndView mv,
+			@RequestParam(value="writerNo", required=false) Integer creatorNum, @RequestParam(value="alarmNum", required=false) Integer alarmNum) {
+		
+		// 알림에서 넘어오면 읽으면서 알림 지우기
+		if(alarmNum != null) {
+			int result = wService.checkAlarm(alarmNum);
+		}
+		
 		Member m = (Member)session.getAttribute("loginUser");
 		String login = null;
 		if(m != null) {
@@ -258,9 +269,15 @@ public class FundingController {
 		}
 		
 		boolean yn = false;
+		// creatorNum이 없다면 조회수 안 올리게 false로 가져오자
+		if(creatorNum == null) {
+			Funding f = fService.getFunding(bId, yn);
+			creatorNum = f.getCreatorNum();
+		}
+		
 		String writerCheckId = fService.checkWriter(creatorNum);
 		if(!writerCheckId.equals(login)) {
-			yn = true;
+			yn = true; // 로그인이 작성자와 다르면 true로 조회수 올리기
 		}
 
 		Funding f = fService.getFunding(bId, yn);
