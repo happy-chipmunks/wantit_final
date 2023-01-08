@@ -953,6 +953,7 @@ public class MemberController {
 			
 			ArrayList<Alarm> alarmList = wService.selectAlarmListPaging(pi, id); // 메소드는 그냥 원팅 꺼 가져옴
 			if(alarmList != null) {
+				model.addAttribute("pi", pi);
 				model.addAttribute("alarmList", alarmList);
 				return "myPage_sup_alarm";
 			} else {
