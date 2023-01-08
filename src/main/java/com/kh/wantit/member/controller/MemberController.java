@@ -87,6 +87,7 @@ public class MemberController {
 		return "myPage_sup_fundingList";
 	}
 	
+	// 마이페이지 참여한 원팅
 	@RequestMapping("/myPageSupporterWanting.me")
 	public String myPageSupporterWanting(@RequestParam(value = "page", required = false) Integer page, HttpSession session, Model model) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
@@ -96,18 +97,53 @@ public class MemberController {
 			currentPage = page;
 		
 		ArrayList<Integer> wantingNumList = wService.selectWantingNumList(id);
-		PageInfo pi = Pagination.getPageInfo(currentPage, wantingNumList.size(), 6);
-		ArrayList<Wanting> wantingList = wService.selectAttendWantList(pi, wantingNumList);
-		ArrayList<Image> imageList = wService.selectImageList();
 		
-		model.addAttribute("wantingList", wantingList);
-		model.addAttribute("imageList", imageList);
-		model.addAttribute("pi", pi);
-		
-		
-		
+		if(wantingNumList.size() == 0) {
+			wantingNumList = null;
+			model.addAttribute("wantingList", wantingNumList);
+		}
+		if(wantingNumList.size() != 0) {
+			PageInfo pi = Pagination.getPageInfo(currentPage, wantingNumList.size(), 6);
+			ArrayList<Wanting> wantingList = wService.selectAttendWantList(pi, wantingNumList);
+			ArrayList<Image> imageList = wService.selectImageList();
+			
+			model.addAttribute("wantingList", wantingList);
+			model.addAttribute("imageList", imageList);
+			model.addAttribute("pi", pi);
+		}
 		return "myPage_sup_wantingList";
 	}
+	
+	
+	// 마이페이지 작성한 원팅
+	@RequestMapping("/myPageSupporterWantingWrite.me")
+	public String myPageSupporterWantingWrite(@RequestParam(value = "page", required = false) Integer page, HttpSession session, Model model) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		int currentPage = 1;
+		if(page != null) 
+			currentPage = page;
+		
+		int listCount = wService.getWantingWriteListCount(id);
+		
+		if(listCount == 0) {
+			ArrayList<Wanting> wantingList = null;
+			model.addAttribute("wantingList", wantingList);
+		}
+		if(listCount != 0) {
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 6);
+			ArrayList<Wanting> wantingList = wService.selectWantingWriteList(pi, id);
+			ArrayList<Image> imageList = wService.selectImageList();
+			
+			model.addAttribute("wantingList", wantingList);
+			model.addAttribute("imageList", imageList);
+			model.addAttribute("pi", pi);
+		}
+		return "myPage_sup_wantingList_write";
+	}
+	
+	
+	
 	
 	@RequestMapping("/myPageSupporterDibs.me")
 	public String myPageSupporterDibs() {
@@ -941,7 +977,14 @@ public class MemberController {
 		
 		// 마이페이지 알림 리스트 보내면서 페이지 이동
 		@RequestMapping("/myPageSupporterAlarm.me")
-		public String myPageSupporterAlarm(@RequestParam(value="page", required=false) Integer page, Model model, HttpSession session) {
+		public String myPageSupporterAlarm(@RequestParam(value="page", required=false) Integer page,
+						@RequestParam(value="alarmNum", required=false) Integer alarmNum, Model model, HttpSession session) {
+			
+			// 알림에서 넘어오면 읽으면서 알림 지우기
+			if(alarmNum != null) {
+				int result = wService.checkAlarm(alarmNum);
+			}
+			
 			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 			
 			int currentPage = 1;
