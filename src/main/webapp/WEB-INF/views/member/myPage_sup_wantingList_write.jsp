@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>마이페이지 서포터(원팅)</title>
+<title>마이페이지 서포터(원팅_작성)</title>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <!-- Bootstrap v5.1.3 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -167,25 +167,25 @@
 
    		<div class="col-8">
 		<p align="left" class="title">
-			<span class="current-menu menu" style="margin-right: 10px;" onclick="location.href='${contextPath}/myPageSupporterWanting.me'">참여한 원팅</span>
-			<span class="menu" onclick="location.href='${contextPath}/myPageSupporterWantingWrite.me'">작성한 원팅</span>
+			<span class="menu" style="margin-right: 10px;" onclick="location.href='${contextPath}/myPageSupporterWanting.me'">참여한 원팅</span>
+			<span class="current-menu menu" onclick="location.href='${contextPath}/myPageSupporterWantingWrite.me'">작성한 원팅</span>
 			<span class="gowrite" onclick="location.href='${ contextPath }/wantingWrite.want'">  원팅하러 가기  </span>
 		</p>
 		
 	      <div class="row" style="padding-top: 10px;">
             <div class="col-0"></div>
-            <div class="col-10">
+            <div class="col-10" id="biglist">
 				<c:if test="${ !empty wantingList }">
             	<c:forEach begin="0" end="${ wantingList.size()-1 }" var="i">
+	                <div class="row g-0 payFundList" style="height: 230px;">	
             		<input type="hidden" value="${ wantingList[i].wantingNum }" id="wantingNum${ i }">
-	                <div class="row g-0 payFundList" onclick="location.href='${ contextPath }/selectWanting.want?wantingNum=${ wantingList[i].wantingNum }'">
 	                    
 						<div class="col-4 imageArea">
 						<svg class="" xmlns="http://www.w3.org/2000/svg" style="height: 0; width: 0;">
 				  			<c:forEach items="${ imageList }" var="image">
 		                    	<c:if test="${ wantingList[i].wantingNum == Integer.parseInt(image.imageBoardId) }">
 			                   	 	<img alt="" src="${ contextPath }/resources/wanting/${ image.imageRename }"
-									class="bd-placeholder-img card-img-top" alt="..." style="height: 140px; width: 100%; object-fit: cover;">
+									class="bd-placeholder-img card-img-top" alt="..." style="height: 200px; width: 100%; object-fit: cover;">
 		                    	</c:if>
 		                    </c:forEach>
 						</svg>
@@ -194,7 +194,11 @@
 	                    <div class="col-8" style="position: relative; height: 100%;">
 	                        <div class="payFundTitle">${ wantingList[i].wantingTitle }</div>
 	                        <div class="wantingSummary">${ wantingList[i].wantingSummary }</div>
-	                        <div class="writerAndDate" style="position:absolute; bottom:0px; right:0px;">
+	                        <div class="request-button" style="position: absolute; bottom: 0px; right: 0px; margin-bottom: 10px;">
+	                        	<button class="btn-funding-small" onclick="location.href='${ contextPath }/updateWantingView.want?wantingNum=' + ${ wantingList[i].wantingNum }">수정 요청</button>
+	                        	<button class="btn-funding-small" onclick="location.href='${ contextPath }/requestDeleteWanting.want?wantingNum=' + ${ wantingList[i].wantingNum }">삭제 요청</button>
+	                        </div>
+	                        <div class="writerAndDate"  style="position: absolute; bottom: 0px; margin-bottom: 10px;">
 		                        <span class="boardCount">작성자 : <span class="color" style="margin-right: 10px;">${ wantingList[i].wantingNickname }</span>
 		                        										현재 참여자 수 : <span class="color">${ wantingList[i].wantingCount } 명</span></span>
 	                        </div>
@@ -205,7 +209,7 @@
             	</c:if>
             	<c:if test="${ empty wantingList }">
 					<div class="row payFundList" style="height: 600px; text-align: center; margin-bottom: 50px;">
-						<p>참여한 원팅이 존재하지 않습니다.</p>
+						<p>작성한 원팅이 존재하지 않습니다.</p>
 					</div>
 				</c:if>
                 
@@ -248,6 +252,28 @@
     <br>
 	
 	<script>
+	window.onload = () =>{
+		const biglist =  document.getElementById('biglist');
+		const divs = biglist.querySelectorAll('div');
+
+		console.log("divs " + divs);
+
+		for(const div of divs){
+
+			div.addEventListener('click', function(){
+				console.log("div " + div);
+
+				const input = document.getElementById('wantingNum' + i);
+				const wantingNum = parseInt(input.value);
+   				console.log(wantingNum);
+   				
+// 				location.href='${contextPath}/selcectWanting.want?wantingNum=' + wantingNum;
+				});
+		}
+	}
+			
+			
+	
 	function openPopup(){
 		window.open("myPage_sup_message.me", "message", "width=700 height=600");
 	}

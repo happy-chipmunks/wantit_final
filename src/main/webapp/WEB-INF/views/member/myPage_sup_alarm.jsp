@@ -258,6 +258,9 @@
 				if(alarmBoardCate == 4) {
 					location.href = '${contextPath}/selectWanting.want?wantingNum='+ alarmBoardId + '&alarmNum=' + alarmNum;
 				}
+				if(alarmBoardCate == 0) {
+					location.href = '${contextPath}/myPageSupporterAlarm.me?alarmNum=' + alarmNum;
+				}
 			});
 		}
 	}

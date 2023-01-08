@@ -179,7 +179,7 @@ public class WantingServiceImpl implements WantingService{
 	}
 
 
-	// 마이페이지 원팅 메소드
+	// 마이페이지 원팅 - 참여한 원팅
 	@Override
 	public ArrayList<Integer> selectWantingNumList(String id) {
 		return wDAO.selectWantingNumList(sqlSession, id);
@@ -188,6 +188,18 @@ public class WantingServiceImpl implements WantingService{
 	@Override
 	public ArrayList<Wanting> selectAttendWantList(PageInfo pi, ArrayList<Integer> wantingNumList) {
 		return wDAO.selectAttentWantList(sqlSession, pi, wantingNumList);
+	}
+
+	
+	// 마이페이지 원팅 - 작성한 원팅
+	@Override
+	public int getWantingWriteListCount(String id) {
+		return wDAO.getWantingWriteListCount(sqlSession, id);
+	}
+
+	@Override
+	public ArrayList<Wanting> selectWantingWriteList(PageInfo pi, String id) {
+		return wDAO.selectWantingWriteList(sqlSession, pi, id);
 	}
 
 	

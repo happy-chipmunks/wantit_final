@@ -251,6 +251,9 @@
 									<input type="hidden" id="wanting-alarmNum" value="${ a.alarmNum }">
 							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectWanting.want?wantingNum=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
 								</c:if>
+								<c:if test="${ a.alarmBoardCate == 0}">
+							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/myPageSupporterAlarm.me?alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
+								</c:if>
 						    </c:forEach>
 						    <li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" onclick="location.href='${ contextPath }/myPageSupporterAlarm.me'">더보기</a></li>

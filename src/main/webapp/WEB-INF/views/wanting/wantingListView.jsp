@@ -105,7 +105,7 @@
                           <span class="remainCount">${ w.wantingCount }명 / 100명</span>
                           <span class="remainDate">${ w.wantingDaysCount }일 지났어요</span>
                           <br>
-                          <p class="wantingWriter">${ w.wantingWriter }</p>
+                          <p class="wantingWriter">${ w.wantingNickname }</p>
 			              <input type="hidden" class="wantingNum" value="${ w.wantingNum }">
                       </div>
                     </div>

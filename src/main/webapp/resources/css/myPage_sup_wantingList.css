@@ -1,6 +1,8 @@
 .title{
 	font-family: 'Do Hyeon', sans-serif;
     font-size: 30px;
+	font-weight: 300;
+    
 }
 
 .payhistory{
@@ -37,7 +39,6 @@
     height: 170px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin: 10px;
 }
 
 .nORe{
@@ -53,7 +54,7 @@
 }
 
 .imageArea{
-    padding: 10px;
+    padding: 0 10px 10px 0;
 }
 
 .payFundTitle{
@@ -141,19 +142,67 @@
 
 .writerAndDate{
 	font-family: 'Noto Sans KR', sans-serif;
-}
-
-.wantingWriter{
-	float: right;
 	
 }
 
-.boardCount{
-	float: right;
+.color {
+	color: #B2AAF3;
+	
 }
 
 .wantingSummary{
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 14px;
 	color: dimgray;
+}
+
+
+/* 추가 */
+.menu {
+	cursor: pointer;
+}
+.current-menu {
+	border-bottom: 4px solid #8c86c7;	
+}
+.gowrite {
+	font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+	font-weight: 200;
+/* 	float: right; */
+	border-radius: 5px;
+	border: 1px solid #8c86c7;
+	padding: 3 10px;
+}
+
+.btn-funding-small {
+    height: 38px;
+    width: 100%;
+    line-height: 38px;
+    color: #4a4a4a;
+    background: #fff;
+    border: 1px solid #dadce0;
+    font-size: 13px;
+    font-weight: 350;
+    text-align: center;
+    vertical-align: center;
+    margin-top: 5px;
+}
+
+
+.btn-funding-small {
+    height: 38px;
+    width: 100%;
+    line-height: 38px;
+    color: #4a4a4a;
+    background: #fff;
+    border: 1px solid #dadce0;
+    font-size: 13px;
+    font-weight: 350;
+    text-align: center;
+    vertical-align: center;
+    margin-top: 5px;
+}
+.btn-funding-small:hover {
+    background-color: #F2F2F2;
+    transition-duration: .2s;
 }

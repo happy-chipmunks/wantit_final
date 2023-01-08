@@ -216,20 +216,40 @@
 	</update>
 
 
-<!-- 	마이페이지 원팅 메소드 -->
+<!-- 	마이페이지 원팅 - 참여한 원팅 -->
 	<select id="selectWantingNumList" resultType="integer">
-		select wanting_num from wanting_attend where attender = #{id}
+		select wanting_num
+		from wanting_attend
+		where attender=#{id}
 	</select>
 	
 	<select id="selectAttendWantList" resultMap="wantingResultSet">
-		select * from wanting where wanting_num in
-		<foreach collection="list" open="(" close=")" separator=", " item="item">
+		select *
+		from wanting
+			join member on(wanting.writer = member.member_id)
+		where wanting_num in
+		<foreach collection="list" item="item" open="(" close=")" separator=", ">
 			#{item}
 		</foreach>
 	</select>
 
+<!-- 	마이페이지 원팅 - 작성한 원팅 -->
+	<select id="getWantingWriteListCount" resultType="_int">
+		select count(*)
+		from wanting
+		where writer=#{id}
+	</select>
 
-
+	<select id="selectWantingWriteList" resultMap="wantingResultSet">
+		select *
+		from wanting
+			join member on(wanting.writer = member.member_id)
+		where wanting_status='Y' and writer=#{id}
+		order by wanting_num desc
+	</select>	
+	
+	
+	
 	
 	<resultMap type="Wanting" id="wantingResultSet">
 		<id column="WANTING_NUM" property="wantingNum"/>

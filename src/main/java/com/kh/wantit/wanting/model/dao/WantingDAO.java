@@ -160,7 +160,7 @@ public class WantingDAO {
 	}
 
 
-	// 마이페이지 원팅 메소드
+	// 마이페이지 원팅 - 참여한 원팅
 	public ArrayList<Integer> selectWantingNumList(SqlSessionTemplate sqlSession, String id) {
 		return (ArrayList)sqlSession.selectList("wantingMapper.selectWantingNumList", id);
 	}
@@ -169,6 +169,17 @@ public class WantingDAO {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("wantingMapper.selectAttendWantList", wantingNumList, rowBounds);
+	}
+
+	// 마이페이지 원팅 - 작성한 원팅
+	public int getWantingWriteListCount(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("wantingMapper.getWantingWriteListCount", id);
+	}
+
+	public ArrayList<Wanting> selectWantingWriteList(SqlSessionTemplate sqlSession, PageInfo pi, String id) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("wantingMapper.selectWantingWriteList", id, rowBounds);
 	}
 
 

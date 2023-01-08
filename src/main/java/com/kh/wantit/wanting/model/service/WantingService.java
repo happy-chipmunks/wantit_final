@@ -78,12 +78,15 @@ public interface WantingService {
 
 	int confirmDeleteWanting(int wantingNum);
 	
-	// 마이페이지 원팅 메소드
+	// 마이페이지 원팅 - 참여한 원팅
 	ArrayList<Integer> selectWantingNumList(String id);
 
 	ArrayList<Wanting> selectAttendWantList(PageInfo pi, ArrayList<Integer> wantingNumList);
 
+	// 마이페이지 원팅 - 작성한 원팅
+	int getWantingWriteListCount(String id);
 
+	ArrayList<Wanting> selectWantingWriteList(PageInfo pi, String id);
 
 
 	

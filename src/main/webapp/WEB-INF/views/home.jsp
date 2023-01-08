@@ -163,9 +163,9 @@
                       </div>
           
                       <div class="col-8 p-2 d-flex flex-column position-static">
-                          <strong class="d-inline-block mb-2 mainTitle">제목</strong>
+                          <strong class="d-inline-block mb-2 mainTitle"> </strong>
                           <p class="wanting-text">${ wantingList[i].wantingTitle }</p>
-                          <span class="wanting-writer">${ wantingList[i].wantingWriter }</span>
+                          <span class="wanting-writer">${ wantingList[i].wantingNickname }</span>
                           <div style="height: 2px; width: 100%; background-color: gray; margin: 3px;"><span style="display: block; background-color: #e8acef; height: 2px; width: ${ wantingList[i].wantingCount }%;"></span></div>
                           <div class="d-inline wanting-other">
                               <span><strong>${ wantingList[i].wantingCount }</strong>%</span>

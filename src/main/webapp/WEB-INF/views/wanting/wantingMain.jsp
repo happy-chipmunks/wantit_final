@@ -131,15 +131,15 @@
           <span class="dips-count">원팅을 다른 사람에게 공유해보세요</span></button>
         </div>
         
-        < 원팅 수정 버튼 >
-        <button class="btn" id="wanting-update-btn" onclick="location.href='${ contextPath }/updateWantingView.wantwantingNum=' + ${ wanting.wantingNum }">원팅수정 - 페이지 이동</button>
+        <%-- < 원팅 수정 버튼 >
+        <button class="btn" id="wanting-update-btn" onclick="location.href='${ contextPath }/updateWantingView.want?wantingNum=' + ${ wanting.wantingNum }">원팅수정 - 페이지 이동</button>
         <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/requestUpdateWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅수정요청 - 다음페이지에</button>
         <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/rejectUpdateWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅수정거절 - 다음페이지에</button>
  		<button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/confirmUpdateWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅수정승인 - 다음페이지에</button>
         < 원팅 삭제 버튼 >        
         <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/requestDeleteWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅삭제 - 요청</button>
         <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/rejectDeleteWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅삭제 - 거절</button>
-        <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/confirmDeleteWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅삭제 - 승인</button>
+        <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/confirmDeleteWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅삭제 - 승인</button> --%>
         
       </div>
     </div>
@@ -313,23 +313,6 @@
 			location.href = '${contextPath}/attendWanting.want?wantingNum='+ wantingNum;
 		});
 	}
-    
-	
-	// 원팅 수정하기 ========================================
-	document.getElementById('wanting-update-btn').addEventListener('click', function() {
-     	// const wantingNum = parseInt(document.getElementById('wantingNum').value); 굳이 hidden tag로 해야하나
-    	let wantingNum = ${ wanting.wantingNum };
-    	location.href = '${contextPath}/updateWantingView.want?wantingNum=' + wantingNum;
-	});
-
-	
-	// 원팅 삭제하기
-	document.getElementById('wanting-delete-btn').addEventListener('click', function() {
-     	// const wantingNum = parseInt(document.getElementById('wantingNum').value); 굳이 hidden tag로 해야하나
-    	const wantingNum = ${ wanting.wantingNum };
-    	location.href = '${contextPath}/deleteWantingView.want?wantingNum=' + wantingNum;
-	});
-	
 	
     // 원팅 가게 정보 지도 ========================================
 	var shopAddress = "${wanting.wantingShopAddress}";

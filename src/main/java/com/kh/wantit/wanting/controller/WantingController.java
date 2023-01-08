@@ -303,9 +303,9 @@ public class WantingController {
 			alarm.setAlarmBoardCate(4);
 			alarm.setAlarmBoardId(wantingNum);
 			
-			if(wantingCount == 5) { alarm.setAlarmMsg( "<" + w.getWantingTitle() + ">" + " 원팅 1차 달성이 완료되었습니다!"); }
-			if(wantingCount == 10) { alarm.setAlarmMsg( "<" + w.getWantingTitle() + ">" + " 원팅 2차 달성이 완료되었습니다!"); }
-			if(wantingCount == 15) { alarm.setAlarmMsg( "<" + w.getWantingTitle() + ">" + " 원팅 3차 달성이 완료되었습니다!"); }
+			if(wantingCount == 5) { alarm.setAlarmMsg( "< " + w.getWantingTitle() + " >" + " 원팅 1차 달성이 완료되었습니다!"); }
+			if(wantingCount == 10) { alarm.setAlarmMsg( "< " + w.getWantingTitle() + " >" + " 원팅 2차 달성이 완료되었습니다!"); }
+			if(wantingCount == 15) { alarm.setAlarmMsg( "< " + w.getWantingTitle() + " >" + " 원팅 3차 달성이 완료되었습니다!"); }
 			
 			// Alarm 객체에 memberId만 빼고 넣어서 함수에 전달
 			result2 = sendSuccessAlarm(alarm);
@@ -464,7 +464,7 @@ public class WantingController {
 				// 알람 보내기
 				Alarm alarm = new Alarm();
 				alarm.setMemberId(id);
-				alarm.setAlarmMsg( "<" + wanting.getWantingTitle() + ">" + " 원팅 수정 요청이 반려되었습니다.");
+				alarm.setAlarmMsg( "< " + wanting.getWantingTitle() + " >" + " 원팅 수정 요청이 반려되었습니다.");
 				alarm.setAlarmBoardCate(4);
 				alarm.setAlarmBoardId(wantingNum);
 				int result2 = wService.sendAlarm(alarm);
@@ -497,7 +497,7 @@ public class WantingController {
 				// 알람 보내기
 				Alarm alarm = new Alarm();
 				alarm.setMemberId(id);
-				alarm.setAlarmMsg( "<" + wanting.getWantingTitle() + ">" + " 원팅 수정 요청이 승인되었습니다.");
+				alarm.setAlarmMsg( "< " + wanting.getWantingTitle() + " >" + " 원팅 수정 요청이 승인되었습니다.");
 				alarm.setAlarmBoardCate(4);
 				alarm.setAlarmBoardId(wantingNum);
 				int result2 = wService.sendAlarm(alarm);
@@ -526,7 +526,7 @@ public class WantingController {
 			int result1 = wService.requestDeleteWanting(wantingNum);
 			
 			if(result1 > 0) {
-				return "redirect:wantingList.want";
+				return "redirect:myPageSupporterWantingWrite.me";
 			} else {
 				throw new WantingException("원팅 삭제 요청 실패");
 			}
@@ -549,7 +549,7 @@ public class WantingController {
 				// 알람 보내기
 				Alarm alarm = new Alarm();
 				alarm.setMemberId(id);
-				alarm.setAlarmMsg( "<" + wanting.getWantingTitle() + ">" + " 원팅 삭제 요청이 반려되었습니다.");
+				alarm.setAlarmMsg( "< " + wanting.getWantingTitle() + " >" + " 원팅 삭제 요청이 반려되었습니다.");
 				alarm.setAlarmBoardCate(4);
 				alarm.setAlarmBoardId(wantingNum);
 				int result2 = wService.sendAlarm(alarm);
@@ -581,7 +581,7 @@ public class WantingController {
 				// 알람 보내기
 				Alarm alarm = new Alarm();
 				alarm.setMemberId(id);
-				alarm.setAlarmMsg( "<" + wanting.getWantingTitle() + ">" + " 원팅 삭제 요청이 승인되었습니다.");
+				alarm.setAlarmMsg( "< " + wanting.getWantingTitle() + " >" + " 원팅 삭제 요청이 승인되었습니다.");
 				alarm.setAlarmBoardCate(0);
 				alarm.setAlarmBoardId(wantingNum);
 				int result2 = wService.sendAlarm(alarm);
