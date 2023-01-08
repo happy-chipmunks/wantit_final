@@ -284,7 +284,6 @@
 	        <div class="modal-wanting-right">
 				<a id="kakaotalk-sharing-btn" class="link-icon kakao" href="javascript:;">카카오톡</a>
 				<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();">페이스북</a>
-		        <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
 	        </div>
 	      </div>
 	      <div class="modal-footer modal-dibs-footer">
@@ -331,28 +330,30 @@
 			alert('로그인 후 이용해주세요.');
 		}
 		
-		const applyAlarmBtn = document.getElementById('applyAlarmBtn');
-		applyAlarmBtn.addEventListener('click', function() {
-			const fundingNum = this.querySelector('.bId').value;
-			const fundingTitle = this.querySelector('.fundingTitle').value;
-			const fundingStart = this.querySelector('.fundingStart').value;
-			$.ajax({
-				url : '${ contextPath }/applyAlarm.fund',
-				data : {'fundingNum' : fundingNum, 'fundingTitle' : fundingTitle, 'fundingStart' : fundingStart},
-				success : (data)=> {
-					console.log(data.result);
-					if(data.result == 'success') {
-						alert('오픈 알림신청이 되었습니다 !');
-					} else {
-						alert('이미 신청을 한 펀딩상품입니다 !');
+		if(document.getElementById('applyAlarmBtn') != null) {
+			const applyAlarmBtn = document.getElementById('applyAlarmBtn');
+			applyAlarmBtn.addEventListener('click', function() {
+				const fundingNum = this.querySelector('.bId').value;
+				const fundingTitle = this.querySelector('.fundingTitle').value;
+				const fundingStart = this.querySelector('.fundingStart').value;
+				$.ajax({
+					url : '${ contextPath }/applyAlarm.fund',
+					data : {'fundingNum' : fundingNum, 'fundingTitle' : fundingTitle, 'fundingStart' : fundingStart},
+					success : (data)=> {
+						console.log(data.result);
+						if(data.result == 'success') {
+							alert('오픈 알림신청이 되었습니다 !');
+						} else {
+							alert('이미 신청을 한 펀딩상품입니다 !');
+						}
+					},
+					error : (data)=> {
+						console.log(data);
 					}
-				},
-				error : (data)=> {
-					console.log(data);
-				}
-						
+							
+				});
 			});
-		});
+		}
 		
 		changeMoney();
 		function changeMoney() {
@@ -373,13 +374,6 @@
 		}
 		
 		// 펀딩 공유하기 ========================================
-	    function shareTwitter() {
-	        var sendText = "If You WANT IT, You Can Get It!"; // 전달할 텍스트
-	        let fundingNum = ${ f.fundingNum };
-	        let writerNo = ${ creatorNum };
-	        var sendUrl = "http://localhost:8080/wantit/selectFundingBoard.fund?bId=" + fundingNum + "&writerNo=" + writerNo; // 전달할 URL
-	        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
-	    }
 	    function shareFacebook() {
 	        var sendUrl = "http://localhost:8080/wantit/selectFundingBoard.fund?bId=" + fundingNum + "&writerNo=" + writerNo; // 전달할 URL
 	        window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
