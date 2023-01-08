@@ -156,7 +156,7 @@
             <div class="col-8">
             	<c:forEach begin="0" end="${ payScheduleList.size()-1 }" var="i">
             		<input type="hidden" value="${ payFundList[i].fundingNum }" id="fundNum${i}">
-            		<input type="hidden" value="${ payFundList[i].creatorNum }" id="creatorNum${i}">
+            		<input type="hidden" value="${ payFundList[i].creatorNum }" id="creatorNum${i}" name="creatorNum">
 	                <div class="row payFundList">
 	                    
 	                    <c:forEach items="${ imageList }" var="image">

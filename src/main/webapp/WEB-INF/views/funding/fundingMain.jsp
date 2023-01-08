@@ -180,11 +180,41 @@
         
         <div>
         	<div class="container creator-info" style="text-align:center;">
-        		<div class="mb-2">
+        		<div class="mb-2" id="goToInfo">
 	        		<a>
 		        		<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="50" height="50">
-		        		<span style="font-size: 20px;">닉네임</span>
+		        		<span style="font-size: 20px;">${ creator.creatorName }</span>
+		        		<input type="hidden" value="${ creator.creatorNum }" id="creatorNum">
 	        		</a>
+        		</div>
+        		<div class="mb-2">
+        			<i class="bi bi-star-fill" style="color: #e8acef;"></i>
+        			<span class="dohyeonFont">평점 -</span>
+        			<span class="dohyeonFont">${ reviewAverage } (${ reviewCount }개)</span>
+        			<br>
+        			<i class="bi bi-piggy-bank-fill" style="color: #e8acef;"></i>
+        			<span  class="dohyeonFont">누적액수 - </span>
+        			<span class="dohyeonFont" id="ta">${ totalAmount }</span>
+        			<br>
+        			<i class="bi bi-people-fill" style="color: #e8acef;"></i>
+        			<span  class="dohyeonFont">서포터수 - </span>
+        			<span class="dohyeonFont">${ totalSupCount }</span>
+        			<br><br>
+        			<span>기업형태 : </span>
+        			<c:if test="${ creator.businessType eq 'N'.charAt(0) }"><span>개인기업</span></c:if>
+        			<c:if test="${ creator.businessType eq 'Y'.charAt(0) }"><span>단체기업</span></c:if>
+        			<br>
+        			<span>대표자 이름 : </span>
+        			<span>${ creator.managerName }</span>
+        			<br>
+        			<span>이메일 : </span>
+        			<span>${ creator.managerEmail }</span>
+        			<br>
+        			<span>대표전화 : </span>
+        			<span>${ creator.managerPhone }</span>
+        			<br>
+        			<span>사업자등록번호 : </span>
+        			<span>${ creator.businessNumber }</span>
         		</div>
         		<div class="mb-2">
 <!--         			<span>만족도</span> -->
@@ -339,7 +369,7 @@
 	        title: '원잇 사이트로 이동',
 	        link: {
 	          webUrl: 'http://localhost:8080/wantit/home.do',
-	        },
+       },
 	      },
 	    ],
 	  	});
@@ -351,6 +381,13 @@
 			console.log("#cate option:eq(0)");
 		    $("#cate option:eq(0)").prop('selected', true);
 		});
+		
+		window.onload=()=> {
+			const ta = document.getElementById('ta');
+			const before = parseInt(ta.innerText);
+			ta.innerText = before.toLocaleString() + "원";
+		}
+		
 	</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

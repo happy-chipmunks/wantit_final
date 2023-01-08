@@ -149,7 +149,7 @@
 		where funding_num=#{bId}
 	</select>
 	<insert id="insertReview">
-		insert into review values(seq_review.nextval, #{reviewer}, #{fundingNum}, #{reviewContent}, default, #{reviewRating})
+		insert into review values(seq_review.nextval, #{reviewer}, #{fundingNum}, #{reviewContent}, default, #{reviewRating}, #{creatorNum})
 	</insert>
 	
 	<select id="checkExistReview" resultType="_int">
@@ -292,6 +292,22 @@
 		values(seq_funding_message.nextval, #{sender}, #{receiver}, #{fundingNum}, #{messageTitle}, #{messageContent}, #{messageCate}, sysdate, default, #{replyContent}, sysdate, default)
 	</insert>
 	
+	<select id="getCreatorInfo" resultMap="creatorResultSet">
+		select * from creator where creator_num = #{creatorNum}
+	</select>
+	
+	<select id="getFundingListFromCreatorNum" resultMap="fundingResultSet">
+		select * from funding where creator_num = #{creatorNum}
+	</select>
+	
+	<select id="getReviewList"  resultMap="reviewResultSet">
+		select * from review where creator_num = #{creatorNum}
+	</select>
+	
+<!-- 	<insert id="insertAlarm"> -->
+<!-- 		insert into alarm values(seq_alarm.nextval, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, ) -->
+<!-- 	</insert> -->
+	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>
@@ -367,6 +383,7 @@
 		<result column="review_content" property="reviewContent"/>
 		<result column="review_status" property="reviewStatus"/>
 		<result column="review_rating" property="reviewRating"/>
+		<result column="creator_num" property="creatorNum"/>
 	</resultMap>
 	
 	<resultMap type="PaySchedule" id="payScheduleResultSet">
@@ -410,4 +427,14 @@
 		<id column="dibs_id" property="dibsId"/>
 		<result column="funding_num" property="fundingNum"/>
 	</resultMap>
+	
+	<resultMap type="Alarm" id="alarmResultSet">
+		<id column="ALARM_NUM" property="alarmNum"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="ALARM_MSG" property="alarmMsg"/>
+		<result column="ALARM_BOARD_CATE" property="alarmBoardCate"/>
+		<result column="ALARM_BOARD_ID" property="alarmBoardId"/>
+		<result column="ALARM_CHECK" property="alarmCheck"/>
+	</resultMap>
+	
 </mapper>

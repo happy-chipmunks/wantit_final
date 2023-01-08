@@ -128,6 +128,7 @@
 </head>
 <body>
 	<form action="${ contextPath }/insertReview.me" id="insertReviewForm">
+		<input type="hidden" value="${ creatorNum }" name="creatorNum">
 		<div class="container">
 	        <div class="row">
 	            <div class="col-1"></div>

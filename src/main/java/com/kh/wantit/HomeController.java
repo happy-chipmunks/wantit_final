@@ -83,13 +83,15 @@ public class HomeController {
 		
 		ArrayList<Funding> fundingComingSoonList = new ArrayList<Funding>();
 		ArrayList<Funding> fundingProceedList = new ArrayList<Funding>();
-		
+		ArrayList<Integer> dibsCountList = new ArrayList<Integer>();
 		Date now = new Date();
 		
 		for(Funding f : fundingList) {
 			if(now.compareTo(f.getFundingStart()) == -1) {
 				if(fundingComingSoonList.size() < 6) {
 					fundingComingSoonList.add(f);
+					int count = fService.getDibsCount(f.getFundingNum());
+					dibsCountList.add(count);
 				}
 			} else {
 				if(fundingProceedList.size() < 6) {
@@ -97,12 +99,14 @@ public class HomeController {
 				}
 			}
 		}
+		
 
 		System.out.println("cancelPayScuccess  " + cancelPayScuccess);
 		if(cancelPayScuccess != null) {
 			model.addAttribute("cancelPayScuccess", cancelPayScuccess);
 		}
 		model.addAttribute("fundingComingSoonList", fundingComingSoonList);
+		model.addAttribute("dibsCountList", dibsCountList);
 		model.addAttribute("fundingProceedList", fundingProceedList);
 		
 		model.addAttribute("wantingList", wantingList);

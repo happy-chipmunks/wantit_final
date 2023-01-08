@@ -229,7 +229,7 @@
             </div>
             <div class="row">
 
-				<c:forEach items="${ fundingComingSoonList }" var="fcs">
+				<c:forEach items="${ fundingComingSoonList }" var="fcs" varStatus="status">
 				
 	                <div class="col-2 cardDecoration">
 	                    <input type="hidden" value="${ fcs.creatorNum }" class="writer">
@@ -244,11 +244,12 @@
 	                      <div class="card-body">
 	                          <div class="cateAndName">
 	                              <span class="cate">${ fcs.fundingCate }</span>
+	                              <span class="cate" style="border-left: 1px solid dimgrey; padding-left: 2px;">${ fcs.creatorNickname }</span>
 	                              <span class="fundName">${ fcs.fundingTitle }</span>
 	                          </div>
 	                            <p class="card-text">${ fcs.fundingSummary }</p>
 	                          
-	                            <i class="bi bi-bag-heart likeIcon"> </i><span> 365</span>
+	                            <i class="bi bi-bag-heart likeIcon"> </i><span>${ dibsCountList[status.index] }</span>
 	                                <fmt:parseNumber value="${ fcs.fundingStart.time / (1000*60*60*24) }" integerOnly="true" var="fcsFmtTime" scope="request"/>
 	                            <span class="remainOpenDate">${ fcsFmtTime - nowFmtTime + 1}일 뒤 오픈</span>
 	                      </div>

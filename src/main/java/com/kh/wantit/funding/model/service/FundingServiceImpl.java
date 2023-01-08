@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
+import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.dao.FundingDAO;
 import com.kh.wantit.funding.model.vo.Funding;
@@ -16,6 +17,7 @@ import com.kh.wantit.funding.model.vo.FundingDibs;
 import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
+import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.pay.vo.Reward;
@@ -251,6 +253,26 @@ public class FundingServiceImpl implements FundingService{
 	@Override
 	public int insertInquiry(FundingMessage fm) {
 		return fDAO.insertInquiry(fm, sqlSession);
+	}
+	
+	@Override
+	public Creator getCreatorInfo(int creatorNum) {
+		return fDAO.getCreatorInfo(sqlSession, creatorNum);
+	}
+	
+	@Override
+	public ArrayList<Funding> getFundingListFromCreatorNum(int creatorNum) {
+		return fDAO.getFundingListFromCreatorNum(sqlSession, creatorNum);
+	}
+	
+	@Override
+	public ArrayList<Review> getReviewList(int creatorNum) {
+		return fDAO.getReviewList(sqlSession, creatorNum);
+	}
+	
+	@Override
+	public int insertAlarm(Alarm alarm) {
+		return fDAO.insertAlarm(sqlSession, alarm);
 	}
 
 }
