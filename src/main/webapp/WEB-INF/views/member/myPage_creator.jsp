@@ -357,7 +357,10 @@
 			 element.checked = true;
 		 }
 		 
-		 
+		 window.onload=()=> {
+			 const adsSuccess = '${ success }';
+			 console.log(adsSuccess);
+		 }
 	  
     </script>
 	

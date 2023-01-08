@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.wantit.admin.model.service.AdminService;
 import com.kh.wantit.admin.model.vo.Ads;
@@ -285,7 +286,7 @@ public class MemberController {
 	
 	@RequestMapping("adsRequest.me")
 	public String adsRequest(@ModelAttribute Ads ads, @RequestParam("file") MultipartFile file, 
-												HttpServletRequest req, Model model) {
+												HttpServletRequest req, Model mode, RedirectAttributes re) {
 		System.out.println(ads);
 		int insertAds = aService.insertAds(ads);
 		
@@ -315,6 +316,7 @@ public class MemberController {
 		if(insertAds > 0 && result > 0 && insertBannerImage <= 0) {
 			throw new MemberException("광고 의뢰 실패");
 		} else {
+			re.addFlashAttribute("success", "success");
 			return "redirect:myPageCreator.me";
 		}
 		
