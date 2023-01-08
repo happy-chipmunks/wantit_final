@@ -112,6 +112,7 @@
 	color: #636e72;
 	font-size: 16px;
 }
+
 .replyContent {
 	background-color: white;
 	width: 100%;
@@ -121,6 +122,7 @@
 	color: #636e72;
 	font-size: 16px;
 }
+
 #boxWrap {
 	width: auto;
 	height: auto;
@@ -144,12 +146,13 @@
 	text-align: center;
 	line-height: 100px;
 }
+
 .textForm {
 	border-bottom: 2px solid #adadad;
 	margin: 30px;
 	padding: 10px 10px;
-	
 }
+
 .btnWrap {
 	width: 100%;
 }
@@ -202,16 +205,22 @@
 	height: 250px;
 	margin-right: 200px;
 }
-
 </style>
 
 <!-- Custom styles for this template -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body id="body">
-	
+
 	<header>
 		<jsp:include page="../common/navbar.jsp"></jsp:include>
 	</header>
@@ -224,43 +233,37 @@
 					<ul class="nav flex-column">
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/admin.ad"> <span data-feather="home"
-								class="align-text-bottom"></span> <br>
-							<br> 사이트 관리
+								class="align-text-bottom"></span> <br> <br> 사이트 관리
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/projectManage.ad"> <span
 								data-feather="file" class="align-text-bottom"></span> <br>
-							<br> 프로젝트 승인 / 거절
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="${ contextPath }/fundingManage.ad"> <span
-								data-feather="file" class="align-text-bottom"></span> <br>
-							<br> 펀딩 신고 관리
+								<br> 프로젝트 승인 / 거절
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/reviewManage.ad"> <span
 								data-feather="shopping-cart" class="align-text-bottom"></span> <br>
-							<br> 리뷰 신고 관리
+								<br> 리뷰 신고 관리
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/noticeManage.ad"> <span
 								data-feather="users" class="align-text-bottom"></span> <br>
-							<br> 공지사항 관리
+								<br> 공지사항 관리
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/inquiryManage.ad"> <span
 								data-feather="bar-chart-2" class="align-text-bottom"></span> <br>
-							<br> 문의 관리
+								<br> 문의 관리
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/adManage.ad"> <span
 								data-feather="layers" class="align-text-bottom"></span> <br>
-							<br> 광고의뢰 관리
+								<br> 광고의뢰 관리
 						</a>
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/memberManage.ad"> <span
 								data-feather="layers" class="align-text-bottom"></span> <br>
-							<br> 회원 관리
+								<br> 회원 관리
 						</a></li>
 					</ul>
 				</div>
@@ -271,7 +274,7 @@
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">프로젝트 관리</h1>
 				</div>
-				
+
 				<table class="table" style="height: auto;">
 					<thead>
 						<tr>
@@ -284,152 +287,133 @@
 						</tr>
 					</thead>
 					<tbody class="table-group-divider">
-					<c:forEach var="m" items="${mList }" varStatus="r">
-						<tr>
-							<th scope="row">${ r.count }</th>
-							<td>
-								<c:if test="${ m.fundingNum != null && m.division == 'F'}">
+						<c:forEach var="m" items="${mList }" varStatus="r">
+							<tr>
+								<th scope="row">${ r.count }</th>
+								<td><c:if
+										test="${ m.fundingNum != null && m.division == 'F'}">
 									${ m.fundingNum }
-								</c:if>
-								<c:if test="${ m.wanting.wantingNum != null && m.division == 'W'}">
+								</c:if> <c:if
+										test="${ m.wanting.wantingNum != null && m.division == 'W'}">
 									${ m.fundingNum }
-								</c:if>
-								<c:if test="${ m.fundingNum != null && m.division == 'E'}">
-									${ m.fundingNum }
-								</c:if>
-							</td>
-							<td>
-								<c:if test="${ m.fundingTitle != null && m.division == 'F' }">
+								</c:if></td>
+								<td><c:if
+										test="${ m.fundingTitle != null && m.division == 'F' }">
 									${ m.fundingTitle }
-								</c:if>
-								<c:if test="${ m.fundingTitle != null && m.division == 'W'}">
+								</c:if> <c:if test="${ m.fundingTitle != null && m.division == 'W'}">
 									${ m.fundingTitle }
-								</c:if>
-								<c:if test="${ m.fundingTitle != null && m.division == 'E'}">
-									${ m.fundingTitle }
-								</c:if>
-							</td>
-							<td>
-								<c:if test="${ m.division == 'F' }">
+								</c:if></td>
+								<td><c:if
+										test="${ m.division == 'F' && ( m.confirm == 'N' || m.confirm == 'Y' || m.confirm == 'X' || m.confirm == 'C' || m.confirm == 'R') }">
 									펀딩
-								</c:if>
-								<c:if test="${ m.division == 'W'}">
+								</c:if> <c:if
+										test="${ m.division == 'W' && ( m.confirm == 'X' || m.confirm == 'Y' || m.confirm == 'S' || m.confirm == 'F' || m.confirm == 'C' || m.confirm == 'R')}">
 									원팅
-								</c:if>
-								<c:if test="${ m.division == 'E'}">
+								</c:if> <c:if test="${ m.confirm == 'E' && m.division == 'F'}">
 									펀딩 수정
-								</c:if>
-							</td>
-							<td>
-								<c:if test="${ m.confirm == 'N' && m.division == 'W'}">
+								</c:if> <c:if
+										test="${ (m.confirm == 'E' || m.confirm == 'D') && m.division == 'W' }">
+									원팅 수정 / 삭제
+								</c:if></td>
+								<td><c:if
+										test="${ ( m.confirm == 'E' || m.confirm == 'N' ) && (m.division == 'W' || m.division == 'F')}">
 									미처리
-								</c:if>
-								
-								<c:if test="${ m.confirm == 'N' && m.division == 'F'  }">
+								</c:if> <c:if test="${  m.confirm == 'X' && m.division == 'W' }">
 									미처리
-								</c:if>
-								
-								<c:if test="${ m.confirm == 'N' && m.division == 'E'  }">
-									미처리
-								</c:if>
-								
-								<c:if test="${ m.confirm == 'Y' && (m.division == 'W' || m.division == 'F' || m.division == 'E') }">
+								</c:if> <c:if
+										test="${ m.confirm == 'C' && (m.division == 'W' || m.division == 'F') }">
+									수정승인
+								</c:if> <c:if
+										test="${ m.confirm == 'R' && (m.division == 'W' || m.division == 'F') }">
+									수정거절
+								</c:if> <c:if test="${ m.confirm == 'Y' && m.division == 'F' }">
 									승인완료
-								</c:if>
-								<c:if test="${ m.confirm == 'X' && (m.division == 'F' || m.division == 'W' || m.division == 'E') }">
+								</c:if> <c:if test="${ m.confirm == 'X' && m.division == 'F' }">
 									승인거절
-								</c:if>
-								
-							</td>
-							<td>
-								<c:if test="${ m.confirm == 'N' && (m.division == 'W' || m.division == 'F' || m.division == 'E') }">
-									<button class="btn btn-primary answerBtn" type="button" value="${ r.index }">내용확인</button>
-								</c:if>
-								<c:if test="${ m.confirm == 'Y' && (m.division == 'W' || m.division == 'F' || m.division == 'E') }">
+								</c:if> <c:if test="${ m.confirm == 'S' && m.division == 'W' }">
+									삭제승인
+								</c:if> <c:if test="${ m.confirm == 'F' && m.division == 'W'}">
+									삭제거절
+								</c:if> <c:if test="${ m.confirm == 'Y' && m.division == 'W'}">
+									원팅개설
+								</c:if></td>
+								<td><c:if
+										test="${ (m.confirm == 'N' || m.confirm == 'E' || m.confirm == 'D') && (m.division == 'W' || m.division == 'F') }">
+										<button class="btn btn-primary answerBtn" type="button"
+											value="${ r.index }">내용확인</button>
+									</c:if> <c:if test="${ m.confirm == 'X' && m.division == 'W' }">
+										<button class="btn btn-primary answerBtn" type="button"
+											value="${ r.index }">내용확인</button>
+									</c:if> <c:if
+										test="${ (m.confirm == 'Y' || m.confirm == 'C' || m.confirm == 'R' || m.confirm == 'S' || m.confirm == 'F') && (m.division == 'W' || m.division == 'F') }">
 									확인완료
-								</c:if>
-								<c:if test="${ m.confirm == 'X' && (m.division == 'F' || m.division == 'W' || m.division == 'E') }">
+								</c:if> <c:if test="${ m.confirm == 'X' && m.division == 'F' }">
 									확인완료
-								</c:if>
-							</td>
+								</c:if></td>
 
-						</tr>
-					</c:forEach>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
-				
-					<c:forEach var="m" items="${ mList }" varStatus="r">
-					<div class="shadow p-3 mb-5 bg-body rounded myForm myForm${ r.index }">
-						<form action="${contextPath }/projectManage.ad" method="post" class="answerForm">
+
+				<c:forEach var="m" items="${ mList }" varStatus="r">
+					<div
+						class="shadow p-3 mb-5 bg-body rounded myForm myForm${ r.index }">
+						<form action="${contextPath }/projectManage.ad" method="post"
+							class="answerForm">
 							<fieldset>
 								<h1>
 									<br>&nbsp;&nbsp;&nbsp;&nbsp;${ m.fundingTitle }
 								</h1>
-					
+
 								<div class="textForm">
 									<input name="replyContent" class="replyContent" readonly>${ m.fundingContent}
 									<!-- <input id="content" name="replyContent" class="replyContent" readonly> -->${ m.fundingContent}
-									<input name="replyContent" class="replyContent" readonly value="${ m.fundingContent}">
+									<input name="replyContent" class="replyContent" readonly
+										value="${ m.fundingContent}">
 								</div>
 								<br>
-							
-<%-- 								<button type="button" class="btn cancel btn-primary btn-lg right" value="${ r.index }" style="float: right;">거절</button> --%>
+								<c:if test="${ m.confirm != 'X' && m.division != 'W' }">
+								<button type="button"
+									class="btn btn-primary btn-lg right cancel"
+									style="display: inline-block; float: right;">미승인</button>
+								</c:if>
+								<c:if
+									test="${ m.confirm == 'N' && m.division == 'F'}">
 									<button type="button"
-									class="btn btn-primary btn-lg right cancel" style="display: inline-block; float: right;">
-									미승인</button>
-<!-- 								<button type="button" class="btn btn-primary btn-lg deleteMemberButton" style="display: inline-block; float: left;" -->
-<!-- 								data-bs-toggle="modal" data-bs-target="#deleteMemberModal">승인 -->
-<%-- 									<span style="display: none">${m.fundingNum }</span> --%>
-<!-- 								</button> -->
-									<c:if test="${ m.confirm == 'N' && m.division == 'F' || m.division == 'W'}">
-										<button type="button"
-										class="btn btn-primary btn-lg confirmP right" style="display: inline-block; float: left;"
+										class="btn btn-primary btn-lg confirmP right"
+										style="display: inline-block; float: left;"
 										data-bs-toggle="modal" data-bs-target="#confirmP">
-										<span style="display: none">${m.fundingNum }</span>
-										<input type="hidden" name="division"  class="division" value="${m.division }">
-										승인</button>
-									</c:if>
-									<c:if test="${ m.confirm == 'N' && m.division == 'E' }">
-										<div id="sendEdit" style="display:none;">
-											<span>${m.fundingNum }</span>
-											<input name="division"  class="division" value="${m.division }">
-										</div>
-										<button type="button" class="btn btn-primary btn-lg confirmE right" style="display: inline-block; float: left;"
-											data-bs-toggle="modal" data-bs-target="#confirmE">승인</button>
-										
-									</c:if>
-								
+										<span style="display: none">${m.fundingNum }</span> <input
+											type="hidden" name="division" class="division"
+											value="${m.division }"> 승인
+									</button>
+								</c:if>
+								<c:if test="${ m.confirm == 'E' }">
+									<div id="sendEdit" style="display: none;">
+										<span>${m.fundingNum }</span> <input name="division"
+											class="division" value="${m.division }">
+									</div>
+									<button type="button"
+										class="btn btn-primary btn-lg confirmE right"
+										style="display: inline-block; float: left;"
+										data-bs-toggle="modal" data-bs-target="#confirmE">승인</button>
+								</c:if>
+								<c:if test="${ m.confirm == 'D' }">
+									<div id="sendEdit" style="display: none;">
+										<span>${m.fundingNum }</span> <input name="division"
+											class="division" value="${m.division }">
+									</div>
+									<button type="button"
+										class="btn btn-primary btn-lg confirmE right"
+										style="display: inline-block; float: left;"
+										data-bs-toggle="modal" data-bs-target="#confirmD">승인</button>
+								</c:if>
 							</fieldset>
 						</form>
 					</div>
 				</c:forEach>
-				
-				
-<!-- 				<div id="approval" class="modal fade" tabindex="-1"> -->
-<!-- 					<div class="modal-dialog modal-dialog-centered"> -->
-<!-- 						<div class="modal-content"> -->
-<!-- 							<div class="modal-header"> -->
-<!-- 								<h5 class="modal-title">게시글 승인</h5> -->
-<!-- 								<button type="button" class="btn-close" data-bs-dismiss="modal" -->
-<!-- 									aria-label="Close"></button> -->
-<!-- 							</div> -->
-<!-- 							<div class="modal-body"> -->
-<!-- 								<p>정말 프로젝트를 승인하시겠습니까?</p> -->
-<!-- 							</div> -->
-<!-- 							<div class="modal-footer"> -->
-<%-- 								<form action="${contextPath }/okProject.ad" id="approvalFinal" method="post"> --%>
-<!-- 									<button type="button" class="btn btn-sm btn-outline-secondary" -->
-<!-- 									data-bs-dismiss="modal">거절</button> -->
-<!-- 									<button id="modalApprovalButton" type="button" -->
-<!-- 										class="btn btn-sm btn-outline-danger">승인</button> -->
-<!-- 									<input type="hidden" name="id"> -->
-<!-- 									<input type="hidden" name="division"> -->
-<!-- 								</form> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				
+
 				<div id="confirmP" class="modal fade" tabindex="-1">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content">
@@ -442,24 +426,26 @@
 								<p>정말 프로젝트를 승인하시겠습니까?</p>
 							</div>
 							<div class="modal-footer">
-								<form action="${contextPath }/refuseProject.ad" method="post" id="refuseSubmit">
+								<form action="${contextPath }/refuseProject.ad" method="post"
+									id="refuseSubmit">
 									<button type="button" class="btn btn-sm btn-outline-secondary"
 										id="modalRefuseBtn">거절</button>
-									<input type="hidden" name="id">
-									<input type="hidden" name="type">
+									<input type="hidden" name="id"> <input type="hidden"
+										name="type">
 								</form>
-								<form action="${contextPath }/confirmProject.ad" method="post" id="confirmSubmit">
-									<button id="modalConfirmButton" type="button" 
+								<form action="${contextPath }/confirmProject.ad" method="post"
+									id="confirmSubmit">
+									<button id="modalConfirmButton" type="button"
 										class="btn btn-sm btn-outline-danger">승인</button>
-									<input type="hidden" name="id">
-									<input type="hidden" name="type">
-									
+									<input type="hidden" name="id"> <input type="hidden"
+										name="type">
+
 								</form>
 							</div>
 						</div>
 					</div>
 				</div>
-				
+
 				<!--  펀딩 수정 승인 -->
 				<div id="confirmE" class="modal fade" tabindex="-1">
 					<div class="modal-dialog modal-dialog-centered">
@@ -473,26 +459,63 @@
 								<p>정말 수정된 프로젝트를 승인하시겠습니까?</p>
 							</div>
 							<div class="modal-footer">
-								<form action="${contextPath }/refuseEditProject.ad" method="post" id="editRefuseSubmit">
+								<form action="${contextPath }/refuseEditProject.ad"
+									method="post" id="editRefuseSubmit">
 									<button type="button" class="btn btn-sm btn-outline-secondary"
 										id="modalEditRefuseBtn">거절</button>
-									<input type="hidden" name="id">
-									<input type="hidden" name="type">
+									<input type="hidden" name="id"> <input type="hidden"
+										name="type">
 								</form>
-								<form action="${contextPath }/confirmEditProject.ad" method="post" id="editConfirmSubmit">
-									<button id="modalEditConfirmButton" type="button" 
+								<form action="${contextPath }/confirmEditProject.ad"
+									method="post" id="editConfirmSubmit">
+									<button id="modalEditConfirmButton" type="button"
 										class="btn btn-sm btn-outline-danger">승인</button>
-									<input type="hidden" name="id">
-									<input type="hidden" name="type">
-<!-- 									<input type="hidden" name="fundingContent"> -->
-									<textarea id="content" style="display: none;" name="fundingContent"></textarea>
-									
+									<input type="hidden" name="id"> <input type="hidden"
+										name="type">
+									<textarea id="content" style="display: none;"
+										name="fundingContent"></textarea>
+
 								</form>
 							</div>
 						</div>
 					</div>
 				</div>
-				
+
+				<!--  원팅 삭제 승인 -->
+				<div id="confirmD" class="modal fade" tabindex="-1">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">게시글 삭제 승인</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<p>정말 프로젝트 삭제를 승인하시겠습니까?</p>
+							</div>
+							<div class="modal-footer">
+								<form action="${contextPath }/refuseDeleteProject.ad"
+									method="post" id="refuseDeleteSubmit">
+									<button type="button" class="btn btn-sm btn-outline-secondary"
+										id="modalEditRefuseBtn">거절</button>
+									<input type="hidden" name="id"> <input type="hidden"
+										name="type">
+								</form>
+								<form action="${contextPath }/confirmDeleteProject.ad"
+									method="post" id="refuseConfirmSubmit">
+									<button id="modalEditConfirmButton" type="button"
+										class="btn btn-sm btn-outline-danger">승인</button>
+									<input type="hidden" name="id"> <input type="hidden"
+										name="type">
+									<textarea id="content" style="display: none;"
+										name="fundingContent"></textarea>
+
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<nav aria-label="Standard pagination example" style="float: right;">
 					<ul class="pagination">
 						<li class="page-item"><c:url var="goBack" value="${ loc }">
@@ -513,13 +536,13 @@
 						</a></li>
 					</ul>
 				</nav>
-				
-				
+
+
 			</main>
 		</div>
 	</div>
-				
-	
+
+
 	<script>
 		$(document).ready(function() {
 			$('.myForm').hide();
@@ -535,17 +558,6 @@
 		});
 	
 		$('label').css('display', 'inline-block');
-		
-		
-// 		const btns = $(".approval");
-// 		for(const btn of btns) {
-// 			btn.addEventListener("click", function(){
-// 				const id = $(this).find("span").text();
-// 				$("input[name=id]").val(id);
-// // 				const division = $(this).find("input").val();
-// 				console.log($(this).find("span").text());
-// 			});
-// 		}
 			 
 		const btns = $(".confirmP");
 		for(const btn of btns) {
@@ -566,15 +578,24 @@
 				$("input[name=id]").val(id);
 				const division = $('#sendEdit').find("input[name=division]").val();
 				$("input[name=type]").val(division);
-				console.log(id);
+				
+				console.log($("input[name=id]").val(id)[0]);
 				console.log($("input[name=type]").val(division));
-				const content = document.getElementsByClassName('textForm').textContent;
-				console.log(content);
-				$('#content').val(content);
-// 				const content = $(this).find("input[name=replyContent]").val();
-// 				$("input[name=fundingContent]").val(content);
-// 				const content = $('#content').find("input[name=replyContent]").val();
-//  				$("input[name=fundingContent]").val(content);
+				console.log($('#sendEdit').find("input[name=title]").val());
+			});
+		}
+		
+		const btns3 = $(".confirmD");
+		for(const btn3 of btns3) {
+			btn2.addEventListener("click", function(){
+				const id = $('#sendEdit').find("span").text();
+				$("input[name=id]").val(id);
+				const division = $('#sendEdit').find("input[name=division]").val();
+				$("input[name=type]").val(division);
+				
+				console.log($("input[name=id]").val(id)[0]);
+				console.log($("input[name=type]").val(division));
+				console.log($('#sendEdit').find("input[name=title]").val());
 			});
 		}
 		
@@ -593,12 +614,11 @@
 		
 		$("#modalEditRefuseBtn").on("click", function(){
  			$("#editRefuseSubmit").submit();
-			console.log("df");
 		});
 	</script>
 
-	
 
-	
+
+
 </body>
 </html>
