@@ -190,6 +190,11 @@
     				</td>
  				</tr>
  				</c:forEach>
+ 				<c:if test="${ empty alarmList }">
+					<tr style="height: 600px; text-align: center; margin-bottom: 50px;">
+						<td colspan="4">알림이 존재하지 않습니다.</td>
+					</tr>
+				</c:if>
  			</tbody>	
  			</table>
    		</div>
