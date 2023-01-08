@@ -431,7 +431,7 @@ public class FundingController {
 //		redirectAttributes.addAttribute("fundingNum", fundingNum);
 //		redirectAttributes.addAttribute("f", f);
 //		redirectAttributes.addAttribute("i", i);
-		return "fundingProceed";
+		return "redirec:fundingList.fund";
 	}
 	
 	// 펀딩 리뷰 보기

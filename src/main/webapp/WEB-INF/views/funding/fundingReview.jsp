@@ -100,7 +100,7 @@
 	                  <p class="review-content">
 	                    ${ fn:substring(rv.reviewContent, 0, 10) }
 	                  </p>
-	                  <p class="review-date">하루 전</p>
+	                  <p class="review-date"><i class="bi bi-star-fill"></i> ${ rv.reviewRating }</p>
 	                 </div>  
 	               </button>
 	            </h2>

@@ -208,7 +208,7 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
-                <span class="cateTitleOrAll">전체</span> <button onclick="location.href='${contextPath}/insertFundingBoard.fund'">펀딩작성</button>
+                <span class="cateTitleOrAll">전체</span>
                 <ul class="sortList">
 <!--                     <li class="sortType">최신순</li> -->
                     <li class="sortType">
