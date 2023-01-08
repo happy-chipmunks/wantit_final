@@ -258,6 +258,25 @@
 		order by message_code desc
 	</select>
 	
+	<select id="getSenderMsgList" resultMap="fundingMessageResultSet">
+		select *
+		from funding_message
+		where sender=#{id}
+		order by message_code desc
+	</select>
+	
+	<select id="getSenderMsgListCount" resultType="_int">
+		select count(*)
+		from funding_message
+		where sender=#{id}
+	</select>
+	
+	<update id="replyMessage">
+		update funding_message
+		set reply_content=#{replyContent}, reply_date=sysdate, reply_status='Y', message_read_status='Y'
+		where message_code=#{messageCode}
+	</update>
+	
 	<resultMap type="FundingMessage" id="fundingMessageResultSet">
 		<id column="message_code" property="messageCode"/>
 		<result column="sender" property="sender"/>

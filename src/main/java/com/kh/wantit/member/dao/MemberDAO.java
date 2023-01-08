@@ -173,6 +173,23 @@ public class MemberDAO {
 	}
 
 
+	public ArrayList<FundingMessage> getSenderMsgList(String id, PageInfo pi, SqlSessionTemplate sqlSession) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getSenderMsgList", id, rowBounds);
+	}
+
+
+	public int getSenderMsgListCount(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.getSenderMsgListCount", id);
+	}
+
+
+	public int replyMessage(FundingMessage fmr, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("memberMapper.replyMessage", fmr);
+	}
+
+
 
 
 	

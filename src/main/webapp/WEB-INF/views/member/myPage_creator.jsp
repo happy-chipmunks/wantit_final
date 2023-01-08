@@ -289,7 +289,7 @@
 		 	function openPopup(){
 				var url = "creatorMessage.me";
 				var name="creatorMessage";
-				window.open(url, name, "width=500 height=600");
+				window.open(url, name, "width=700 height=600");
 			}
 	    
 	    const fileInput = document.getElementById("businessLicense");
