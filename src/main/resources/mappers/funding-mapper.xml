@@ -330,6 +330,12 @@
 		where image_board_cate=3 and image_board_id=#{memberId} and image_status='Y'
 	</select>
 	
+	<select id="getCreator" resultType="string">
+		select creator
+		from creator
+		where creator_name=#{creatorNickname}
+	</select>
+	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>

@@ -385,7 +385,7 @@
 	    objectType: 'feed',
 	    content: {
 	      title: '${ f.fundingTitle }',
-	      description: '함께 만들어나가는 원팅',
+	      description: 'If You WANT IT, You Can Get It!',
 	      imageUrl:
 			'${ contextPath }/resources/funding/${img.imageRename}',
 	      link: {

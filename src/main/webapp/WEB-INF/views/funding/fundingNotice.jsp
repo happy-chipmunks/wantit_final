@@ -178,29 +178,29 @@
 
         <div class="container funding-buttons g-0">
 <!--           <button class="btn-funding" data-bs-toggle="modal" data-bs-target="#funding-modal">펀딩하기</button> -->
-		<c:if test="${ m != null }">
+		<c:if test="${ login != null }">
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ bId }'">펀딩하기</button>
 		</c:if>
-		<c:if test="${ m == null }">
+		<c:if test="${ login == null }">
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">펀딩하기</button>
 		</c:if>
           <div class="row g-1">
           <c:if test="${ !ok }">
-          	<c:if test="${ m == null }">
+          	<c:if test="${ login == null }">
             <div class="col-sm-6"><button onclick="noLogin()" class="btn-funding-small">
               <img src="${ contextPath }/resources/funding/찜X1.png"/>
               <span class="dips-count">${ dibsCount }</span></button>
             </div>
            </c:if>
-           <c:if test="${ m != null }">
-            <div class="col-sm-6"><button onclick="location.href='${contextPath}/insertDibs.fund?fundingNum=${ f.fundingNum }&id=${ login }&writerNo=${creatorNum}'" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#dibs-modal">
+           <c:if test="${ login != null }">
+            <div class="col-sm-6"><button onclick="location.href='${contextPath}/insertDibs.fund?fundingNum=${ f.fundingNum }&id=${ id }&writerNo=${writerNo}'" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#dibs-modal">
               <img src="${ contextPath }/resources/funding/찜X1.png"/>
               <span class="dips-count">${ dibsCount }</span></button>
             </div>
             </c:if>
            </c:if>
            <c:if test="${ ok }">
-            <div class="col-sm-6"><button onclick="location.href='${contextPath}/deleteDibs.fund?fundingNum=${ f.fundingNum }&id=${ login }&writerNo=${creatorNum}'" class="btn-funding-small">
+            <div class="col-sm-6"><button onclick="location.href='${contextPath}/deleteDibs.fund?fundingNum=${ f.fundingNum }&id=${ id }&writerNo=${writerNo}'" class="btn-funding-small">
               <img src="${ contextPath }/resources/funding/찜1.png"/>
               <span class="dips-count">${ dibsCount }</span></button>
             </div>

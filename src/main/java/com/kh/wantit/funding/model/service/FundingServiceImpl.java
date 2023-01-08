@@ -295,4 +295,9 @@ public class FundingServiceImpl implements FundingService{
 		return fDAO.getMemberImage(memberId, sqlSession);
 	}
 
+	@Override
+	public String getCreator(String creatorNickname) {
+		return fDAO.getCreator(sqlSession, creatorNickname);
+	}
+
 }
