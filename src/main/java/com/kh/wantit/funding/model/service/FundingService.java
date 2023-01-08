@@ -118,4 +118,10 @@ public interface FundingService {
 	int checkAlreadyApplyAlarm(Alarm alarm);
 
 
+	ArrayList<PaySchedule> fundingSupportor(int fundingNum);
+
+	Member getMember(String buyerName);
+
+	Image getMemberImage(String buyerName);
+
 }

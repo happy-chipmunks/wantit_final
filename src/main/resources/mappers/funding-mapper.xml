@@ -286,7 +286,6 @@
 		select * from funding join creator using(creator_num) where creator = #{userId}
 	</select>
 	
-	
 	<insert id="insertInquiry">
 		insert into funding_message
 		values(seq_funding_message.nextval, #{sender}, #{receiver}, #{fundingNum}, #{messageTitle}, #{messageContent}, #{messageCate}, sysdate, default, null, sysdate, default)
@@ -310,6 +309,25 @@
 	
 	<select id="checkAlreadyApplyAlarm" resultType="_int">
 		select count(*) from alarm where member_id = #{memberId} and alarm_board_cate = 1 and alarm_board_id = #{alarmBoardId}
+	</select>
+	
+	<select id="fundingSupportor" resultMap="payScheduleResultSet">
+		select *
+		from payschedule
+		where funding_num=#{fundingNum}
+		order by CUSTOMER_UID desc
+	</select>
+	
+	<select id="getMember" resultMap="memberResultSet">
+		select *
+		from member
+		where member_nickname=#{buyerName}
+	</select>
+	
+	<select id="getMemberImage" resultMap="imageResultSet">
+		select * 
+		from image
+		where image_board_cate=3 and image_board_id=#{memberId} and image_status='Y'
 	</select>
 	
 	<resultMap type="Funding" id="fundingResultSet">
