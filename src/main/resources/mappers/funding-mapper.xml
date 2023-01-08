@@ -304,9 +304,13 @@
 		select * from review where creator_num = #{creatorNum}
 	</select>
 	
-<!-- 	<insert id="insertAlarm"> -->
-<!-- 		insert into alarm values(seq_alarm.nextval, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, ) -->
-<!-- 	</insert> -->
+	<insert id="insertAlarm">
+		insert into alarm values(seq_alarm.nextval, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, default, #{alarmDate}, 'N')
+	</insert>
+	
+	<select id="checkAlreadyApplyAlarm" resultType="_int">
+		select count(*) from alarm where member_id = #{memberId} and alarm_board_cate = 1 and alarm_board_id = #{alarmBoardId}
+	</select>
 	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>

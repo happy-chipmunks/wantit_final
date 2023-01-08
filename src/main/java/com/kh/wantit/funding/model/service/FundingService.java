@@ -115,5 +115,7 @@ public interface FundingService {
 
 	int insertAlarm(Alarm alarm);
 
+	int checkAlreadyApplyAlarm(Alarm alarm);
+
 
 }

@@ -223,6 +223,10 @@ public class FundingDAO {
 		return sqlSession.insert("fundingMapper.insertAlarm", alarm);
 	}
 
+	public int checkAlreadyApplyAlarm(SqlSessionTemplate sqlSession, Alarm alarm) {
+		return sqlSession.selectOne("fundingMapper.checkAlreadyApplyAlarm", alarm);
+	}
+
 
 	
 	

@@ -1,10 +1,12 @@
 ﻿package com.kh.wantit.funding.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.common.model.vo.Alarm;
@@ -599,9 +604,31 @@ public class FundingController {
 		alarm.setMemberId(userId);
 		alarm.setAlarmBoardCate(1);
 		alarm.setAlarmBoardId(fundingNum);
-		alarm.setAlarmMsg(fundingTitle + "펀딩이 오픈하였습니다 ! ");
+		alarm.setAlarmMsg(fundingTitle + " - 펀딩이 오픈하였습니다 ! ");
+		alarm.setAlarmDate(fundingStart);
 		
-		int result = fService.insertAlarm(alarm);
+		int alreadyApplyAlarm = fService.checkAlreadyApplyAlarm(alarm);
+		HashMap<String, String> map = new HashMap<String, String>();
+		if(alreadyApplyAlarm >= 1) {
+			map.put("result", "failed");
+		} else {
+			int result = fService.insertAlarm(alarm);
+			
+			if(result >= 1) {
+				map.put("result", "success");
+			} else {
+				map.put("result", "failed");
+			}
+		}
+		resp.setContentType("application/json; charset=UTF-8");
+		GsonBuilder gb = new GsonBuilder();
+		GsonBuilder gb2 = gb.setDateFormat("yyyy-MM-dd");
+		Gson gson = gb2.create();
+		try {
+			gson.toJson(map, resp.getWriter());
+		} catch (JsonIOException | IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	// 펀딩 리스트 진행, 종료/최신순, 인기순

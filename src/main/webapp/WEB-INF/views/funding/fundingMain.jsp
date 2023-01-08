@@ -143,7 +143,12 @@
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">펀딩하기</button>
 		</c:if>
 		<c:if test="${ m != null && fmtToday < f.fundingStart}">
-		 	<button class="btn-funding" style="background-color: #8c86c7;">오픈예정 알림신청</button>
+		 	<button class="btn-funding" style="background-color: #8c86c7;" id="applyAlarmBtn">
+		 		오픈예정 알림신청
+		 		<input type="hidden" value="${ f.fundingNum }" class="bId">
+				<input type="hidden" value="${ f.fundingTitle }" class="fundingTitle">
+				<input type="hidden" value="${ f.fundingStart }" class="fundingStart">
+		 	</button>
 		</c:if>
 		<c:if test="${ m == null && fmtToday < f.fundingStart }">
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">오픈예정 알림신청</button>
@@ -306,6 +311,29 @@
 			alert('로그인 후 이용해주세요.');
 		}
 		
+		const applyAlarmBtn = document.getElementById('applyAlarmBtn');
+		applyAlarmBtn.addEventListener('click', function() {
+			const fundingNum = this.querySelector('.bId').value;
+			const fundingTitle = this.querySelector('.fundingTitle').value;
+			const fundingStart = this.querySelector('.fundingStart').value;
+			$.ajax({
+				url : '${ contextPath }/applyAlarm.fund',
+				data : {'fundingNum' : fundingNum, 'fundingTitle' : fundingTitle, 'fundingStart' : fundingStart},
+				success : (data)=> {
+					console.log(data.result);
+					if(data.result == 'success') {
+						alert('오픈 알림신청이 되었습니다 !');
+					} else {
+						alert('이미 신청을 한 펀딩상품입니다 !');
+					}
+				},
+				error : (data)=> {
+					console.log(data);
+				}
+						
+			});
+		});
+		
 		changeMoney();
 		function changeMoney() {
 			const targetMoney = document.getElementsByClassName('toLocaleMoney');
@@ -387,7 +415,7 @@
 		// 문의 모달 보낼 시
 		$('.btn-inquiry').on('click', function (e){
 			$('#inquiry').modal('hide');
-		}
+		});
 	</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

@@ -299,10 +299,15 @@
 				url : '${ contextPath }/applyAlarm.fund',
 				data : {'fundingNum' : fundingNum, 'fundingTitle' : fundingTitle, 'fundingStart' : fundingStart},
 				success : (data)=> {
-					
+					console.log(data.result);
+					if(data.result == 'success') {
+						alert('오픈 알림신청이 되었습니다 !');
+					} else {
+						alert('이미 신청을 한 펀딩상품입니다 !');
+					}
 				},
 				error : (data)=> {
-					
+					console.log(data);
 				}
 						
 			});
@@ -319,6 +324,7 @@
 				success : (data)=> {
 					console.log(data);
 					changeHtmlView(data);
+					
 				},
 				error : (data)=> {
 					
@@ -331,6 +337,36 @@
 		var html = jQuery('<div>').html(data);
 		var contents = html.find("div#BigArea").html();
 		$("#targetArea").html(contents);
+		var cardImage = document.getElementsByClassName('imageCard');
+	    cardClickEvent(cardImage);
+	    var cardText = document.getElementsByClassName('card-text');
+	    cardClickEvent(cardText);
+	    
+	    const alarmApl = document.getElementsByClassName('alarmApl');
+		for(const btn of alarmApl) {
+			btn.addEventListener('click', function() {
+				const fundingNum = this.querySelector('.bId').value;
+				const fundingTitle = this.querySelector('.fundingTitle').value;
+				const fundingStart = this.querySelector('.fundingStart').value;
+				console.log(fundingNum);
+				$.ajax({
+					url : '${ contextPath }/applyAlarm.fund',
+					data : {'fundingNum' : fundingNum, 'fundingTitle' : fundingTitle, 'fundingStart' : fundingStart},
+					success : (data)=> {
+						console.log(data.result);
+						if(data.result == 'success') {
+							alert('오픈 알림신청이 되었습니다 !');
+						} else {
+							alert('이미 신청을 한 펀딩상품입니다 !');
+						}
+					},
+					error : (data)=> {
+						console.log(data);
+					}
+							
+				});
+			});
+		}
 	}
 	const sortType = document.getElementsByClassName('sortType');
 	for(const li of sortType) {

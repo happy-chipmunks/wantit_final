@@ -275,4 +275,8 @@ public class FundingServiceImpl implements FundingService{
 		return fDAO.insertAlarm(sqlSession, alarm);
 	}
 
+	@Override
+	public int checkAlreadyApplyAlarm(Alarm alarm) {
+		return fDAO.checkAlreadyApplyAlarm(sqlSession, alarm);
+	}
 }

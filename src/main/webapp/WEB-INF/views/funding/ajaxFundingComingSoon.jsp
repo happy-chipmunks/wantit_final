@@ -23,19 +23,32 @@
 	                		<div class="card shadow-sm fundinglist">
 	                  				<c:forEach items="${ imageList }" var="image">
 	                  					<c:if test="${ image.imageBoardId == fund.fundingNum }">
-	                  					
-		                  					<img alt="" src="${ contextPath }/resources/funding/${ image.imageRename }" width="100%" height="225">
+	                  						<div class="imageCard">
+			                  					<img alt="" src="${ contextPath }/resources/funding/${ image.imageRename }" width="100%" height="225" class="cardImage">
+						        				<input type="hidden" value="${ fund.creatorNum }" class="writer">
+						        				<input type="hidden" value="${ fund.fundingNum }" class="bId">
+	                  						</div>
 	                  					</c:if>
 	                  				</c:forEach>
 	      
 	                  			<div class="card-body">
-	                      			<p class="card-text">${ fund.fundingTitle }</p>
+	                  				<p class="card-text">
+	                      				${ fund.fundingTitle }
+				        				<input type="hidden" value="${ fund.creatorNum }" class="writer">
+				        				<input type="hidden" value="${ fund.fundingNum }" class="bId">
+	                      			</p>
 	                      			<div style="padding-bottom: 10px;">
 	                          			<span class="cate">${ fund.fundingCate }</span>
 	                          			<span class="fundName">${ fund.creatorNickname }</span>
 	                      			</div>
 	                      			<fmt:formatDate value="${ fund.fundingStart }"  pattern="MM-dd(E)" var="openDate"/>
-	                      		<button type="button" class="btn alarmApl"><i class="bi bi-bell"></i>${ openDate } 오픈 알람신청</button>
+	                      			<button type="button" class="btn alarmApl">
+				        				<input type="hidden" value="${ fund.fundingNum }" class="bId">
+				        				<input type="hidden" value="${ fund.fundingTitle }" class="fundingTitle">
+				        				<input type="hidden" value="${ fund.fundingStart }" class="fundingStart">
+	                      				<i class="bi bi-bell"></i>
+	                      				${ openDate } 오픈 알람신청
+	                      		</button>
 	                 	 </div>
 	                </div>
 	            </div>
@@ -43,19 +56,6 @@
                 	</c:forEach>
                     
                 </div>
-                <script type="text/javascript">
-	    var boards = document.getElementsByClassName('cardDecoration');
-		for(var board of boards){
-			board.addEventListener('click', function(){
-				const bId = this.querySelector('.bId').value;
-				console.log(bId);	// 선택한 펀딩 게시글 번호를 가지고 오는가
-				const writerNo = this.querySelector('.writer').value;
-				console.log(writerNo);	// 선택한 펀딩 게시글 작성자 번호를 가지고 오는가
-				
-				location.href='${contextPath}/selectFundingBoard.fund?bId=' + bId + '&writerNo=' + writerNo;
-			});
-		}
-	    </script>
 
 </body>
 </html>
