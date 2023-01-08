@@ -11,6 +11,7 @@ import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingDibs;
+import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.funding.model.vo.FundingNotice;
 import com.kh.wantit.funding.model.vo.Review;
 import com.kh.wantit.member.vo.Member;
@@ -198,6 +199,10 @@ public class FundingDAO {
 
 	public ArrayList<Funding> getUserFundingList(SqlSessionTemplate sqlSession, String userId) {
 		return (ArrayList)sqlSession.selectList("fundingMapper.getUserFundingList", userId);
+	}
+
+	public int insertInquiry(FundingMessage fm, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("fundingMapper.insertInquiry", fm);
 	}
 
 

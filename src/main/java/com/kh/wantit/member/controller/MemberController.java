@@ -4,8 +4,6 @@ import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -215,7 +213,7 @@ public class MemberController {
 	public String myPageCreator(HttpSession session, Model model) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		
-		Member creatorCheck = mService.creatorCheck(id);
+		String creatorCheck = mService.creatorCheck(id);
 		Creator creatorRegistration = mService.creatorRegistration(id);
 		
 
@@ -234,7 +232,7 @@ public class MemberController {
 
 		 
 		boolean check = false;
-		if(creatorCheck.getMemberType() == "creator") {
+		if(creatorCheck.equals("creator")) {
 			check = true;
 			
 			

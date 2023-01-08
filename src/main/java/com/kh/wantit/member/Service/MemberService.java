@@ -32,7 +32,7 @@ public interface MemberService {
 
 	int creatorInsert(Creator c);
 
-	Member creatorCheck(String id);
+	String creatorCheck(String id);
 
 	int businessLicense(Image i);
 

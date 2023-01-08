@@ -103,7 +103,7 @@ public class MemberServiceImpl implements MemberService {
 
 
 	@Override
-	public Member creatorCheck(String id) {
+	public String creatorCheck(String id) {
 		return mDAO.creatorCheck(id, sqlSession);
 	}
 
