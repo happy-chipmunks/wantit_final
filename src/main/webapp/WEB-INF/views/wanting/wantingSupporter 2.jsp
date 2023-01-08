@@ -29,7 +29,7 @@
         <div class="col-md-9">
           <div class="left-content">
     
-            <!-- 서포터 상단바 -->
+            <!-- 새소식 상단바 -->
             <div class="container">
               <div class="row notice-bar g-0">
                   <div class="col-12 notice-left">
@@ -38,7 +38,7 @@
               </div>
             </div>
 
-            <!-- 서포터 리스트 -->
+            <!-- 새소식 리스트 -->
             <div class="container">
                 <ul class="">
                 <c:if test="${ empty memberList }">
@@ -52,14 +52,7 @@
 	                    <li class="">
 	                        <a href="" class="wantng-supporter-list">
 	                            <span class="supporter-profile">
-			                        <c:forEach items="${ memberImageList }" var="i">
-			                        	<c:if test="i == null">
-											<img style="border-radius: 20px" src="${contextPath}/resources//myPageImage/뉴프로필.png" width="50px" height="50px" />
-			                        	</c:if>
-										<c:if test="${ m.memberId.equals(i.imageBoardId) and i.imageLevel == 0}">
-											<img src="${ contextPath }/resources/member/${i.imageRename}">
-										</c:if>
-									</c:forEach>
+	                                <img src="coffee.jpg"/>
 	                            </span>
 	                            <div class="wanting-supporter-content">
 	                                <span>${ m.memberNickname }</span>

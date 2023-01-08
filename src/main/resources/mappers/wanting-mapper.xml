@@ -80,9 +80,10 @@
 		where wanting_num=#{wantingNum} and wanting_status='Y' 
 	</update>
 	
+<!-- 	원팅 참여하기 - 원팅 알림 보내기 -->
 	<insert id="sendAlarm">
 		insert into alarm
-		values(seq_alarm.nextval, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, default)
+		values(seq_alarm.nextval, #{memberId}, #{alarmMsg}, #{alarmBoardCate}, #{alarmBoardId}, default, SYSDATE, default)
 	</insert>
 	
 	
@@ -123,27 +124,35 @@
 		where member_id=#{memberId}
 	</select>
 	
+<!-- 	원팅 참여자 리스트 - 아이디로 이미지 가져오기 -->
+	<select id="getMemberImage" resultMap="imageResultSet">
+		select * 
+		from image
+		where image_board_cate=3 and image_board_id=#{memberId} and image_status='Y'
+	</select>
 
-<!-- 	원팅 수정 - 신청 승인 거절 -->
+
+<!-- 	원팅 수정 -->
+<!-- 	신청 -->
 	<insert id="requestUpdateWanting">
 		insert into wanting_edit
 		values(#{wantingNum}, #{wantingWriter}, #{wantingTitle}, #{wantingSummary}, #{wantingContent},
 			#{wantingShopName}, #{wantingShopAddress}, #{wantingCreateDate}, #{wantingDaysCount},
 			#{wantingCount}, #{wantingLevel}, 'E', #{wantingStatus})
 	</insert>
+	
+	<update id="requestUpdateWantingStatus">
+		update wanting
+		set wanting_confirm='E'
+		where wanting_num=#{wantingNum}
+	</update>
 
 <!-- 	거절 -->
-	<update id="rejectUpdateWanting">
+	<update id="rejectUpdateWantingStatus">
 		update wanting
 		set wanting_confirm='R'
 		where wanting_num=#{wantingNum}
 	</update>
-
-<!-- 	<update id="rejectUpdateWantinStatus">
-		update wanting_edit
-		set wanting_confirm='N'
-		where wanting_num=#{wantingNum}
-	</update> -->
 	
 	<delete id="rejectUpdateWantingDelete">
 		delete from wanting_edit
@@ -162,7 +171,7 @@
 	
 	<update id="confirmUpdateWantingStatus">
 		update wanting
-		set wanting_confirm='Y'
+		set wanting_confirm='C'
 		where wanting_num=#{wantingNum}
 	</update>
 	
@@ -181,13 +190,13 @@
 	
 	<update id="rejectDeleteWanting">
 		update wanting
-		set wanting_confirm='R'
+		set wanting_confirm='F'
 		where wanting_num=#{wantingNum}
 	</update>
 	
 	<update id="confirmDeleteWanting">
 		update wanting
-		set wanting_confirm='Y', wanting_status='N'
+		set wanting_confirm='S', wanting_status='N'
 		where wanting_num=#{wantingNum}
 	</update>
 
@@ -246,6 +255,8 @@
 		<result column="ALARM_BOARD_CATE" property="alarmBoardCate"/>
 		<result column="ALARM_BOARD_ID" property="alarmBoardId"/>
 		<result column="ALARM_CHECK" property="alarmCheck"/>
+		<result column="ALARM_DATE" property="alarmDate"/>
+		<result column="ALARM_STATUS" property="alarmStatus"/>
 	</resultMap>
 
 	<resultMap type="Member" id="memberResultSet">

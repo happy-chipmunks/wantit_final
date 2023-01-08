@@ -55,6 +55,9 @@ public interface WantingService {
 	
 	// 원팅 참여자 리스트 - 아이디로 맴버 가져오기
 	Member getMember(String memberId);
+	
+	// 원팅 참여자 리스트 - 아이디로 이미지 가져오기
+	Image getMemberImage(String memberId);
 
 	// 원팅 수정 - 신청 승인 거절
 	int requestUpdateWanting(Wanting w);
@@ -72,6 +75,8 @@ public interface WantingService {
 	ArrayList<Integer> selectWantingNumList(String id);
 
 	ArrayList<Wanting> selectAttendWantList(PageInfo pi, ArrayList<Integer> wantingNumList);
+
+
 
 	
 

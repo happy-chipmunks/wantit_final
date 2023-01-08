@@ -102,19 +102,30 @@ public class WantingDAO {
 		return sqlSession.selectOne("wantingMapper.getMember", memberId);
 	}
 	
-
-	// 원팅 수정 - 신청 승인 거절
-	public int requestUpdateWanting(SqlSessionTemplate sqlSession, Wanting w) {
-		return sqlSession.insert("wantingMapper.requestUpdateWanting", w);
+	// 원팅 참여자 리스트 - 아이디로 이미지 가져오기
+	public Image getMemberImage(SqlSessionTemplate sqlSession, String memberId) {
+		return sqlSession.selectOne("wantingMapper.getMemberImage", memberId);
 	}
 	
+
+	// 원팅 수정 - 신청 거절 승인 ---------------------------------
+	// confirm - E   R   C
+	
+	// 신청하면 wanting_edit에 삽입하고 + wanting테이블 confirm 값 변경
+	public int requestUpdateWanting(SqlSessionTemplate sqlSession, Wanting w) {
+		int result1 = sqlSession.insert("wantingMapper.requestUpdateWanting", w);
+		int result2 = sqlSession.insert("wantingMapper.requestUpdateWantingStatus", w);
+		return (result1 + result2);
+	}
+	
+	// 거절하면 wanting테이블 confirm 값 변경하고 + wanting_edit 삭제
 	public int rejectUpdateWanting(SqlSessionTemplate sqlSession, int wantingNum) {
-		int result1 = sqlSession.update("wantingMapper.rejectUpdateWanting", wantingNum);
-		//int result2 = sqlSession.update("wantingMapper.rejectUpdateWantinStatus", wantingNum);
-		int result3 = sqlSession.update("wantingMapper.rejectUpdateWantingDelete", wantingNum);
-		return (result1 + result3);		
+		int result1 = sqlSession.update("wantingMapper.rejectUpdateWantingStatus", wantingNum);
+		int result2 = sqlSession.update("wantingMapper.rejectUpdateWantingDelete", wantingNum);
+		return (result1 + result2);		
 	}
 
+	// 승인하면 wanting테이블에 값 넣고 + wanting테이블 confirm 값 변경하고 + wanting_edit 삭제
 	public int confirmUpdateWanting(SqlSessionTemplate sqlSession, int wantingNum) {
 		int result1 = sqlSession.update("wantingMapper.confirmUpdateWanting", wantingNum);
 		int result2 = sqlSession.update("wantingMapper.confirmUpdateWantingStatus", wantingNum);
@@ -123,7 +134,8 @@ public class WantingDAO {
 	}
 	
 
-	// 원팅 삭제 - 신청 승인 거절
+	// 원팅 삭제 - 신청 거절 승인 ---------------------------------
+	// delete -  D   F   S
 	public int requestDeleteWanting(SqlSessionTemplate sqlSession, int wantingNum) {
 		return sqlSession.update("wantingMapper.requestDeleteWanting", wantingNum);
 	}
@@ -136,10 +148,7 @@ public class WantingDAO {
 		return sqlSession.update("wantingMapper.confirmDeleteWanting", wantingNum);
 	}
 
-	public int dfd(SqlSessionTemplate sqlSession, int wantingNum) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 
 	public ArrayList<Integer> selectWantingNumList(SqlSessionTemplate sqlSession, String id) {
