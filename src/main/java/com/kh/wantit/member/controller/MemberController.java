@@ -210,8 +210,32 @@ public class MemberController {
 	
 	
 	@RequestMapping("myPage_sup_message.me")
-	public String myPagesupMessage() {
-		return "myPage_sup_message";
+	public String myPagesupMessage(HttpSession session, @RequestParam(value="page", required=false) Integer page, Model model) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		int currentPage = 1;
+		if(page != null && page > 1) {
+			currentPage = page;
+		}
+		
+		int dontReadListCount = mService.getMsgDontReadListCount(id);
+		int senderMsgListCount = mService.getSenderMsgListCount(id);
+		System.out.println(senderMsgListCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, senderMsgListCount, 10);
+		
+		ArrayList<FundingMessage> senderMsgList = mService.getSenderMsgList(id, pi);
+		
+		if(senderMsgList != null) {
+			model.addAttribute("senderMsgList", senderMsgList);
+			model.addAttribute("pi", pi);
+			model.addAttribute("dontReadListCount", dontReadListCount);
+			model.addAttribute("id", id);
+			
+			return "myPage_sup_message";
+		}else {
+			throw new MemberException("쪽지함 목록 보기 실패");
+		}
 	}
 	
 	@RequestMapping("/myPageCreator.me")
@@ -228,28 +252,34 @@ public class MemberController {
 		
 		 Image img = mService.selectcImage(cimage);
 		 System.out.println("크리에이터페이지 :"+img);
-		 if(img != null ) {
-		 session.setAttribute("icmage", img.getImageRename());//테스트
+		
+		 boolean check = false;
+			if(img != null && creatorCheck.equals("creator")) { // 이미지있음 , 크리에이터임
+				check = true;
+				session.setAttribute("icmage",img.getImageRename());
+				session.setAttribute("creatorRegistration", creatorRegistration);
+				session.setAttribute("check", check);
+			}else if(img == null && creatorCheck.equals("creator")) { // 이미지 없음 , 크리에이터임
+				check = true;
+				session.setAttribute("icmage",null);
+				session.setAttribute("creatorRegistration", creatorRegistration);
+				session.setAttribute("check", check);
+			}else if(img != null && !creatorCheck.equals("creator")){// 이미지 있음 크리에이터 아님
+				check = false;
+				session.setAttribute("icmage",img.getImageRename());
+				session.setAttribute("creatorRegistration", creatorRegistration);
+				session.setAttribute("check", check);
+			}else if(img == null &&  !creatorCheck.equals("creator")) {// 이미지 없고 크리에이터 아님
+				check = false;
+				session.setAttribute("icmage",null);
+				session.setAttribute("creatorRegistration", creatorRegistration);
+				session.setAttribute("check", check);
+			}
+			return "myPage_creator";
+	}		
 		 
-		 return"myPage_creator" ;
-		 }
-		
-
 		 
-		boolean check = false;
-		if(creatorCheck.equals("creator")) {
-			check = true;
-			
-			
-			model.addAttribute("check", check);
-		}else {
-			model.addAttribute("creatorRegistration", creatorRegistration);
-			model.addAttribute("check", check);
-		}
-		
-		
-		return "myPage_creator";
-	}
+		 
 	
 	@RequestMapping("/myPageCreatorFunding.me")
 	public String myPageCreatorFunding(HttpSession session, Model model) {
@@ -882,9 +912,32 @@ public class MemberController {
 				model.addAttribute("msgList", msgList);
 				model.addAttribute("pi", pi);
 				model.addAttribute("dontReadListCount", dontReadListCount);
+				model.addAttribute("id", id);
 				return "myPage_creator_message";
 			}else {
 				throw new MemberException("쪽지 불러오기 실패. 다시 시도해 주세요");
+			}
+		}
+		
+		// 크리에이터 문의 답변
+		@RequestMapping("replyMessage.me")
+		public String replyMessage(@ModelAttribute FundingMessage fm, HttpSession session) {
+			String receiver = ((Member)session.getAttribute("loginUser")).getMemberId();
+			
+			System.out.println(fm);
+			int result = 0;
+			FundingMessage fmr = new FundingMessage();
+			fmr.setMessageCode(fm.getMessageCode());
+			fmr.setReplyContent(fm.getReplyContent());
+			System.out.println(fmr);
+			if(receiver.equals(fm.getReceiver())) {
+				result = mService.replyMessage(fmr);
+			}
+			
+			if(result > 0) {
+				return "redirect:creatorMessage.me";
+			}else {
+				throw new MemberException("답변하기 실패");
 			}
 			
 		}

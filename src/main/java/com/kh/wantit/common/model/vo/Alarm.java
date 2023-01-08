@@ -20,4 +20,6 @@ public class Alarm {
 	private int alarmBoardCate;
 	private int alarmBoardId;
 	private String alarmCheck;
+	private Date alarmDate;
+	private String alarmStatus;
 }

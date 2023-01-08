@@ -241,9 +241,9 @@
 	
 
 	<script>
-		function openPopup(){
-			window.open("myPage_sup_message.me", "message", "width=500 height=300");
-		}
+	function openPopup(){
+		window.open("myPage_sup_message.me", "message", "width=700 height=600");
+	}
 	</script>
 
 </body>

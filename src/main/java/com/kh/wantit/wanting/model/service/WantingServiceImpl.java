@@ -127,6 +127,12 @@ public class WantingServiceImpl implements WantingService{
 		return wDAO.getMember(sqlSession, memberId);
 	}
 
+	// 원팅 참여자 리스트 - 아이디로 이미지 가져오기
+	@Override
+	public Image getMemberImage(String memberId) {
+		return wDAO.getMemberImage(sqlSession, memberId);
+	}
+	
 	
 	// 원팅 수정 - 신청 승인 거절
 	@Override
@@ -160,6 +166,8 @@ public class WantingServiceImpl implements WantingService{
 	public int confirmDeleteWanting(int wantingNum) {
 		return wDAO.confirmDeleteWanting(sqlSession, wantingNum);
 	}
+
+
 
 		
 	@Override

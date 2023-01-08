@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,7 @@
 
 </head>
 <body>
-	<div class="container mt-3" style="width: 500px; height: 300px;">
+	<div class="container mt-3" style="width: 700px; height: 300px;">
 		<img src="resources/myPageImage/메시지.png" width="60px">&nbsp;&nbsp;&nbsp;&nbsp;<h2 style="display: inline">쪽지함</h2>
 		<br><br>
 		<div style="height: 450px">
@@ -37,24 +38,85 @@
 						<th>제목</th>
 						<th>보낸이</th>
 						<th>보낸날짜</th>
-						<th>답변 여부</th>
+						<th></th>
 					</tr>
 					<c:if test="${ pi.maxPage > 0  }">
-						<c:forEach items="${ msgList }" var="m">
-							<tr>
-								<td>${ m.messageCode }</td>
-								<td>${ m.messageTitle }</td>
-								<td>${ m.sender }</td>
-								<td>${ m.messageDate }</td>
-								<td>
-									<c:if test="${ m.replyStatus == 'N' }">
-										<button>답변하기</button>
-									</c:if>
-									<c:if test="${ m.replyStatus == 'Y' }">
-										<button>문의보기</button>
-									</c:if>
-								</td>
-							</tr>
+						<c:forEach items="${ msgList }" var="msg">
+								<tr>
+									<td>${ msg.messageCode }</td>
+									<td>${ msg.messageTitle }</td>
+									<td>${ msg.sender }</td>
+									<td>${ msg.messageDate }</td>
+									<td>
+										<input type="hidden" class="fundingNum" value="${ msg.fundingNum }">
+										<input type="hidden" class="messageCode" value="${ msg.messageCode }">
+										<input type="hidden" class="receiver" value="${ msg.receiver }">
+										<c:if test="${ fn:contains(msg.replyStatus, 'N') }">
+											<button id="doReply" class="btn doReply" style="background-color:#8c86c7;" onclick="$('.inquiry').modal('show')">답변하기</button>
+										</c:if>
+										<c:if test="${ fn:contains(msg.replyStatus, 'Y') }">
+											<button id="seeReply" class="btn seeReply" style="background-color:#8c8c8c;" onclick="$('.see').modal('show')">문의보기</button>
+										</c:if>
+									</td>
+								</tr>
+								<c:if test="${ fn:contains(msg.replyStatus, 'N') }">
+								<!-- 문의 답장하기 모달 -->
+		<form action="${ contextPath }/replyMessage.me" method="POST">
+			<input type="hidden" name="fundingNum" value="${ msg.fundingNum }">
+			<input type="hidden" name="messageCode" value="${ msg.messageCode }">
+			<input type="hidden" name="receiver" value="${ msg.receiver }">
+			<div class="modal fade font inquiry" id="inquiry" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+			  <div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+					  	<div class="modal-header">
+					        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">문의</h1>
+					        <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+					    </div>
+					 	<div class="modal-body" style="text-align: left">
+					 			카테고리
+					 			<select name="messageCate" id="cate" class="form-select">
+				   					<option>${ msg.messageCate }</option>
+				   				</select>
+						    	제목<input type="text" class="form-control input" id="title" name="messageTitle" readonly value="${msg.messageTitle }">
+								내용<textarea name="messageContent" id="content" class="form-control" style="resize:none; height:100%;" readonly>${msg.messageContent }</textarea>
+						      	<br>
+						 </div>
+						 <div class="modal-footer pt-2">
+						 	답변 내용<textarea name="replyContent" id="reply" class="form-control" style="resize:none; height:200px;"></textarea>
+							<button class="btn btn-primary btn-inquiry">보내기</button>&nbsp;
+					      	<button type="button" class="btn btn-secondary btn-inquiry close" data-bs-dismiss="modal">취소</button>
+						 </div>
+			    	</div> 
+			  </div>
+			</div>
+		</form>
+		</c:if>
+		<c:if test="${ fn:contains(msg.replyStatus, 'Y') }">
+		<!-- 문의보기 모달 -->
+			<div class="modal fade font see" id="see" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+			  <div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+					  	<div class="modal-header">
+					        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">문의</h1>
+					        <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+					    </div>
+					 	<div class="modal-body" style="text-align: left">
+					 			카테고리
+					 			<select id="cate" class="form-select">
+				   					<option>${ msg.messageCate }</option>
+				   				</select>
+						    	제목<input type="text" class="form-control input" id="title" value="${ msg.messageTitle }" readonly>
+								내용<textarea id="content" class="form-control" style="resize:none; height:100%;" readonly>${ msg.messageContent }</textarea>
+						      	<br>
+						 </div>
+						 <div class="modal-footer pt-2">
+						 	답변 내용<textarea readonly class="form-control" style="resize:none; height:200px;">${ msg.replyContent }</textarea>
+					      	<button type="button" class="btn btn-secondary btn-inquiry close" data-bs-dismiss="modal">닫기</button>
+						 </div>
+			    	</div> 
+			  </div>
+			</div>
+			</c:if>
 						</c:forEach>
 					</c:if>
 				</table>
@@ -95,73 +157,8 @@
 	      </c:if>
 	</div>
 	
-	<!-- 쪽지함 -->
-	<div class="modal fade message" id="modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-	  <div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-			  	<div class="modal-header">
-			        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">쪽지</h1>
-			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			    </div>
-			 	<div class="modal-body" style="text-align: left">
-				    	제목<input type="text" class="form-control" id="recipient-name" name="messageTitle" value="" readonly>
-				    	내용<input class="form-control" style="height: 150px" name="messageContent" value="" readonly>
-				      	<br>
-				      	보낸 아이디 : <input value="" type="text" name="senderUsername" readonly style="border: none;">
-				      	<input value="" type="hidden">
-				 </div>
-				 <div class="modal-footer">
-					<button class="btn btn-primary" onclick="$('#modal2').modal('show')"><strong>답장하기</strong></button>
-			      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-				 </div>
-	    	</div> 
-	  </div>
-	</div>
 	
-	<!-- 답장하기 -->
-	<div class="modal fade" id="modal2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-	  <div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-			  	<div class="modal-header">
-			        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">쪽지</h1>
-			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			    </div>
-			 	<div class="modal-body" style="text-align: left">
-				    	제목<input type="text" class="form-control input" id="recipient-name" name="messageTitle">
-				    	내용<input class="form-control input" style="height: 150px" name="messageContent">
-				      	<br>
-				      	<input value="" type="hidden" class="input">
-				 </div>
-				 <div class="modal-footer">
-					<button class="btn btn-primary" id="sendBtn" ><strong>보내기</strong></button>
-			      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-				 </div>
-	    	</div> 
-	  </div>
-	</div>
 	
-	<script>
-	window.onload=()=>{
-		document.getElementById('sendBtn').addEventListener('click', () => {
-			const input = document.getElementsByClassName('input');
-			console.log(input[2].value);
-			$.ajax({
-				url: '',
-				data: {messageTitle:input[0].value,
-					   messageContent:input[1].value,
-				},
-				success: (data) => {
-					$('#modal2').modal('hide')
-					 input[0].value = '';
-					 input[1].value = ''; 
-					 location.reload();
-				},
-				error: (data) => {
-					console.log(data);
-				}
-			});
-		});
-	}
-	</script>
+	
 </body>
 </html>

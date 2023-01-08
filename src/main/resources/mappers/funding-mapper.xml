@@ -289,7 +289,7 @@
 	
 	<insert id="insertInquiry">
 		insert into funding_message
-		values(seq_funding_message.nextval, #{sender}, #{receiver}, #{fundingNum}, #{messageTitle}, #{messageContent}, #{messageCate}, sysdate, default, #{replyContent}, sysdate, default)
+		values(seq_funding_message.nextval, #{sender}, #{receiver}, #{fundingNum}, #{messageTitle}, #{messageContent}, #{messageCate}, sysdate, default, null, sysdate, default)
 	</insert>
 	
 	<select id="getCreatorInfo" resultMap="creatorResultSet">

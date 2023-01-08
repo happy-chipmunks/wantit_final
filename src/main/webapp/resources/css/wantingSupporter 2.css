@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+ul { list-style: none; }
+
+.wantng-supporter-list {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 8px 10px 23px;
+    border: 1px solid #e9ecef;
+    border-radius: 16px;
+    background-color: #fff;
+    padding: 0 12px 0 31px;
+    width: calc(100% - 23px);
+    height: 74px;
+    /* text-align: center; */
+}
+
+.supporter-profile {
+    border: 1px solid rgb(221, 226, 230);
+    position: absolute;
+    top: 50%;
+    left: -40px;
+    transform: translateY(-50%);
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+}
+
+.supporter-profile img {
+    display: block;
+    position: absolute;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    /* object-fit: cover; */
+}
+
+.wanting-supporter-content {
+    /* line-height: 20px; */
+    /* letter-spacing: 0; */
+    font-size: 14px;
+    font-weight: 400;
+    /* font-style: normal; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    display: flex;
+    /* flex-wrap: nowrap; */
+    width: 100%;
+    text-align: left;
+    color: #212529;
+}
+.supporter-list-icon {
+    margin-left: 8px;
+    width: 24px;
+    height: 24px;
+    color: #495057;
+    font-size: 24px;
+    margin-left: auto;
+}
+
+
+
+/* ==================== 서포터 상단부 ==================== */
+.notice-bar {
+    border-bottom : 2px solid black;
+    margin-bottom: 20px;
+}
+.notice-left {
+    margin: auto;
+    text-align: left;
+}
+.notice-right {
+    margin: auto;
+    text-align: right;
+}
+.notice {
+    margin: 16px 6px;
+    font-size: 20px;
+    font-weight: 300px;
+}
+.notice span {
+    font-size: 22px;
+    font-weight: 300px;
+    color: #5BAFD8;
+}
+.sort {
+    font-size: 15px;
+    color: gray;
+    border-style: none;
+    outline: none;
+}

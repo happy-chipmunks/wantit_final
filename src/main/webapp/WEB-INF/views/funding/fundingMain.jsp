@@ -240,7 +240,7 @@
 
 <!-- 모달 -->
 		<!-- 문의하기 모달 -->
-		<form action="${ contextPath }/sendMessage.fund?fundingNum=${f.fundingNum}&creatorId=${creatorNum}&cate=${f.fundingCate}" method="POST">
+		<form action="${ contextPath }/sendMessage.fund?fundingNum=${f.fundingNum}&creatorId=${creatorNum}" method="POST">
 			<div class="modal fade font" id="inquiry" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 			  <div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
@@ -250,21 +250,8 @@
 					    </div>
 					 	<div class="modal-body" style="text-align: left">
 					 			카테고리
-					 			<select name="category" id="cate" class="form-select" required>
-				   					<option>테크·가전</option>
-				   					<option>패션·잡화</option>
-				   					<option>뷰티</option>
-				   					<option>음식</option>
-				   					<option>홈·리빙</option>
-				   					<option>여행·레저</option>
-				   					<option>스포츠</option>
-				   					<option>캐릭터·굿즈</option>
-				   					<option>베이비·키즈</option>
-				   					<option>반려동물</option>
-				   					<option>게임</option>
-				   					<option>컬쳐·아티스트</option>
-				   					<option>출판</option>
-				   					<option>클래스·컨설팅</option>
+					 			<select name="messageCate" id="cate" class="form-select">
+				   					<option>${ f.fundingCate }</option>
 				   				</select>
 						    	제목<input type="text" class="form-control input" id="title" name="messageTitle">
 	<!-- 					    	내용<input class="form-control input" style="height: 150px" name="messageContent"> -->
@@ -369,12 +356,12 @@
 	        title: '원잇 사이트로 이동',
 	        link: {
 	          webUrl: 'http://localhost:8080/wantit/home.do',
-       },
+       	   },
 	      },
 	    ],
 	  	});
 	    
-		//  문의 모달 닫을 시
+	//  문의 모달 닫을 시
 		$('.close').on('click', function (e) {
 			$('#title').val('');
 			$('#content').val("");
@@ -388,6 +375,19 @@
 			ta.innerText = before.toLocaleString() + "원";
 		}
 		
+	
+// 	//  문의 모달 보낼 시
+// 		$('.btn-inquiry').on('click', function (e) {
+// 			$('#title').val('');
+// 			$('#content').val("");
+// 			console.log("#cate option:eq(0)");
+// 		    $("#cate option:eq(0)").prop('selected', true);
+// 		});
+		
+		// 문의 모달 보낼 시
+		$('.btn-inquiry').on('click', function (e){
+			$('#inquiry').modal('hide');
+		}
 	</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
