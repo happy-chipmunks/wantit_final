@@ -58,7 +58,7 @@
       <div class="col-2 offset-2"><a class="tab-link" href="${ contextPath }/selectFundingBoard.fund?bId=${f.fundingNum}&writerNo=${creatorNum}" style="font-weight: 1000px; color:black;">정보 </a></div>
       <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund?bId=${f.fundingNum}">새소식 </a></div>
       <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingReview.fund?bId=${f.fundingNum}">리뷰 </a></div>
-      <div class="col-2"><a class="tab-link" href="#">서포터 ${ supCount } <span class="count-total"></span></a></div>
+      <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingSupportor.fund?bId=${f.fundingNum}">서포터 ${ supCount } <span class="count-total"></span></a></div>
     </div>
   </div>
 

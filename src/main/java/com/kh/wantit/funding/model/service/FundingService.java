@@ -105,4 +105,10 @@ public interface FundingService {
 
 	int insertInquiry(FundingMessage fm);
 
+	ArrayList<PaySchedule> fundingSupportor(int fundingNum);
+
+	Member getMember(String buyerName);
+
+	Image getMemberImage(String buyerName);
+
 }

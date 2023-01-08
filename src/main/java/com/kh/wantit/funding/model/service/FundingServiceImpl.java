@@ -253,4 +253,19 @@ public class FundingServiceImpl implements FundingService{
 		return fDAO.insertInquiry(fm, sqlSession);
 	}
 
+	@Override
+	public ArrayList<PaySchedule> fundingSupportor(int fundingNum) {
+		return fDAO.fundingSupportor(fundingNum, sqlSession);
+	}
+
+	@Override
+	public Member getMember(String buyerName) {
+		return fDAO.getMember(buyerName, sqlSession);
+	}
+
+	@Override
+	public Image getMemberImage(String memberId) {
+		return fDAO.getMemberImage(memberId, sqlSession);
+	}
+
 }

@@ -312,7 +312,7 @@ public class FundingController {
 	
 	// 새소식 작성
 	@RequestMapping("insertFundingNotice.fund")
-	public String insertFundingNotice(@ModelAttribute FundingNotice fn, HttpSession session, @RequestParam("fundingNoticeNum") int fundingNoticeNum, @RequestParam("category") String cate) {
+	public String insertFundingNotice(@ModelAttribute FundingNotice fn, HttpSession session, @RequestParam("fundingNoticeNum") int fundingNoticeNum, @RequestParam("category") String cate, Model model) {
 		String writer = ((Member)session.getAttribute("loginUser")).getMemberId();
 		fn.setFundingNoticeWriter(writer);
 		fn.setFundingNum(fundingNoticeNum);
@@ -321,7 +321,8 @@ public class FundingController {
 		int result = fService.insertFundingNotice(fn);
 		
 		if(result > 0) {
-			return "fundingNotice";
+			model.addAttribute("bId", fundingNoticeNum);
+			return "redirect:fundingNotice.fund";
 		}else {
 			throw new FundingException("새소식 작성 실패");
 		}
@@ -339,6 +340,8 @@ public class FundingController {
 		if(!writer.equals(login)) {
 			yn = true;
 		}
+		
+		int writerNo = fService.getCreatorNum(writer);
 		
 		ArrayList<FundingNotice> fnList = fService.getFundingNotice(writer, bId, yn);
 		System.out.println(fnList);
@@ -361,6 +364,8 @@ public class FundingController {
 			model.addAttribute("bId", bId);
 			model.addAttribute("f", f);
 			model.addAttribute("dibsCount", dibsCount);
+			model.addAttribute("m", m);
+			model.addAttribute("writerNo", writerNo);
 			return "fundingNoticeDetail";
 		}else {
 			throw new FundingException("새소식 상세조회 실패");
@@ -529,6 +534,66 @@ public class FundingController {
 		model.addAttribute("writerNo", creatorNum);
 		model.addAttribute("bId", fundingNum);
 		return "redirect:selectFundingBoard.fund";
+	}
+	
+	// 펀딩한 서포터
+	@RequestMapping("fundingSupportor.fund")
+	public String fundingSupportor(@RequestParam("bId") int fundingNum, Model model, HttpSession session) {
+		ArrayList<PaySchedule> psList = fService.fundingSupportor(fundingNum);
+		int psListCount = fService.getSupportCount(fundingNum);
+		
+		ArrayList<Member> member = new ArrayList<>();
+		ArrayList<Image> memberImageList = new ArrayList<Image>(); 
+		for(int i = 0; i < psList.size(); i++) {
+			Member memberr = fService.getMember(psList.get(i).getBuyerName());
+			for(int j = 0; j < psList.size(); j++) {
+				String memberId = memberr.getMemberId();
+				System.out.println(memberId);
+				Image image = fService.getMemberImage(memberId);
+				System.out.println(image);
+				memberImageList.add(image);
+			}
+//			System.out.println(memberr);
+			member.add(memberr);
+		}
+		System.out.println(member);
+		System.out.println(memberImageList);
+		
+		Funding f = fService.getFundingInfo(fundingNum);
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		String login = null;
+		if(m != null) {
+			login = m.getMemberId();
+		}
+		
+		boolean yn = false;
+		String writerCheckId = fService.checkWriter(f.getCreatorNum());
+		if(!writerCheckId.equals(login)) {
+			yn = true;
+		}
+		
+		int dibsCount = fService.getDibsCount(fundingNum);
+		 
+		 boolean ok = false;
+		 ArrayList<FundingDibs> dibs = fService.getDibs(fundingNum);
+		 for(int i = 0; i < dibs.size(); i++) {
+			 System.out.println(dibs.get(i));
+			 if(dibs.get(i).getDibsId().equals(login)) {
+				 ok = true;
+			 }
+		 }
+		
+		model.addAttribute("psList", psList);
+		model.addAttribute("psListCount", psListCount);
+		model.addAttribute("bId", fundingNum);
+		model.addAttribute("member", member);
+		model.addAttribute("memberImageList", memberImageList);
+		model.addAttribute("f", f);
+		model.addAttribute("yn", yn);
+		model.addAttribute("dibsCount", dibsCount);
+		model.addAttribute("ok", ok);
+		return "fundingSupporter";
 	}
 	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순
