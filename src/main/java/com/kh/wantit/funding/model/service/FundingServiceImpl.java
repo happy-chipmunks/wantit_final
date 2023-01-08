@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Alarm;
+import com.kh.wantit.common.model.vo.Follow;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.dao.FundingDAO;
 import com.kh.wantit.funding.model.vo.Funding;
@@ -298,6 +299,11 @@ public class FundingServiceImpl implements FundingService{
 	@Override
 	public String getCreator(String creatorNickname) {
 		return fDAO.getCreator(sqlSession, creatorNickname);
+	}
+
+	@Override
+	public int follow(Follow f) {
+		return fDAO.follow(sqlSession, f);
 	}
 
 }

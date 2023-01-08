@@ -336,6 +336,11 @@
 		where creator_name=#{creatorNickname}
 	</select>
 	
+	<insert id="follow">
+		insert into follow
+		values(#{follower}, #{creatorNum})
+	</insert>
+	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>

@@ -228,7 +228,7 @@
         		<div>
         			<c:if test="${ yn }">
         				<button class="btn btn-creator" data-bs-toggle="modal" data-bs-target="#inquiry"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        				<button class="btn btn-creator"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+        				<button class="btn btn-creator" id="follow"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
         			</c:if>
         			<c:if test="${ !yn }">
         				<button class="btn btn-creator"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -429,6 +429,21 @@
 		// 문의 모달 보낼 시
 		$('.btn-inquiry').on('click', function (e){
 			$('#inquiry').modal('hide');
+		});
+		
+		// 팔로우
+		$('#follow').on('click', function(){
+			var creatorNum = ${creatorNum};
+			$.ajax({
+				url: '${contextPath}/follow.fund',
+				data: {creatorNum:creatorNum},
+				success: (data)=>{
+					console.log(data);
+				},
+				error: (data)=>{
+					console.log(data);
+				}
+			})
 		});
 	</script>
 

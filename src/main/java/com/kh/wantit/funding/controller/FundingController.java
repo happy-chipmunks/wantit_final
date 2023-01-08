@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,6 +28,7 @@ import com.google.gson.JsonIOException;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.common.model.vo.Alarm;
+import com.kh.wantit.common.model.vo.Follow;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.exception.FundingException;
 import com.kh.wantit.funding.model.service.FundingService;
@@ -750,6 +752,20 @@ public class FundingController {
 		model.addAttribute("creatorNum", creatorNum);
 		model.addAttribute("login", login);
 		return "fundingSupporter";
+	}
+	
+	// 팔로우 하기
+	@ResponseBody
+	@RequestMapping("follow.fund")
+	public int follow(@RequestParam("creatorNum") int creatorNum, HttpSession session) {
+		String follower = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		Follow f = new Follow();
+		f.setCreatorNum(creatorNum);
+		f.setFollower(follower);
+		int result = fService.follow(f);
+		
+		return result;
 	}
 	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순
