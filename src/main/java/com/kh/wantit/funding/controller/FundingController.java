@@ -273,7 +273,7 @@ public class FundingController {
 		 boolean ok = false;
 		 ArrayList<FundingDibs> dibs = fService.getDibs(bId);
 		 for(int i = 0; i < dibs.size(); i++) {
-			 System.out.println(dibs.get(i));
+//			 System.out.println(dibs.get(i));
 			 if(dibs.get(i).getDibsId().equals(login)) {
 				 ok = true;
 			 }
@@ -313,12 +313,25 @@ public class FundingController {
 		// System.out.println(bId);
 		String fundingCreator = fService.getFundingCreator(bId);
 		Member login = (Member)session.getAttribute("loginUser");
+		String id = login.getMemberId();
+		
+		boolean ok = false;
+		 ArrayList<FundingDibs> dibs = fService.getDibs(bId);
+//		 System.out.println(dibs);
+		 if(login != null) {
+			 for(int i = 0; i < dibs.size(); i++) {
+//				 System.out.println(dibs.get(i));
+				 if(dibs.get(i).getDibsId().equals(id)) {
+					 ok = true;
+				 }
+			 }
+		 }
 		
 		ArrayList<FundingNotice> fnList = fService.fundingNoticeList(bId);
 		int count = fService.fnListCount(bId);
 		
 		Funding f = fService.getCurrFunding(bId);
-		System.out.println(f);
+//		System.out.println(f);
 		
 //		System.out.println(bId);
 		String writer = fService.getFundingCreator(bId);
@@ -335,6 +348,8 @@ public class FundingController {
 		model.addAttribute("f", f);
 		model.addAttribute("supCount", supCount);
 		model.addAttribute("dibsCount", dibsCount);
+		model.addAttribute("id", id);
+		model.addAttribute("ok", ok);
 		return "fundingNotice";
 	}
 	
@@ -372,12 +387,12 @@ public class FundingController {
 		int writerNo = fService.getCreatorNum(writer);
 		
 		ArrayList<FundingNotice> fnList = fService.getFundingNotice(writer, bId, yn);
-		System.out.println(fnList);
+//		System.out.println(fnList);
 		FundingNotice fn = new FundingNotice();
 		for(int i=0; i<fnList.size(); i++) {
 			if(fnList.get(i).getFundingNoticeNum() == fundingNoticeNum) {
 				fn = fnList.get(i);
-				System.out.println(fnList.get(i));
+//				System.out.println(fnList.get(i));
 			}
 		}
 		
@@ -443,6 +458,19 @@ public class FundingController {
 		}
 		
 		Member m = ((Member)session.getAttribute("loginUser"));
+		String id = m.getMemberId();
+		
+		boolean ok = false;
+		 ArrayList<FundingDibs> dibs = fService.getDibs(fundingNum);
+//		 System.out.println(dibs);
+		 if(m != null) {
+			 for(int i = 0; i < dibs.size(); i++) {
+//				 System.out.println(dibs.get(i));
+				 if(dibs.get(i).getDibsId().equals(id)) {
+					 ok = true;
+				 }
+			 }
+		 }
 		
 		int listCount = fService.getListCountR(fundingNum);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 8);	
@@ -471,17 +499,19 @@ public class FundingController {
 		model.addAttribute("pi", pi);
 		model.addAttribute("reviewerNick", reviewerNick);
 		model.addAttribute("dibsCount", dibsCount);
+		model.addAttribute("ok", ok);
+		model.addAttribute("id", id);
 		return "fundingReview";
 	}
 	
 	// 펀딩 찜하기
 	@RequestMapping("insertDibs.fund")
-	public ModelAndView insertDibs(@RequestParam("fundingNum") int fundingNum, @RequestParam("id") String id, ModelAndView mv, @RequestParam("writerNo") int writerNo) {
+	public ModelAndView insertDibs(@RequestParam("fundingNum") int fundingNum, @RequestParam("id") String id, ModelAndView mv, @RequestParam("writerNo") int writerNo, HttpServletRequest request) {
 		FundingDibs dibs = new FundingDibs(id, fundingNum);
 		
 		int result = fService.insertDibs(dibs);
 		if(result > 0) {
-			mv.addObject("bId", fundingNum).addObject("id", id).addObject("writerNo", writerNo).setViewName("redirect:selectFundingBoard.fund");
+			mv.addObject("bId", fundingNum).addObject("id", id).addObject("writerNo", writerNo).setViewName("redirect:" + request.getHeader("REFERER"));
 			return mv;
 		}else {
 			throw new FundingException("찜하기 실패");
@@ -490,13 +520,16 @@ public class FundingController {
 	
 	// 찜하기 취소
 	@RequestMapping("deleteDibs.fund")
-	public ModelAndView deleteDibs(@RequestParam("fundingNum") int fundingNum, @RequestParam("id") String id, ModelAndView mv, @RequestParam("writerNo") int writerNo) {
+	public ModelAndView deleteDibs(@RequestParam("fundingNum") int fundingNum, @RequestParam("id") String id, ModelAndView mv, @RequestParam("writerNo") int writerNo, HttpServletRequest request) {
 		FundingDibs dibs = new FundingDibs(id, fundingNum);
+		System.out.println(dibs);
+		System.out.println(id);
+		System.out.println(fundingNum);
 		
 		int result = fService.deleteDibs(dibs);
 		
 		if(result > 0) {
-			mv.addObject("bId", fundingNum).addObject("id", id).addObject("writerNo", writerNo).setViewName("redirect:selectFundingBoard.fund");
+			mv.addObject("bId", fundingNum).addObject("id", id).addObject("writerNo", writerNo).setViewName("redirect:" + request.getHeader("REFERER"));
 			return mv;
 		}else {
 			throw new FundingException("찜하기 취소 실패");
@@ -678,13 +711,16 @@ public class FundingController {
 		 
 		 boolean ok = false;
 		 ArrayList<FundingDibs> dibs = fService.getDibs(fundingNum);
-		 for(int i = 0; i < dibs.size(); i++) {
-			 System.out.println(dibs.get(i));
-			 if(dibs.get(i).getDibsId().equals(login)) {
-				 ok = true;
+		 if(m != null) {
+			 for(int i = 0; i < dibs.size(); i++) {
+				 System.out.println(dibs.get(i));
+				 if(dibs.get(i).getDibsId().equals(login)) {
+					 ok = true;
+				 }
 			 }
 		 }
 		
+		 int creatorNum = f.getCreatorNum();
 		model.addAttribute("psList", psList);
 		model.addAttribute("psListCount", psListCount);
 		model.addAttribute("bId", fundingNum);
@@ -694,6 +730,8 @@ public class FundingController {
 		model.addAttribute("yn", yn);
 		model.addAttribute("dibsCount", dibsCount);
 		model.addAttribute("ok", ok);
+		model.addAttribute("creatorNum", creatorNum);
+		model.addAttribute("login", login);
 		return "fundingSupporter";
 	}
 	

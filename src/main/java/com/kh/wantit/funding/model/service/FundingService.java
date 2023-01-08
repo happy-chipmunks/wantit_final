@@ -124,4 +124,6 @@ public interface FundingService {
 
 	Image getMemberImage(String buyerName);
 
+	String getCreator(String creatorNickname);
+
 }

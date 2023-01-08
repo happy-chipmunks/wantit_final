@@ -239,6 +239,10 @@ public class FundingDAO {
 		return sqlSession.selectOne("fundingMapper.getMemberImage", memberId);
 	}
 
+	public String getCreator(SqlSessionTemplate sqlSession, String creatorNickname) {
+		return sqlSession.selectOne("fundingMapper.getCreator", creatorNickname);
+	}
+
 
 	
 	
