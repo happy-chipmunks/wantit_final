@@ -174,25 +174,24 @@
             		<input type="hidden" value="${ wantingList[i].wantingNum }" id="wantingNum${ i }">
 	                <div class="row payFundList">
 	                    
+						<div class="col-4 imageArea">
 	                    <c:forEach items="${ imageList }" var="image">
 	                    	<c:if test="${ wantingList[i].wantingNum == Integer.parseInt(image.imageBoardId) }">
-	                    	
-<!-- 		                   	 <div class="col-4 imageArea"> -->
-<%-- 		                   	 	<img alt="" src="${ contextPath }/resources/wanting/${ image.imageRename }" width="100%" height="100%"> --%>
-<!-- 		                   	 </div> -->
+			                   	 	<img alt="" src="${ contextPath }/resources/wanting/${ image.imageRename }" width="100%" height="100%">
 	                    	</c:if>
 	                    </c:forEach>
+						</div>
+	                    
 	                    <div class="col-8">
-	                        
 	                        <div class="payFundTitle">${ wantingList[i].wantingTitle }</div>
 	                        <div class="wantingSummary">${ wantingList[i].wantingSummary }</div>
 	                        <br><br>
 	                        <div class="writerAndDate">
-		                        <span class="wantingWriter">작성자 : ${ wantingList[i].wantingWriter }</span>&nbsp;&nbsp;
+		                        <span class="wantingWriter">작성자 : ${ wantingList[i].wantingNickname }</span>&nbsp;&nbsp;
 		                        <span class="boardCount">현재 참여자 수 : ${ wantingList[i].wantingCount } 명</span>
 	                        </div>
-	                      
 	                    </div>
+	                    
 	                </div>
             	</c:forEach>
                 

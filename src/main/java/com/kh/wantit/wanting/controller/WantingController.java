@@ -624,7 +624,7 @@ public class WantingController {
 				Alarm alarm = new Alarm();
 				alarm.setMemberId(id);
 				alarm.setAlarmMsg( "<" + wanting.getWantingTitle() + ">" + " 원팅 삭제 요청이 승인되었습니다.");
-				alarm.setAlarmBoardCate(4);
+				alarm.setAlarmBoardCate(0);
 				alarm.setAlarmBoardId(wantingNum);
 				int result2 = wService.sendAlarm(alarm);
 					

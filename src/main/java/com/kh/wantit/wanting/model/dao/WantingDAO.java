@@ -85,9 +85,20 @@ public class WantingDAO {
 	}	
 	
 	
-	// 회원 전체 알림 가져오기
+	// 회원 전체 안 읽은 알림 가져오기
 	public ArrayList<Alarm> selectAlarmList(SqlSessionTemplate sqlSession, String id) {
 		return (ArrayList)sqlSession.selectList("wantingMapper.selectAlarmList", id);
+	}
+
+	// 회원 전체 알림 가져오기 + 페이징
+	public int getAlarmListCount(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("wantingMapper.getAlarmListCount", id);
+	}
+	
+	public ArrayList<Alarm> selectAlarmListPaging(SqlSessionTemplate sqlSession, PageInfo pi, String id) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());		
+		return (ArrayList)sqlSession.selectList("wantingMapper.selectAlarmListPaging", id, rowBounds);
 	}
 	
 	
@@ -149,8 +160,7 @@ public class WantingDAO {
 	}
 
 
-
-
+	// 마이페이지 원팅 메소드
 	public ArrayList<Integer> selectWantingNumList(SqlSessionTemplate sqlSession, String id) {
 		return (ArrayList)sqlSession.selectList("wantingMapper.selectWantingNumList", id);
 	}
@@ -160,6 +170,7 @@ public class WantingDAO {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("wantingMapper.selectAttendWantList", wantingNumList, rowBounds);
 	}
+
 
 
 	

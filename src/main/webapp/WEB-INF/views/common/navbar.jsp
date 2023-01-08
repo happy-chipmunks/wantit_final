@@ -258,7 +258,8 @@
 								</c:if>
 						    </c:forEach>
 						    <li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">더보기(마이페이지 알림 연결)</a></li>
+							<li><a class="dropdown-item" onclick="location.href='${ contextPath }/myPageSupporterAlarm.me'">더보기</a></li>
+							
 						  </ul>
 						</div>
 										
