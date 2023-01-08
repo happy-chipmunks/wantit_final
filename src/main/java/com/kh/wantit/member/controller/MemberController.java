@@ -223,28 +223,34 @@ public class MemberController {
 		
 		 Image img = mService.selectcImage(cimage);
 		 System.out.println("크리에이터페이지 :"+img);
-		 if(img != null ) {
-		 session.setAttribute("icmage", img.getImageRename());//테스트
+		
+		 boolean check = false;
+			if(img != null && creatorCheck.equals("creator")) { // 이미지있음 , 크리에이터임
+				check = true;
+				session.setAttribute("icmage",img.getImageRename());
+				session.setAttribute("creatorRegistration", creatorRegistration);
+				session.setAttribute("check", check);
+			}else if(img == null && creatorCheck.equals("creator")) { // 이미지 없음 , 크리에이터임
+				check = true;
+				session.setAttribute("icmage",null);
+				session.setAttribute("creatorRegistration", creatorRegistration);
+				session.setAttribute("check", check);
+			}else if(img != null && !creatorCheck.equals("creator")){// 이미지 있음 크리에이터 아님
+				check = false;
+				session.setAttribute("icmage",img.getImageRename());
+				session.setAttribute("creatorRegistration", creatorRegistration);
+				session.setAttribute("check", check);
+			}else if(img == null &&  !creatorCheck.equals("creator")) {// 이미지 없고 크리에이터 아님
+				check = false;
+				session.setAttribute("icmage",null);
+				session.setAttribute("creatorRegistration", creatorRegistration);
+				session.setAttribute("check", check);
+			}
+			return "myPage_creator";
+	}		
 		 
-		 return"myPage_creator" ;
-		 }
-		
-
 		 
-		boolean check = false;
-		if(creatorCheck.equals("creator")) {
-			check = true;
-			
-			
-			model.addAttribute("check", check);
-		}else {
-			model.addAttribute("creatorRegistration", creatorRegistration);
-			model.addAttribute("check", check);
-		}
-		
-		
-		return "myPage_creator";
-	}
+		 
 	
 	@RequestMapping("/myPageCreatorFunding.me")
 	public String myPageCreatorFunding(HttpSession session, Model model) {

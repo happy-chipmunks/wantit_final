@@ -124,7 +124,7 @@
 				<input type="hidden" value="${ icmage }" name="cfiledelete">
 				<button class="btn button">프로필 삭제</button>
 				</form>
-				<br><br>
+				<br>
 					<form name="signform" method="POST" ENCTYPE="multipart/form-data" action="${contextPath}/insertcreatorMemberImg.me">
 				    <input type="file" id="file" name="file" style="display:none;" onchange="changeValue(this)">
 				    <input type="hidden" name = "target_url">
