@@ -223,6 +223,21 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.getMsgList(id, pi, sqlSession);
 	}
 
+	@Override
+	public ArrayList<FundingMessage> getSenderMsgList(String id, PageInfo pi) {
+		return mDAO.getSenderMsgList(id, pi, sqlSession);
+	}
+
+	@Override
+	public int getSenderMsgListCount(String id) {
+		return mDAO.getSenderMsgListCount(id, sqlSession);
+	}
+
+	@Override
+	public int replyMessage(FundingMessage fmr) {
+		return mDAO.replyMessage(fmr, sqlSession);
+	}
+
 
 
 	

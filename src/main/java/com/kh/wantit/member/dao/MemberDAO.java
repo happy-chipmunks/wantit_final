@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Image;
+import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingMessage;
 import com.kh.wantit.member.vo.Creator;
 import com.kh.wantit.member.vo.Member;
@@ -169,6 +170,23 @@ public class MemberDAO {
 
 	public int getImageNum(SqlSessionTemplate sqlSession, Image img) {
 		return sqlSession.selectOne("memberMapper.getImageNum", img);
+	}
+
+
+	public ArrayList<FundingMessage> getSenderMsgList(String id, PageInfo pi, SqlSessionTemplate sqlSession) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getSenderMsgList", id, rowBounds);
+	}
+
+
+	public int getSenderMsgListCount(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.getSenderMsgListCount", id);
+	}
+
+
+	public int replyMessage(FundingMessage fmr, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("memberMapper.replyMessage", fmr);
 	}
 
 

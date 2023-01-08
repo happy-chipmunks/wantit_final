@@ -516,19 +516,18 @@ public class FundingController {
 	}
 	
 	// 펀딩 문의하기
-	@RequestMapping("sendMassage.fund")
-	public String sendMassage(@RequestParam("fundingNum") int fundingNum, HttpSession session, Model model, @ModelAttribute FundingMessage fm, @RequestParam("creatorId") int creatorNum, @RequestParam("cate") String cate) {
+	@RequestMapping("sendMessage.fund")
+	public String sendMassage(@RequestParam("fundingNum") int fundingNum, HttpSession session, Model model, @ModelAttribute FundingMessage fm, @RequestParam("creatorId") int creatorNum) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		String creatorId = fService.getFundingCreator(fundingNum);
 		fm.setFundingNum(fundingNum);
 		fm.setSender(id);
 		fm.setReceiver(creatorId);
-		fm.setMessageCate(cate);
 		
 		int result = fService.insertInquiry(fm);
 		
-		model.addAttribute("creatorNum", creatorNum);
-		model.addAttribute("fundingNum", fundingNum);
+		model.addAttribute("writerNo", creatorNum);
+		model.addAttribute("bId", fundingNum);
 		return "redirect:selectFundingBoard.fund";
 	}
 	

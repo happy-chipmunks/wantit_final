@@ -75,6 +75,12 @@ public interface MemberService {
 
 	ArrayList<FundingMessage> getMsgList(String id, PageInfo pi);
 
+	ArrayList<FundingMessage> getSenderMsgList(String id, PageInfo pi);
+
+	int getSenderMsgListCount(String id);
+
+	int replyMessage(FundingMessage fmr);
+
 
 	
 
