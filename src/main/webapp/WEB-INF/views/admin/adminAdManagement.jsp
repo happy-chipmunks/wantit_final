@@ -211,11 +211,6 @@
 							<br> 프로젝트 승인 / 거절
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ contextPath }/fundingManage.ad"> <span
-								data-feather="file" class="align-text-bottom"></span> <br>
-							<br> 펀딩 신고 관리
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/reviewManage.ad"> <span
 								data-feather="shopping-cart" class="align-text-bottom"></span> <br>
 							<br> 리뷰 신고 관리
@@ -256,7 +251,7 @@
 							<th scope="col">광고번호</th>
 							<th scope="col">펀딩번호</th>
 							<th scope="col">펀딩제목</th>
-							<th scope="col">날짜</th>
+							<th scope="col">의뢰날짜</th>
 							<th scope="col">처리상태</th>
 
 						</tr>
@@ -269,11 +264,14 @@
 							<td>${ m.fundingTitle }</td>
 							<td>${ m.adsCreateDate }</td>
 							<td>
-								<c:if test="${ m.adsStatus == 'Y' }">
+								<c:if test="${ m.adsStatus == 'N' }">
 									<button class="btn btn-primary answerBtn" type="button" value="${ r.index }">미처리</button>
 								</c:if>
-								<c:if test="${ m.adsStatus == 'N' }">
-									처리완료
+								<c:if test="${ m.adsStatus == 'Y' && m.confirm =='Y'}">
+									광고승인
+								</c:if>
+								<c:if test="${ m.adsStatus == 'Y' && m.confirm =='N'}">
+									광고거절
 								</c:if>
 							</td>
 
@@ -295,31 +293,34 @@
 								</div>
 							<br>
 								<c:forEach var="i" items="${ iList }">
-									<c:if test="${ m.adsNum == i.imageBoardId }">
+									<c:if test="${ m.fundingNum == i.imageBoardId }">
 										<div class="textForm1">
 											광고 내용<br><br><br>
-												<img src="${ contextPath }/resources/wanting/${ i.imageRename }" width="1400px;" height="700px;">
+												<img src="${ contextPath }/resources/member/${ i.imageRename }" width="1400px;" height="700px;">
 										</div>
+										<input type="hidden" name="imageNum" id = "imageNum" value="${ i.imageNum }">
 									</c:if>									
 								</c:forEach>
-							<br>
+								<br>
 								<div class="textForm">
 									<textarea name="adsModal" class="adsModal" style="height: 50px;" readonly>의뢰 금액 : ${ m.adsPrice }</textarea>
 								</div>
-							
-							<br>
-							
+								<br>
+								
 								<div class="textForm">
 									<textarea name="adsModal" class="adsModal" style="height: 50px;" readonly>광고 의뢰 기간 : ${ m.adsStart } ~ ${ m.adsEnd }</textarea>
 								</div>
 							
 							<br>
 							<button type="button"
-								class="btn cancel btn-primary btn-lg right modbtn cancelBtn" value="${ r.index }">거절</button>
-							<button type="button" class="btn btn-primary btn-lg right modbtn acceptBtn" value="${ r.index }">승인</button>
-							<input type="hidden" name="cancelDivision" class="cancelDivision"  >
-							<input type="hidden" name="acceptDivision" class="acceptDivision"  >
-							
+								class="btn refuse btn-primary btn-lg right" value="${ r.index }">
+							<span style="display: none">${ m.adsNum }</span>
+							<input type="hidden" name="boardId" class="boardId" value="${ m.fundingNum }" >	
+								거절</button>
+							<button type="button" class="btn confirm btn-primary btn-lg right" value="${ r.index }">
+							<span style="display: none">${ m.adsNum }</span>
+							<input type="hidden" name="boardId" class="boardId" value="${ m.fundingNum }" >
+							승인</button>
 						</fieldset>
 					</form>
 				</div>
@@ -359,26 +360,33 @@
 	
 		$('.answerBtn').click(function() {
 			const num = $(this).val();
-			if ( $('.myForm').css('display') === 'none' ) {
 			$('.myForm' + num).show();
-			} else {
-				 $('.myForm').hide();
-			}
 			
 		});
 	
 		$('label').css('display', 'inline-block');
 		
 		
+		$(document).on("click", ".refuse", function(){
+            const adsNum = this.children[0].innerText;
+            const boardId = this.children[1].value;
+            	
+            
+            location.href = '${contextPath}/refuseAd.ad?adsNum='+adsNum+'&boardId='+boardId;
+            
+    	});
 		
-		
-		$('.cancel').click(function() {
-			$(this).siblings()[10].value;
-			$(this).siblings('.acceptDivision').val($(this).siblings()[10].value);
-			console.log($(this).siblings()[10].value);
-			$('.myForm' + num).hide();
-		});
-		
+		$(document).on("click", ".confirm", function(){
+            const adsNum = this.children[0].innerText;
+            const boardId = this.children[1].value;
+      		const imageNum = $(this).parent().parent().find("#imageNum").val()
+			
+			console.log(adsNum);
+            console.log(boardId);
+            console.log(imageNum);
+            location.href = '${contextPath}/confirmAd.ad?adsNum='+adsNum+'&boardId='+boardId+ '&imageNum=' + imageNum;
+            
+    	});
 		
 	</script>
 

@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.wantit.admin.model.vo.AFunding;
+import com.kh.wantit.admin.model.vo.AdReply;
+import com.kh.wantit.admin.model.vo.AddReply;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.EdReply;
@@ -16,17 +18,12 @@ import com.kh.wantit.admin.model.vo.NoReply;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
-import com.kh.wantit.common.model.vo.BannerImage;
-import com.kh.wantit.common.model.vo.CreatorImage;
-import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.admin.model.vo.ReviewReport;
+import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingEdit;
 import com.kh.wantit.member.vo.Creator;
-import com.kh.wantit.admin.model.vo.ReviewReport;
-import com.kh.wantit.common.model.vo.Image;
-
 import com.kh.wantit.member.vo.Member;
 
 @Repository("aDAO")
@@ -91,8 +88,8 @@ public class AdminDAO {
 		return (ArrayList)sqlSession.selectList("adminMapper.businessImage");
 	}
 
-	public ArrayList<Image> selectAllImage(SqlSessionTemplate sqlSession, int i) {
-		return (ArrayList)sqlSession.selectList("adminMapper.selectAllImage", i);
+	public ArrayList<Image> selectAdImage(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectAdImage");
 	}
 
 //	public ArrayList<Notice> selectAllNotice(SqlSessionTemplate sqlSession, PageInfo pi, int i) {
@@ -217,6 +214,10 @@ public class AdminDAO {
 	public int noEditProjectF(String id, SqlSessionTemplate sqlSession) {
 		return sqlSession.delete("adminMapper.noEditProjectF", id);
 	}
+	
+	public int noEditProjectW(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("adminMapper.noEditProjectW", id);
+	}
 
 	public int okEditProjectF(int id, SqlSessionTemplate sqlSession) {
 		int result = sqlSession.update("adminMapper.okEditPro", id);
@@ -284,9 +285,58 @@ public class AdminDAO {
 	public int insertBannerImage(SqlSessionTemplate sqlSession, BannerImage bi) {
 		return sqlSession.insert("adminMapper.insertBannerImage", bi);
 	}
-
 	public int noEditProjectFF(String id, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("adminMapper.noEditProjectFF", id);
+	}
+	
+	public int noEditProjectWW(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("adminMapper.noEditProjectWW", id);
+	}
+//	public int okEditProjectW(int id, SqlSessionTemplate sqlSession) {
+//		int result = sqlSession.update("adminMapper.okEditProW", id);
+//		return sqlSession.update("adminMapper.okEditProjectW", id);
+//	}
+//
+//	public Notice selectNoticeDetail(SqlSessionTemplate sqlSession, NoReply nr) {
+//		return sqlSession.selectOne("adminMapper.selectNoticeDetail", nr);
+//	}
+//
+//	public ArrayList<Image> selectImage(SqlSessionTemplate sqlSession, int code) {
+//		return (ArrayList) sqlSession.selectList("adminMapper.selectImage", code);
+//	}
+//
+//
+//	public int confirmNotice(SqlSessionTemplate sqlSession, EdReply er) {
+//		return sqlSession.update("adminMapper.confirmNotice", er);
+//	}
+
+	public int refuseAd(SqlSessionTemplate sqlSession, AdReply ar) {
+		return sqlSession.delete("adminMapper.refuseAd", ar);
+	}
+
+	public int refuseAdImage(SqlSessionTemplate sqlSession, AdReply ar) {
+		return sqlSession.delete("adminMapper.refuseAdImage", ar);
+	}
+
+	public int confirmAd(SqlSessionTemplate sqlSession, AddReply ar) {
+		return sqlSession.update("adminMapper.confirmAd", ar);
+	}
+
+	public int successEdit(SqlSessionTemplate sqlSession, String id) {
+		int result = sqlSession.update("adminMapper.successEdit", id);
+		return result;
+	}
+
+	public int failEdit(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("adminMapper.failEdit", id);
+	}
+
+	public int failEditWW(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("adminMapper.failEditWW", id);
+	}
+
+	public int confirmAdImage(SqlSessionTemplate sqlSession, AddReply ar) {
+		return sqlSession.update("adminMapper.confirmAdImage", ar);
 	}
 
 	public int okEditProjectW(int id, SqlSessionTemplate sqlSession) {
@@ -307,9 +357,5 @@ public class AdminDAO {
 		return sqlSession.update("adminMapper.confirmNotice", er);
 	}
 
-	
-//	public int noProject(SqlSessionTemplate sqlSession, String id) {
-//		return sqlSession.update("adminMapper.noProject", id);
-//	}
 	
 }

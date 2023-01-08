@@ -258,11 +258,7 @@ input[type="checkbox"]:checked+label span {
 								data-feather="file" class="align-text-bottom"></span> <br>
 								<br> 프로젝트 승인 / 거절
 						</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="${ contextPath }/fundingManage.ad"> <span
-								data-feather="file" class="align-text-bottom"></span> <br>
-								<br> 펀딩 신고 관리
-						</a></li>
+						
 						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/reviewManage.ad"> <span
 								data-feather="shopping-cart" class="align-text-bottom"></span> <br>
@@ -294,7 +290,7 @@ input[type="checkbox"]:checked+label span {
 
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 				<div class="shadow p-3 mb-5 bg-body rounded myMakeForm">
-					<form action="${contextPath }/editNotice.ad" method="post"
+					<form action="${contextPath }/editConfirm.ad" method="post"
 						class="answerForm" enctype="multipart/form-data" id="answerForm">
 						
 						<fieldset>
@@ -317,7 +313,8 @@ input[type="checkbox"]:checked+label span {
 							<br>
 							
 							<div class="textForm">
-								<textarea name="titleArea" class="titleArea" placeholder="제목을 입력하세요."style="height: 28px;"></textarea>
+								
+								<textarea name="titleArea" class="titleArea" placeholder="제목을 입력하세요."style="height: 28px;">${ notice.noticeTitle }</textarea>
 							</div>
 		
 
@@ -329,10 +326,10 @@ input[type="checkbox"]:checked+label span {
 								accept="image/JPG,image/JPEG,image/GIF,image/PNG"
 								name="notice-file" type="file" id="notice-file"
 								style="display: none"> <label for="notice-file"
-								class="file-btn">등록하기</label> <span id="file-name">선택된
-								파일없음</span> <br>
+								class="file-btn">등록하기</label> <span id="file-name">${ thumbnail.getImageRename() }</span> <br>
+								
 
-							<textarea id="summernote" name="noticeContent">${ noticeContent }</textarea>
+                            <textarea id="summernote" name="noticeContent">${ notice.noticeContent }</textarea>
 
 							<br>
 
@@ -340,12 +337,13 @@ input[type="checkbox"]:checked+label span {
 								class="btn makeNope btn-primary btn-lg right"
 								style="float: right;" onclick="history.back()">취소</button>
 							<button type="button"
-								class="btn makeNotice btn-primary btn-lg right"
+								class="btn editNotice btn-primary btn-lg right"
 								style="display: inline-block; float: left;" id="btn-submit">수정</button>
 
 							<input type="hidden" name="title" class="hiddenTitle" value="">
-							<input type="hidden" name="check" class="hiddencheck" value="">
-
+                            <input type="hidden" name="division" class="hiddenDivision" value="">
+                            <input type="hidden" name="code" class="hiddenCode" value="${ notice.noticeNum }">
+                            <input type="hidden" name="content" class="hiddenContent" value="">
 
 						</fieldset>
 					</form>
@@ -366,14 +364,18 @@ input[type="checkbox"]:checked+label span {
 	        element.checked = true;
 	     }
 		
-		$('.makeNotice').click(function(){
+		$('.editNotice').click(function(){
 			$(this).siblings('.hiddenTitle').val($(this).siblings()[3].querySelector('textarea').value);
+			$(this).siblings('.hiddenCode').val($(this).siblings()[18].value);
+			$(this).siblings('.hiddenContent').val($(this).siblings()[12].value);
+			
 			
 	          const query = 'input[name="checkcheckcheck"]:checked';
 	          const selectedEls = document.querySelector(query);
-
-
-		        $(this).siblings('.hiddencheck').val(selectedEls.value);
+			$(this).siblings('.hiddenDivision').val(selectedEls.value);
+			
+		        
+		        
 		          console.log(query);
  				$(this).parent().parent('.answerForm').submit();
 
