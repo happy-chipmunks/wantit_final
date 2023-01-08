@@ -231,7 +231,7 @@
 						</c:if>		 
 						</a>
 		
-						<!-- 알림 -->
+						<!-- 알림 -------------------------->
 						<div class="dropdown">
 						<c:if test="${ !empty alarmList }">
 							<img src="resources/wanting/notification-y.png" style="width:35px; margin: 10px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
@@ -245,23 +245,31 @@
 							</c:if>
 							<c:forEach items="${ alarmList }" var="a">
 								<c:if test="${ a.alarmBoardCate == 1}">
-							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectWanting.want?wantingNum=${ a.alarmBoardId }'">${ a.alarmMsg }</a></li>
+							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectFundingBoard.fund?bId=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
 								</c:if>
 								<c:if test="${ a.alarmBoardCate == 4}">
 									<input type="hidden" id="wanting-alarmNum" value="${ a.alarmNum }">
-							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/alarmSelectWanting.want?wantingNum=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
+							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectWanting.want?wantingNum=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
 								</c:if>
 						    </c:forEach>
 						    <li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">더보기(마이페이지 알림 연결)</a></li>
+							<li><a class="dropdown-item" onclick="location.href='${ contextPath }/myPageSupporterAlarm.me'">더보기</a></li>
+							
 						  </ul>
 						</div>
 										
 						<button type="button" class="btn" id="askManager"
 							onclick="location.href='${contextPath}/'">관리자 문의</button>
-						<button type="button" class="btn" id="openProject"
-							onclick="location.href='${contextPath}/fundingWrite.fund'">프로젝트 오픈 신청
-							</button>	
+						<c:if test="${ loginUser != null && loginUser.memberType == 'creator' }">
+							<button type="button" class="btn" id="openProject"
+								onclick="location.href='${contextPath}/insertFundingBoard.fund'">프로젝트 오픈 신청
+							</button>
+						</c:if>
+						<c:if test="${ loginUser.memberType != 'creator' }">
+							<button type="button" class="btn" id="openProject"
+								disabled>프로젝트 오픈 신청
+							</button>
+						</c:if>	
 						&nbsp;&nbsp;
 							<button type="button" class="btn" id="logoutBtn"
 								onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>

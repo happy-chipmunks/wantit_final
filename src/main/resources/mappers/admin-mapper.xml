@@ -104,28 +104,11 @@
 		using (funding_num)
 	</select>
 
-	<select id="selectAllImage" resultMap="imageResultSet">
+	<select id="selectAdImage" resultMap="imageResultSet">
 		select *
 		from image
-		where
-		image_board_cate = 8 and image_status = 'Y'
+		where image_status = 'Y' and image_board_cate = 8
 	</select>
-
-	<!-- <select id="selectAllNotice" resultMap="noticeResultSet"> -->
-	<!-- select * -->
-	<!-- from notice -->
-	<!-- where -->
-	<!-- notice_division = 'N' -->
-	<!-- order by notice_num desc -->
-	<!-- </select> -->
-
-	<!-- <select id="selectAllEvent" resultMap="noticeResultSet"> -->
-	<!-- select * -->
-	<!-- from notice -->
-	<!-- where -->
-	<!-- notice_division = 'E' -->
-	<!-- order by notice_num desc -->
-	<!-- </select> -->
 
 	<select id="selectAllwrite" resultMap="noticeResultSet">
 		select *
@@ -146,11 +129,7 @@
 		where notice_num = ${code}
 		order by notice_num desc
 	</select>
-	<!-- <update id="getAccept"> -->
-	<!-- update ads -->
-	<!-- set confirm = 'Y' -->
-	<!-- where ads_num = #{acceptDivision} -->
-	<!-- </update> -->
+	
 	<select id="checkCode" resultMap="noticeResultSet">
 		select admin
 		from notice
@@ -220,6 +199,7 @@
 		set member_type='supportor'
 		where member_id=#{delCreator}
 	</update>
+	
 	<select id="selectOkList" resultMap="afundingResultSet">
         select funding_num, funding_title, funding_content, CONFIRM, CREATE_DATE, FUNDING_STATUS, 'F' division
 		from funding 
@@ -228,12 +208,6 @@
         
         select wanting_num, WANTING_TITLE, WANTING_CONTENT, wanting_confirm, CREATE_DATE, WANTING_STATUS, 'W' division
         from wanting 
-        
-        union all
-        
-        select edit_funding_num, funding_edit_title, funding_edit_content,  edit_confirm, CREATE_DATE, EDIT_STATUS, 'E' division
-        from funding_edit
-        order by create_date desc
 	</select>
 	
 	<select id="selectBannerImageList" resultMap="bannerImageResultSet">
@@ -275,6 +249,7 @@
 		where funding_num=#{id}
 	</update>
 	
+
 	<update id="okEditProjectF">
 		update funding
 		set confirm='C'
@@ -286,16 +261,27 @@
 		set edit_confirm='Y', edit_status='Y'
 	</update>
 	
-	<update id="okEditProjectW">
-		update wanting
-		set confirm='C'
-		where wanting_num=#{id}
-	</update>
-	
 	<update id="okEditProW">
 		update wanting_edit
 		set wanting_confirm='Y', edit_status='Y'
 	</update>
+	
+	<update id="okEditProjectW">
+		update wanting
+		set wanting_confirm='C'
+		where wanting_num=#{id}
+	</update>
+	
+<!-- 	<update id="okEditProW"> -->
+<!-- 		update wanting_edit -->
+<!-- 		set wanting_confirm='C', wanting_status='Y' -->
+<!-- 		where wanting_num=#{id} -->
+<!-- 	</update> -->
+	
+	<delete id="noEditProjectW">
+		delete from wanting_edit
+		where wanting_num=#{id}
+	</delete>
 	
 	<insert id="insertImage">
 		insert into image
@@ -335,6 +321,12 @@
 		insert into banner_image values(#{imageNum}, #{startDate}, #{endDate}, 'N', 'Y')
 	</insert>
 	
+
+	<update id="noEditProjectWW">
+		update wanting
+		set wanting_confirm='R'
+		where wanting_num=#{id}
+	</update>
 	
 	<update id="confirmNotice">
         update notice
@@ -357,7 +349,52 @@
     <update id="plusNoticeCount">
     	update notice set notice_count = notice_count + 1 where notice_num = #{noticeNum}
     </update>
+
+	<delete id="refuseAd">
+		delete from ads
+		where ads_num = #{adsNum}
+	</delete>
 	
+	<delete id="refuseAdImage">
+		delete from image
+		where image_board_id = #{boardId}
+	</delete>
+	
+	<update id="confirmAd">
+		update ads
+		set confirm = 'Y', ads_status='Y'
+		where ads_num = #{adsNum}
+	</update>
+	
+	<update id="successEdit">
+		update wanting
+		set wanting_confirm='S'
+		where wanting_num=#{id}
+	</update>
+	
+	<update id="failEditWW">
+		update wanting
+		set wanting_confirm='F'
+		where wanting_num=#{id}
+	</update>
+	
+	<delete id="failEdit">
+		delete from wanting_edit
+		where wanting_num=#{id}
+	</delete>
+	
+	<update id="confirmAdImage">
+		update banner_image
+		set confirm = 'Y'
+		where image_num =#{imageNum}
+	</update>
+	
+	
+	
+	
+	
+	
+
 	
 	<resultMap type="Member" id="memberResultSet">
 		<id column="MEMBER_ID" property="memberId" />

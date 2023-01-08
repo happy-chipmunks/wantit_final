@@ -199,11 +199,6 @@
 								<br> 프로젝트 승인 / 거절
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ contextPath }/fundingManage.ad"> <span
-								data-feather="file" class="align-text-bottom"></span> <br>
-							<br> 펀딩 신고 관리
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/reviewManage.ad"> <span
 								data-feather="shopping-cart" class="align-text-bottom"></span> <br>
 								<br> 리뷰 신고 관리
@@ -278,10 +273,10 @@
 									<br>&nbsp;&nbsp;&nbsp;&nbsp;문의 답변
 								</h1>
 								<div class="textForm">
-	<%-- 									<input type="hidden" value="${ r.count }" class="reply"> --%>
-	<%-- 									<c:if test="${r.count == r.count} "> --%>
+										<input type="hidden" value="${ r.count }" class="reply">
+										<c:if test="${r.count == r.count} ">
 											<textarea name="replyContentNope" class="replyContentNope" readonly>${ m.inquiryContent }</textarea>
-	<%-- 									</c:if> --%>
+										</c:if>
 								</div>
 								<br>
 								<div class="textForm">

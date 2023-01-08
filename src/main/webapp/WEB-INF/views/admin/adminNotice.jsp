@@ -253,11 +253,6 @@ input[type="checkbox"]:checked + label span {
 							<br> 프로젝트 승인 / 거절
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ contextPath }/fundingManage.ad"> <span
-								data-feather="file" class="align-text-bottom"></span> <br>
-							<br> 펀딩 신고 관리
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/reviewManage.ad"> <span
 								data-feather="shopping-cart" class="align-text-bottom"></span> <br>
 							<br> 리뷰 신고 관리
@@ -334,7 +329,7 @@ input[type="checkbox"]:checked + label span {
 									<c:if test="${ m.noticeStatus == 'Y' }">
 										<button class="btn btn-primary answerBtn" type="button">
 										<span style="display: none">${ m.noticeNum }</span>
-										<input type="hidden" name="title" class="title" value="${ m.noticeTitle }" >
+										<input type="hidden" name="title" class="title" value="${ m.noticeDivision }" >
 										글 수정</button>
 									</c:if>
 								</td>
@@ -453,13 +448,13 @@ input[type="checkbox"]:checked + label span {
 
 		$(document).on("click", ".answerBtn", function(){
             const code = this.children[0].innerText;
-            const title = this.children[1].value;
+            const division = this.children[1].value;
             
 			
 			console.log(code);
-            console.log(title);
+            console.log(division);
             
-            location.href = '${contextPath}/editNotice.ad?code='+code+'&title='+title;
+            location.href = '${contextPath}/editNotice.ad?code='+code+'&division='+division;
             
     	});
 		

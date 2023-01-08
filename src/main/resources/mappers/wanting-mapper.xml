@@ -93,12 +93,27 @@
 	</select>
 
 
-<!-- 	회원 전체 알림 가져오기 -->
+<!-- 	회원 전체 안 읽은 알림 가져오기 -->
 	<select id="selectAlarmList" resultMap="alarmResultSet">
 		select *
 		from alarm
-		where member_id=#{memberId} and alarm_check='N'
+		where member_id=#{memberId} and alarm_check='N' and alarm_status='Y'
 	</select>
+
+<!-- 	회원 전체 알림 가져오기 + 페이징 -->
+	<select id="getAlarmListCount" resultType="_int">
+		select count(*)
+		from alarm
+		where member_id=#{memberId} and alarm_status='Y'
+		order by alarm_num desc
+	</select>
+
+	<select id="selectAlarmListPaging" resultMap="alarmResultSet">
+		select *
+		from alarm
+		where member_id=#{memberId} and alarm_status='Y'
+	</select>	
+	
 	
 	
 <!-- 	원팅 달성 알림 보내기 -->
@@ -201,7 +216,7 @@
 	</update>
 
 
-
+<!-- 	마이페이지 원팅 메소드 -->
 	<select id="selectWantingNumList" resultType="integer">
 		select wanting_num from wanting_attend where attender = #{id}
 	</select>
@@ -212,6 +227,9 @@
 			#{item}
 		</foreach>
 	</select>
+
+
+
 	
 	<resultMap type="Wanting" id="wantingResultSet">
 		<id column="WANTING_NUM" property="wantingNum"/>

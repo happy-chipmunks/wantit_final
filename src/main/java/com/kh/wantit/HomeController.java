@@ -7,9 +7,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.maven.doxia.site.decoration.Banner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ import com.kh.wantit.admin.model.service.AdminService;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
-import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.Alarm;
+import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
@@ -32,7 +32,6 @@ import com.kh.wantit.member.Service.MemberService;
 import com.kh.wantit.member.vo.Member;
 import com.kh.wantit.wanting.model.service.WantingService;
 import com.kh.wantit.wanting.model.vo.Wanting;
-import com.sun.mail.handlers.image_gif;
 
 
 
@@ -57,14 +56,15 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, HttpSession session, 
+	public String home(Locale locale, Model model, HttpServletRequest request, 
 			@RequestParam(value = "cancelPayScuccess", required = false) String cancelPayScuccess) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
+		HttpSession session = request.getSession(true);
 		if(session.getAttribute("loginUser") != null) {
 			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 			ArrayList<Alarm> alarmList = wService.selectAlarmList(id);
-			model.addAttribute("alarmList", alarmList);
+			session.setAttribute("alarmList", alarmList);
 		}
 
 		ArrayList<Wanting> wantingList = wService.selectWantingList();

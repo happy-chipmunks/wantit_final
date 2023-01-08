@@ -58,7 +58,7 @@
       <div class="col-2 offset-2"><a class="tab-link" href="${ contextPath }/selectFundingBoard.fund?bId=${f.fundingNum}&writerNo=${creatorNum}" style="font-weight: 1000px; color:black;">정보 </a></div>
       <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund?bId=${f.fundingNum}">새소식 </a></div>
       <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingReview.fund?bId=${f.fundingNum}">리뷰 </a></div>
-      <div class="col-2"><a class="tab-link" href="#">서포터 ${ supCount } <span class="count-total"></span></a></div>
+      <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingSupportor.fund?bId=${f.fundingNum}">서포터 ${ supCount } <span class="count-total"></span></a></div>
     </div>
   </div>
 
@@ -88,7 +88,7 @@
 	        <div class="about-funding">
 	          <span class="icon"></span>
 	          <strong>크라우드펀딩 제대로 알고 펀딩하자</strong>
-	          <button class="more-button">자세히 알아보기</button>
+	          <button class="more-button" onclick="$('#more').modal('show')">자세히 알아보기</button>
 	        </div>
 	        
 	        <!-- 상품 상세설명 -->
@@ -284,7 +284,6 @@
 	        <div class="modal-wanting-right">
 				<a id="kakaotalk-sharing-btn" class="link-icon kakao" href="javascript:;">카카오톡</a>
 				<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();">페이스북</a>
-		        <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
 	        </div>
 	      </div>
 	      <div class="modal-footer modal-dibs-footer">
@@ -294,7 +293,27 @@
 		</div>
 	  </div>
 	</div>
-
+	
+	<!-- 자세히 알아보기 -->
+	<div class="modal" tabindex="-1" id="more">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title"><b>크라우드 펀딩이란?</b></h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        펀딩은 리워드를 단순히 구매하는 쇼핑이 아닌 <b>크리에이터의 새로운 제품・서비스 제작 과정을 지원하는 것입니다.</b><br>
+				따라서, 펀딩은 전자상거래법상 통신판매에 해당하지 않으므로 단순 변심으로 인한 환불 등 관련 규정이 적용되지 않습니다.<br>
+				<b>단, 펀딩 종료 전까지 언제든지 펀딩을 취소할 수 있습니다.</b>
+	      </div>
+	      <div class="modal-footer mb-2"><br>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>&nbsp;
+<!-- 	        <button type="button" class="btn btn-primary">Save changes</button> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 
   <!-- cursor -->
@@ -311,28 +330,30 @@
 			alert('로그인 후 이용해주세요.');
 		}
 		
-		const applyAlarmBtn = document.getElementById('applyAlarmBtn');
-		applyAlarmBtn.addEventListener('click', function() {
-			const fundingNum = this.querySelector('.bId').value;
-			const fundingTitle = this.querySelector('.fundingTitle').value;
-			const fundingStart = this.querySelector('.fundingStart').value;
-			$.ajax({
-				url : '${ contextPath }/applyAlarm.fund',
-				data : {'fundingNum' : fundingNum, 'fundingTitle' : fundingTitle, 'fundingStart' : fundingStart},
-				success : (data)=> {
-					console.log(data.result);
-					if(data.result == 'success') {
-						alert('오픈 알림신청이 되었습니다 !');
-					} else {
-						alert('이미 신청을 한 펀딩상품입니다 !');
+		if(document.getElementById('applyAlarmBtn') != null) {
+			const applyAlarmBtn = document.getElementById('applyAlarmBtn');
+			applyAlarmBtn.addEventListener('click', function() {
+				const fundingNum = this.querySelector('.bId').value;
+				const fundingTitle = this.querySelector('.fundingTitle').value;
+				const fundingStart = this.querySelector('.fundingStart').value;
+				$.ajax({
+					url : '${ contextPath }/applyAlarm.fund',
+					data : {'fundingNum' : fundingNum, 'fundingTitle' : fundingTitle, 'fundingStart' : fundingStart},
+					success : (data)=> {
+						console.log(data.result);
+						if(data.result == 'success') {
+							alert('오픈 알림신청이 되었습니다 !');
+						} else {
+							alert('이미 신청을 한 펀딩상품입니다 !');
+						}
+					},
+					error : (data)=> {
+						console.log(data);
 					}
-				},
-				error : (data)=> {
-					console.log(data);
-				}
-						
+							
+				});
 			});
-		});
+		}
 		
 		changeMoney();
 		function changeMoney() {
@@ -353,13 +374,6 @@
 		}
 		
 		// 펀딩 공유하기 ========================================
-	    function shareTwitter() {
-	        var sendText = "If You WANT IT, You Can Get It!"; // 전달할 텍스트
-	        let fundingNum = ${ f.fundingNum };
-	        let writerNo = ${ creatorNum };
-	        var sendUrl = "http://localhost:8080/wantit/selectFundingBoard.fund?bId=" + fundingNum + "&writerNo=" + writerNo; // 전달할 URL
-	        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
-	    }
 	    function shareFacebook() {
 	        var sendUrl = "http://localhost:8080/wantit/selectFundingBoard.fund?bId=" + fundingNum + "&writerNo=" + writerNo; // 전달할 URL
 	        window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
@@ -371,7 +385,7 @@
 	    objectType: 'feed',
 	    content: {
 	      title: '${ f.fundingTitle }',
-	      description: '함께 만들어나가는 원팅',
+	      description: 'If You WANT IT, You Can Get It!',
 	      imageUrl:
 			'${ contextPath }/resources/funding/${img.imageRename}',
 	      link: {

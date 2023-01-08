@@ -47,8 +47,13 @@ public interface WantingService {
 	// 원팅 검색
 	ArrayList<Wanting> searchWantingList(Map<String, String> searchMap);
 	
-	// 회원 전체 알림 가져오기
+	// 회원 전체 안 읽은 알림 가져오기
 	ArrayList<Alarm> selectAlarmList(String id);
+
+	// 회원 전체 알림 가져오기 + 페이징
+	int getAlarmListCount(String id);
+
+	ArrayList<Alarm> selectAlarmListPaging(PageInfo pi, String id);
 	
 	// 회원 알림 확인하기
 	int checkAlarm(int alarmNum);
@@ -72,9 +77,12 @@ public interface WantingService {
 	int rejectDeleteWanting(int wantingNum);
 
 	int confirmDeleteWanting(int wantingNum);
+	
+	// 마이페이지 원팅 메소드
 	ArrayList<Integer> selectWantingNumList(String id);
 
 	ArrayList<Wanting> selectAttendWantList(PageInfo pi, ArrayList<Integer> wantingNumList);
+
 
 
 

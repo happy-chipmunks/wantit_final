@@ -107,10 +107,21 @@ public class WantingServiceImpl implements WantingService{
 	}
 
 	
-	// 회원 전체 알림 가져오기
+	// 회원 전체 안 읽은 알림 가져오기
 	@Override
 	public ArrayList<Alarm> selectAlarmList(String id) {
 		return wDAO.selectAlarmList(sqlSession, id);
+	}
+
+	// 회원 전체 알림 가져오기 + 페이징
+	@Override
+	public int getAlarmListCount(String id) {
+		return wDAO.getAlarmListCount(sqlSession, id);
+	}
+	
+	@Override
+	public ArrayList<Alarm> selectAlarmListPaging(PageInfo pi, String id) {
+		return wDAO.selectAlarmListPaging(sqlSession, pi, id);
 	}
 	
 
@@ -168,8 +179,7 @@ public class WantingServiceImpl implements WantingService{
 	}
 
 
-
-		
+	// 마이페이지 원팅 메소드
 	@Override
 	public ArrayList<Integer> selectWantingNumList(String id) {
 		return wDAO.selectWantingNumList(sqlSession, id);
@@ -179,7 +189,6 @@ public class WantingServiceImpl implements WantingService{
 	public ArrayList<Wanting> selectAttendWantList(PageInfo pi, ArrayList<Integer> wantingNumList) {
 		return wDAO.selectAttentWantList(sqlSession, pi, wantingNumList);
 	}
-
 
 	
 }

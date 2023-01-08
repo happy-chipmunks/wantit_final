@@ -77,7 +77,7 @@
         </div>
         <div class="input-group mb-3">
             <div class="form-floating">
-              <input type="password" class="form-control" id="floatingInputGroup2" name="memberPwd" placeholder="Username">
+              <input type="password" class="form-control" id="floatingInputGroup2" name="memberPwd" placeholder="Username" onkeyup="enterkey();">
               <label for="floatingInputGroup1">비밀번호 입력</label>
             </div>
         </div>
@@ -186,7 +186,12 @@
     }
     
      
-    
+     // 엔터하면 로그인
+     function enterkey() { // keyup하면 function 작동
+         if (window.event.keyCode == 13) {
+        	 loginForm.submit(); // 엔터키가 눌렸을 때 실행할 내용
+         }
+ 	 }
        
    
     

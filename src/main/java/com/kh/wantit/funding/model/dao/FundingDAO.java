@@ -227,6 +227,22 @@ public class FundingDAO {
 		return sqlSession.selectOne("fundingMapper.checkAlreadyApplyAlarm", alarm);
 	}
 
+	public ArrayList<PaySchedule> fundingSupportor(int fundingNum, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.fundingSupportor", fundingNum);
+	}
+
+	public Member getMember(String buyerName, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getMember", buyerName);
+	}
+
+	public Image getMemberImage(String memberId, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getMemberImage", memberId);
+	}
+
+	public String getCreator(SqlSessionTemplate sqlSession, String creatorNickname) {
+		return sqlSession.selectOne("fundingMapper.getCreator", creatorNickname);
+	}
+
 
 	
 	

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.wantit.admin.model.dao.AdminDAO;
 import com.kh.wantit.admin.model.vo.AFunding;
+import com.kh.wantit.admin.model.vo.AdReply;
+import com.kh.wantit.admin.model.vo.AddReply;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.EdReply;
@@ -17,10 +19,8 @@ import com.kh.wantit.admin.model.vo.NoReply;
 import com.kh.wantit.admin.model.vo.Notice;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Reply;
-import com.kh.wantit.common.model.vo.CreatorImage;
-import com.kh.wantit.common.model.vo.BannerImage;
-import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.admin.model.vo.ReviewReport;
+import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingEdit;
@@ -85,8 +85,8 @@ public class AdminService {
 		return aDAO.businessImage(sqlSession);
 	}
 
-	public ArrayList<Image> selectAllImage(int i) {
-		return aDAO.selectAllImage(sqlSession, i);
+	public ArrayList<Image> selectAdImage() {
+		return aDAO.selectAdImage(sqlSession);
 	}
 
 //	public ArrayList<Notice> selectAllNotice(PageInfo pi, int i) {
@@ -192,6 +192,11 @@ public class AdminService {
 		return aDAO.noEditProjectF(id, sqlSession);
 	}
 
+	
+	public int noEditProjectW(String id) {
+		return aDAO.noEditProjectW(id, sqlSession);
+	}
+
 	public int okEditProjectF(int id) {
 		return aDAO.okEditProjectF(id, sqlSession);
 	}
@@ -264,6 +269,10 @@ public class AdminService {
 		return aDAO.noEditProjectFF(id, sqlSession);
 	}
 
+	public int noEditProjectWW(String id) {
+		return aDAO.noEditProjectWW(id, sqlSession);
+	}
+
 	 public Notice selectNoticeDetail(NoReply nr) {
         return aDAO.selectNoticeDetail(sqlSession, nr);
     }
@@ -281,6 +290,34 @@ public class AdminService {
 		aDAO.plusNoticeCount(sqlSession, noticeNum);
 	}
 
+
+	public int refuseAd(AdReply ar) {
+		return aDAO.refuseAd(sqlSession, ar);
+	}
+
+	public int refuseAdImage(AdReply ar) {
+		return aDAO.refuseAdImage(sqlSession, ar);
+	}
+
+	public int confirmAd(AddReply ar) {
+		return aDAO.confirmAd(sqlSession, ar);
+	}
+
+	public int successEdit(String id) {
+		return aDAO.successEdit(sqlSession, id);
+	}
+
+	public int failEdit(String id) {
+		return aDAO.failEdit(id, sqlSession);
+	}
+
+	public int failEditWW(String id) {
+		return aDAO.failEditWW(id, sqlSession);
+	}
+
+	public int confirmAdImage(AddReply ar) {
+		return aDAO.confirmAdImage(sqlSession, ar);
+	}
 
 	
 }

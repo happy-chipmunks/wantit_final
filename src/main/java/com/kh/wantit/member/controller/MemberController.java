@@ -29,6 +29,7 @@ import com.kh.wantit.admin.model.service.AdminService;
 import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
+import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.BannerImage;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.service.FundingService;
@@ -116,11 +117,6 @@ public class MemberController {
 	@RequestMapping("/myPageSupporterInquiry.me")
 	public String myPageSupporterInquiry() {
 		return "myPage_sup_inquiry";
-	}
-	
-	@RequestMapping("/myPageSupporterAlarm.me")
-	public String myPageSupporterAlarm() {
-		return "myPage_sup_alarm";
 	}
 	
 	@RequestMapping("/myPageSupporterFollow.me")
@@ -941,7 +937,29 @@ public class MemberController {
 			}
 			
 		}
-	
+		
+		
+		// 마이페이지 알림 리스트 보내면서 페이지 이동
+		@RequestMapping("/myPageSupporterAlarm.me")
+		public String myPageSupporterAlarm(@RequestParam(value="page", required=false) Integer page, Model model, HttpSession session) {
+			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+			
+			int currentPage = 1;
+			if(page != null) {
+				currentPage = page;
+			}
+			int listCount = wService.getAlarmListCount(id);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+			
+			ArrayList<Alarm> alarmList = wService.selectAlarmListPaging(pi, id); // 메소드는 그냥 원팅 꺼 가져옴
+			if(alarmList != null) {
+				model.addAttribute("pi", pi);
+				model.addAttribute("alarmList", alarmList);
+				return "myPage_sup_alarm";
+			} else {
+				throw new MemberException("마이페이지 알림 불러오기 실패");
+			}
+		}
 	
 }
 	

@@ -279,4 +279,25 @@ public class FundingServiceImpl implements FundingService{
 	public int checkAlreadyApplyAlarm(Alarm alarm) {
 		return fDAO.checkAlreadyApplyAlarm(sqlSession, alarm);
 	}
+
+	@Override
+	public ArrayList<PaySchedule> fundingSupportor(int fundingNum) {
+		return fDAO.fundingSupportor(fundingNum, sqlSession);
+	}
+
+	@Override
+	public Member getMember(String buyerName) {
+		return fDAO.getMember(buyerName, sqlSession);
+	}
+
+	@Override
+	public Image getMemberImage(String memberId) {
+		return fDAO.getMemberImage(memberId, sqlSession);
+	}
+
+	@Override
+	public String getCreator(String creatorNickname) {
+		return fDAO.getCreator(sqlSession, creatorNickname);
+	}
+
 }
