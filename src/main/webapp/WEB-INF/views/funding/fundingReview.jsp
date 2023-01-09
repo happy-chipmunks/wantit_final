@@ -39,6 +39,8 @@
 		.i{color: #8c86c7;}
 		
 		.btn{outline: 1px solid #8c86c7;}
+		
+		#reportIcon{color: red;}
 </style>
 
 
@@ -68,7 +70,7 @@
         <div class="container">
           <div class="row notice-bar g-0">
               <div class="col-9 notice-left">
-                <div class="notice">후기<span class="notice-num"> ${ revCount }</span></div>
+                <div class="notice">리뷰<span class="notice-num"> ${ revCount }</span></div>
               </div>
               <div class="col-3 notice-right">
                 <select class="sort">
@@ -81,6 +83,7 @@
         <!-- 후기 리스트 -->
         <div class="accordion accordion-flush" id="accordionFlushExample">
         <c:forEach items="${ rv }" var="rv">
+        	<c:if test="${ rv.reviewStatus == 'Y' }"></c:if>
         	<c:forEach items="${ ps }" var="ps">
 	          <div class="accordion-item">
 	            <h2 class="accordion-header" id="flush-headingOne">
@@ -94,7 +97,8 @@
 	                  </span>
 	                  <c:forEach items="${ reviewerNick }" var="nick">
 	                  		<c:if test="${ rv.reviewer eq nick.memberId }">
-	                  			<span class="review-nickname">> ${ nick.memberNickname }</span>
+	                  			<span class="review-nickname" >> ${ nick.memberNickname }</span>
+<%-- 	                  			<input id="reviewerId" type="hidden" value="${ rv.reviewer }"> --%>
 	                  		</c:if>
 	                  </c:forEach>
 	                  <p class="review-content">
@@ -107,9 +111,42 @@
 	            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 	              <div class="accordion-body review-content-detail">
 	                ${ rv.reviewContent }
+	                <button class="btn btn-sm" style="float: right; display: block;" data-bs-toggle="modal" data-bs-target=".report"><i id="reportIcon" class="bi bi-patch-exclamation-fill"></i>&nbsp;&nbsp;신고하기</button>
 	              </div>
 	            </div>
 	          </div>
+	          
+	          <!-- 리뷰 신고하기 모달 -->
+				<form action="${ contextPath }/reportReview.fund?reviewNum=${rv.reviewNum}&reviewer=${rv.reviewer}" method="POST">
+					<div class="modal fade font report" id="report" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+					  <div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+							  	<div class="modal-header">
+							        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">리뷰 신고</h1>
+							        <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+							    </div>
+							 	<div class="modal-body" style="text-align: left">
+							 			신고 카테고리
+							 			<select name="reportCate" id="cate" class="form-select">
+						   					<option>스팸홍보/도배</option>
+						   					<option>음란물</option>
+						   					<option>불법정보 포함</option>
+						   					<option>미성년자 유해성</option>
+						   					<option>욕설/혐오</option>
+						   					<option>개인정보 노출</option>
+						   					<option>불쾌한 표현</option>
+						   				</select>
+										내용<textarea name="reportContent" id="content" class="form-control" style="resize:none; height:200px;"></textarea>
+								      	<br>
+								 </div>
+								 <div class="modal-footer pt-2">
+									<button class="btn btn-primary btn-report">보내기</button>&nbsp;
+							      	<button type="button" class="btn btn-secondary btn-inquiry close" data-bs-dismiss="modal">취소</button>
+								 </div>
+					    	</div> 
+					  </div>
+					</div>
+				</form>
           </c:forEach>
          </c:forEach>
           
@@ -229,6 +266,8 @@
   </div>
 </div>
 <br><br>
+
+	
 
 <script>
 	function noLogin(){

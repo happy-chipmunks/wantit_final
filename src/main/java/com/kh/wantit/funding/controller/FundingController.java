@@ -27,8 +27,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
+import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Alarm;
-import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Follow;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.exception.FundingException;
@@ -536,6 +536,22 @@ public class FundingController {
 		model.addAttribute("ok", ok);
 		model.addAttribute("id", id);
 		return "fundingReview";
+	}
+	
+	// 리뷰 신고하기
+	@RequestMapping("reportReview.fund")
+	public String reportReview(@ModelAttribute ReviewReport rr, HttpSession session, @RequestParam("reviewer") String reviewer, @RequestParam("reviewNum") int reviewNum, HttpServletRequest request) {
+		rr.setReporter(reviewer);
+		rr.setReviewNum(reviewNum);
+		
+		int result = fService.reportReview(rr);
+		
+		if(result > 0) {
+			return "redirect:" + request.getHeader("REFERER");
+		}else {
+			throw new FundingException("리뷰 신고 실패");
+		}
+		
 	}
 	
 	// 펀딩 찜하기
