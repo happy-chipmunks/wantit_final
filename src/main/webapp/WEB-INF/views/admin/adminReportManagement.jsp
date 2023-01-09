@@ -201,11 +201,6 @@
 				<div class="position" style="height: 1000px;">
 					<ul class="nav flex-column">
 						<li class="nav-item"><a class="nav-link"
-							href="${ contextPath }/admin.ad"> <span data-feather="home"
-								class="align-text-bottom"></span> <br>
-							<br> 사이트 관리
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/projectManage.ad"> <span
 								data-feather="file" class="align-text-bottom"></span> <br>
 							<br> 프로젝트 승인 / 거절
@@ -262,13 +257,14 @@
 					</thead>
 					<tbody class="table-group-divider">
 					<c:forEach var="r" items="${rList }" varStatus="m">
+					<input type="hidden" value="${ r.review.fundingNum }">
 						<tr class="review">
 								<th scope="row">${m.count }</th>
 								<td>${ r.reviewNum }</td>
 								<td>${ r.reportCate }</td>
 								<td>${ r.reporter }</td>
 								<td>${ r.reportDate }</td>
-								<td><a href="${ contextPath }/memberManage.ad" style="color: black; text-decoration-line: none;" class="aa">${ r.reportContent }</a></td>
+								<td><a href="fundingReview.fund?bId=${ r.review.fundingNum }" style="color: black; text-decoration-line: none;" class="aa">${ r.reportContent }</a></td>
 								<td><c:if test="${ r.review.reviewStatus == 'Y' }">
 										<div class="btn-group">
 											<button type="button"
@@ -382,6 +378,7 @@
 		$("#modalDeleteReviewButton").on("click", function(){
 			$("form").submit();
 		});
+		
 		
 	</script>
 

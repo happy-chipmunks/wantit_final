@@ -194,7 +194,8 @@ public class AdminController {
 
 		ArrayList<ReviewReport> rList = aService.selectReviewReport(piR, 1);
 		ArrayList<Integer> rCountList = new ArrayList<Integer>();
-
+		
+		System.out.println(rList);
 		int countR = rList.size();
 
 		model.addAttribute("piR", piR);
