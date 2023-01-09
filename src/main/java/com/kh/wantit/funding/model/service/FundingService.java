@@ -129,5 +129,9 @@ public interface FundingService {
 
 	int follow(Follow f);
 
+	ArrayList<Follow> getFollowList(Integer creatorNum);
+
+	int getFollowerCount(Integer creatorNum);
+
 
 }

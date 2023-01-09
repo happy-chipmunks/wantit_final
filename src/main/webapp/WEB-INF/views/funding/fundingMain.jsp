@@ -223,17 +223,24 @@
         		</div>
         		<div class="mb-2">
 <!--         			<span>만족도</span> -->
-        			<span class="ps-3"><i class="bi bi-person-fill fs-4"></i>&nbsp;&nbsp;팔로워 0명</span>
+        			<span class="ps-3"><i class="bi bi-person-fill fs-4"></i>&nbsp;&nbsp;팔로워 ${ followerCount }명</span>
         		</div>
         		<div>
-        			<c:if test="${ yn }">
-        				<button class="btn btn-creator" data-bs-toggle="modal" data-bs-target="#inquiry"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        				<button class="btn btn-creator" id="follow"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+        			<c:if test="${ m == null }">
+        				<button class="btn btn-creator" onclick="noLogin()"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        				<button class="btn btn-creator" onclick="noLogin()"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
         			</c:if>
-        			<c:if test="${ !yn }">
-        				<button class="btn btn-creator"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        				<button class="btn btn-creator"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
-        			</c:if>
+        			<c:if test="${ m != null }">
+	        			<c:if test="${ yn }">
+	        				<button class="btn btn-creator" data-bs-toggle="modal" data-bs-target="#inquiry"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	        					<c:if test="${ me }">
+	        						<button class="btn btn-creator" id="unfollow"><i class="bi bi-dash"></i>&nbsp;&nbsp;팔로우</button>
+	        					</c:if>
+	        					<c:if test="${ !me }">
+	        						<button class="btn btn-creator" id="follow"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+	        					</c:if>
+	        			</c:if>
+	        		</c:if>
         		</div>
         	</div>
       	</div>

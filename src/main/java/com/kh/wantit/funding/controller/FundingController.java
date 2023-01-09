@@ -289,6 +289,15 @@ public class FundingController {
 		 int supCount = fService.getSupportCount(bId);
 		 int dibsCount = fService.getDibsCount(bId);
 		 
+		  boolean me = false;
+		 ArrayList<Follow> fw = fService.getFollowList(creatorNum);
+		 for(int i = 0; i < fw.size(); i++) {
+			 if(fw.get(i).getFollower().equals(login)) {
+				 me = true;
+			 }
+		 }
+		 int followerCount = fService.getFollowerCount(creatorNum);
+		 
 		 boolean ok = false;
 		 ArrayList<FundingDibs> dibs = fService.getDibs(bId);
 		 for(int i = 0; i < dibs.size(); i++) {
@@ -315,9 +324,9 @@ public class FundingController {
 			}
 		
 		if(f != null) {
-			mv.addObject("f", f).addObject("img", img).addObject("ok", ok).addObject("dibs", dibs).addObject("bId", bId)
+			mv.addObject("f", f).addObject("img", img).addObject("ok", ok).addObject("dibs", dibs).addObject("bId", bId).addObject("followerCount", followerCount)
 			.addObject("dibsCount", dibsCount).addObject("login", login).addObject("supCount", supCount)
-			.addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).addObject("creator", creator)
+			.addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).addObject("creator", creator).addObject("me", me)
 			.addObject("reviewAverage", reviewAverage).addObject("totalAmount", totalAmount).addObject("totalSupCount", totalSupCount).addObject("reviewCount", reviewList.size())
 			.setViewName("fundingMain");
 		}else {
