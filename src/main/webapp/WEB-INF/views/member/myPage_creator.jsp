@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
  	<jsp:include page="../common/navbar.jsp"/>
@@ -8,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>마이페이지 크리에이터</title>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+ <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> 
 <!-- Bootstrap v5.1.3 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -126,12 +127,12 @@
 				</form>
 				<br>
 					<form name="signform" method="POST" ENCTYPE="multipart/form-data" action="${contextPath}/insertcreatorMemberImg.me">
-				    <input type="file" id="file" name="file" style="display:none;" onchange="changeValue(this)">
+				    <input type="file" id="file" name="file" style="display:none;" onchange="changeValue(this)" >
 				    <input type="hidden" name = "target_url">
 				    <input type="hidden" value=${ loginUser.memberId } name="memberId" >
 					</form>
 					
-	   				<h4><b>${ loginUser.memberNickname }</b>님</h4>
+	   				<h4><b>${ creatorRegistration.creatorName}</b>님</h4>
 	   				<p id="info">팔로워 0명<br>
 	   				크리에이터<br>
 	   				<button class="btn btn-sm" style="background-color: lightgray;" onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
@@ -225,41 +226,41 @@
 				<table align="center" style="text-align: center; height: 100%;" class="table">
 					<tr>
 						<th>아이디</th>
-						<td colspan="2">아이디</td>
+						<td colspan="2">${ loginUser.memberId }</td>
 					</tr>
 					<tr>
 						<th>비밀번호</th>
-						<td colspan="2"><button class="btn btn-outline-secondary btn-sm">변경하기</button></td>
+						<td colspan="2">비공개</td>
 					</tr>
 					<tr>
-						<th>이름</th>
-						<td colspan="2">이름</td>
+						<th>대표자 명</th>
+						<td colspan="2">${ loginUser.memberName }</td>
 					</tr>
 					<tr>
-						<th>닉네임</th>
-						<td colspan="2">닉네임</td>
+						<th>크리에이터 명</th>
+						<td colspan="2">${ creatorRegistration.creatorName}</td>
 					</tr>
 					<tr>
-						<th>생년월일</th>
-						<td colspan="2">생년월일</td>
-					</tr>
-					<tr>
-						<th>전화번호</th>
-						<td colspan="2">전화번호</td>
+						<th>대표 전화번호</th>
+						<td colspan="2">${ creatorRegistration.managerPhone}</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td colspan="2">이메일</td>
+						<td colspan="2">${creatorRegistration.managerEmail}</td>
 					</tr>
 					<tr>
-						<th>주소</th>
-						<td colspan="2">주소</td>
+						<th>사업자 번호</th>
+						<td colspan="2">${ creatorRegistration.businessNumber}</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 						<td>
-							<button class="btn btn-secondary btn-sm">수정하기</button>
-							<button class="btn btn-secondary btn-sm">탈퇴하기</button>
+						<br>
+							<button  style="float: right;" class="btn btn-secondary btn-sm" id="deleteCreator"  
+							 onclick="creator();" >크리에이터 탈퇴하기</button>
+						</td>
+						<td>
+						
 						</td>
 					</tr>
 				</table>
@@ -269,8 +270,15 @@
     </div>
     
     
-    
+     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
+    
+    
+    			
+    
+
+    
+    
     $('#target_img').click(function (e) {
 	    document.signform.target_url.value = document.getElementById( 'target_img' ).src;
 	    e.preventDefault();
@@ -281,9 +289,6 @@
 	    document.signform.submit();
 	}
 	
-// 	    function openPopup(){
-// 			window.open("myPage_sup_message.jsp", "message", "width=500 height=300");
-// 		}
 
 		// 크리에이터 문의
 		 	function openPopup(){
@@ -361,7 +366,18 @@
 			 const adsSuccess = '${ success }';
 			 console.log(adsSuccess);
 		 }
-	  
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			  
+		 
+		 
     </script>
 	
 </body>
