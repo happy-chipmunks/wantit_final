@@ -270,6 +270,16 @@ public class FundingDAO {
 		return sqlSession.insert("fundingMapper.reportReview", rr);
 	}
 
+	public int getDibsCount2(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("fundingMapper.getDibsCount2", userId);
+	}
+
+	public ArrayList<Funding> getDibsFundingList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("fundingMapper.getDibsFundingList", userId, rowBounds);
+	}
+
 
 	
 	

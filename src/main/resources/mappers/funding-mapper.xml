@@ -369,6 +369,14 @@
 		values(seq_review_report.nextval, #{reviewNum}, #{reporter}, #{reportCate}, sysdate, #{reportContent}, default, default)
 	</insert>
 	
+	<select id="getDibsCount2" resultType="_int">
+		select count(*) from dibs where dibs_id = #{userId}
+	</select>
+	
+	<select id="getDibsFundingList" resultMap="fundingResultSet">
+		select * from funding join dibs using(funding_num) where dibs_id = #{userId}
+	</select>
+	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>

@@ -332,5 +332,17 @@ public class FundingServiceImpl implements FundingService{
 	public int reportReview(ReviewReport rr) {
 		return fDAO.reportReview(rr, sqlSession);
 	}
+	
+	@Override
+	public int getDibsCount2(String userId) {
+		return fDAO.getDibsCount2(sqlSession, userId);
+	}
+	
+	@Override
+	public ArrayList<Funding> getDibsFundingList(PageInfo pi, String userId) {
+		return fDAO.getDibsFundingList(sqlSession, pi, userId);
+	}
+	
+	
 
 }

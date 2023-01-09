@@ -142,9 +142,6 @@
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorFunding.me'"><b>진행중인펀딩</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorInquiry.me'"><b>관리자문의</b></button></p>
-   				</li>
-   				<li>
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorAds.me'"><b>광고 의뢰</b></button></p>
    				</li>
 			</ul>
@@ -256,8 +253,6 @@
 						<td colspan="2">
 						<td>
 						<br>
-							<button  style="float: right;" class="btn btn-secondary btn-sm" id="deleteCreator"  
-							 onclick="creator();" >크리에이터 탈퇴하기</button>
 						</td>
 						<td>
 						

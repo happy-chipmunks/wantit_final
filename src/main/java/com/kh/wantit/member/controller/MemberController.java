@@ -154,7 +154,21 @@ public class MemberController {
 	
 	
 	@RequestMapping("/myPageSupporterDibs.me")
-	public String myPageSupporterDibs() {
+	public String myPageSupporterDibs(@RequestParam(value = "page", required = false) Integer page, HttpSession session, Model model) {
+		String userId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		int currentPage = 1;
+		if(page != null) 
+			currentPage = page;
+		
+		int dibCount = fService.getDibsCount2(userId);
+		PageInfo pi = Pagination.getPageInfo(currentPage, dibCount, 5);
+		ArrayList<Funding> fundingList = fService.getDibsFundingList(pi, userId);
+		ArrayList<Image> imageList = fService.fundingImageList();
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("fundingList", fundingList);
+		model.addAttribute("imageList", imageList);
+		
 		return "myPage_sup_dibs";
 	}
 	
@@ -348,6 +362,8 @@ public class MemberController {
 	@RequestMapping("/myPageCreatorAds.me")
 	public String myPageCreatorAds(HttpSession session, Model model) {
 		String userId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		
 		ArrayList<Funding> fundingList = fService.getUserFundingList(userId);
 		
 		model.addAttribute("fundingList", fundingList);

@@ -150,9 +150,6 @@
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterDibs.me'"><b>찜</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterInquiry.me'"><b>문의</b></button></p>
-   				</li>
-   				<li>
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterAlarm.me'"><b>알림</b></button></p>
    				</li>
    				<li>
@@ -190,6 +187,7 @@
 	                    <div class="col-8" style="position: relative; height: 100%;">
 	                        <div class="payFundTitle">${ wantingList[i].wantingTitle }</div>
 	                        <div class="wantingSummary">${ wantingList[i].wantingSummary }</div>
+	                       	<br><br><br>
 	                        <div class="writerAndDate" style="position:absolute; bottom:0px; right:0px;">
 		                        <span class="boardCount">작성자 : <span class="color" style="margin-right: 10px;">${ wantingList[i].wantingNickname }</span>
 		                        										현재 참여자 수 : <span class="color">${ wantingList[i].wantingCount } 명</span></span>

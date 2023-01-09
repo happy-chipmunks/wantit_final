@@ -148,9 +148,6 @@
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorFunding.me'"><b>진행중인펀딩</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageCreatorInquiry.me'"><b>관리자문의</b></button></p>
-   				</li>
-   				<li>
    					<p><button class="btn button" style="background-color: #AD699B;" onclick="location.href='${contextPath}/myPageCreatorAds.me'"><b>광고 의뢰</b></button></p>
    				</li>
 			</ul>

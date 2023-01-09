@@ -141,5 +141,9 @@ public interface FundingService {
 
 	int reportReview(ReviewReport rr);
 
+	int getDibsCount2(String userId);
+
+	ArrayList<Funding> getDibsFundingList(PageInfo pi, String userId);
+
 
 }

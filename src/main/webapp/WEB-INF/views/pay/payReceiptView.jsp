@@ -77,7 +77,6 @@
                         <input type="hidden" name="buyerName" value="${ paySchedule.buyerName }">
                         <input type="hidden" name="merchantName">
                         <input type="hidden" name="amount" value="${ paySchedule.amount }">
-                        <button  class="btn btn-outline btnPayCancel">재결제 테스트</button>
                     </form>
                     
                 </div>
