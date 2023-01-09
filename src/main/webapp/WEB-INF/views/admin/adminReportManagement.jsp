@@ -268,7 +268,7 @@
 								<td><c:if test="${ r.review.reviewStatus == 'Y' }">
 										<div class="btn-group">
 											<button type="button"
-												class="btn btn-sm btn-outline-danger dropdown-toggle"
+												class="btn btn-sm btn-outline-dangere dropdown-toggle"
 												data-bs-toggle="dropdown" aria-expanded="false">
 												게시글 상태</button>
 											<ul class="dropdown-menu">
