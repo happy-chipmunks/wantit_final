@@ -224,7 +224,7 @@
 					<td colspan="2">
 					<td>
 						<button class="btn btn-secondary btn-sm"  type="button" onclick="location.href='${contextPath}/updatemyinfo.me'">+수정하기</button>
-						
+						&emsp;
 						<button class="btn btn-secondary btn-sm"  type="submit" id="deleteMember"  onclick="chcekUserId();">-탈퇴하기</button>
 						
 					</td>
