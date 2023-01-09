@@ -446,6 +446,25 @@
 				data: {creatorNum:creatorNum},
 				success: (data)=>{
 					console.log(data);
+// 					document.location.href = document.location.href; // ajax 통신 후 페이지 새로고침
+					document.location.reload(); // 새로고침시 위로 올라가지 않음!
+				},
+				error: (data)=>{
+					console.log(data);
+				}
+			})
+		});
+		
+		// 언팔로우
+		$('#unfollow').on('click', function(){
+			var creatorNum = ${creatorNum};
+			$.ajax({
+				url: '${contextPath}/unfollow.fund',
+				data: {creatorNum:creatorNum},
+				success: (data)=>{
+					console.log(data);
+// 					document.location.href = document.location.href;
+					document.location.reload();
 				},
 				error: (data)=>{
 					console.log(data);

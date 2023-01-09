@@ -353,6 +353,11 @@
 		where creator_num=#{creatorNum}
 	</select>
 	
+	<delete id="unfollow">
+		delete from follow
+		where creator_num=#{creatorNum} and follower=#{follower}
+	</delete>
+	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>

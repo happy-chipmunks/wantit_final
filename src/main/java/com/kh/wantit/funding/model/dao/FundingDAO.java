@@ -256,6 +256,10 @@ public class FundingDAO {
 		return sqlSession.selectOne("fundingMapper.getFollowerCount", creatorNum);
 	}
 
+	public int unfollow(SqlSessionTemplate sqlSession, Follow f) {
+		return sqlSession.delete("fundingMapper.unfollow", f);
+	}
+
 
 	
 	

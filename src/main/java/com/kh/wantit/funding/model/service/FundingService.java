@@ -133,5 +133,7 @@ public interface FundingService {
 
 	int getFollowerCount(Integer creatorNum);
 
+	int unfollow(Follow f);
+
 
 }

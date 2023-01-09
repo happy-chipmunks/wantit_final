@@ -316,4 +316,9 @@ public class FundingServiceImpl implements FundingService{
 		return fDAO.getFollowerCount(sqlSession, creatorNum);
 	}
 
+	@Override
+	public int unfollow(Follow f) {
+		return fDAO.unfollow(sqlSession, f);
+	}
+
 }

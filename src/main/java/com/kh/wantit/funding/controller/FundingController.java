@@ -777,6 +777,20 @@ public class FundingController {
 		return result;
 	}
 	
+	// 언팔로우
+	@ResponseBody
+	@RequestMapping("unfollow.fund")
+	public int unfollow(@RequestParam("creatorNum") int creatorNum, HttpSession session) {
+		String follower = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		Follow f = new Follow();
+		f.setCreatorNum(creatorNum);
+		f.setFollower(follower);
+		int result = fService.unfollow(f);
+		
+		return result;
+	}
+	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순
 //	@RequestMapping("ingList.fund")
 //	public String ingList(@RequestParam("ing") Integer ing, @RequestParam("ranking") Integer rank, Model model) {
