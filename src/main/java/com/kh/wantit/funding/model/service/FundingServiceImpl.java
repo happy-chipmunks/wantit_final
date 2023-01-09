@@ -306,4 +306,14 @@ public class FundingServiceImpl implements FundingService{
 		return fDAO.follow(sqlSession, f);
 	}
 
+	@Override
+	public ArrayList<Follow> getFollowList(Integer creatorNum) {
+		return fDAO.getFollowList(sqlSession, creatorNum);
+	}
+
+	@Override
+	public int getFollowerCount(Integer creatorNum) {
+		return fDAO.getFollowerCount(sqlSession, creatorNum);
+	}
+
 }

@@ -248,6 +248,14 @@ public class FundingDAO {
 		return sqlSession.insert("fundingMapper.follow", f);
 	}
 
+	public ArrayList<Follow> getFollowList(SqlSessionTemplate sqlSession, Integer creatorNum) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getFollowList", creatorNum);
+	}
+
+	public int getFollowerCount(SqlSessionTemplate sqlSession, Integer creatorNum) {
+		return sqlSession.selectOne("fundingMapper.getFollowerCount", creatorNum);
+	}
+
 
 	
 	
