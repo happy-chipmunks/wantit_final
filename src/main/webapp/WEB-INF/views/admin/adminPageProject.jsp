@@ -318,7 +318,7 @@
 								<td><c:if
 										test="${ ( m.confirm == 'E' || m.confirm == 'N' ) && (m.division == 'W' || m.division == 'F')}">
 									미처리
-								</c:if> <c:if test="${  m.confirm == 'X' && m.division == 'W' }">
+								</c:if> <c:if test="${  (m.confirm == 'X' || m.confirm == 'D') && m.division == 'W' }">
 									미처리
 								</c:if> <c:if
 										test="${ m.confirm == 'C' && (m.division == 'W' || m.division == 'F') }">
@@ -362,21 +362,30 @@
 						<form action="${contextPath }/projectManage.ad" method="post"
 							class="answerForm">
 							<fieldset>
-								<h1>
-									<br>&nbsp;&nbsp;&nbsp;&nbsp;${ m.fundingTitle }
-								</h1>
+								<h3>
+									<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ m.fundingTitle }
+								</h3>
 
 								<div class="textForm">
-									<input name="replyContent" class="replyContent" readonly>${ m.fundingContent}
-									<!-- <input id="content" name="replyContent" class="replyContent" readonly> -->${ m.fundingContent}
-									<input name="replyContent" class="replyContent" readonly
-										value="${ m.fundingContent}">
+									<c:if test="${ m.confirm == 'E' && m.division == 'F'}">
+										<div id="editContent">
+										${ m.fundingEdit.fundingEditContent}
+											</div>
+									</c:if>
+									<c:if test="${ m.confirm == 'E' && m.division == 'W'}">
+										<div id="editContent">
+											${ m.fundingEdit.fundingEditContent}
+										</div>
+									</c:if>
+									<c:if test="${ m.confirm != 'E' && (m.division == 'F' || m.division == 'W')}">
+										${ m.fundingContent}
+									</c:if>	
 								</div>
 								<br>
-								<c:if test="${ m.confirm != 'X' && m.division != 'W' }">
+								<c:if test="${ m.confirm != 'X' || m.division != 'W' }">
 								<button type="button"
 									class="btn btn-primary btn-lg right cancel"
-									style="display: inline-block; float: right;">미승인</button>
+									style="display: inline-block; float: right;">취소</button>
 								</c:if>
 								<c:if
 									test="${ m.confirm == 'N' && m.division == 'F'}">
@@ -391,21 +400,24 @@
 								</c:if>
 								<c:if test="${ m.confirm == 'E' }">
 									<div id="sendEdit" style="display: none;">
-										<span>${m.fundingNum }</span> <input name="division"
-											class="division" value="${m.division }">
+										<span>${m.fundingNum }</span> <input
+											type="hidden" name="division" class="division"
+											value="${m.division }">
+										<input type="hidden" name="content" class="content" value="${m.fundingEdit.fundingEditContent }">
 									</div>
 									<button type="button"
 										class="btn btn-primary btn-lg confirmE right"
 										style="display: inline-block; float: left;"
-										data-bs-toggle="modal" data-bs-target="#confirmE">승인</button>
+										data-bs-toggle="modal" data-bs-target="#confirmE">
+										승인</button>
 								</c:if>
 								<c:if test="${ m.confirm == 'D' }">
-									<div id="sendEdit" style="display: none;">
+									<div id="sendDelete" style="display: none;">
 										<span>${m.fundingNum }</span> <input name="division"
 											class="division" value="${m.division }">
 									</div>
 									<button type="button"
-										class="btn btn-primary btn-lg confirmE right"
+										class="btn btn-primary btn-lg confirmD right"
 										style="display: inline-block; float: left;"
 										data-bs-toggle="modal" data-bs-target="#confirmD">승인</button>
 								</c:if>
@@ -437,9 +449,8 @@
 									id="confirmSubmit">
 									<button id="modalConfirmButton" type="button"
 										class="btn btn-sm btn-outline-danger">승인</button>
-									<input type="hidden" name="id"> <input type="hidden"
-										name="type">
-
+									<input type="hidden" name="id"> 
+									<input type="hidden" name="type">
 								</form>
 							</div>
 						</div>
@@ -466,15 +477,13 @@
 									<input type="hidden" name="id"> <input type="hidden"
 										name="type">
 								</form>
-								<form action="${contextPath }/confirmEditProject.ad"
-									method="post" id="editConfirmSubmit">
+								<form action="${contextPath }/confirmEditProject.ad" method="post" id="editConfirmSubmit">
 									<button id="modalEditConfirmButton" type="button"
 										class="btn btn-sm btn-outline-danger">승인</button>
-									<input type="hidden" name="id"> <input type="hidden"
-										name="type">
-									<textarea id="content" style="display: none;"
-										name="fundingContent"></textarea>
-
+									<input type="hidden" name="id"> 
+									<input type="hidden" name="type">
+									<input type="hidden" name="content">
+									<textarea id="content" style="display: none;" name="fundingContent"></textarea>
 								</form>
 							</div>
 						</div>
@@ -497,13 +506,13 @@
 								<form action="${contextPath }/refuseDeleteProject.ad"
 									method="post" id="refuseDeleteSubmit">
 									<button type="button" class="btn btn-sm btn-outline-secondary"
-										id="modalEditRefuseBtn">거절</button>
+										id="modalDeleteRefuseBtn">거절</button>
 									<input type="hidden" name="id"> <input type="hidden"
 										name="type">
 								</form>
 								<form action="${contextPath }/confirmDeleteProject.ad"
 									method="post" id="refuseConfirmSubmit">
-									<button id="modalEditConfirmButton" type="button"
+									<button id="modalDeleteConfirmButton" type="button"
 										class="btn btn-sm btn-outline-danger">승인</button>
 									<input type="hidden" name="id"> <input type="hidden"
 										name="type">
@@ -550,13 +559,17 @@
 	
 		$('.answerBtn').click(function() {
 			const num = $(this).val();
-			if ( $('.myForm').css('display') === 'none' ) {
-				$('.myForm' + num).show();
-				} else if( $('.myForm').css('display') !== 'none'){
-					 $('.myForm').hide();
-				}
+			
+			$('.myForm' + num).toggle();
+			
 		});
-	
+		
+		$('.cancel').click(function() {
+			const num = $(this).val();
+
+			$('.myForm' + num).hide();
+		});
+		
 		$('label').css('display', 'inline-block');
 			 
 		const btns = $(".confirmP");
@@ -574,28 +587,32 @@
 		const btns2 = $(".confirmE");
 		for(const btn2 of btns2) {
 			btn2.addEventListener("click", function(){
-				const id = $('#sendEdit').find("span").text();
+				const id = $('#sendEdit').find("span")[0].innerText;
 				$("input[name=id]").val(id);
 				const division = $('#sendEdit').find("input[name=division]").val();
 				$("input[name=type]").val(division);
+				const content = document.getElementById('editContent');
+				$("input[name=content]").val(content.innerHTML);
 				
-				console.log($("input[name=id]").val(id)[0]);
+				
+				console.log($("input[name=id]").val(id));
 				console.log($("input[name=type]").val(division));
-				console.log($('#sendEdit').find("input[name=title]").val());
+				console.log($("input[name=content]").val(content.innerHTML));
 			});
 		}
 		
 		const btns3 = $(".confirmD");
 		for(const btn3 of btns3) {
-			btn2.addEventListener("click", function(){
-				const id = $('#sendEdit').find("span").text();
+			btn3.addEventListener("click", function(){
+				const id = $('#sendDelete').find("span").text();
 				$("input[name=id]").val(id);
-				const division = $('#sendEdit').find("input[name=division]").val();
+				const division = $('#sendDelete').find("input[name=division]").val();
 				$("input[name=type]").val(division);
 				
 				console.log($("input[name=id]").val(id)[0]);
 				console.log($("input[name=type]").val(division));
-				console.log($('#sendEdit').find("input[name=title]").val());
+				console.log($('#sendDelete').find("input[name=title]").val());
+		
 			});
 		}
 		
@@ -614,6 +631,14 @@
 		
 		$("#modalEditRefuseBtn").on("click", function(){
  			$("#editRefuseSubmit").submit();
+		});
+		
+		$("#modalDeleteConfirmButton").on("click", function(){
+ 			$("#refuseConfirmSubmit").submit();
+		});
+		
+		$("#modalDeleteRefuseBtn").on("click", function(){
+ 			$("#refuseDeleteSubmit").submit();
 		});
 	</script>
 

@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import com.kh.wantit.funding.model.vo.FundingEdit;
 import com.kh.wantit.wanting.model.vo.Wanting;
+import com.kh.wantit.wanting.model.vo.WantingEdit;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,4 +36,5 @@ public class AFunding {
 	private String division;
 	private Wanting wanting;
 	private FundingEdit fundingEdit;
+	private WantingEdit wantingEdit;
 }

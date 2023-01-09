@@ -8,6 +8,7 @@
 		<typeAlias type="com.kh.wantit.admin.model.vo.Ads" alias="Ads"/>
 		<typeAlias type="com.kh.wantit.wanting.model.vo.Wanting" alias="Wanting"/>
 		<typeAlias type="com.kh.wantit.wanting.model.vo.WantingAttend" alias="WantingAttend"/>
+		<typeAlias type="com.kh.wantit.wanting.model.vo.WantingEdit" alias="WantingEdit"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.wantit.admin.model.vo.AFunding" alias="AFunding"/>
 		<typeAlias type="com.kh.wantit.common.model.vo.Image" alias="Image"/>
@@ -27,6 +28,7 @@
 		<typeAlias type="com.kh.wantit.funding.model.vo.SupportCount" alias="SupportCount"/>
 		<typeAlias type="com.kh.wantit.funding.model.vo.FundingDibs" alias="FundingDibs"/>
 		<typeAlias type="com.kh.wantit.funding.model.vo.FundingMessage" alias="FundingMessage"/>
+		<typeAlias type="com.kh.wantit.funding.model.vo.FundingEdit" alias="FundingEdit"/>
 		
 	</typeAliases>
 	

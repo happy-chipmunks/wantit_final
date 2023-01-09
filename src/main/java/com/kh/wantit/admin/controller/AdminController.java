@@ -26,6 +26,7 @@ import com.kh.wantit.admin.model.vo.AdReply;
 import com.kh.wantit.admin.model.vo.AddReply;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
+import com.kh.wantit.admin.model.vo.CReply;
 import com.kh.wantit.admin.model.vo.EdReply;
 import com.kh.wantit.admin.model.vo.NReply;
 import com.kh.wantit.admin.model.vo.NoReply;
@@ -69,7 +70,7 @@ public class AdminController {
 
 		ArrayList<Integer> rCountList = new ArrayList<Integer>();
 		int count = mList.size();
-
+		System.out.println(mList);
 //				System.out.println(mList);
 		model.addAttribute("pi", pi);
 		model.addAttribute("mList", mList);
@@ -97,16 +98,22 @@ public class AdminController {
 		}
 	}
 
+	
+	
 	// 프로젝트 수정 승인
 	@RequestMapping("confirmEditProject.ad")
-	public String okEditProject(@RequestParam("id") int id, @RequestParam("type") String type) {
+	public String okEditProject(@RequestParam("id") int id, @RequestParam("type") String type, @RequestParam("content") String content) {
 //					System.out.println(id);
 //					System.out.println(type);
+		CReply cr = new CReply();
+		cr.setContent(content);
+		cr.setId(id);
+		
 		if (type.equals("F")) {
-			int result1 = aService.okEditProjectF(id);
+			int result1 = aService.okEditProjectF(cr);
 			return "redirect:projectManage.ad";
 		} else if (type.equals("W")) {
-			int result2 = aService.okEditProjectW(id);
+			int result2 = aService.okEditProjectW(cr);
 			return "redirect:projectManage.ad";
 		} else {
 			throw new AdminException("프로젝트 승인 실패");
@@ -380,7 +387,7 @@ public class AdminController {
 
 		return returnArr;
 	}
-
+	
 	// 광고 이미지 배너 이미지로
 	public String[] saveBanner(MultipartFile file, HttpServletRequest request, int i) {
 		// saveFile이 있는 이유 : 우리가 지정한 경로에 넣어주고 자체형식으로 이름을 지정해줘야함

@@ -454,7 +454,7 @@ input[type="checkbox"]:checked+label span {
 	        		const img = $('#summernote').sumemrnote('code', ${board.content});
 	        		이렇게 summernote 내장함수로 불러와야 한다.
 	        		*/
-	        	}	
+	        	}
 	      	});
 	    }
 		

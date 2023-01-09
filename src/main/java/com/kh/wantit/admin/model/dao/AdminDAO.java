@@ -11,6 +11,7 @@ import com.kh.wantit.admin.model.vo.AdReply;
 import com.kh.wantit.admin.model.vo.AddReply;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
+import com.kh.wantit.admin.model.vo.CReply;
 import com.kh.wantit.admin.model.vo.EdReply;
 import com.kh.wantit.admin.model.vo.FundingReport;
 import com.kh.wantit.admin.model.vo.NReply;
@@ -219,9 +220,9 @@ public class AdminDAO {
 		return sqlSession.delete("adminMapper.noEditProjectW", id);
 	}
 
-	public int okEditProjectF(int id, SqlSessionTemplate sqlSession) {
-		int result = sqlSession.update("adminMapper.okEditPro", id);
-		return sqlSession.update("adminMapper.okEditProjectF", id);
+	public int okEditProjectF(CReply cr, SqlSessionTemplate sqlSession) {
+		int result = sqlSession.update("adminMapper.okEditPro", cr);
+		return sqlSession.update("adminMapper.okEditProjectF", cr);
 	}
 	public int insertImage(SqlSessionTemplate sqlSession, Image img) {
 		return sqlSession.insert("adminMapper.insertImage", img);
@@ -323,7 +324,7 @@ public class AdminDAO {
 	}
 
 	public int successEdit(SqlSessionTemplate sqlSession, String id) {
-		int result = sqlSession.update("adminMapper.successEdit", id);
+		int result = sqlSession.delete("adminMapper.successEdit", id);
 		return result;
 	}
 
@@ -339,9 +340,9 @@ public class AdminDAO {
 		return sqlSession.update("adminMapper.confirmAdImage", ar);
 	}
 
-	public int okEditProjectW(int id, SqlSessionTemplate sqlSession) {
-		int result = sqlSession.update("adminMapper.okEditProW", id);
-		return sqlSession.update("adminMapper.okEditProjectW", id);
+	public int okEditProjectW(CReply cr, SqlSessionTemplate sqlSession) {
+		int result = sqlSession.update("adminMapper.okEditProW", cr);
+		return sqlSession.update("adminMapper.okEditProjectW", cr);
 	}
 
 	public Notice selectNoticeDetail(SqlSessionTemplate sqlSession, NoReply nr) {
