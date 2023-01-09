@@ -360,7 +360,7 @@
 	
 		$('.answerBtn').click(function() {
 			const num = $(this).val();
-			$('.myForm' + num).show();
+			$('.myForm' + num).toggle();
 			
 		});
 	

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
+import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Follow;
@@ -325,6 +326,11 @@ public class FundingServiceImpl implements FundingService{
 	@Override
 	public Image getCreatorImage(String writerCheckId) {
 		return fDAO.getCreatorImage(writerCheckId, sqlSession);
+	}
+
+	@Override
+	public int reportReview(ReviewReport rr) {
+		return fDAO.reportReview(rr, sqlSession);
 	}
 
 }

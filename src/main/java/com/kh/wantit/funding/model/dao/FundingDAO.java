@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
+import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Follow;
@@ -263,6 +264,10 @@ public class FundingDAO {
 
 	public Image getCreatorImage(String writerCheckId, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("fundingMapper.getCreatorImage", writerCheckId);
+	}
+
+	public int reportReview(ReviewReport rr, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("fundingMapper.reportReview", rr);
 	}
 
 

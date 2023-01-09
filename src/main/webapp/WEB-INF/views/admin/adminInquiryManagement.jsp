@@ -274,9 +274,9 @@
 								</h1>
 								<div class="textForm">
 										<input type="hidden" value="${ r.count }" class="reply">
-										<c:if test="${r.count == r.count} ">
+<%-- 										<c:if test="${r.count } "> --%>
 											<textarea name="replyContentNope" class="replyContentNope" readonly>${ m.inquiryContent }</textarea>
-										</c:if>
+<%-- 										</c:if> --%>
 								</div>
 								<br>
 								<div class="textForm">
@@ -328,9 +328,10 @@
 		$('.answerBtn').click(function() {
 			const num = $(this).val();
 			console.log(num);
-			$('.myForm' + num).show();
+			$('.myForm' + num).toggle();
 		});
 
+		
 		$('label').css('display', 'inline-block');
 
 		$('.cancel').click(function() {

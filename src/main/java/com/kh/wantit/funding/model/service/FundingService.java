@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
+import com.kh.wantit.admin.model.vo.ReviewReport;
 import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Follow;
@@ -137,6 +138,8 @@ public interface FundingService {
 	int unfollow(Follow f);
 
 	Image getCreatorImage(String writerCheckId);
+
+	int reportReview(ReviewReport rr);
 
 
 }

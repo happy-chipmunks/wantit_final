@@ -242,14 +242,14 @@
 			});
 		
 		// 리워드 추가 모달 닫을 시..cos
-		$('.btn-close').on('click', function (e) {
-			$('#reward-name').val("");
-			$('#reward-content').val("");
-			$('#reward-quantity').val("");
-			$('#reward-shipmentDate').val("");
-			$('#reward-donaitionPrice').val("");
-			$('#reward-deliveryCharge').val("")
-		});
+// 		$('.btn-close').on('click', function (e) {
+// 			$('#reward-name').val("");
+// 			$('#reward-content').val("");
+// 			$('#reward-quantity').val("");
+// 			$('#reward-shipmentDate').val("");
+// 			$('#reward-donaitionPrice').val("");
+// 			$('#reward-deliveryCharge').val("")
+// 		});
 		
 		 // 선택 리워드 삭제
 		 function delRow(){
