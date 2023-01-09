@@ -439,7 +439,7 @@ input[type="checkbox"]:checked + label span {
 	
 		$('.cancel').click(function() {
 			const num = $(this).val();
-			$('.myForm' + num).hide();
+			$('.myForm' + num).toggle();
 		});
 		
 		$('.makeNope').click(function() {	

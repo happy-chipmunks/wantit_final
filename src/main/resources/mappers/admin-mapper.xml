@@ -201,13 +201,15 @@
 	</update>
 	
 	<select id="selectOkList" resultMap="afundingResultSet">
-        select funding_num, funding_title, funding_content, CONFIRM, CREATE_DATE, FUNDING_STATUS, 'F' division
-		from funding 
+        select f.funding_num, f.funding_title, f.funding_content, f.CONFIRM, f.CREATE_DATE, f.FUNDING_STATUS, fe.funding_edit_content,'F' division
+		from funding f
+            left join funding_edit fe on f.funding_title = fe.funding_edit_title
         
         union all
         
-        select wanting_num, WANTING_TITLE, WANTING_CONTENT, wanting_confirm, CREATE_DATE, WANTING_STATUS, 'W' division
-        from wanting 
+        select w.wanting_num, w.WANTING_TITLE, w.WANTING_CONTENT, w.wanting_confirm, w.CREATE_DATE, w.WANTING_STATUS, we.wanting_content,'W' division
+        from wanting w
+            left join wanting_edit we on w.wanting_title = we.wanting_title
 	</select>
 	
 	<select id="selectBannerImageList" resultMap="bannerImageResultSet">
@@ -252,7 +254,7 @@
 
 	<update id="okEditProjectF">
 		update funding
-		set confirm='C'
+		set confirm='C', funding_content = #{content}
 		where funding_num=#{id}
 	</update>
 	
@@ -263,12 +265,12 @@
 	
 	<update id="okEditProW">
 		update wanting_edit
-		set wanting_confirm='Y', edit_status='Y'
+		set wanting_confirm='Y', wanting_status='Y'
 	</update>
 	
 	<update id="okEditProjectW">
 		update wanting
-		set wanting_confirm='C'
+		set wanting_confirm='C', wanting_content=#{content}
 		where wanting_num=#{id}
 	</update>
 	
@@ -528,6 +530,8 @@
       <result column="creator_name" property="creatorNickname"/>
       <result column="division" property="division"/>
       <association property="wanting" javaType="Wanting" resultMap="wantingResultSet"/>
+      <association property="wantingEdit" javaType="WantingEdit" resultMap="wantingEditResultSet"/>
+      <association property="fundingEdit" javaType="FundingEdit" resultMap="fundingEditResultSet"/>
    </resultMap>
    
    <resultMap type="BannerImage" id="bannerImageResultSet">
@@ -543,16 +547,16 @@
 	<resultMap type="Wanting" id="wantingResultSet">
 		<id column="WANTING_NUM" property="wantingNum"/>
 		<result column="WRITER" property="wantingWriter"/>
-		<result column="MEMBER_NICKNAME" property="wantingNickname"/>
 		<result column="WANTING_TITLE" property="wantingTitle"/>
+		<result column="WANTING_SUMMARY" property="wantingSummary"/>
 		<result column="WANTING_CONTENT" property="wantingContent"/>
-		<result column="SHOP_LOCATION" property="wantingShopLocation"/>
-		 <result column="SHOP_NAME" property="wantingShopName"/> 
+		<result column="SHOP_NAME" property="wantingShopName"/> 
+		<result column="SHOP_ADDRESS" property="wantingShopAddress"/> 
+		<result column="CREATE_DATE" property="wantingCreateDate"/>
+		<result column="DAYS_COUNT" property="wantingDaysCount"/>
+		<result column="WANTING_COUNT" property="wantingCount"/>
 		<result column="WANTING_LEVEL" property="wantingLevel"/>
 		<result column="WANTING_STATUS" property="wantingStatus"/>
-		<result column="CREATE_DATE" property="wantingCreateDate"/>
-		<result column="WANTING_COUNT" property="wantingCount"/>
-		<result column="DAYS_COUNT" property="wantingDaysCount"/>
 		<result column="wanting_confirm" property="wantingConfirm"/>
 		<result column="DIVISION" property="division"/>
 	</resultMap>
@@ -573,5 +577,33 @@
 		<result column="modify_date" property="modifyDate"/>
 		<result column="funding_status" property="fundingStatus"/>
 		<result column="creator_name" property="creatorNickname"/>
+	</resultMap>
+	
+	<resultMap type="FundingEdit" id="fundingEditResultSet">
+		<id column="funding_edit_num" property="fundingEditNum"/>
+		<result column="funding_edit_title" property="fundingEditTitle"/>
+		<result column="funding_edit_content" property="fundingEditContent"/>
+		<result column="edit_funding_num" property="editFundingNum"/>
+		<result column="edit_confirm" property="editConfirm"/>
+		<result column="create_date" property="createDate"/>
+		<result column="edit_status" property="editStatus"/>
+		<result column="DIVISION" property="division"/>
+	</resultMap>
+	
+	<resultMap type="WantingEdit" id="wantingEditResultSet">
+		<id column="WANTING_NUM" property="wantingNum"/>
+		<result column="WRITER" property="wantingWriter"/>
+		<result column="WANTING_TITLE" property="wantingTitle"/>
+		<result column="WANTING_SUMMARY" property="wantingSummary"/>
+		<result column="WANTING_CONTENT" property="wantingContent"/>
+		<result column="SHOP_NAME" property="wantingShopName"/> 
+		<result column="SHOP_ADDRESS" property="wantingShopAddress"/> 
+		<result column="CREATE_DATE" property="wantingCreateDate"/>
+		<result column="DAYS_COUNT" property="wantingDaysCount"/>
+		<result column="WANTING_COUNT" property="wantingCount"/>
+		<result column="WANTING_LEVEL" property="wantingLevel"/>
+		<result column="WANTING_STATUS" property="wantingStatus"/>
+		<result column="wanting_confirm" property="wantingConfirm"/>
+		<result column="DIVISION" property="division"/>
 	</resultMap>
 </mapper>

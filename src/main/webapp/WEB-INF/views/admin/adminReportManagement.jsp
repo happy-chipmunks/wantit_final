@@ -253,7 +253,7 @@
 							<th scope="col">번호</th>
 							<th scope="col">신고리뷰번호</th>
 							<th scope="col">신고카테고리</th>
-							<th scope="col">신고자</th>
+							<th scope="col">신고당한아이디</th>
 							<th scope="col">신고접수일</th>
 							<th scope="col">게시글 이동</th>
 							<th scope="col">처리</th>

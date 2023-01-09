@@ -12,6 +12,7 @@ import com.kh.wantit.admin.model.vo.AdReply;
 import com.kh.wantit.admin.model.vo.AddReply;
 import com.kh.wantit.admin.model.vo.AdminInquiry;
 import com.kh.wantit.admin.model.vo.Ads;
+import com.kh.wantit.admin.model.vo.CReply;
 import com.kh.wantit.admin.model.vo.EdReply;
 import com.kh.wantit.admin.model.vo.FundingReport;
 import com.kh.wantit.admin.model.vo.NReply;
@@ -197,8 +198,8 @@ public class AdminService {
 		return aDAO.noEditProjectW(id, sqlSession);
 	}
 
-	public int okEditProjectF(int id) {
-		return aDAO.okEditProjectF(id, sqlSession);
+	public int okEditProjectF(CReply cr) {
+		return aDAO.okEditProjectF(cr, sqlSession);
 	}
 
 	public int insertImage(Image img) {
@@ -261,8 +262,8 @@ public class AdminService {
 		return aDAO.insertBannerImage(sqlSession, bi);
 	}
 
-	public int okEditProjectW(int id) {
-		return aDAO.okEditProjectW(id, sqlSession);
+	public int okEditProjectW(CReply cr) {
+		return aDAO.okEditProjectW(cr, sqlSession);
 	}
 
 	public int noEditProjectFF(String id) {
