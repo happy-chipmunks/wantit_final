@@ -39,7 +39,7 @@
 <!-- 	<input placeholder="" type="file"  name="wanting-file"> -->
 	
 	
-<form class="" action="${ contextPath }/requestUpdateWanting.want" method="POST" enctype="multipart/form-data" id="wantingForm"> <!-- enctype : 이미지나 파일을 건낼 수 있음 -->
+<form class="" action="${ contextPath }/requestUpdateWanting.want" method="POST" enctype="multipart/form-data" id="wantingForm" name="wantingForm"> <!-- enctype : 이미지나 파일을 건낼 수 있음 -->
 	<h4 class="">원팅 수정하기</h4>
 
 <!-- 	값 전달 input tag -->
@@ -104,61 +104,50 @@
 	<div class="wanting-guide-detail">회원님의 원팅 프로젝트를 소개해주세요.</div>
     <textarea id="summernote" name="wantingContent">${ wanting.wantingContent }</textarea>
 
-	<button class="btn-wanting" data-bs-toggle="modal" data-bs-target="#wanting-modal" id="btn-submit">원팅 수정 요청</button>
+	<button class="btn-wanting" data-bs-toggle="modal" data-bs-target="request-modal" id="btn-submit">원팅 수정 요청</button>
 
 </form>
 </div>
-
-	<!-- 원팅 작성 완료 -->
-	<div class="modal fade" id="wanting-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-			<h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
-			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-			<div class="container-fluid g-0">
-				<div class="row g-0">
-				<div class="col-md-5">
-					<img class="thumbnail" src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=768,574"/>
-				</div>
-				<div class="col-md-7">
-					<div class="modal-funding-right">
-					<h5>원팅이 등록되었습니다!</h5>
-					<p class="modal-funding-title">[서울시 용답동] 나정순 할매 쭈꾸미 택배 전국 배송</p>
-					<p class="modal-funding-store">업체이름(가게이름)</p>
-					<div class="modal-funding-status">
-						현재 <span class="modal-funding-goal">100</span>명 중 <span class="modal-funding-amount">45</span>명이 모였어요.
-						원팅 달성 시 알림이 갑니다.
-					</div>
-					</div>
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="modal-footer modal-funding-footer">
-			<div class="container">
-				<div class="row g-2">
-				<div class="col-sm-4">
-					<button type="button" class="modal-funding-btn">다른 원팅 둘러보기</button>
-				</div>
-				<div class="col-sm-4">
-					<button type="button" class="modal-funding-btn">내 원팅 목록보기</button>
-				</div>
-				<div class="col-sm-4">
-					<button type="button" class="modal-funding-btn" data-bs-dismiss="modal">닫기</button>
-				</div>
-				</div>
-			</div>
-			</div>
-		</div>
-		</div>
+	
+	<!-- 원팅 수정을 요청했습니다 모달 -->
+	<div class="modal fade" id="request-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="container-fluid g-0">
+	          <div class="row g-0">
+	            <div class="col-md-7">
+	              <div class="modal-wanting-right">
+	                <p class="dibs-message">
+	                  원팅 수정을 요청했습니다.
+	                </p>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="modal-footer modal-dibs-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clickDel(wantingForm)">닫기</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	
 	
 	
 <script>
+
+	// 모달 닫으면서 form submit
+	function clickDel(formName) {
+		formName.action = "${ contextPath }/requestUpdateWanting.want";
+		formName.method = "post";
+		formName.submit();
+	}
+	
 	// 	파일 선택시 문구 변경
 	document.getElementById('wanting-file').addEventListener('change', function(){
 		var filename = document.getElementById('file-name');

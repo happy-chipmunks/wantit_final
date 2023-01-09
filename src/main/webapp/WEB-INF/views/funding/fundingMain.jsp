@@ -187,7 +187,12 @@
         	<div class="container creator-info" style="text-align:center;">
         		<div class="mb-2" id="goToInfo">
 	        		<a>
-		        		<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="50" height="50">
+	        			<c:if test="${ ci != null }">
+		        			<img style="border-radius: 70%" class="me-3" src="${ contextPath }/resources/member/${ci.imageRename}" width="60" height="60""> 
+		        		</c:if>
+	        			<c:if test="${ ci == null }">
+		        			<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="60" height="60">
+		        		</c:if>
 		        		<span style="font-size: 20px;">${ creator.creatorName }</span>
 		        		<input type="hidden" value="${ creator.creatorNum }" id="creatorNum">
 	        		</a>
@@ -228,17 +233,24 @@
         		</div>
         		<div class="mb-2">
 <!--         			<span>만족도</span> -->
-        			<span class="ps-3"><i class="bi bi-person-fill fs-4"></i>&nbsp;&nbsp;팔로워 0명</span>
+        			<span class="ps-3"><i class="bi bi-person-fill fs-4"></i>&nbsp;&nbsp;팔로워 ${ followerCount }명</span>
         		</div>
         		<div>
-        			<c:if test="${ yn }">
-        				<button class="btn btn-creator" data-bs-toggle="modal" data-bs-target="#inquiry"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        				<button class="btn btn-creator" id="follow"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+        			<c:if test="${ m == null }">
+        				<button class="btn btn-creator" onclick="noLogin()"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        				<button class="btn btn-creator" onclick="noLogin()"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
         			</c:if>
-        			<c:if test="${ !yn }">
-        				<button class="btn btn-creator"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        				<button class="btn btn-creator"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
-        			</c:if>
+        			<c:if test="${ m != null }">
+	        			<c:if test="${ yn }">
+	        				<button class="btn btn-creator" data-bs-toggle="modal" data-bs-target="#inquiry"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	        					<c:if test="${ me }">
+	        						<button class="btn btn-creator" id="unfollow"><i class="bi bi-dash"></i>&nbsp;&nbsp;팔로우</button>
+	        					</c:if>
+	        					<c:if test="${ !me }">
+	        						<button class="btn btn-creator" id="follow"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+	        					</c:if>
+	        			</c:if>
+	        		</c:if>
         		</div>
         	</div>
       	</div>
@@ -444,6 +456,25 @@
 				data: {creatorNum:creatorNum},
 				success: (data)=>{
 					console.log(data);
+// 					document.location.href = document.location.href; // ajax 통신 후 페이지 새로고침
+					document.location.reload(); // 새로고침시 위로 올라가지 않음!
+				},
+				error: (data)=>{
+					console.log(data);
+				}
+			})
+		});
+		
+		// 언팔로우
+		$('#unfollow').on('click', function(){
+			var creatorNum = ${creatorNum};
+			$.ajax({
+				url: '${contextPath}/unfollow.fund',
+				data: {creatorNum:creatorNum},
+				success: (data)=>{
+					console.log(data);
+// 					document.location.href = document.location.href;
+					document.location.reload();
 				},
 				error: (data)=>{
 					console.log(data);

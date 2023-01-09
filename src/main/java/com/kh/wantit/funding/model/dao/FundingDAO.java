@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Alarm;
+import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Follow;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
@@ -246,6 +247,22 @@ public class FundingDAO {
 
 	public int follow(SqlSessionTemplate sqlSession, Follow f) {
 		return sqlSession.insert("fundingMapper.follow", f);
+	}
+
+	public ArrayList<Follow> getFollowList(SqlSessionTemplate sqlSession, Integer creatorNum) {
+		return (ArrayList)sqlSession.selectList("fundingMapper.getFollowList", creatorNum);
+	}
+
+	public int getFollowerCount(SqlSessionTemplate sqlSession, Integer creatorNum) {
+		return sqlSession.selectOne("fundingMapper.getFollowerCount", creatorNum);
+	}
+
+	public int unfollow(SqlSessionTemplate sqlSession, Follow f) {
+		return sqlSession.delete("fundingMapper.unfollow", f);
+	}
+
+	public Image getCreatorImage(String writerCheckId, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("fundingMapper.getCreatorImage", writerCheckId);
 	}
 
 

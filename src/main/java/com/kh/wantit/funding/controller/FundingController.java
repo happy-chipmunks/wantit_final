@@ -28,6 +28,7 @@ import com.google.gson.JsonIOException;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.common.model.vo.Alarm;
+import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Follow;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.exception.FundingException;
@@ -289,6 +290,15 @@ public class FundingController {
 		 int supCount = fService.getSupportCount(bId);
 		 int dibsCount = fService.getDibsCount(bId);
 		 
+		  boolean me = false;
+		 ArrayList<Follow> fw = fService.getFollowList(creatorNum);
+		 for(int i = 0; i < fw.size(); i++) {
+			 if(fw.get(i).getFollower().equals(login)) {
+				 me = true;
+			 }
+		 }
+		 int followerCount = fService.getFollowerCount(creatorNum);
+		 
 		 boolean ok = false;
 		 ArrayList<FundingDibs> dibs = fService.getDibs(bId);
 		 for(int i = 0; i < dibs.size(); i++) {
@@ -313,11 +323,13 @@ public class FundingController {
 				
 				totalSupCount += sc;
 			}
+			
+			Image ci = fService.getCreatorImage(writerCheckId);
 		
 		if(f != null) {
-			mv.addObject("f", f).addObject("img", img).addObject("ok", ok).addObject("dibs", dibs).addObject("bId", bId)
-			.addObject("dibsCount", dibsCount).addObject("login", login).addObject("supCount", supCount)
-			.addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).addObject("creator", creator)
+			mv.addObject("f", f).addObject("img", img).addObject("ok", ok).addObject("dibs", dibs).addObject("bId", bId).addObject("followerCount", followerCount)
+			.addObject("dibsCount", dibsCount).addObject("login", login).addObject("supCount", supCount).addObject("ci", ci)
+			.addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).addObject("creator", creator).addObject("me", me)
 			.addObject("reviewAverage", reviewAverage).addObject("totalAmount", totalAmount).addObject("totalSupCount", totalSupCount).addObject("reviewCount", reviewList.size())
 			.setViewName("fundingMain");
 		}else {
@@ -502,7 +514,10 @@ public class FundingController {
 		}
 		
 		Member m = ((Member)session.getAttribute("loginUser"));
-		String id = m.getMemberId();
+		String id = "";
+		if(m != null) {
+			id = m.getMemberId();
+		}
 		
 		boolean ok = false;
 		 ArrayList<FundingDibs> dibs = fService.getDibs(fundingNum);
@@ -838,6 +853,20 @@ public class FundingController {
 		f.setCreatorNum(creatorNum);
 		f.setFollower(follower);
 		int result = fService.follow(f);
+		
+		return result;
+	}
+	
+	// 언팔로우
+	@ResponseBody
+	@RequestMapping("unfollow.fund")
+	public int unfollow(@RequestParam("creatorNum") int creatorNum, HttpSession session) {
+		String follower = ((Member)session.getAttribute("loginUser")).getMemberId();
+		
+		Follow f = new Follow();
+		f.setCreatorNum(creatorNum);
+		f.setFollower(follower);
+		int result = fService.unfollow(f);
 		
 		return result;
 	}

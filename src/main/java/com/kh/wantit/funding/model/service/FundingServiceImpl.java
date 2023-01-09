@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Alarm;
+import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Follow;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.dao.FundingDAO;
@@ -304,6 +305,26 @@ public class FundingServiceImpl implements FundingService{
 	@Override
 	public int follow(Follow f) {
 		return fDAO.follow(sqlSession, f);
+	}
+
+	@Override
+	public ArrayList<Follow> getFollowList(Integer creatorNum) {
+		return fDAO.getFollowList(sqlSession, creatorNum);
+	}
+
+	@Override
+	public int getFollowerCount(Integer creatorNum) {
+		return fDAO.getFollowerCount(sqlSession, creatorNum);
+	}
+
+	@Override
+	public int unfollow(Follow f) {
+		return fDAO.unfollow(sqlSession, f);
+	}
+
+	@Override
+	public Image getCreatorImage(String writerCheckId) {
+		return fDAO.getCreatorImage(writerCheckId, sqlSession);
 	}
 
 }

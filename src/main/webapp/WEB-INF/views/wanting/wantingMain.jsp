@@ -169,8 +169,8 @@
 	            <div class="col-md-7">
 	              <div class="modal-wanting-right">
 	                <h5>원팅이 완료되었습니다 !</h5>
-	                <p class="modal-wanting-title">[서울시 용답동] 나정순 할매 쭈꾸미 택배 전국 배송</p>
-	                <p class="modal-wanting-store">업체이름(가게이름)</p>
+	                <p class="modal-wanting-title">${ wanting.wantingTitle }</p>
+	                <p class="modal-wanting-store">${ wanting.wantingShopName }</p>
 	                <div class="modal-wanting-status">
 	                  현재 <span class="modal-wanting-goal">100</span>명 중 <span class="modal-wanting-count">${ wanting.wantingCount }</span>명이 모였어요.
 	                  원팅 달성 시 알림이 갑니다.
@@ -184,13 +184,15 @@
 	        <div class="container">
 	          <div class="row g-2">
 	            <div class="col-sm-4">
-	              <button type="button" class="modal-wanting-btn">다른 원팅 둘러보기</button>
+	              <button type="button" class="modal-wanting-btn" 
+	              	onclick="location.href='${contextPath}/wantingList.want'">다른 원팅 둘러보기</button>
 	            </div>
 	            <div class="col-sm-4">
-	              <button type="button" class="modal-wanting-btn">내 원팅 목록보기</button>
+	              <button type="button" class="modal-wanting-btn" 
+	              	onclick="location.href='${ contextPath }/myPageSupporterWanting.me'">내 원팅 목록보기</button>
 	            </div>
 	            <div class="col-sm-4">
-	              <button type="button" class="modal-wanting-btn" data-bs-dismiss="modal">닫기</button>
+	              <button type="button" class="modal-wanting-btn" id="wanting-close" data-bs-dismiss="modal">닫기</button>
 	            </div>
 	          </div>
 	        </div>
@@ -220,7 +222,8 @@
 	        </div>
 	      </div>
 	      <div class="modal-footer modal-dibs-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='${contextPath}/wantingList.want'">다른 원팅 둘러보기</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" 
+	        	onclick="location.href='${contextPath}/wantingList.want'">다른 원팅 둘러보기</button>
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 	      </div>
 		</div>
@@ -334,23 +337,24 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9d6a7c5e2b95f01e1fdfee7c815cc918&libraries=services"></script>
 <script>
-// $('.close').on('click', function (e) {
-// 	$('#title').val('');
-// 	$('#content').val("");
-// 	console.log("#cate option:eq(0)");
-//     $("#cate option:eq(0)").prop('selected', true);
-// });
 
 	// 원팅 참여하기 ========================================
 	if(${ !empty loginUser }) {
-	    document.getElementById('wanting-send-btn').addEventListener('click',function(){
+		const btn =  document.getElementById('wanting-close');
+		console.log(btn);
+		btn.addEventListener('click', function(){
 	    	const wantingNum = parseInt(document.getElementById('wantingNum').value);
-	    	//const input = document.querySelectorAll('input');
-			//const memberId = input[0].value;
-			//const wantingNum = parseInt(input[0].value);
-			//location.href  = '${contextPath}/attendWanting.want?memberId=' + memberId +'wantingNum='+ wantingNum;
+	    	console.log(wantingNum);
 			location.href = '${contextPath}/attendWanting.want?wantingNum='+ wantingNum;
 		});
+// 	    document.getElementById('wanting-send-btn').addEventListener('click',function(){
+// 	    	const wantingNum = parseInt(document.getElementById('wantingNum').value);
+// 	    	//const input = document.querySelectorAll('input');
+// 			//const memberId = input[0].value;
+// 			//const wantingNum = parseInt(input[0].value);
+// 			//location.href  = '${contextPath}/attendWanting.want?memberId=' + memberId +'wantingNum='+ wantingNum;
+// 			location.href = '${contextPath}/attendWanting.want?wantingNum='+ wantingNum;
+// 		});
 	}
 	
     // 원팅 가게 정보 지도 ========================================
