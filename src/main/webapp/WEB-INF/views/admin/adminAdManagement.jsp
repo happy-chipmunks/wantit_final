@@ -201,11 +201,6 @@
 				<div class="position" style="height: 1000px;">
 					<ul class="nav flex-column">
 						<li class="nav-item"><a class="nav-link"
-							href="${ contextPath }/admin.ad"> <span data-feather="home"
-								class="align-text-bottom"></span> <br>
-							<br> 사이트 관리
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/projectManage.ad"> <span
 								data-feather="file" class="align-text-bottom"></span> <br>
 							<br> 프로젝트 승인 / 거절
