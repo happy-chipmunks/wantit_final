@@ -110,19 +110,6 @@
     
     <div class="h4 pb-2 mb-4 text-danger border-bottom" style="color: lightgray;"></div>
 
-    <div class="ttable">
-        <button class="kane" type="button" style="width: 400px; height: 50px; background-color: rgb(235, 235, 39);">
-            <span style="font-weight: bold;">카카오로 시작하기</span>
-        </button>
-        <br>
-        <button class="kane"   type="button" style="width: 400px; height: 50px; background-color: rgb(20, 199, 20); color:#fff;">
-            <span style="font-weight: bold;">네이버로 시작하기</span>
-        </button>
-        <br>
-        <button class="kane"   type="button" style="width: 400px; height: 50px; background-color: rgb(133, 182, 245); color:#fff;">
-            <span style="font-weight: bold;">구글로 시작하기</span>
-        </button>
-    </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
