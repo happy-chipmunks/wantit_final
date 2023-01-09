@@ -195,8 +195,18 @@
 	                        <div class="payFundTitle">${ wantingList[i].wantingTitle }</div>
 	                        <div class="wantingSummary">${ wantingList[i].wantingSummary }</div>
 	                        <div class="request-button" style="position: absolute; bottom: 0px; right: 0px; margin-bottom: 10px;">
-	                        	<button class="btn-funding-small" onclick="location.href='${ contextPath }/updateWantingView.want?wantingNum=' + ${ wantingList[i].wantingNum }">수정 요청</button>
-	                        	<button class="btn-funding-small" onclick="location.href='${ contextPath }/requestDeleteWanting.want?wantingNum=' + ${ wantingList[i].wantingNum }">삭제 요청</button>
+	                        	<c:if test="${ wantingList[i].wantingConfirm != 'E' }">
+	                        		<button class="btn-funding-small" onclick="location.href='${ contextPath }/updateWantingView.want?wantingNum=' + ${ wantingList[i].wantingNum }">수정 요청</button>
+	                        	</c:if>
+	                        	<c:if test="${ wantingList[i].wantingConfirm == 'E' }">
+	                        		<button class="btn-funding-small" disabled >수정 요청 진행 중</button>
+	                        	</c:if>
+	                        	<c:if test="${ wantingList[i].wantingConfirm != 'D' }">
+	                        		<button class="btn-funding-small" onclick="location.href='${ contextPath }/requestDeleteWanting.want?wantingNum=' + ${ wantingList[i].wantingNum }">삭제 요청</button>
+								</c:if>
+	                        	<c:if test="${ wantingList[i].wantingConfirm == 'D' }">
+	                        		<button class="btn-funding-small" disabled>삭제 요청 진행 중</button>
+								</c:if>
 	                        </div>
 	                        <div class="writerAndDate"  style="position: absolute; bottom: 0px; margin-bottom: 10px;">
 		                        <span class="boardCount">작성자 : <span class="color" style="margin-right: 10px;">${ wantingList[i].wantingNickname }</span>
@@ -208,7 +218,7 @@
             	</c:forEach>
             	</c:if>
             	<c:if test="${ empty wantingList }">
-					<div class="row payFundList" style="height: 600px; text-align: center; margin-bottom: 50px;">
+					<div class="row payFundList" style="height: 600px; text-align: center; line-height : 600px;; margin-bottom: 50px;">
 						<p>작성한 원팅이 존재하지 않습니다.</p>
 					</div>
 				</c:if>

@@ -99,8 +99,8 @@ public class MemberController {
 		ArrayList<Integer> wantingNumList = wService.selectWantingNumList(id);
 		
 		if(wantingNumList.size() == 0) {
-			wantingNumList = null;
-			model.addAttribute("wantingList", wantingNumList);
+			ArrayList<Wanting> wantingList = null;
+			model.addAttribute("wantingList", wantingList);
 		}
 		if(wantingNumList.size() != 0) {
 			PageInfo pi = Pagination.getPageInfo(currentPage, wantingNumList.size(), 6);

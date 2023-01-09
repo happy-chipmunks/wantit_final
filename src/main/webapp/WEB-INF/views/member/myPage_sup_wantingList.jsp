@@ -203,8 +203,8 @@
 	                </div>
             	</c:forEach>
             	</c:if>
-            	<c:if test="${ empty wantingList }">
-					<div class="row payFundList" style="height: 600px; text-align: center; margin-bottom: 50px;">
+				<c:if test="${ empty wantingList }">
+					<div class="row payFundList" style="height: 600px; text-align: center; line-height : 600px;; margin-bottom: 50px;">
 						<p>참여한 원팅이 존재하지 않습니다.</p>
 					</div>
 				</c:if>

@@ -440,7 +440,7 @@ public class WantingController {
 			if(result1 > 1 && imageList != null) {
 				model.addAttribute("wanting", w);
 				model.addAttribute("thumbnail", thumbnail);
-				return "wantingUpdateView";
+				return "redirect:myPageSupporterWantingWrite.me";
 			} else {
 				throw new WantingException("원팅 수정 요청 실패");
 			}
