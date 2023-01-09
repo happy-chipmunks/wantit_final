@@ -3,13 +3,11 @@ package com.kh.wantit.member.dao;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.CreatorImage;
-import com.kh.wantit.common.model.vo.Follow;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingMessage;
@@ -191,6 +189,11 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.replyMessage", fmr);
 	}
 
+
+	
+
+
+	
 
 
 
