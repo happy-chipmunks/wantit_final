@@ -29,13 +29,13 @@
         	<c:forEach items="${ biList }" var="bi" varStatus="status">
         		<c:if test="${ status.index == 0 }">
 		          <div class="carousel-item active">
-		            <img alt="" src="${ contextPath }/resources/bannerImage/${ bi.imageRename }">		  
+		            <img alt="" src="${ contextPath }/resources/member/${ bi.imageRename }">		  
 		    
 		          </div>
         		</c:if>
         		<c:if test="${ status.index != 0 }">
 		          <div class="carousel-item">
-						<img alt="" src="${ contextPath }/resources/bannerImage/${ bi.imageRename }">		    
+						<img alt="" src="${ contextPath }/resources/member/${ bi.imageRename }">		    
 		          </div>
         		</c:if>
         	</c:forEach>
