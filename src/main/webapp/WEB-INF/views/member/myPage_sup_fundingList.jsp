@@ -134,7 +134,6 @@
     			
 					<br><br>
 	   				<h4><b>${ loginUser.memberName }</b>님</h4>
-	   				<p id="info">팔로워 0명<br>
 	   				서포터<br>
 	   				<button class="btn btn-sm" style="background-color: lightgray;">로그아웃</button>
 	   				</p>
