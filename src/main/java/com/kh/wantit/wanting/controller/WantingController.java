@@ -285,7 +285,7 @@ public class WantingController {
 	public String attendWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session, RedirectAttributes redirectAttributes) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		WantingAttend join = new WantingAttend(id, wantingNum);
-		// System.out.println("원팅 참여한다면 이것 : " + join);
+		//System.out.println("원팅 참여한다면 이것 : " + join);
 		
 		// 원팅 참여함
 		int result1 = wService.attendWanting(join);
@@ -325,7 +325,7 @@ public class WantingController {
 			wantingLevel = 9;
 		}
 		w.setWantingLevel(wantingLevel);
-		// System.out.println("원팅 참여 업데이트 : " + w);
+		//System.out.println("원팅 참여 업데이트 : " + w);
 		
 		int result3 = wService.updateWantingStatus(w);
 		System.out.println("원팅 참여 결과 : " + result1 + "/ 원팅 달성 시 알림 : " + result2 + "/ 원팅 달성 상태 삽입 : " + result3);
@@ -599,6 +599,46 @@ public class WantingController {
 		}
 	}	
 			
+	
+	// ==================== 원팅 취소하기 ====================
+	@RequestMapping("cancelWanting.want")
+	public String cancelWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session, RedirectAttributes redirectAttributes) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		WantingAttend join = new WantingAttend(id, wantingNum);
+
+		int result1 = wService.cancelWanting(join);
+		
+		// 원팅에 참여자수 DB에 넣기
+		Wanting w = wService.selectWanting(wantingNum);
+		int wantingCount = wService.getWantingCount(wantingNum);
+		w.setWantingCount(wantingCount);
+
+		// 원팅 달성단계 DB에 넣기
+		int wantingLevel = 0;
+		if(wantingCount <= 5) {
+			wantingLevel = 1;
+		} else if(wantingCount <= 10) {
+			wantingLevel = 2;
+		} else if(wantingCount <= 15) {
+			wantingLevel = 3;
+		} else {
+			wantingLevel = 9;
+		}
+		w.setWantingLevel(wantingLevel);
+		System.out.println("원팅 취소 업데이트 : " + w);
+		
+		int result2 = wService.updateWantingStatus(w);
+		System.out.println("원팅 취소 결과 : " + result1 + "/ 원팅 달성 상태 삽입 : " + result2);
+		
+		if(result1 > 0 && result2 > 0) {
+			redirectAttributes.addAttribute("wantingNum", wantingNum);
+			return "redirect:selectWanting.want";
+		} else {
+			throw new WantingException("원팅 취소 실패");
+		}
+	}
+		
+				
 	
 	// ==================== 원팅 삭제 - 이미지 deleteFile 메소드  ====================
 	public void deleteFile(String fileName, HttpServletRequest request) {

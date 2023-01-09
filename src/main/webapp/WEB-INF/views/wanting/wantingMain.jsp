@@ -119,7 +119,7 @@
       </c:if>
 	  <c:if test="${ !empty loginUser }">
 	  	<c:if test="${ wantingYN }">
-	  		<button id="wanting-send-btn" class="btn-funding" data-bs-toggle="modal" data-bs-target="" disabled>원팅에 참여했습니다.</button>
+	  		<button id="wanting-cancel-btn" class="btn-funding" data-bs-toggle="modal" data-bs-target="#cancel-modal">원팅에 참여했습니다.</button>
       	</c:if>
 	  	<c:if test="${ !wantingYN }">
 	  		<button id="wanting-send-btn" class="btn-funding" data-bs-toggle="modal" data-bs-target="#wanting-modal">원팅 참여하기</button>
@@ -139,7 +139,10 @@
         < 원팅 삭제 버튼 >        
         <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/requestDeleteWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅삭제 - 요청</button>
         <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/rejectDeleteWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅삭제 - 거절</button>
-        <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/confirmDeleteWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅삭제 - 승인</button> --%>
+        <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/confirmDeleteWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅삭제 - 승인</button>
+        < 원팅 취소 버튼 >
+        <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/cancelWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅취소</button> --%>
+        
         
       </div>
     </div>
@@ -211,9 +214,9 @@
 <!-- 				  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png" -->
 <!-- 				    alt="카카오톡 공유 보내기 버튼" /> -->
 <!-- 				</a> -->
-				<a id="kakaotalk-sharing-btn" class="link-icon kakao" href="javascript:;">카카오톡</a>
+				<a href="#" class="link-icon link" onclick="clip(); return false;" alt="Share">링크 복사</a>
+                <a id="kakaotalk-sharing-btn" class="link-icon kakao" href="javascript:;">카카오톡</a>
 				<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();">페이스북</a>
-		        <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
 	        </div>
 	      </div>
 	      <div class="modal-footer modal-dibs-footer">
@@ -247,6 +250,35 @@
 	      </div>
 	      <div class="modal-footer modal-dibs-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='${contextPath}/loginenroll.me'">로그인</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- 원팅을 취소하시겠습니까 모달 -->
+	<div class="modal fade" id="cancel-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="container-fluid g-0">
+	          <div class="row g-0">
+	            <div class="col-md-7">
+	              <div class="modal-wanting-right">
+	                <p class="dibs-message">
+	                  원팅에 참여했습니다.<br>취소하시겠습니까?<br>
+	                </p>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="modal-footer modal-dibs-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='${ contextPath }/cancelWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅 취소하기</button>
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 	      </div>
 	    </div>
@@ -302,6 +334,13 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9d6a7c5e2b95f01e1fdfee7c815cc918&libraries=services"></script>
 <script>
+// $('.close').on('click', function (e) {
+// 	$('#title').val('');
+// 	$('#content').val("");
+// 	console.log("#cate option:eq(0)");
+//     $("#cate option:eq(0)").prop('selected', true);
+// });
+
 	// 원팅 참여하기 ========================================
 	if(${ !empty loginUser }) {
 	    document.getElementById('wanting-send-btn').addEventListener('click',function(){
@@ -351,12 +390,7 @@
 	}
 	
 	
-    // 원팅 공유하기 ========================================
-    function shareTwitter() {
-        var sendText = "함께 만들어나가는 원팅! 자세히 알아보기"; // 전달할 텍스트
-        var sendUrl = "http://localhost:8080/wantit/selectWanting.want?wantingNum=" + wantingNum; // 전달할 URL
-        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
-    }
+    // 원팅 공유하기 - 페이스북 ========================================
     function shareFacebook() {
         var sendUrl = "http://localhost:8080/wantit/selectWanting.want?wantingNum=" + wantingNum; // 전달할 URL
         window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
@@ -370,12 +404,15 @@
       title: '${ wanting.wantingTitle }',
       description: '함께 만들어나가는 원팅',
       imageUrl:
-		'https://ifh.cc/g/YhQM37.png',
+		'https://ifh.cc/g/WjcnQO.png',
       link: {
         // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
         webUrl: 'http://localhost:8080/wantit/selectWanting.want?wantingNum=${ wanting.wantingNum }',
       },
     },
+    social: {
+	    likeCount: ${ wanting.wantingCount },
+  	},
     buttons: [
       {
         title: '원잇 사이트로 이동',
@@ -385,6 +422,21 @@
       },
     ],
   	});
+    
+    // 원팅 공유하기 - 링크 복사 ========================================
+    function clip() {
+        var url = ''; // 으로 빈 변수를 하나 만들어 놓는다.
+        var textarea = document.createElement("textarea"); // 라는 변수에 텍스크에어리어 요소 생성해주기
+        
+        document.body.appendChild(textarea);
+        url = window.document.location.href; // url 변수에 현재 링크 담아주기
+        textarea.value = url; // html 값을 위에서 생성한 textarea 에 넣기
+        textarea.select();
+        document.execCommand("copy"); // 여기서는 주소를 복사할 거니까 copy 명령어 적기
+        document.body.removeChild(textarea); // 위에 생성해 줬던 textarea 요소를 삭제해준다
+        
+        alert("URL이 복사되었습니다.")
+    }
 	
 </script>
 

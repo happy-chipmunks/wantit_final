@@ -202,5 +202,11 @@ public class WantingServiceImpl implements WantingService{
 		return wDAO.selectWantingWriteList(sqlSession, pi, id);
 	}
 
+	// 원팅 취소
+	@Override
+	public int cancelWanting(WantingAttend join) {
+		return wDAO.cancelWanting(sqlSession, join);
+	}
+
 	
 }

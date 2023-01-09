@@ -182,6 +182,11 @@ public class WantingDAO {
 		return (ArrayList)sqlSession.selectList("wantingMapper.selectWantingWriteList", id, rowBounds);
 	}
 
+	// 원팅 취소
+	public int cancelWanting(SqlSessionTemplate sqlSession, WantingAttend join) {
+		return sqlSession.delete("wantingMapper.cancelWanting", join);
+	}
+
 
 
 	

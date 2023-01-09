@@ -248,7 +248,11 @@
 		order by wanting_num desc
 	</select>	
 	
-	
+<!-- 	원팅 취소하기 -->
+	<delete id="cancelWanting">
+		delete from wanting_attend
+		where wanting_num=#{wantingNum} and attender=#{attender}
+	</delete>
 	
 	
 	<resultMap type="Wanting" id="wantingResultSet">

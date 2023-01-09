@@ -279,8 +279,8 @@ p {margin: 0;}
 }
 
 /* ==================== 모달 - 공유버튼 ==================== */
-.link-icon { position: relative; display: inline-block; width: auto;    font-size: 14px; font-weight: 500; color: #333; margin-right: 10px; padding-top: 50px; }
-.link-icon.twitter { background-image: url(../wanting/icon-twitter.png); background-repeat: no-repeat; }
+.link-icon { position: relative; display: inline-block; width: auto; font-size: 14px; font-weight: 500; color: #333; margin-right: 10px; padding-top: 50px; }
+.link-icon.link { background-image: url(../wanting/icon-link.png); background-repeat: no-repeat; }
 .link-icon.facebook { background-image: url(../wanting/icon-facebook.png); background-repeat: no-repeat; } 
 .link-icon.kakao { background-image: url(../wanting/icon-kakao.png); background-repeat: no-repeat; }
 

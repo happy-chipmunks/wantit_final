@@ -88,6 +88,9 @@ public interface WantingService {
 
 	ArrayList<Wanting> selectWantingWriteList(PageInfo pi, String id);
 
+	// 원팅 취소
+	int cancelWanting(WantingAttend join);
+
 
 	
 
