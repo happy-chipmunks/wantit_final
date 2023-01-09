@@ -277,6 +277,35 @@
 		where message_code=#{messageCode}
 	</update>
 	
+	<select id="getFollowList" resultMap="followResultSet">
+		select * from follow where follower = #{userId}
+	</select>
+	
+	<select id="getCreatorId" resultType="string">
+		select creator from creator where creator_num = #{creatorNum}
+	</select>
+	
+	<select id="getCreatorName" resultType="string">
+		select creator_name from creator where creator_num = #{creatorNum}
+	</select>
+	
+	<select id="getFollowerImage" resultMap="imageResultSet">
+		select * from image join creator_image using(image_num) where image_board_cate = 3 and image_board_id = #{creatorId}
+	</select>
+	
+	<delete id="cancelFollow" >
+		delete from follow where follower = #{follower} and creator_num = #{creatorNum}
+	</delete>
+	
+	<insert id="addFollow">
+		insert into follow values(#{follower}, #{creatorNum})
+	</insert>
+	
+	<resultMap type="Follow" id="followResultSet">
+		<result column="FOLLOWER" property="follower"/>
+		<result column="CREATOR_NUM" property="creatorNum"/>
+	</resultMap>
+	
 	<resultMap type="FundingMessage" id="fundingMessageResultSet">
 		<id column="message_code" property="messageCode"/>
 		<result column="sender" property="sender"/>

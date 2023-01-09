@@ -1,13 +1,16 @@
 ﻿package com.kh.wantit.member.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +28,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.wantit.admin.model.service.AdminService;
 import com.kh.wantit.admin.model.vo.Ads;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.common.model.vo.Alarm;
 import com.kh.wantit.common.model.vo.BannerImage;
+import com.kh.wantit.common.model.vo.Follow;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.service.FundingService;
 import com.kh.wantit.funding.model.vo.Funding;
@@ -44,6 +51,7 @@ import com.kh.wantit.pay.service.PayService;
 import com.kh.wantit.pay.vo.PaySchedule;
 import com.kh.wantit.wanting.model.service.WantingService;
 import com.kh.wantit.wanting.model.vo.Wanting;
+import com.sun.mail.handlers.image_gif;
 
 @Controller
 @SessionAttributes
@@ -155,10 +163,7 @@ public class MemberController {
 		return "myPage_sup_inquiry";
 	}
 	
-	@RequestMapping("/myPageSupporterFollow.me")
-	public String myPageSupporterFollow() {
-		return "myPage_sup_follow";
-	}
+	
 	
 	@RequestMapping("/myPageSupporterPayList.me")
 	public String myPageSupporterPayList(@RequestParam(value = "page", required = false) Integer page,  

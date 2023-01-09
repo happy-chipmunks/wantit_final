@@ -141,7 +141,6 @@
 				    <input type="hidden" value=${ loginUser.memberId } name="memberId" >
 				</form>
 	   				<h4><b>${ loginUser.memberName }</b>님</h4>
-	   				<p id="info">팔로워 0명<br>
 	   				서포터<br>
 	   				<button class="btn btn-sm" style="background-color: lightgray;" onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
 	   				</p>
@@ -160,9 +159,6 @@
    				</li>
    				<li>
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterAlarm.me'"><b>알림</b></button></p>
-   				</li>
-   				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterFollow.me'"><b>팔로우</b></button></p>
    				</li>
    				<li>
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterPayList.me'"><b>구매이력</b></button></p>

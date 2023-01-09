@@ -186,6 +186,14 @@
 	    height: 100px;
 
 		}
+		
+		.imageArea{
+			width: 70px;
+			height: 70px;
+			border-radius: 35px;
+			margin-top: 40px;
+			background-color: blue;
+		}
     </style>
 
 </head>
@@ -247,141 +255,28 @@
    		</div>
    	
    		<div class="col-8">
+   				<c:forEach begin="0" end="${ followList.size() - 1 }" var="i">
     					<div style="height: 110px;">
 					      <div class="row g-0 mb-3 h-75">
 					        <div class="col-auto d-none d-lg-block">
-					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
+					        	<div class="imageArea">
+					        		<img alt="" src="${ contextPath }/resources/member/${ followerImageList[i].imageRename }">
+					        	</div>
 					        </div>
 					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5 style="display: inline">팔로우 중인 계정 명</h5>이름
-					          <div align="right">
+					          <span style="margin-top: 35px;">${ followerNameList[i] }</span>
+					          <div align="right" style="display: inline;">
 					          	<label class="switch">
-								  <input type="checkbox" id="check">
+								  <input type="checkbox" id="check${ i }"  class="checkbox">
+								  <input type="hidden" id="cn${ i }" value="${ followList[i].creatorNum }">
 								  <span class="slider round"></span>
 								</label>
-								<p class="follow">팔로잉</p><p style="display:none;" class="follow">팔로우</p>
+								<p class="follow${ i }">팔로잉</p><p style="display:none;" class="follow${ i }">팔로우</p>
 					          </div>
 					        </div>
 					      </div>
 					     </div>
-						   
-						 <div style="height: 110px;">
-					      <div class="row g-0 mb-3 h-75">
-					        <div class="col-auto d-none d-lg-block">
-					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
-					        </div>
-					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5>팔로우 중인 계정 명</h5>이름1
-					          <div align="right">
-					          	<label class="switch">
-								  <input type="checkbox" id="check2">
-								  <span class="slider round"></span>
-								</label>
-								<p class="follow2">팔로잉</p><p style="display:none;" class="follow2">팔로우</p>
-					          </div>
-					        </div>
-					      </div>
-					     </div>
-					     
-					     <div style="height: 110px;">
-					      <div class="row g-0 mb-3 h-75">
-					        <div class="col-auto d-none d-lg-block">
-					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
-					        </div>
-					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5>팔로우 중인 계정 명</h5>이름2
-					          <div align="right">
-					          	<label class="switch">
-								  <input type="checkbox" id="check3">
-								  <span class="slider round"></span>
-								</label>
-								<p class="follow3">팔로잉</p><p style="display:none;" class="follow3">팔로우</p>
-					          </div>
-					        </div>
-					      </div>
-					     </div>
-					     
-					     <div style="height: 110px;">
-					      <div class="row g-0 mb-3 h-75">
-					        <div class="col-auto d-none d-lg-block">
-					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
-					        </div>
-					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5>팔로우 중인 계정 명</h5>이름3
-					          <div align="right">
-					          	<label class="switch">
-								  <input type="checkbox" id="check4">
-								  <span class="slider round"></span>
-								</label>
-								<p class="follow4">팔로잉</p><p style="display:none;" class="follow4">팔로우</p>
-					          </div>
-					        </div>
-					      </div>
-					     </div>
-					     
-					     <div style="height: 110px;">
-					      <div class="row g-0 mb-3 h-75">
-					        <div class="col-auto d-none d-lg-block">
-					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
-					        </div>
-					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5>팔로우 중인 계정 명</h5>이름4
-					          <div align="right">
-					          	<label class="switch">
-								  <input type="checkbox" id="check5">
-								  <span class="slider round"></span>
-								</label>
-								<p class="follow5">팔로잉</p><p style="display:none;" class="follow5">팔로우</p>
-					          </div>
-					        </div>
-					      </div>
-					     </div>
-					     
-					     <div style="height: 110px;">
-					      <div class="row g-0 mb-3 h-75">
-					        <div class="col-auto d-none d-lg-block">
-					           <svg class="bd-placeholder-img rounded-circle" width="60" height="60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 100x100" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">100x100</text></svg>
-					        </div>
-					        <div class="col p-4 d-flex flex-column position-static" style="text-align: left;">
-					          <h5>팔로우 중인 계정 명</h5>이름5
-					          <div align="right">
-					          	<label class="switch">누군가
-								  <input type="checkbox" id="check6">
-								  <span class="slider round"></span>
-								</label>
-								<p class="follow6">팔로잉</p><p style="display:none;" class="follow6">팔로우</p>
-					          </div>
-					        </div>
-					      </div>
-					     </div>
-					     
-						  <br>
-						  <nav aria-label="Standard pagination example" class="nav justify-content-center">
-				        	<ul class="pagination">
-					            <li class="page-item">
-					            	<c:url var="goBack" value="${ loc }">
-					            		<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
-					            	</c:url>
-					            	<a class="page-link" href="${ goBack }" aria-label="Previous">
-					            		<span aria-hidden="true">&laquo;</span>
-					              	</a>
-					            </li>
-					            <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-					            	<c:url var="goNum" value="${ loc }">
-					            		<c:param name="page" value="${ p }"></c:param>
-					            	</c:url>
-					            	<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
-					            </c:forEach>
-					            <li class="page-item">
-					            	<c:url var="goNext" value="${ loc }">
-					            		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
-					            	</c:url>
-					            	<a class="page-link" href="${ goNext }" aria-label="Next">
-					            		<span aria-hidden="true">&raquo;</span>
-					            	</a>
-					            </li>
-					    	</ul>
-				        </nav>
+   				</c:forEach>
 						</div>
     	<hr>
     </div>
@@ -391,14 +286,43 @@
 	
 
 	<script>
-		$("input:checkbox[id='check']").prop("checked", true);
-		$("input:checkbox[id='check2']").prop("checked", true);
-		$("input:checkbox[id='check3']").prop("checked", true);
-		$("input:checkbox[id='check4']").prop("checked", true);
-		$("input:checkbox[id='check5']").prop("checked", true);
-		$("input:checkbox[id='check6']").prop("checked", true);
+		const checkbox = document.getElementsByClassName('checkbox');
+		for(let i=0 ; i<checkbox.length ; i++) {
+			checkbox[i].addEventListener('click', function() {
+				const checkFollow = document.getElementsByClassName('follow' + i);
+				const cn = document.getElementById('cn' + i).value;
+				if(checkFollow[0].style.display == 'none') {
+					$.ajax({
+						url : '${ contextPath }/toggleFollow.me',
+						data : {'creatorNum' : cn, 'action' : 'follow'},
+						success : (data)=> {
+							if(data.result == 'success') {
+								$('.follow' + i).toggle();
+							}
+						},
+						error : (data)=> {
+							console.log(data);
+						}
+					});
+				} else {
+					$.ajax({
+						url : '${ contextPath }/toggleFollow.me',
+						data : {'creatorNum' : cn, 'action' : 'unFollow'},
+						success : (data)=> {
+							if(data.result == 'success') {
+								$('.follow' + i).toggle();
+							}
+						},
+						error : (data)=> {
+							console.log(data);
+						}
+					});
+				}
+			});
+		}
 	
-		var check = $("input:checkbox[id='check']");
+	
+		var check = $("input:checkbox[id='check1']");
 		check.click(function(){
 			$(".follow").toggle();
 		});

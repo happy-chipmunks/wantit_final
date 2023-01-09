@@ -15,6 +15,7 @@
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
   <link rel="stylesheet" href="resources/css/wantingMain.css" />
+    <link rel="stylesheet" href="resources/css/fundingMain.css" />
   <link rel="stylesheet" href="resources/css/wantingSupporter.css" />
 
   <style>
@@ -183,11 +184,46 @@
         
         <div>
         	<div class="container creator-info" style="text-align:center;">
-        		<div class="mb-2">
+        		<div class="mb-2" id="goToInfo">
 	        		<a>
 		        		<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="50" height="50">
-		        		<span style="font-size: 20px;">닉네임</span>
+		        		<span style="font-size: 20px;">${ creator.creatorName }</span>
+		        		<input type="hidden" value="${ creator.creatorNum }" id="creatorNum">
 	        		</a>
+        		</div>
+        		<div class="mb-2">
+        			<i class="bi bi-star-fill" style="color: #e8acef;"></i>
+        			<span class="dohyeonFont">평점 -</span>
+        			<c:if test="${ reviewAverage != 'NaN' }">
+        			<span class="dohyeonFont">${ reviewAverage } (${ reviewCount }개)</span>
+        			</c:if>
+        			<c:if test="${ reviewAverage == 'NaN' }">
+        			<span class="dohyeonFont">0.0 (${ reviewCount }개)</span>
+        			</c:if>
+        			<br>
+        			<i class="bi bi-piggy-bank-fill" style="color: #e8acef;"></i>
+        			<span  class="dohyeonFont">누적액수 - </span>
+        			<span class="dohyeonFont" id="ta">${ totalAmount }</span>
+        			<br>
+        			<i class="bi bi-people-fill" style="color: #e8acef;"></i>
+        			<span  class="dohyeonFont">서포터수 - </span>
+        			<span class="dohyeonFont">${ totalSupCount }</span>
+        			<br><br>
+        			<span>기업형태 : </span>
+        			<c:if test="${ creator.businessType eq 'N'.charAt(0) }"><span>개인기업</span></c:if>
+        			<c:if test="${ creator.businessType eq 'Y'.charAt(0) }"><span>단체기업</span></c:if>
+        			<br>
+        			<span>대표자 이름 : </span>
+        			<span>${ creator.managerName }</span>
+        			<br>
+        			<span>이메일 : </span>
+        			<span>${ creator.managerEmail }</span>
+        			<br>
+        			<span>대표전화 : </span>
+        			<span>${ creator.managerPhone }</span>
+        			<br>
+        			<span>사업자등록번호 : </span>
+        			<span>${ creator.businessNumber }</span>
         		</div>
         		<div class="mb-2">
 <!--         			<span>만족도</span> -->
@@ -196,7 +232,7 @@
         		<div>
         			<c:if test="${ yn }">
         				<button class="btn btn-creator" data-bs-toggle="modal" data-bs-target="#inquiry"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        				<button class="btn btn-creator"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+        				<button class="btn btn-creator" id="follow"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
         			</c:if>
         			<c:if test="${ !yn }">
         				<button class="btn btn-creator"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -256,6 +292,12 @@
 </div>
 
 	<script>
+	window.onload=()=> {
+		const ta = document.getElementById('ta');
+		const before = parseInt(ta.innerText);
+		ta.innerText = before.toLocaleString() + "원";
+	}
+	
 	changeMoney();
 	function changeMoney() {
 		const targetMoney = document.getElementsByClassName('toLocaleMoney');

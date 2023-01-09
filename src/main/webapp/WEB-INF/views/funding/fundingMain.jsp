@@ -195,7 +195,12 @@
         		<div class="mb-2">
         			<i class="bi bi-star-fill" style="color: #e8acef;"></i>
         			<span class="dohyeonFont">평점 -</span>
+        			<c:if test="${ reviewAverage != 'NaN' }">
         			<span class="dohyeonFont">${ reviewAverage } (${ reviewCount }개)</span>
+        			</c:if>
+        			<c:if test="${ reviewAverage == 'NaN' }">
+        			<span class="dohyeonFont">0.0 (${ reviewCount }개)</span>
+        			</c:if>
         			<br>
         			<i class="bi bi-piggy-bank-fill" style="color: #e8acef;"></i>
         			<span  class="dohyeonFont">누적액수 - </span>

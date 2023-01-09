@@ -136,7 +136,6 @@
 				
 				<br><br>
 	   				<h4><b>${ loginUser.memberName }</b>님</h4>
-	   				<p id="info">팔로워 0명<br>
 	   				서포터<br>
 	   				<button class="btn btn-sm" style="background-color: lightgray;">로그아웃</button>
 	   				</p>
@@ -157,9 +156,6 @@
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterAlarm.me'"><b>알림</b></button></p>
    				</li>
    				<li>
-   					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterFollow.me'"><b>팔로우</b></button></p>
-   				</li>
-   				<li>
    					<p><button class="btn button" onclick="location.href='${contextPath}/myPageSupporterPayList.me'"><b>구매이력</b></button></p>
    				</li>
 			</ul>
@@ -177,7 +173,7 @@
             <div class="col-10" id="biglist">
 				<c:if test="${ !empty wantingList }">
             	<c:forEach begin="0" end="${ wantingList.size()-1 }" var="i">
-	                <div class="row g-0 payFundList" style="height: 230px;">	
+	                <div class="row g-0" style="height: 230px;">	
             		<input type="hidden" value="${ wantingList[i].wantingNum }" id="wantingNum${ i }">
 	                    
 						<div class="col-4 imageArea">
@@ -185,7 +181,7 @@
 				  			<c:forEach items="${ imageList }" var="image">
 		                    	<c:if test="${ wantingList[i].wantingNum == Integer.parseInt(image.imageBoardId) }">
 			                   	 	<img alt="" src="${ contextPath }/resources/wanting/${ image.imageRename }"
-									class="bd-placeholder-img card-img-top" alt="..." style="height: 200px; width: 100%; object-fit: cover;">
+									class="bd-placeholder-img card-img-top wanting" alt="..." style="height: 200px; width: 100%; object-fit: cover;">
 		                    	</c:if>
 		                    </c:forEach>
 						</svg>
@@ -254,22 +250,32 @@
 	<script>
 	window.onload = () =>{
 		const biglist =  document.getElementById('biglist');
-		const divs = biglist.querySelectorAll('div');
+		const divs = biglist.querySelectorAll('.wanting');
 
 		console.log("divs " + divs);
 
-		for(const div of divs){
+// 		for(const div of divs){
 
-			div.addEventListener('click', function(){
-				console.log("div " + div);
+// 			div.addEventListener('click', function(){
+// 				console.log("div " + div);
 
-				const input = document.getElementById('wantingNum' + i);
-				const wantingNum = parseInt(input.value);
-   				console.log(wantingNum);
+// 				const input = document.getElementById('wantingNum' + i);
+// 				const wantingNum = parseInt(input.value);
+//    				console.log(wantingNum);
    				
-// 				location.href='${contextPath}/selcectWanting.want?wantingNum=' + wantingNum;
+// // 				location.href='${contextPath}/selcectWanting.want?wantingNum=' + wantingNum;
+// 				});
+// 		}
+
+			for(let i=0 ; i<divs.length ; i++) {
+				divs[i].addEventListener('click', function() {
+					const input = document.getElementById('wantingNum' + i);
+					const wantingNum = parseInt(input.value);
+					console.log(wantingNum);
+					
+					location.href='${contextPath}/selectWanting.want?wantingNum=' + wantingNum;
 				});
-		}
+			}
 	}
 			
 			

@@ -46,7 +46,7 @@
 	                    <div class="col-3 imageArea">
 	                    	<c:forEach items="${ noticeImageList }" var="image">
 	                    		<c:if test="${ noticeList[i].noticeNum == Integer.parseInt(image.imageBoardId) }">
-			                    	<img alt="" src="${ contextPath }/resources/notice/${ image.imageRename }">
+			                    	<img alt="" src="${ contextPath }/resources/notice/${ image.imageRename }" width="140" height="120">
 	                    		</c:if>
 	                    	</c:forEach>
 	                    </div>

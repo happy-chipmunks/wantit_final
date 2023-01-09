@@ -27,7 +27,6 @@
 		<typeAlias type="com.kh.wantit.funding.model.vo.SupportCount" alias="SupportCount"/>
 		<typeAlias type="com.kh.wantit.funding.model.vo.FundingDibs" alias="FundingDibs"/>
 		<typeAlias type="com.kh.wantit.funding.model.vo.FundingMessage" alias="FundingMessage"/>
-		
 	</typeAliases>
 	
 	<mappers>

@@ -357,7 +357,27 @@ public class FundingController {
 		int writerNo = fService.getFundingCreatorNum(writer);
 		 int supCount = fService.getSupportCount(bId);
 		 int dibsCount = fService.getDibsCount(bId);
-		
+		 
+		 //동준
+		 int creatorNum = f.getCreatorNum();
+		 Creator creator = fService.getCreatorInfo(creatorNum);
+		 
+		 ArrayList<Funding> fundingList = fService.getFundingListFromCreatorNum(creatorNum);
+			ArrayList<Review> reviewList = fService.getReviewList(creatorNum);
+			double reviewAverage = 0;
+			for(Review r : reviewList) {
+				reviewAverage += r.getReviewRating();
+			}
+			reviewAverage = reviewAverage / reviewList.size();
+			int totalAmount = 0;
+			int totalSupCount = 0;
+			for(Funding fund : fundingList) {
+				totalAmount += fund.getCurrentMoney();
+				int sc = fService.getSupportCount(fund.getFundingNum());
+				
+				totalSupCount += sc;
+			}
+		 
 		model.addAttribute("count", count);
 		model.addAttribute("fnList", fnList);
 		model.addAttribute("fundingCreator", fundingCreator);
@@ -369,6 +389,11 @@ public class FundingController {
 		model.addAttribute("dibsCount", dibsCount);
 		model.addAttribute("id", id);
 		model.addAttribute("ok", ok);
+		model.addAttribute("creator", creator);
+		model.addAttribute("reviewAverage", reviewAverage);
+		model.addAttribute("totalAmount", totalAmount);
+		model.addAttribute("totalSupCount", totalSupCount);
+		model.addAttribute("reviewCount", reviewList.size());
 		return "fundingNotice";
 	}
 	
@@ -507,6 +532,26 @@ public class FundingController {
 		ArrayList<Member> reviewerNick = fService.getReviewerNickName(fundingNum);
 //		System.out.println(reviewerNick);
 		
+		//동준
+		 int creatorNum = f.getCreatorNum();
+		 Creator creator = fService.getCreatorInfo(creatorNum);
+		 
+		 ArrayList<Funding> fundingList = fService.getFundingListFromCreatorNum(creatorNum);
+			ArrayList<Review> reviewList = fService.getReviewList(creatorNum);
+			double reviewAverage = 0;
+			for(Review r : reviewList) {
+				reviewAverage += r.getReviewRating();
+			}
+			reviewAverage = reviewAverage / reviewList.size();
+			int totalAmount = 0;
+			int totalSupCount = 0;
+			for(Funding fund : fundingList) {
+				totalAmount += fund.getCurrentMoney();
+				int sc = fService.getSupportCount(fund.getFundingNum());
+				
+				totalSupCount += sc;
+			}
+		
 		model.addAttribute("fundingNum", fundingNum);
 		model.addAttribute("rv", rv);
 		model.addAttribute("ps", ps);
@@ -520,6 +565,11 @@ public class FundingController {
 		model.addAttribute("dibsCount", dibsCount);
 		model.addAttribute("ok", ok);
 		model.addAttribute("id", id);
+		model.addAttribute("creator", creator);
+		model.addAttribute("reviewAverage", reviewAverage);
+		model.addAttribute("totalAmount", totalAmount);
+		model.addAttribute("totalSupCount", totalSupCount);
+		model.addAttribute("reviewCount", reviewList.size());
 		return "fundingReview";
 	}
 	
@@ -738,8 +788,27 @@ public class FundingController {
 				 }
 			 }
 		 }
-		
+		 
+		//동준
 		 int creatorNum = f.getCreatorNum();
+		 Creator creator = fService.getCreatorInfo(creatorNum);
+		 
+		 ArrayList<Funding> fundingList = fService.getFundingListFromCreatorNum(creatorNum);
+			ArrayList<Review> reviewList = fService.getReviewList(creatorNum);
+			double reviewAverage = 0;
+			for(Review r : reviewList) {
+				reviewAverage += r.getReviewRating();
+			}
+			reviewAverage = reviewAverage / reviewList.size();
+			int totalAmount = 0;
+			int totalSupCount = 0;
+			for(Funding fund : fundingList) {
+				totalAmount += fund.getCurrentMoney();
+				int sc = fService.getSupportCount(fund.getFundingNum());
+				
+				totalSupCount += sc;
+			}
+		
 		model.addAttribute("psList", psList);
 		model.addAttribute("psListCount", psListCount);
 		model.addAttribute("bId", fundingNum);
@@ -751,6 +820,11 @@ public class FundingController {
 		model.addAttribute("ok", ok);
 		model.addAttribute("creatorNum", creatorNum);
 		model.addAttribute("login", login);
+		model.addAttribute("creator", creator);
+		model.addAttribute("reviewAverage", reviewAverage);
+		model.addAttribute("totalAmount", totalAmount);
+		model.addAttribute("totalSupCount", totalSupCount);
+		model.addAttribute("reviewCount", reviewList.size());
 		return "fundingSupporter";
 	}
 	

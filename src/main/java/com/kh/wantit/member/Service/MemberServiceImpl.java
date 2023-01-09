@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.CreatorImage;
+import com.kh.wantit.common.model.vo.Follow;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
 import com.kh.wantit.funding.model.vo.FundingMessage;
@@ -238,12 +239,6 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.replyMessage(fmr, sqlSession);
 	}
 
-
-
-	
-
-
-	
 
 
 	
