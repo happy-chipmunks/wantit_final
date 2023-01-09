@@ -28,6 +28,7 @@ import com.google.gson.JsonIOException;
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.admin.model.vo.Pagination;
 import com.kh.wantit.common.model.vo.Alarm;
+import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Follow;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.exception.FundingException;
@@ -322,10 +323,12 @@ public class FundingController {
 				
 				totalSupCount += sc;
 			}
+			
+			Image ci = fService.getCreatorImage(writerCheckId);
 		
 		if(f != null) {
 			mv.addObject("f", f).addObject("img", img).addObject("ok", ok).addObject("dibs", dibs).addObject("bId", bId).addObject("followerCount", followerCount)
-			.addObject("dibsCount", dibsCount).addObject("login", login).addObject("supCount", supCount)
+			.addObject("dibsCount", dibsCount).addObject("login", login).addObject("supCount", supCount).addObject("ci", ci)
 			.addObject("m", m).addObject("yn", yn).addObject("creatorNum", creatorNum).addObject("creator", creator).addObject("me", me)
 			.addObject("reviewAverage", reviewAverage).addObject("totalAmount", totalAmount).addObject("totalSupCount", totalSupCount).addObject("reviewCount", reviewList.size())
 			.setViewName("fundingMain");
@@ -486,7 +489,10 @@ public class FundingController {
 		}
 		
 		Member m = ((Member)session.getAttribute("loginUser"));
-		String id = m.getMemberId();
+		String id = "";
+		if(m != null) {
+			id = m.getMemberId();
+		}
 		
 		boolean ok = false;
 		 ArrayList<FundingDibs> dibs = fService.getDibs(fundingNum);

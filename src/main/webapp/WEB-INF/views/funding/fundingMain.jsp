@@ -187,7 +187,12 @@
         	<div class="container creator-info" style="text-align:center;">
         		<div class="mb-2" id="goToInfo">
 	        		<a>
-		        		<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="50" height="50">
+	        			<c:if test="${ ci != null }">
+		        			<img style="border-radius: 70%" class="me-3" src="${ contextPath }/resources/member/${ci.imageRename}" width="60" height="60""> 
+		        		</c:if>
+	        			<c:if test="${ ci == null }">
+		        			<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="60" height="60">
+		        		</c:if>
 		        		<span style="font-size: 20px;">${ creator.creatorName }</span>
 		        		<input type="hidden" value="${ creator.creatorNum }" id="creatorNum">
 	        		</a>

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.kh.wantit.admin.model.vo.PageInfo;
 import com.kh.wantit.common.model.vo.Alarm;
+import com.kh.wantit.common.model.vo.CreatorImage;
 import com.kh.wantit.common.model.vo.Follow;
 import com.kh.wantit.common.model.vo.Image;
 import com.kh.wantit.funding.model.vo.Funding;
@@ -134,6 +135,8 @@ public interface FundingService {
 	int getFollowerCount(Integer creatorNum);
 
 	int unfollow(Follow f);
+
+	Image getCreatorImage(String writerCheckId);
 
 
 }

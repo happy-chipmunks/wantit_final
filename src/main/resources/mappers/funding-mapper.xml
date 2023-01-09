@@ -358,6 +358,12 @@
 		where creator_num=#{creatorNum} and follower=#{follower}
 	</delete>
 	
+	<select id="getCreatorImage" resultMap="imageResultSet">
+		select *
+		from image
+		where image_board_cate=9 and image_board_id=#{writerCheckId}
+	</select>
+	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>
