@@ -233,7 +233,7 @@
             <div class="col-md-10" style="padding: 30px;">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="targetArea">
                 	<c:forEach items="${ fundingList }" var="fund">
-                	<c:if test="${ fmtToday > fund.fundingStart }">
+                	<c:if test="${ fmtToday >= fund.fundingStart }">
 	        			<!--  펀딩중인 것만 -->
 	        			 <div class="col cardDecoration">
 	        			 	<input type="hidden" name="bId" class="bId" value="${ fund.fundingNum }">
