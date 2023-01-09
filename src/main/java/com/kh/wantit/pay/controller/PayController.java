@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -69,7 +71,6 @@ public class PayController {
 	private final static String RESTAPI_TRY_PAY_SCHEDULE = "https://api.iamport.kr/subscribe/payments/schedule";
 	private final static String RESTAPI_TRY_PAY_UNSCHEDULE = "https://api.iamport.kr/subscribe/payments/unschedule";
 	private final static String RESTAPI_SEARCH_PAYLIST = "https://api.iamport.kr/payments";
-	private final static String RESTAPI_SEARCH_PAY_ONE = "https://api.iamport.kr/subscribe/payments/schedule/";
 	private final static String RESTAPI_PAY_AGAIN = "https://api.iamport.kr/subscribe/payments/again";
 	
 	@Autowired
@@ -105,7 +106,8 @@ public class PayController {
 	 * 관리자 or 크리에이터 쪽 결제상태 최신화작업
 	 */
 	@RequestMapping("payStatusRenewal.pay")
-	public String payStatusRenewal(@RequestParam("fundingNum") int fundingNum, Model model) {
+	public String payStatusRenewal(@RequestParam("fundingNum") int fundingNum, Model model,
+															HttpServletRequest req) {
 		
 		ArrayList<String> merchantUIdList = pService.getMerchantUId(fundingNum);
 		String[] merchant_uid = new String[merchantUIdList.size()];
@@ -170,13 +172,11 @@ public class PayController {
 		
 			System.out.println("updateStatus : " + updateStatus);
 			
-//			if(updateStatus < 0) {
-//				throw new PayException("paystatus update failed.");
-//			}
 		}
+		String referer = req.getHeader("Referer");
 		
 
-		return "";
+		return "redirect:" + referer;
 	}
 	
 	@RequestMapping("cancelPaySchedule.pay")
