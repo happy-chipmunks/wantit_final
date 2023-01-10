@@ -124,15 +124,15 @@ public class FundingController {
 		int result3 = 0;
 		// System.out.println(r);
 //		ArrayList<Reward> reward = new ArrayList<Reward>();
-		System.out.println(rewardTitleArr);
-		System.out.println(rewardContentArr);
-		System.out.println(rewardLimitArr);
-		System.out.println(rewardExpectDateArr);
-		System.out.println(rewardPriceArr);
-		System.out.println(rewardShippingArr);
+//		System.out.println(rewardTitleArr);
+//		System.out.println(rewardContentArr);
+//		System.out.println(rewardLimitArr);
+//		System.out.println(rewardExpectDateArr);
+//		System.out.println(rewardPriceArr);
+//		System.out.println(rewardShippingArr);
 		for(int i = 0; i < rewardTitleArr.size() - 1; i++) {
 			r.setRewardTitle(rewardTitleArr.get(i));
-			System.out.println(rewardTitleArr.get(i));
+//			System.out.println(rewardTitleArr.get(i));
 			r.setRewardContent(rewardContentArr.get(i));
 			r.setRewardLimit(rewardLimitArr.get(i));
 			r.setRewardExpectDate(rewardExpectDateArr.get(i));
@@ -140,7 +140,7 @@ public class FundingController {
 			r.setShipping(rewardShippingArr.get(i));
 			
 			result3 = fService.insertReward(r);
-			System.out.println(r);
+//			System.out.println(r);
 		}
 		
 		ArrayList<Image> list = new ArrayList<Image>();
@@ -248,8 +248,8 @@ public class FundingController {
 		ArrayList<Funding> fundingList = fService.fundingList();
 		ArrayList<Image> imageList = fService.fundingImageList();
 		
-		System.out.println("fundingList : " + fundingList);
-		System.out.println("iamgeList : " + imageList);
+//		System.out.println("fundingList : " + fundingList);
+//		System.out.println("iamgeList : " + imageList);
 		model.addAttribute("fundingList", fundingList);
 		model.addAttribute("imageList", imageList);
 		return "fundingComingSoon";
@@ -494,7 +494,7 @@ public class FundingController {
 	// 펀딩 수정 내용 funding_edit에 넣기
 	@RequestMapping("fundingEditSend.fund")
 	public String fundingEditSend(@ModelAttribute Funding f, @RequestParam("category") String cate) {
-		System.out.println(f);
+//		System.out.println(f);
 		f.setFundingCate(cate);
 		int result = fService.fundingEdit(f);
 		
@@ -626,9 +626,9 @@ public class FundingController {
 	@RequestMapping("deleteDibs.fund")
 	public ModelAndView deleteDibs(@RequestParam("fundingNum") int fundingNum, @RequestParam("id") String id, ModelAndView mv, @RequestParam("writerNo") int writerNo, HttpServletRequest request) {
 		FundingDibs dibs = new FundingDibs(id, fundingNum);
-		System.out.println(dibs);
-		System.out.println(id);
-		System.out.println(fundingNum);
+//		System.out.println(dibs);
+//		System.out.println(id);
+//		System.out.println(fundingNum);
 		
 		int result = fService.deleteDibs(dibs);
 		
@@ -687,7 +687,8 @@ public class FundingController {
 	
 	// 펀딩 문의하기
 	@RequestMapping("sendMessage.fund")
-	public String sendMassage(@RequestParam("fundingNum") int fundingNum, HttpSession session, Model model, @ModelAttribute FundingMessage fm, @RequestParam("creatorId") int creatorNum) {
+	public String sendMassage(@RequestParam("fundingNum") int fundingNum, HttpSession session, Model model,
+								@ModelAttribute FundingMessage fm, @RequestParam("creatorId") int creatorNum) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		String creatorId = fService.getFundingCreator(fundingNum);
 		fm.setFundingNum(fundingNum);
