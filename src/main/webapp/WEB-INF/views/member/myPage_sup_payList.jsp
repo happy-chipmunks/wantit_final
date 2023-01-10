@@ -195,12 +195,13 @@
 	                        	<input type="hidden" value="${ payScheduleList[i].scheduleStatus }" name="scheduleStatus">
 	                        	<input type="hidden" value="${ payFundList[i].fundingTitle }" name="fundingTitle">
 	                        	<input type="hidden" value="${ payFundList[i].fundingNum }" name="fundingNum">
+	                        	<input type="hidden" value="${ payFundList[i].creatorNum }" name="creatorNum">
 		                        <div class="historyOrReview">
 		                        	<span class="history" id="history" style="float: right;">결제내역</span>
 		                            <c:if test="${ payScheduleList[i].paymentStatus == 'failed' }">
 			                        	<span class="repayOrReview" id="repayOrReview" style="float: right;">재결제</span>
 		                            </c:if>
-		                            <c:if test="${ payScheduleList[i].paymentStatus == 'paid' && alreadyWriteReviewList[i] == false }">
+		                            <c:if test="${ alreadyWriteReviewList[i] == false }">
 			                        	<span class="repayOrReview" id="repayOrReview" style="float: right;">리뷰작성</span>
 		                            </c:if>
 		                        	
