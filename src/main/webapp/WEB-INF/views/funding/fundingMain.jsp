@@ -404,12 +404,14 @@
 	      title: '${ f.fundingTitle }',
 	      description: 'If You WANT IT, You Can Get It!',
 	      imageUrl:
-			'${ contextPath }/resources/funding/${img.imageRename}',
+	  		'https://ifh.cc/g/WjcnQO.png',
 	      link: {
 	        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
 	        webUrl: 'http://localhost:8080/wantit/selectFundingBoard.fund?bId=${f.fundingNum}&writerNo=${writerNum}',
 	      },
 	    },
+	    social: {
+		    likeCount: ${ f.fundingCount },
 	    buttons: [
 	      {
 	        title: '원잇 사이트로 이동',
