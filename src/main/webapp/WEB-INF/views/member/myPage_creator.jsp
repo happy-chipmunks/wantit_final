@@ -243,7 +243,7 @@
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td colspan="2">${creatorRegistration.managerEmail}</td>
+						<td colspan="2">${ loginUser.memberEmail }</td>
 					</tr>
 					<tr>
 						<th>사업자 번호</th>
