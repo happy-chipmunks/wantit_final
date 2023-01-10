@@ -103,6 +103,11 @@
     	</div>
     	<hr>
     	<div class="text-end">
+    		<c:if test="${ check }">
+				<button type="button" class="btn project ml-5" id="openProject"
+					onclick="location.href='${contextPath}/insertFundingBoard.fund'">프로젝트 오픈 신청
+				</button>
+			</c:if>
           <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSupporter.me'">서포터</button>
           <button type="button" class="btn btn-secondary" style="background-color: #AD699B;" onclick="location.href='${contextPath}/myPageCreator.me'">크리에이터</button>
         </div>
@@ -149,6 +154,7 @@
 			<br><br>
    		</div>
    		<div class="col-8">
+   			<br><br>
    			<c:if test="${ !check }">
 	   			<form action="${ contextPath }/creatorInsert.me" id="creatorInsertForm" enctype="multipart/form-data" method="POST">
 		   			<div class="mt-5 pt-5" style="text-align: center;">

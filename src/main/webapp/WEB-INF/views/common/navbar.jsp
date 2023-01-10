@@ -270,17 +270,6 @@
 										
 						<button type="button" class="btn" id="askManager"
 							onclick="location.href='${contextPath}/'">관리자 문의</button>
-						<c:if test="${ loginUser != null && loginUser.memberType == 'creator' }">
-							<button type="button" class="btn" id="openProject"
-								onclick="location.href='${contextPath}/insertFundingBoard.fund'">프로젝트 오픈 신청
-							</button>
-						</c:if>
-						<c:if test="${ loginUser.memberType != 'creator' }">
-							<button type="button" class="btn" id="openProject"
-								disabled>프로젝트 오픈 신청
-							</button>
-						</c:if>	
-						&nbsp;&nbsp;
 							<button type="button" class="btn" id="logoutBtn"
 								onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
 				</c:if>
@@ -352,6 +341,7 @@
 				});
 			}
 			
+// 			
 	</script>
 
 </body>
