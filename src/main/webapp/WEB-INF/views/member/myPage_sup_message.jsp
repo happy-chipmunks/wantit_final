@@ -27,7 +27,7 @@
 </head>
 <body>
 	<div class="container mt-3" style="width: 700px; height: 300px;">
-		<img src="resources/myPageImage/메시지.png" width="60px">&nbsp;&nbsp;&nbsp;&nbsp;<h2 style="display: inline">쪽지함</h2>
+		<img src="resources/myPageImage/메시지.png" width="60px">&nbsp;&nbsp;&nbsp;&nbsp;<h2 style="display: inline">쪽지함</h2><span class="badge rounded-pill bg-danger">${ dontReadListCount }</span>
 		<br><br>
 		<div style="height: 450px">
 			
@@ -51,12 +51,12 @@
 											<button class="btn" style="background-color:#8c86c7;" disabled>답변 대기</button>
 										</c:if>
 										<c:if test="${ fn:contains(sml.replyStatus, 'Y') }">
-											<button class="btn" style="background-color:#8c86c7;" data-bs-toggle="modal" data-bs-target="#see">문의보기</button>
+											<button class="btn" style="background-color:#8c86c7;" id="seeReply" data-bs-toggle="modal" data-bs-target="#see">문의보기</button>
 										</c:if>
 									</td>
 								</tr>
 								<!-- 문의보기 모달 -->
-								<form>
+								<form action="${ contextPath }/readUpdate.me" method="POST">
 									<div class="modal fade font" id="see" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 									  <div class="modal-dialog modal-dialog-centered">
 											<div class="modal-content">
@@ -65,6 +65,7 @@
 											        <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
 											    </div>
 											 	<div class="modal-body" style="text-align: left">
+											 			<input type="hidden" name="messageCode" value="${ sml.messageCode }">
 											 			카테고리
 											 			<select id="cate" class="form-select">
 										   					<option>${ sml.messageCate }</option>
@@ -75,7 +76,7 @@
 												 </div>
 												 <div class="modal-footer pt-2">
 												 	${ sml.replyDate } | 문의 답변<textarea readonly class="form-control" style="resize:none; height:200px;">${ sml.replyContent }</textarea>
-											      	<button type="button" class="btn btn-secondary btn-inquiry close" data-bs-dismiss="modal">닫기</button>
+											      	<button class="btn btn-secondary btn-inquiry close" data-bs-dismiss="modal">닫기</button>
 												 </div>
 									    	</div> 
 									  </div>
@@ -123,6 +124,24 @@
 	
 	
 	<script>
+// 	$('#seeReply').on('click', function(){
+// 		var sender = ${loginUser.memberId};
+// 		var messageCode = ${sml.messageCode};
+// 		console.log(messageCode);
+// 		$.ajax({
+// 			url: '${contextPath}/readUpdate.me',
+// 			data: {sender:sender, messageCode:messageCode},
+// 			success: (data)=>{
+// 				console.log(data);
+// //					document.location.href = document.location.href; // ajax 통신 후 페이지 새로고침
+// 				document.location.reload(); // 새로고침시 위로 올라가지 않음!
+// 			},
+// 			error: (data)=>{
+// 				console.log(data);
+// 			}
+// 		})
+// 	});
+	
 // 	window.onload=()=>{
 // 		document.getElementById('sendBtn').addEventListener('click', () => {
 // 			const input = document.getElementsByClassName('input');
