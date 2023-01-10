@@ -268,8 +268,8 @@
 						  </ul>
 						</div>
 										
-						<button type="button" class="btn" id="askManager"
-							onclick="location.href='${contextPath}/'">관리자 문의</button>
+<!-- 						<button type="button" class="btn" id="askManager" -->
+<%-- 							onclick="location.href='${contextPath}/'">관리자 문의</button> --%>
 							<button type="button" class="btn" id="logoutBtn"
 								onclick="location.href='${ contextPath }/logout.me'">로그아웃</button>
 				</c:if>
