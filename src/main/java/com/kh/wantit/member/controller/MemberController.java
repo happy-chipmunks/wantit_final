@@ -267,9 +267,10 @@ public class MemberController {
 	}
 	
 	
-	
+	// 서포터 쪽지함
 	@RequestMapping("myPage_sup_message.me")
-	public String myPagesupMessage(HttpSession session, @RequestParam(value="page", required=false) Integer page, Model model) {
+	public String myPagesupMessage(HttpSession session,
+				@RequestParam(value="page", required=false) Integer page, Model model) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		
 		int currentPage = 1;
@@ -297,8 +298,10 @@ public class MemberController {
 		}
 	}
 	
+	// 쪽지 읽음 업데이트
 	@RequestMapping("readUpdate.me")
-	public String readUpdate(@RequestParam("messageCode") int messageCode, HttpServletRequest request) {
+	public String readUpdate(@RequestParam("messageCode") int messageCode,
+							HttpServletRequest request) {
 		FundingMessage fm = new FundingMessage();
 		fm.setMessageCode(messageCode);
 		System.out.println(fm);
@@ -974,7 +977,8 @@ public class MemberController {
 	
 	 // 크리에이터 받은 쪽지
 		@RequestMapping("creatorMessage.me")
-		public String creatorMessage(Model model, HttpSession session, @RequestParam(value="page", required=false) Integer page) {
+		public String creatorMessage(Model model, HttpSession session,
+								@RequestParam(value="page", required=false) Integer page) {
 			Member m = (Member)session.getAttribute("loginUser");
 			String id = m.getMemberId();
 			
@@ -1002,8 +1006,10 @@ public class MemberController {
 		
 		// 크리에이터 문의 답변
 		@RequestMapping("replyMessage.me")
-		public String replyMessage(@ModelAttribute FundingMessage fm, HttpSession session) {
-			String receiver = ((Member)session.getAttribute("loginUser")).getMemberId();
+		public String replyMessage(@ModelAttribute FundingMessage fm,
+								HttpSession session) {
+			String receiver = 
+					((Member)session.getAttribute("loginUser")).getMemberId();
 			
 			System.out.println(fm);
 			int result = 0;

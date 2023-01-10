@@ -583,6 +583,11 @@ public class FundingController {
 		ArrayList<Member> reviewerNick = fService.getReviewerNickName(fundingNum);
 //		System.out.println(reviewerNick);
 		
+		for(int i = 0; i < ps.size(); i++) {
+			ps.get(i).setNickName(reviewerNick.get(i).getMemberNickname());
+		}
+		System.out.println(ps);
+		
 		//동준
 		 int creatorNum = f.getCreatorNum();
 		 Creator creator = fService.getCreatorInfo(creatorNum);
@@ -722,8 +727,10 @@ public class FundingController {
 	
 	// 펀딩 문의하기
 	@RequestMapping("sendMessage.fund")
-	public String sendMassage(@RequestParam("fundingNum") int fundingNum, HttpSession session, Model model,
-								@ModelAttribute FundingMessage fm, @RequestParam("creatorId") int creatorNum) {
+	public String sendMassage(@RequestParam("fundingNum") int fundingNum,
+							HttpSession session, Model model,
+							@ModelAttribute FundingMessage fm,
+							@RequestParam("creatorId") int creatorNum) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		String creatorId = fService.getFundingCreator(fundingNum);
 		fm.setFundingNum(fundingNum);
@@ -882,6 +889,8 @@ public class FundingController {
 			
 			Image ci = fService.getCreatorImage(creator.getCreator());
 		
+			int supCount = fService.getSupportCount(fundingNum);
+			
 		model.addAttribute("psList", psList);
 		model.addAttribute("psListCount", psListCount);
 		model.addAttribute("bId", fundingNum);
@@ -900,6 +909,7 @@ public class FundingController {
 		model.addAttribute("reviewCount", reviewList.size());
 		model.addAttribute("m", m);
 		model.addAttribute("ci", ci);
+		model.addAttribute("supCount", supCount);
 		return "fundingSupporter";
 	}
 	
