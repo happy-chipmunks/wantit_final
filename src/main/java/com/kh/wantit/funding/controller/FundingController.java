@@ -257,12 +257,18 @@ public class FundingController {
 	
 	// 펀딩 게시글 상세조회
 	@RequestMapping("selectFundingBoard.fund")
-	public ModelAndView selectFundingBoard(@RequestParam("bId") int bId, HttpSession session, ModelAndView mv,
+	public ModelAndView selectFundingBoard(@RequestParam("bId") int bId, HttpSession session, HttpServletRequest request, ModelAndView mv,
 			@RequestParam(value="writerNo", required=false) Integer creatorNum, @RequestParam(value="alarmNum", required=false) Integer alarmNum) {
 		
 		// 알림에서 넘어오면 읽으면서 알림 지우기
 		if(alarmNum != null) {
 			int result = wService.checkAlarm(alarmNum);
+		}
+		// 알림 확인용
+		if(session.getAttribute("loginUser") != null) {
+			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+			ArrayList<Alarm> alarmList = wService.selectAlarmList(id);
+			session.setAttribute("alarmList", alarmList);
 		}
 		
 		Member m = (Member)session.getAttribute("loginUser");

@@ -219,7 +219,8 @@
 					</div>
 				</c:if>
                 
-               
+	    </div>
+	  </div> 
 	      <br>
 	      <nav aria-label="Standard pagination example" class="nav justify-content-center">
         	<ul class="pagination">
@@ -247,8 +248,7 @@
 	            </li>
 	    	</ul>
         </nav>
-	    </div>
-	  </div>
+        
 	  <br>
 		  
 		  
