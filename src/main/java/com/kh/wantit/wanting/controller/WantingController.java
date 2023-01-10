@@ -40,7 +40,7 @@ public class WantingController {
 	
 	// ==================== 원팅 작성 ====================
 	@RequestMapping("insertWanting.want")
-	public String inserteWanting(@ModelAttribute Wanting w, @RequestParam("wanting-file") ArrayList<MultipartFile> files, HttpServletRequest request) {
+	public String inserteWanting(@ModelAttribute Wanting w, @RequestParam("wanting-file") ArrayList<MultipartFile> files, HttpServletRequest request, Model model) {
 		String wantingWriter = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		w.setWantingWriter(wantingWriter);
 		
@@ -92,10 +92,28 @@ public class WantingController {
 
 		}
 		
-		if(result1 > 0 && result2 > 0) {
-			return "redirect:wantingList.want";
+
+		// 여기서부터는 작성하고 상세페이지로 이동하게 해보자. ====================
+		ArrayList<Wanting> wantingList = wService.selectWantingList();
+		//System.out.println(wantingList);
+		Wanting wanting = wantingList.get(0); // 제일 최신 원팅 가져와 
+		int wantingNum = wanting.getWantingNum(); // wantingNum 빼서 이미지 가져오
+
+		ArrayList<Image> imageList = wService.selectImage(wantingNum);
+		Image thumbnail = null; // 이미지 가져와서 썸네일만 보내기
+		for(int i = 0; i < imageList.size(); i++) {
+			if(imageList.get(i).getImageLevel() == 0) {
+				thumbnail = imageList.get(i);
+			}
+		}
+
+		System.out.println("아시끄러워 " + wanting);
+		if (w != null && thumbnail != null) {
+			model.addAttribute("wanting", wanting);
+			model.addAttribute("thumbnail", thumbnail);
+			return "wantingMain2";
 		} else {
-			throw new WantingException("원팅 삽입 실패");
+			throw new WantingException("원팅 삽입 후 상세페이지 이동 실패");
 		}
 	}
 
