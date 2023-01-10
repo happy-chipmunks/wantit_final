@@ -99,10 +99,15 @@
     <div class="container">
     	<div>
     		<h1 style="display: inline;"><b>마이페이지</b></h1>&nbsp;&nbsp;&nbsp;
-    		<button class="btn" onclick="openPopup()"><img src="${ contextPath }/resources/myPageImage/메시지.png" style="width: 40px; height: 40px;"></button>
+    		<button class="btn" onclick="openPopup()"><img src="${ contextPath }/resources/myPageImage/메시지.png" style="width: 40px; height: 40px;">  <span class="badge rounded-pill bg-danger">${ dontReadListCount }</span></button>
     	</div>
     	<hr>
     	<div class="text-end">
+    		<c:if test="${ check }">
+				<button type="button" class="btn project ml-5" id="openProject"
+					onclick="location.href='${contextPath}/insertFundingBoard.fund'">프로젝트 오픈 신청
+				</button>
+			</c:if>
           <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageSupporter.me'">서포터</button>
           <button type="button" class="btn btn-secondary" style="background-color: #AD699B;" onclick="location.href='${contextPath}/myPageCreator.me'">크리에이터</button>
         </div>
@@ -149,6 +154,7 @@
 			<br><br>
    		</div>
    		<div class="col-8">
+   			<br><br>
    			<c:if test="${ !check }">
 	   			<form action="${ contextPath }/creatorInsert.me" id="creatorInsertForm" enctype="multipart/form-data" method="POST">
 		   			<div class="mt-5 pt-5" style="text-align: center;">
@@ -243,7 +249,7 @@
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td colspan="2">${creatorRegistration.managerEmail}</td>
+						<td colspan="2">${ loginUser.memberEmail }</td>
 					</tr>
 					<tr>
 						<th>사업자 번호</th>

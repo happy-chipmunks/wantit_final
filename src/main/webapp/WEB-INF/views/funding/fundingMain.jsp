@@ -237,12 +237,12 @@
 <!--         		</div> -->
         		<div>
         			<c:if test="${ m == null }">
-        				<button class="btn btn-creator" onclick="noLogin()"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        				<button class="btn btn-creator" id="inquiryBtn" onclick="noLogin()"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
 <!--         				<button class="btn btn-creator" onclick="noLogin()"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button> -->
         			</c:if>
         			<c:if test="${ m != null }">
 	        			<c:if test="${ yn }">
-	        				<button class="btn btn-creator" data-bs-toggle="modal" data-bs-target="#inquiry"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	        				<button class="btn btn-creator" id="inquiryBtn" data-bs-toggle="modal" data-bs-target="#inquiry"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
 <%-- 	        					<c:if test="${ me }"> --%>
 <!-- 	        						<button class="btn btn-creator" id="unfollow"><i class="bi bi-dash"></i>&nbsp;&nbsp;팔로우</button> -->
 <%-- 	        					</c:if> --%>
@@ -447,6 +447,17 @@
 		$('.btn-inquiry').on('click', function (e){
 			$('#inquiry').modal('hide');
 		});
+		
+		// 문의하기 버튼 눌렀을 때 테두리 돌려줘잉
+		$(document).ready(function(){ //이 코딩 필수
+			$("#inquiryBtn").click(function() {
+		
+				$("#inquiryBtn").css({ //이렇게도 쓸 수 있으며 제일 낫다
+					"border":"1px solid #8c86c7"
+				});	
+			});
+		});
+
 		
 		// 팔로우
 		$('#follow').on('click', function(){

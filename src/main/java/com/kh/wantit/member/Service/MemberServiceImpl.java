@@ -238,8 +238,18 @@ public class MemberServiceImpl implements MemberService {
 	public int replyMessage(FundingMessage fmr) {
 		return mDAO.replyMessage(fmr, sqlSession);
 	}
-
 	
+	@Override
+	public int getMsgDontReadListCountSup(String id) {
+		return mDAO.dontReadListCountsup(id, sqlSession);
+	}
+
+	@Override
+	public int readUpdate(FundingMessage fm) {
+		return mDAO.readUpdate(fm, sqlSession);
+	}
+
+
 
 	
 	

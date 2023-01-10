@@ -75,7 +75,15 @@ p {margin: 0;}
     object-fit: cover;
     width: 100%;
 }
-
+.wanting-summary {
+	margin: 20px 0;
+	padding: 20px;
+	font-size: 20px;
+    line-height: 30px;
+    border-radius: 8px;
+    border: 1px solid #c0c0c0;
+    color: #c0c0c0;
+}
 .notification {
     margin-top: 12px;
     padding: 16px;
@@ -119,6 +127,8 @@ p {margin: 0;}
     /* 버튼 공백 없애기 */
     text-decoration: underline;
     color: #495057;
+    background-color: rgba(0, 0, 0, 0);
+    
 }
 .icon {
     /* display: inline-block; */
@@ -251,7 +261,7 @@ p {margin: 0;}
     line-height: 20px;
 }
 .modal-wanting-btn {
-    background-color: #00c4c4;
+    background-color: #9086EB;
     border: none;
     color: #fff;
     width: 100%;
@@ -264,7 +274,7 @@ p {margin: 0;}
     cursor: pointer;
 }
 .modal-wanting-btn:hover {
-    background-color: #00b2b0;
+    background-color: #7063E4;
     transition-duration: .2s;
 }
 .modal-footer.modal-wanting-footer {
@@ -280,9 +290,9 @@ p {margin: 0;}
 
 /* ==================== 모달 - 공유버튼 ==================== */
 .link-icon { position: relative; display: inline-block; width: auto; font-size: 14px; font-weight: 500; color: #333; margin-right: 10px; padding-top: 50px; }
-.link-icon.link { background-image: url(../wanting/icon-link.png); background-repeat: no-repeat; }
-.link-icon.facebook { background-image: url(../wanting/icon-facebook.png); background-repeat: no-repeat; } 
+.link-icon.link { background-image: url(../wanting/icon-link1.png); background-repeat: no-repeat; }
 .link-icon.kakao { background-image: url(../wanting/icon-kakao.png); background-repeat: no-repeat; }
+.link-icon.facebook { background-image: url(../wanting/icon-facebook.png); background-repeat: no-repeat; } 
 
 
 /* ==================== 모달 - 원팅 자세히 알아보기 ==================== */

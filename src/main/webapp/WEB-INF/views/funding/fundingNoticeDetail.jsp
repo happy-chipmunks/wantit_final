@@ -50,7 +50,7 @@
     <div class="col-2 offset-2"><a class="tab-link" href="${ contextPath }/selectFundingBoard.fund?bId=${bId}&writerNo=${writerNo}">정보 </a></div>
     <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund?bId=${bId}" style="font-weight: 1000px; color:black;">새소식 </a></div>
     <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingReview.fund?bId=${bId}">리뷰 </a></div>
-    <div class="col-2"><a class="tab-link" href="#">서포터 <span class="count-total"> ${ supCount }</span></a></div>
+    <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingSupportor.fund?bId=${f.fundingNum}">서포터 <span class="count-total"> ${ supCount }</span></a></div>
   </div>
 </div>
 
@@ -149,19 +149,65 @@
         
         <div>
         	<div class="container creator-info" style="text-align:center;">
-        		<div class="mb-2">
+        		<div class="mb-2" id="goToInfo">
 	        		<a>
-		        		<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="50" height="50">
-		        		<span style="font-size: 20px;">닉네임</span>
+		        		<c:if test="${ ci != null }">
+		        			<img style="border-radius: 70%" class="me-3" src="${ contextPath }/resources/member/${ci.imageRename}" width="60" height="60""> 
+		        		</c:if>
+	        			<c:if test="${ ci == null }">
+		        			<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="60" height="60">
+		        		</c:if>
+		        		<span style="font-size: 20px;">${ creator.creatorName }</span>
+		        		<input type="hidden" value="${ creator.creatorNum }" id="creatorNum">
 	        		</a>
         		</div>
         		<div class="mb-2">
-<!--         			<span>만족도</span> -->
-        			<span class="ps-3"><i class="bi bi-person-fill fs-4"></i>&nbsp;&nbsp;팔로워 0명</span>
+        			<i class="bi bi-star-fill" style="color: #e8acef;"></i>
+        			<span class="dohyeonFont">평점 -</span>
+        			<c:if test="${ reviewAverage != 'NaN' }">
+        			<span class="dohyeonFont">${ reviewAverage } (${ reviewCount }개)</span>
+        			</c:if>
+        			<c:if test="${ reviewAverage == 'NaN' }">
+        			<span class="dohyeonFont">0.0 (${ reviewCount }개)</span>
+        			</c:if>
+        			<br>
+        			<i class="bi bi-piggy-bank-fill" style="color: #e8acef;"></i>
+        			<span  class="dohyeonFont">누적액수 - </span>
+        			<span class="dohyeonFont" id="ta">${ totalAmount }</span>
+        			<br>
+        			<i class="bi bi-people-fill" style="color: #e8acef;"></i>
+        			<span  class="dohyeonFont">서포터수 - </span>
+        			<span class="dohyeonFont">${ totalSupCount }</span>
+        			<br><br>
+        			<span>기업형태 : </span>
+        			<c:if test="${ creator.businessType eq 'N'.charAt(0) }"><span>개인기업</span></c:if>
+        			<c:if test="${ creator.businessType eq 'Y'.charAt(0) }"><span>단체기업</span></c:if>
+        			<br>
+        			<span>대표자 이름 : </span>
+        			<span>${ creator.managerName }</span>
+        			<br>
+        			<span>이메일 : </span>
+        			<span>${ creator.managerEmail }</span>
+        			<br>
+        			<span>대표전화 : </span>
+        			<span>${ creator.managerPhone }</span>
+        			<br>
+        			<span>사업자등록번호 : </span>
+        			<span>${ creator.businessNumber }</span>
         		</div>
+<!--         		<div class="mb-2"> -->
+<!-- <!--         			<span>만족도</span> -->
+<!--         			<span class="ps-3"><i class="bi bi-person-fill fs-4"></i>&nbsp;&nbsp;팔로워 0명</span> -->
+<!--         		</div> -->
         		<div>
-        			<button class="btn"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        			<button class="btn"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+        			<c:if test="${ yn }">
+        				<button class="btn btn-creator" data-bs-toggle="modal" data-bs-target="#inquiry"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+<!--         				<button class="btn btn-creator" id="follow"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button> -->
+        			</c:if>
+        			<c:if test="${ !yn }">
+        				<button class="btn btn-creator"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+<!--         				<button class="btn btn-creator"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button> -->
+        			</c:if>
         		</div>
         	</div>
       	</div>

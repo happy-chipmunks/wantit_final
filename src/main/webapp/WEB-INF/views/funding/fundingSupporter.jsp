@@ -33,6 +33,8 @@
 		    	border-radius: 8px;
 		    	padding: 16px;
 		}
+		
+		.btn-creator{outline: 1px solid #8c86c7;}
   </style>
 
 </head>
@@ -146,16 +148,16 @@
 		<fmt:formatDate value="${ today }" pattern="yyyy-MM-dd" var="fmtToday"/>
         <div class="container funding-buttons g-0">
 <!--           <button class="btn-funding" data-bs-toggle="modal" data-bs-target="#funding-modal">펀딩하기</button> -->
-		<c:if test="${ member != null && fmtToday > f.fundingStart}">
+		<c:if test="${ login != null && fmtToday >= f.fundingStart}">
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ bId }'">펀딩하기</button>
 		</c:if>
-		<c:if test="${ member == null && fmtToday > f.fundingStart }">
+		<c:if test="${ login == null && fmtToday >= f.fundingStart }">
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">펀딩하기</button>
 		</c:if>
-		<c:if test="${ member != null && fmtToday < f.fundingStart}">
+		<c:if test="${ login != null && fmtToday < f.fundingStart}">
 		 	<button class="btn-funding" style="background-color: #8c86c7;">오픈예정 알림신청</button>
 		</c:if>
-		<c:if test="${ member == null && fmtToday < f.fundingStart }">
+		<c:if test="${ login == null && fmtToday < f.fundingStart }">
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="noLogin()">오픈예정 알림신청</button>
 		</c:if>
           <div class="row g-1">
@@ -192,7 +194,12 @@
         	<div class="container creator-info" style="text-align:center;">
         		<div class="mb-2" id="goToInfo">
 	        		<a>
-		        		<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="50" height="50">
+		        		<c:if test="${ ci != null }">
+		        			<img style="border-radius: 70%" class="me-3" src="${ contextPath }/resources/member/${ci.imageRename}" width="60" height="60""> 
+		        		</c:if>
+	        			<c:if test="${ ci == null }">
+		        			<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="60" height="60">
+		        		</c:if>
 		        		<span style="font-size: 20px;">${ creator.creatorName }</span>
 		        		<input type="hidden" value="${ creator.creatorNum }" id="creatorNum">
 	        		</a>
@@ -250,7 +257,7 @@
       	
       </div>
     </div>
-  </div>
+  </div><br><br>
   
   
   

@@ -342,6 +342,16 @@
 		const before = parseInt(ta.innerText);
 		ta.innerText = before.toLocaleString() + "원";
 	}
+	
+	// 문의하기 버튼 눌렀을 때 테두리 돌려줘잉
+	$(document).ready(function(){ //이 코딩 필수
+		$("#inquiryBtn").click(function() {
+	
+			$("#inquiryBtn").css({ //이렇게도 쓸 수 있으며 제일 낫다
+				"border":"1px solid #8c86c7"
+			});	
+		});
+	});
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

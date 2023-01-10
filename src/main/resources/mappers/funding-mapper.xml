@@ -99,6 +99,7 @@
 		select *
 		from funding_notice
 		where funding_num=#{bId}
+		order by funding_notice_num desc
 	</select>
 	
 	<select id="fnListCount" resultType="_int">
@@ -361,7 +362,7 @@
 	<select id="getCreatorImage" resultMap="imageResultSet">
 		select *
 		from image
-		where image_board_cate=9 and image_board_id=#{writerCheckId}
+		where image_board_cate=9 and image_board_id=#{writerCheckId} and image_status='Y'
 	</select>
 	
 	<insert id="reportReview">
