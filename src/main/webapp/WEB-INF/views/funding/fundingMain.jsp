@@ -411,7 +411,8 @@
 	      },
 	    },
 	    social: {
-		    likeCount: ${ f.fundingCount },
+		    likeCount: ${ f.fundingCount }
+	    },
 	    buttons: [
 	      {
 	        title: '원잇 사이트로 이동',
