@@ -99,6 +99,7 @@
 		select *
 		from funding_notice
 		where funding_num=#{bId}
+		order by funding_notice_num desc
 	</select>
 	
 	<select id="fnListCount" resultType="_int">
