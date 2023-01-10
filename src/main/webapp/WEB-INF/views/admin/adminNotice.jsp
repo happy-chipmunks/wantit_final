@@ -310,7 +310,7 @@ input[type="checkbox"]:checked + label span {
 									</c:if>
 								</td>
 								<td>${ m.noticeTitle }</td>
-								<td>${ m.noticeCreateDate }</td>
+								<td>${ m.noticeModifyDate }</td>
 								<td>
 									
 									<c:if test="${ m.noticeStatus == 'N' }">

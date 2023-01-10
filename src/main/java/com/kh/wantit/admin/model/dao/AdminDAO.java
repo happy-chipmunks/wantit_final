@@ -119,7 +119,7 @@ public class AdminDAO {
 	}
 
 	public int deleteNotice(SqlSessionTemplate sqlSession, String id) {
-		return sqlSession.update("adminMapper.deleteNotice", id);
+		return sqlSession.delete("adminMapper.deleteNotice", id);
 	}
 
 	public int selectNewWrite(SqlSessionTemplate sqlSession, Notice n) {
