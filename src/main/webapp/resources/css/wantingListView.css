@@ -26,6 +26,10 @@
 
 .tabContent{
     font-family: 'Noto Sans KR', sans-serif;
+    font-size: 23px;
+    font-weight: 200;
+    padding: 0 25px;
+    line-height: 40px;
 }
 
 .cateTitleOrAll{

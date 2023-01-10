@@ -21,7 +21,20 @@
 </head>
 
 <body>
-    <!-- 상단바 -->
+<!-- 상단바 -->
+<div class="funding-header text-center">
+  <div class="background"></div>
+  <p class="title-info">함께 만들어나가는 원팅</p>
+  <h2 class="title"><a href="#">${ wanting.wantingTitle }</a></h2>
+</div>
+<div class="container-fluid text-center funding-category">
+  <div class="row">
+    <div class="col-2 offset-3"><a class="tab-link" href="#wanting-story">원팅 이야기</a></div>
+    <div class="col-2"><a class="tab-link" href="#shop-info">가게 정보</a></div>
+    <div class="col-2"><a class="tab-link" onclick="location.href='${ contextPath }/wantingNotice.want?wantingNum='+ ${ wanting.wantingNum }">참여자 <span class="count-total">${ wanting.wantingCount }</span></a></div>
+  </div>
+</div>
+    
     
     <div class="container funding-content">
       <div class="row g-2">
@@ -53,8 +66,8 @@
 	                        <a href="" class="wantng-supporter-list">
 	                            <span class="supporter-profile">
 			                        <c:forEach items="${ memberImageList }" var="i">
-			                        	<c:if test="i == null">
-											<img style="border-radius: 20px" src="${contextPath}/resources//myPageImage/뉴프로필.png" width="50px" height="50px" />
+			                        	<c:if test="${ m.memberId ne i.imageBoardId }">
+											<img style="border-radius: 20px" src="${contextPath}/resources/myPageImage/뉴프로필.png" width="50px" height="50px" />
 			                        	</c:if>
 										<c:if test="${ m.memberId.equals(i.imageBoardId) and i.imageLevel == 0}">
 											<img src="${ contextPath }/resources/member/${i.imageRename}">
@@ -81,46 +94,54 @@
     </div>
 
 
-    <!-- 오른쪽 사이드바 -->
+<!-- 오른쪽 사이드바 -->
 	<div class="col-md-3 right-content">
     <div class="state-box">
-      <p class="remaining-day"><strong>20일 남음</strong></p>
-      <div class="rate-bar"><em></em></div>
-      <p class="achievement-rate"><strong>10540</strong>% 달성</p>
-      <p class="total-amount"><strong>52,700,000</strong>원 펀딩</p>
-      <p class="total-supporter"><strong>1,282</strong>명의 서포터</p>
+      <p class="remaining-day"><strong>${ wanting.wantingDaysCount }일 지났어요</strong></p>
+      <div class="rate-bar"><em style="width:${ wanting.wantingCount }%;"></em></div>
+      <p class="achievement-rate"><strong>${ wanting.wantingCount }</strong>명의 서포터</p>
+      <p class="total-supporter"><strong>${ wanting.wantingCount }</strong>% 달성</p>
     </div>
     
     <div class="container goal-box">
       <div class="row g-0">
-        <div class="col-3"><strong>목표금액</strong></div>
-        <div class="col-9"><p class="goal-amount">1,000,000원</p></div>
+        <div class="col-3"><strong>1차 달성 목표</strong></div>
+        <div class="col-9"><p class="goal-amount">100명</p></div>
       </div>
       <div class="row g-0">
-        <div class="col-3"><strong>펀딩 기간</strong></div>
-        <div class="col-9"><p class="fundint-period">2022.12.08 ~ 2023.01.29
+        <div class="col-3"><strong>원팅 시작일</strong></div>
+        <div class="col-9"><p class="fundint-period">${ wanting.wantingCreateDate }
         </p></div>
       </div>
       <div class="row g-0">
-        <div class="col-3"><strong>결제</strong></div>
-        <div class="col-9"><p class="perchase-procedure">목표금액 달성시 2023.01.30에 결제 진행</p></div>
+        <div class="col-3"><strong>달성 시</strong></div>
+        <div class="col-9"><p class="perchase-procedure">원팅을 달성하면 가게에 컨택이 갑니다.</p></div>
       </div>
     </div>
 
     <div class="container funding-buttons g-0">
-      <button class="btn-funding" data-bs-toggle="modal" data-bs-target="#funding-modal">펀딩하기</button>
+    
+	  <input type="hidden" id="wantingNum" value="${ wanting.wantingNum }">
+	  <c:if test="${ empty loginUser }">
+	  	<button id="wanting-login-btn" class="btn-funding" data-bs-toggle="modal" data-bs-target="#login-modal">원팅 참여하기</button>
+      </c:if>
+	  <c:if test="${ !empty loginUser }">
+	  	<c:if test="${ wantingYN }">
+	  		<button id="wanting-cancel-btn" class="btn-funding" data-bs-toggle="modal" data-bs-target="#cancel-modal">원팅에 참여했습니다.</button>
+      	</c:if>
+	  	<c:if test="${ !wantingYN }">
+	  		<button id="wanting-send-btn" class="btn-funding" data-bs-toggle="modal" data-bs-target="#wanting-modal">원팅 참여하기</button>
+      	</c:if>
+      </c:if>
       <div class="row g-1">
-        <div class="col-sm-4"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#dibs-modal">
-          <img src="resources/img/heart.png"/>
-          <span class="dips-count">5</span></button>
+        <div class="col-sm-12"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#share-modal">
+          <img src="resources/wanting/share.png"/>
+          <span class="dips-count">원팅을 다른 사람에게 공유해보세요</span></button>
         </div>
-        <div class="col-sm-4"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#share-modal">공유하기</button></div>
-        <div class="col-sm-4"><button onclick="" class="btn-funding-small" data-bs-toggle="modal" data-bs-target="#report-modal">신고하기</button></div>
       </div>
     </div>
   </div>
-  
-  
+    
   
   
 	<!-- 모달 -->

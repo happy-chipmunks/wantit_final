@@ -10,6 +10,7 @@
 
   <!-- CSS Files -->
   <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="resources/css/bootstrap-custom.css" />
   <link rel="stylesheet" href="resources/css/wantingMain.css" />
   <link rel="stylesheet" href="resources/css/wantingWrite.css" />
 
@@ -103,7 +104,7 @@ height: 10px;
 </div>
 
 	<!-- 원팅 작성 완료 -->
-	<div class="modal fade" id="wanting-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="wanting2-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -147,6 +148,33 @@ height: 10px;
 			</div>
 		</div>
 		</div>
+	</div>
+	
+	<!-- 원팅 작성 완료 -->
+	<div class="modal fade" id="wanting3-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="container-fluid g-0">
+	          <div class="row g-0">
+	            <div class="col-md-7">
+	              <div class="modal-wanting-right" style="text-align: center;">
+	                <p class="dibs-message">
+	                  원팅이 완료되었습니다.<br>
+	                </p>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="modal-footer modal-dibs-footer">
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	
 	
@@ -551,7 +579,7 @@ height: 10px;
 			confettiNumber: 600,
 		});
 	}
-	document.querySelector('.btn-wanting').addEventListener('click', wowConfetti)
+// 	document.querySelector('.btn-wanting').addEventListener('click', wowConfetti)
 </script>
 
 

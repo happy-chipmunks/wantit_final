@@ -52,7 +52,7 @@
         <img src="${ contextPath }/resources/wanting/${thumbnail.imageRename}">
 
         <!-- 원팅 요약 -->
-        <p>${ wanting.wantingSummary }</p>
+        <p class="wanting-summary">${ wanting.wantingSummary }</p>
 
         <!-- 안내사항 -->
         <div class="notification">
@@ -97,7 +97,7 @@
     <div class="container goal-box">
       <div class="row g-0">
         <div class="col-3"><strong>1차 달성 목표</strong></div>
-        <div class="col-9"><p class="goal-amount">500명</p></div>
+        <div class="col-9"><p class="goal-amount">100명</p></div>
       </div>
       <div class="row g-0">
         <div class="col-3"><strong>원팅 시작일</strong></div>
@@ -105,8 +105,8 @@
         </p></div>
       </div>
       <div class="row g-0">
-        <div class="col-3"><strong>결제</strong></div>
-        <div class="col-9"><p class="perchase-procedure">목표금액 달성시 2023.01.30에 결제 진행</p></div>
+        <div class="col-3"><strong>달성 시</strong></div>
+        <div class="col-9"><p class="perchase-procedure">원팅을 달성하면 가게에 컨택이 갑니다.</p></div>
       </div>
     </div>
 

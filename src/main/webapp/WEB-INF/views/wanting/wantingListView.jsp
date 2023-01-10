@@ -15,8 +15,8 @@
      <section id="specials" class="specials" style="background-color: #1E1E1E;">
         <div class="container" data-aos="fade-up">
  		<div class="section-title">
-          <h2>원팅성공</h2>
-          <p>이제 펀딩으로 만나보세요</p>
+          <h2>원팅원팅</h2>
+          <p>이제 원팅으로 만나보세요</p>
 		</div>           
 
           <div class="row" data-aos="fade-up" data-aos-delay="100">
