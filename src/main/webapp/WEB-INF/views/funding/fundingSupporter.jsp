@@ -33,6 +33,8 @@
 		    	border-radius: 8px;
 		    	padding: 16px;
 		}
+		
+		.btn-creator{outline: 1px solid #8c86c7;}
   </style>
 
 </head>
@@ -255,7 +257,7 @@
       	
       </div>
     </div>
-  </div>
+  </div><br><br>
   
   
   
