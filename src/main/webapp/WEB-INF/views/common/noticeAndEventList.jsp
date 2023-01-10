@@ -90,6 +90,7 @@
     		noticeAndEventList[i].addEventListener('click', function() {
     			const noticeNum = document.getElementById('noticeNum' + i);
     			
+    		
     			location.href = '${ contextPath }/selectNotice.do?noticeNum=' + noticeNum.value;
     		});
     	}

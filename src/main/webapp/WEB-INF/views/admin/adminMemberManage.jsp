@@ -196,11 +196,6 @@
 								<br> 공지사항 관리
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ contextPath }/inquiryManage.ad"> <span
-								data-feather="bar-chart-2" class="align-text-bottom"></span> <br>
-								<br> 문의 관리
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
 							href="${ contextPath }/adManage.ad"> <span
 								data-feather="layers" class="align-text-bottom"></span> <br>
 								<br> 광고의뢰 관리
