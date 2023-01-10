@@ -289,19 +289,11 @@ public class PayController {
 		String creditCardExpiry = "20" + cardExpiry[1] + "-" + cardExpiry[0];
 		String buyerFullAddress = buyerAddr[0] + " // " + buyerAddr[1];
 		
-		System.out.println(creditCardNumber);
-		System.out.println(creditCardExpiry);
-		System.out.println(buyerFullAddress);
-		System.out.println();
-		
 		//아임포트 access token 발급
 		String accessToken = getAccessToken();
-		System.out.println(accessToken);
-		
 		
 		//아임포트 billing key 발급, customer_id 값 가져오기
 		Map<String, String> billingMap = getBillingKey(buyerName, creditCardNumber, creditCardExpiry, cardBirth, cardPwd, accessToken);
-		System.out.println(billingMap.toString());
 		
 		PaySchedule ps = null;
 		Map<String, String> scheduleMap = new HashMap<String, String>();
@@ -309,12 +301,9 @@ public class PayController {
 			throw new PayException(billingMap.get("responseMessage"));
 			
 		} else if(billingMap.containsKey("customer_uid")) {
-			System.out.println(billingMap.get("customer_uid"));
 			
 			//아임포트 결제예약
 			scheduleMap = paySchedule(fundingTitle, fundingEnd, totalAmount, buyerName, buyerTel, buyerFullAddress, accessToken, billingMap.get("customer_uid"), fundingNum);
-			System.out.println(scheduleMap.toString());
-			System.out.println(buyerName);
 			
 			if(scheduleMap.containsKey("message")) {
 				throw new PayException(scheduleMap.get("message"));
@@ -434,9 +423,10 @@ public class PayController {
 		LocalDate tempDate = LocalDate.now();
 		String dateTime = tempDate.toString();
 		
-		long schedule_at = (scheduleDate.getTime() + 86400000) / 1000;
-		schedule_at += 3600;
-		//12월 25일 00시 00분으로 인식함.
+//		long schedule_at = (scheduleDate.getTime() + 86400000) / 1000;
+		long schedule_at = (System.currentTimeMillis() + 120000)  / 1000;
+//		schedule_at += 3600;
+		
 		System.out.println("schedule_date : " + scheduleDate.getTime());
 		System.out.println("schedule_at : " + schedule_at);
 		System.out.println("merchant_uid : " + merchant_uid);
@@ -542,11 +532,6 @@ public class PayController {
 		String dateTime = tempDate.toString();
 		String creditCardLastNum = creditCardNumber.substring(creditCardNumber.length() - 4);
 		
-		System.out.println("api 호출 url : " + RESTAPI_GET_BILLINGKEY + reName + dateTime + "_" + creditCardLastNum);
-		System.out.println("카드번호 : " + creditCardNumber);
-		System.out.println("유효기간 : " + creditCardExpiry);
-		System.out.println("생년월일 : " + cardBirth);
-		System.out.println("비밀번호 : " + cardPwd);
 		HttpPost post = new HttpPost(RESTAPI_GET_BILLINGKEY + reName + dateTime + "_" + creditCardLastNum);
 		post.setHeader("Authorization", accessToken);
 		Map<String, String> map = new HashMap<String, String>();
@@ -564,9 +549,6 @@ public class PayController {
 			String body = EntityUtils.toString(res.getEntity());
 			JsonNode rootNode = mapper.readTree(body);
 			JsonNode resNode = rootNode.get("response");
-			
-			System.out.println("code : " + rootNode.get("code").asInt());
-			System.out.println("message : " + rootNode.get("message").asText());
 			
 			if(rootNode.get("code").asInt() == -1) {
 				responseMessage = rootNode.get("message").asText();

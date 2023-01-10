@@ -239,7 +239,7 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.replyMessage(fmr, sqlSession);
 	}
 
-
+	
 
 	
 	
