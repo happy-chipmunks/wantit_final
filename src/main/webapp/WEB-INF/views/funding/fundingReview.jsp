@@ -73,10 +73,10 @@
                 <div class="notice">리뷰<span class="notice-num"> ${ revCount }</span></div>
               </div>
               <div class="col-3 notice-right">
-                <select class="sort">
-                  <option value="recent-order">최신순</option>
-                  <option value="past-order">과거순</option>
-                </select>
+<!--                 <select class="sort"> -->
+<!--                   <option value="recent-order">최신순</option> -->
+<!--                   <option value="past-order">과거순</option> -->
+<!--                 </select> -->
               </div>
           </div>
         </div>
@@ -248,7 +248,12 @@
         	<div class="container creator-info" style="text-align:center;">
         		<div class="mb-2" id="goToInfo">
 	        		<a>
-		        		<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="50" height="50">
+		        		<c:if test="${ ci != null }">
+		        			<img style="border-radius: 70%" class="me-3" src="${ contextPath }/resources/member/${ci.imageRename}" width="60" height="60""> 
+		        		</c:if>
+	        			<c:if test="${ ci == null }">
+		        			<img class="me-3" src="${ contextPath }/resources/myPageImage/뉴프로필.png" width="60" height="60">
+		        		</c:if>
 		        		<span style="font-size: 20px;">${ creator.creatorName }</span>
 		        		<input type="hidden" value="${ creator.creatorNum }" id="creatorNum">
 	        		</a>
@@ -287,18 +292,18 @@
         			<span>사업자등록번호 : </span>
         			<span>${ creator.businessNumber }</span>
         		</div>
-        		<div class="mb-2">
-<!--         			<span>만족도</span> -->
-        			<span class="ps-3"><i class="bi bi-person-fill fs-4"></i>&nbsp;&nbsp;팔로워 0명</span>
-        		</div>
+<!--         		<div class="mb-2"> -->
+<!-- <!--         			<span>만족도</span> --> 
+<!--         			<span class="ps-3"><i class="bi bi-person-fill fs-4"></i>&nbsp;&nbsp;팔로워 0명</span> -->
+<!--         		</div> -->
         		<div>
         			<c:if test="${ yn }">
         				<button class="btn btn-creator" data-bs-toggle="modal" data-bs-target="#inquiry"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        				<button class="btn btn-creator" id="follow"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+<!--         				<button class="btn btn-creator" id="follow"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button> -->
         			</c:if>
         			<c:if test="${ !yn }">
         				<button class="btn btn-creator"><i class="bi bi-chat-left-dots"></i>&nbsp;&nbsp;문의하기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        				<button class="btn btn-creator"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button>
+<!--         				<button class="btn btn-creator"><i class="bi bi-plus"></i>&nbsp;&nbsp;팔로우</button> -->
         			</c:if>
         		</div>
         	</div>

@@ -344,7 +344,11 @@ public class FundingController {
 		// System.out.println(bId);
 		String fundingCreator = fService.getFundingCreator(bId);
 		Member login = (Member)session.getAttribute("loginUser");
-		String id = login.getMemberId();
+		String id = "";
+		if(login != null) {
+			id = login.getMemberId();
+		}
+		
 		
 		boolean ok = false;
 		 ArrayList<FundingDibs> dibs = fService.getDibs(bId);
