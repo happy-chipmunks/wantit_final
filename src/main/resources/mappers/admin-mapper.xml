@@ -68,14 +68,13 @@
 		set member_status='N'
 		where
 		member_id=#{id}
+		
 	</update>
 	
-	<update id="deleteNotice">
-		update notice
-		set notice_status='N'
-		where
-		notice_title=#{id}
-	</update>
+	<delete id="deleteNotice">
+		delete from notice
+		where notice_title=#{id}
+	</delete>
 	
 	<select id="selectAllInquiry" resultMap="inquiryResultSet">
 		select *
@@ -113,14 +112,13 @@
 	<select id="selectAllwrite" resultMap="noticeResultSet">
 		select *
 		from notice
-		order by notice_num desc
+		order by notice_modify_date desc
 	</select>
 	
 	<select id="allNotice" resultMap="noticeResultSet">
 		select *
 		from notice
-
-		order by notice_num desc
+		order by notice_modify_date desc
 	</select>
 	
 	<select id="editNotice" resultMap="noticeResultSet">
@@ -210,6 +208,7 @@
         select w.wanting_num, w.WANTING_TITLE, w.WANTING_CONTENT, w.wanting_confirm, w.CREATE_DATE, w.WANTING_STATUS, we.wanting_content,'W' division
         from wanting w
             left join wanting_edit we on w.wanting_title = we.wanting_title
+          order by create_date desc
 	</select>
 	
 	<select id="selectBannerImageList" resultMap="bannerImageResultSet">
@@ -296,7 +295,7 @@
 	</select>
 	
 	<select id="selectNoticeList" resultMap="noticeResultSet">
-		select * from notice
+		select * from notice order by notice_modify_date desc
 	</select>
 	
 	<select id="selectNoticeImage" resultMap="imageResultSet">
