@@ -242,7 +242,13 @@
   	<select id="getMsgDontReadListCount" resultType="_int">
 		select count(*)
 		from funding_message
-		where MESSAGE_READ_STATUS = 'N' and RECEIVER = #{id}
+		where MESSAGE_READ_STATUS = 'N' and RECEIVER = #{id} and reply_status='N'
+	</select>
+	
+	<select id="dontReadListCountSup" resultType="_int">
+		select count(*)
+		from funding_message
+		where message_read_status ='N' and sender = #{id} and reply_status='Y'
 	</select>
 	
 	<select id="getMsgListCount" resultType="_int">
@@ -273,7 +279,13 @@
 	
 	<update id="replyMessage">
 		update funding_message
-		set reply_content=#{replyContent}, reply_date=sysdate, reply_status='Y', message_read_status='Y'
+		set reply_content=#{replyContent}, reply_date=sysdate, reply_status='Y'
+		where message_code=#{messageCode}
+	</update>
+	
+	<update id="readUpdate">
+		update funding_message
+		set message_read_status='Y'
 		where message_code=#{messageCode}
 	</update>
 	

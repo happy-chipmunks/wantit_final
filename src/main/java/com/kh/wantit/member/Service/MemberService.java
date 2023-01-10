@@ -82,6 +82,10 @@ public interface MemberService {
 
 	int replyMessage(FundingMessage fmr);
 
+	int getMsgDontReadListCountSup(String id);
+
+	int readUpdate(FundingMessage fm);
+
 
 
 	

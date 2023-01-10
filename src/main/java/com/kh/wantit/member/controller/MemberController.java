@@ -86,7 +86,11 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/myPageSupporter.me")
-	public String myPageSupporter() {
+	public String myPageSupporter(HttpSession session, Model model) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+		int dontReadListCount = mService.getMsgDontReadListCountSup(id);
+		
+		model.addAttribute("dontReadListCount", dontReadListCount);
 		return "myPage_sup";
 	}
 	
@@ -269,7 +273,7 @@ public class MemberController {
 			currentPage = page;
 		}
 		
-		int dontReadListCount = mService.getMsgDontReadListCount(id);
+		int dontReadListCount = mService.getMsgDontReadListCountSup(id);
 		int senderMsgListCount = mService.getSenderMsgListCount(id);
 		System.out.println(senderMsgListCount);
 		
@@ -289,6 +293,16 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("readUpdate.me")
+	public String readUpdate(@RequestParam("messageCode") int messageCode, HttpServletRequest request) {
+		FundingMessage fm = new FundingMessage();
+		fm.setMessageCode(messageCode);
+		System.out.println(fm);
+		int result = mService.readUpdate(fm);
+		
+		return "redirect:" + request.getHeader("REFERER");
+	}
+	
 	@RequestMapping("/myPageCreator.me")
 	public String myPageCreator(HttpSession session, Model model) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
@@ -303,6 +317,8 @@ public class MemberController {
 		
 		 Image img = mService.selectcImage(cimage);
 		 System.out.println("크리에이터페이지 :"+img);
+		 
+		 int dontReadListCount = mService.getMsgDontReadListCount(id);
 		
 		 boolean check = false;
 			if(img != null && creatorCheck.equals("creator")) { // 이미지있음 , 크리에이터임
@@ -310,21 +326,25 @@ public class MemberController {
 				session.setAttribute("icmage",img.getImageRename());
 				session.setAttribute("creatorRegistration", creatorRegistration);
 				session.setAttribute("check", check);
+				session.setAttribute("dontReadListCount", dontReadListCount);
 			}else if(img == null && creatorCheck.equals("creator")) { // 이미지 없음 , 크리에이터임
 				check = true;
 				session.setAttribute("icmage",null);
 				session.setAttribute("creatorRegistration", creatorRegistration);
 				session.setAttribute("check", check);
+				session.setAttribute("dontReadListCount", dontReadListCount);
 			}else if(img != null && !creatorCheck.equals("creator")){// 이미지 있음 크리에이터 아님
 				check = false;
 				session.setAttribute("icmage",img.getImageRename());
 				session.setAttribute("creatorRegistration", creatorRegistration);
 				session.setAttribute("check", check);
+				session.setAttribute("dontReadListCount", dontReadListCount);
 			}else if(img == null &&  !creatorCheck.equals("creator")) {// 이미지 없고 크리에이터 아님
 				check = false;
 				session.setAttribute("icmage",null);
 				session.setAttribute("creatorRegistration", creatorRegistration);
 				session.setAttribute("check", check);
+				session.setAttribute("dontReadListCount", dontReadListCount);
 			}
 			return "myPage_creator";
 	}		
@@ -538,7 +558,11 @@ public class MemberController {
 		
 		
 		@RequestMapping("/myPageinfo.me")
-		public String myPageinfo() {
+		public String myPageinfo(HttpSession session, Model model) {
+			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+			int dontReadListCount = mService.getMsgDontReadListCountSup(id);
+			
+			model.addAttribute("dontReadListCount", dontReadListCount);
 			return "myPage_sup";
 		}
 		//회원수정사이트로 이동
