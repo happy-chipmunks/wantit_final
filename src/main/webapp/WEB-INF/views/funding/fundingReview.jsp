@@ -84,33 +84,35 @@
         <div class="accordion accordion-flush" id="accordionFlushExample">
         <c:forEach items="${ rv }" var="rv">
         	<c:if test="${ rv.reviewStatus == 'Y' }"></c:if>
-        	<c:forEach items="${ ps }" var="ps">
+<%--         	<c:forEach items="${ ps }" var="ps"> --%>
 	          <div class="accordion-item">
 	            <h2 class="accordion-header" id="flush-headingOne">
 	              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
 	                <div class="review-list">
 	                  <strong>옵션 : </strong>
-	                  <span class="review-option">
-	                  		<c:if test="${ rv.reviewer eq ps.buyerName }">
+	                  <c:forEach items="${ ps }" var="ps">
+	                  	<c:forEach items="${ reviewerNick }" var="nick">
+	                  	<c:if test="${ nick.memberNickname eq ps.buyerName }">
+	                  	<span class="review-option">
 	                  			${ ps.rewardBuyList }
-	                  		</c:if>
-	                  </span>
-	                  <c:forEach items="${ reviewerNick }" var="nick">
-	                  		<c:if test="${ rv.reviewer eq nick.memberId }">
+	                  	</span>
 	                  			<span class="review-nickname" >> ${ nick.memberNickname }</span>
 <%-- 	                  			<input id="reviewerId" type="hidden" value="${ rv.reviewer }"> --%>
 	                  		</c:if>
+	                  	
 	                  </c:forEach>
+	                 </c:forEach>
 	                  <p class="review-content">
 	                    ${ fn:substring(rv.reviewContent, 0, 10) }
 	                  </p>
 	                  <p class="review-date"><i class="bi bi-star-fill"></i> ${ rv.reviewRating }</p>
+	                  
 	                 </div>  
 	               </button>
 	            </h2>
 	            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 	              <div class="accordion-body review-content-detail">
-	                ${ rv.reviewContent }
+	                	${ rv.reviewContent }
 	                <button class="btn btn-sm" style="float: right; display: block;" data-bs-toggle="modal" data-bs-target=".report"><i id="reportIcon" class="bi bi-patch-exclamation-fill"></i>&nbsp;&nbsp;신고하기</button>
 	              </div>
 	            </div>
@@ -147,7 +149,7 @@
 					  </div>
 					</div>
 				</form>
-          </c:forEach>
+<%--           </c:forEach> --%>
          </c:forEach>
           
           
