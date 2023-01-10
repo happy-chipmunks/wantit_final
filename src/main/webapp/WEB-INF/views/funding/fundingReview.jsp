@@ -91,16 +91,15 @@
 	                <div class="review-list">
 	                  <strong>옵션 : </strong>
 	                  <c:forEach items="${ ps }" var="ps">
-	                  	<c:forEach items="${ reviewerNick }" var="nick">
-	                  	<c:if test="${ nick.memberNickname eq ps.buyerName }">
-	                  	<span class="review-option">
-	                  			${ ps.rewardBuyList }
-	                  	</span>
-	                  			<span class="review-nickname" >> ${ nick.memberNickname }</span>
-<%-- 	                  			<input id="reviewerId" type="hidden" value="${ rv.reviewer }"> --%>
-	                  		</c:if>
-	                  	
-	                  </c:forEach>
+<%-- 	                  	<c:forEach items="${ reviewerNick }" var="nick"> --%>
+<%-- 	                  	<c:if test="${ nick.memberNickname eq ps.buyerName }"> --%>
+		                  	<span class="review-option">
+		                  			${ ps.rewardBuyList }
+		                  	</span>
+		                  			<span class="review-nickname" >> ${ ps.nickName }</span>
+	<%-- 	                  			<input id="reviewerId" type="hidden" value="${ rv.reviewer }"> --%>
+<%--                   		</c:if> --%>
+<%-- 	                  </c:forEach> --%>
 	                 </c:forEach>
 	                  <p class="review-content">
 	                    ${ fn:substring(rv.reviewContent, 0, 10) }

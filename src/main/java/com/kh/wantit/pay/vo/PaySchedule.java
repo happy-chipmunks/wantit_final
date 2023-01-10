@@ -27,6 +27,7 @@ public class PaySchedule {
 	private String cardName;
 	private String fundingNum;
 	private int amount;
+	private String nickName;
 	
 	public PaySchedule(Map<String, String> scheduleMap) {
 		this.customerUId = scheduleMap.get("customer_uid");
