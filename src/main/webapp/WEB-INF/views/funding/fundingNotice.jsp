@@ -64,7 +64,7 @@
     <div class="col-2 offset-2"><a class="tab-link" href="${ contextPath }/selectFundingBoard.fund?bId=${bId}&writerNo=${writerNo}">정보 </a></div>
     <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingNotice.fund?bId=${bId}" style="font-weight: 1000px; color:black;">새소식 </a></div>
     <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingReview.fund?bId=${bId}">리뷰 </a></div>
-    <div class="col-2"><a class="tab-link" href="#">서포터 <span class="count-total"> ${ supCount }</span></a></div>
+    <div class="col-2"><a class="tab-link" href="${ contextPath }/fundingSupportor.fund?bId=${f.fundingNum}">서포터 <span class="count-total"> ${ supCount }</span></a></div>
   </div>
 </div>
 
@@ -177,7 +177,6 @@
         </div>
 
         <div class="container funding-buttons g-0">
-<!--           <button class="btn-funding" data-bs-toggle="modal" data-bs-target="#funding-modal">펀딩하기</button> -->
 		<c:if test="${ login != null }">
 		 	<button class="btn-funding" style="background-color: #8c86c7;" onclick="location.href='${contextPath}/payView.pay?fundingNum=${ bId }'">펀딩하기</button>
 		</c:if>

@@ -393,6 +393,8 @@ public class FundingController {
 				
 				totalSupCount += sc;
 			}
+			
+		Image ci = fService.getCreatorImage(writer);
 		 
 		model.addAttribute("count", count);
 		model.addAttribute("fnList", fnList);
@@ -410,6 +412,7 @@ public class FundingController {
 		model.addAttribute("totalAmount", totalAmount);
 		model.addAttribute("totalSupCount", totalSupCount);
 		model.addAttribute("reviewCount", reviewList.size());
+		model.addAttribute("ci", ci);
 		return "fundingNotice";
 	}
 	
@@ -461,6 +464,28 @@ public class FundingController {
 		
 		int dibsCount = fService.getDibsCount(bId);
 		
+		//동준
+		 int creatorNum = f.getCreatorNum();
+		 Creator creator = fService.getCreatorInfo(creatorNum);
+		 
+		 ArrayList<Funding> fundingList = fService.getFundingListFromCreatorNum(creatorNum);
+			ArrayList<Review> reviewList = fService.getReviewList(creatorNum);
+			double reviewAverage = 0;
+			for(Review r : reviewList) {
+				reviewAverage += r.getReviewRating();
+			}
+			reviewAverage = reviewAverage / reviewList.size();
+			int totalAmount = 0;
+			int totalSupCount = 0;
+			for(Funding fund : fundingList) {
+				totalAmount += fund.getCurrentMoney();
+				int sc = fService.getSupportCount(fund.getFundingNum());
+				
+				totalSupCount += sc;
+			}
+		
+		Image ci = fService.getCreatorImage(writer);
+		
 		if(fn != null) {
 			model.addAttribute("login", login);
 			model.addAttribute("fn", fn);
@@ -469,6 +494,13 @@ public class FundingController {
 			model.addAttribute("dibsCount", dibsCount);
 			model.addAttribute("m", m);
 			model.addAttribute("writerNo", writerNo);
+			model.addAttribute("writer", writer);
+			model.addAttribute("creator", creator);
+			model.addAttribute("reviewAverage", reviewAverage);
+			model.addAttribute("totalAmount", totalAmount);
+			model.addAttribute("totalSupCount", totalSupCount);
+			model.addAttribute("reviewCount", reviewList.size());
+			model.addAttribute("ci", ci);
 			return "fundingNoticeDetail";
 		}else {
 			throw new FundingException("새소식 상세조회 실패");
@@ -570,7 +602,9 @@ public class FundingController {
 				
 				totalSupCount += sc;
 			}
-		
+			
+		Image ci = fService.getCreatorImage(writer);
+			
 		model.addAttribute("fundingNum", fundingNum);
 		model.addAttribute("rv", rv);
 		model.addAttribute("ps", ps);
@@ -589,6 +623,7 @@ public class FundingController {
 		model.addAttribute("totalAmount", totalAmount);
 		model.addAttribute("totalSupCount", totalSupCount);
 		model.addAttribute("reviewCount", reviewList.size());
+		model.addAttribute("ci", ci);
 		return "fundingReview";
 	}
 	
@@ -844,6 +879,8 @@ public class FundingController {
 				
 				totalSupCount += sc;
 			}
+			
+			Image ci = fService.getCreatorImage(creator.getCreator());
 		
 		model.addAttribute("psList", psList);
 		model.addAttribute("psListCount", psListCount);
@@ -861,36 +898,38 @@ public class FundingController {
 		model.addAttribute("totalAmount", totalAmount);
 		model.addAttribute("totalSupCount", totalSupCount);
 		model.addAttribute("reviewCount", reviewList.size());
+		model.addAttribute("m", m);
+		model.addAttribute("ci", ci);
 		return "fundingSupporter";
 	}
 	
-	// 팔로우 하기
-	@ResponseBody
-	@RequestMapping("follow.fund")
-	public int follow(@RequestParam("creatorNum") int creatorNum, HttpSession session) {
-		String follower = ((Member)session.getAttribute("loginUser")).getMemberId();
-		
-		Follow f = new Follow();
-		f.setCreatorNum(creatorNum);
-		f.setFollower(follower);
-		int result = fService.follow(f);
-		
-		return result;
-	}
-	
-	// 언팔로우
-	@ResponseBody
-	@RequestMapping("unfollow.fund")
-	public int unfollow(@RequestParam("creatorNum") int creatorNum, HttpSession session) {
-		String follower = ((Member)session.getAttribute("loginUser")).getMemberId();
-		
-		Follow f = new Follow();
-		f.setCreatorNum(creatorNum);
-		f.setFollower(follower);
-		int result = fService.unfollow(f);
-		
-		return result;
-	}
+//	// 팔로우 하기
+//	@ResponseBody
+//	@RequestMapping("follow.fund")
+//	public int follow(@RequestParam("creatorNum") int creatorNum, HttpSession session) {
+//		String follower = ((Member)session.getAttribute("loginUser")).getMemberId();
+//		
+//		Follow f = new Follow();
+//		f.setCreatorNum(creatorNum);
+//		f.setFollower(follower);
+//		int result = fService.follow(f);
+//		
+//		return result;
+//	}
+//	
+//	// 언팔로우
+//	@ResponseBody
+//	@RequestMapping("unfollow.fund")
+//	public int unfollow(@RequestParam("creatorNum") int creatorNum, HttpSession session) {
+//		String follower = ((Member)session.getAttribute("loginUser")).getMemberId();
+//		
+//		Follow f = new Follow();
+//		f.setCreatorNum(creatorNum);
+//		f.setFollower(follower);
+//		int result = fService.unfollow(f);
+//		
+//		return result;
+//	}
 	
 	// 펀딩 리스트 진행, 종료/최신순, 인기순
 //	@RequestMapping("ingList.fund")

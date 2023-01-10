@@ -362,7 +362,7 @@
 	<select id="getCreatorImage" resultMap="imageResultSet">
 		select *
 		from image
-		where image_board_cate=9 and image_board_id=#{writerCheckId}
+		where image_board_cate=9 and image_board_id=#{writerCheckId} and image_status='Y'
 	</select>
 	
 	<insert id="reportReview">
