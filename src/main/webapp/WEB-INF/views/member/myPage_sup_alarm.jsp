@@ -105,7 +105,7 @@
     	<hr>
     	<div class="text-end">
           <button type="button" class="btn btn-secondary" style="background-color: #AD699B;" onclick="location.href='${contextPath}/myPageSuppoterAlarm.me'">서포터</button>
-          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreatorAlarm.me'">크리에이터</button>
+          <button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/myPageCreator.me'">크리에이터</button>
         </div>
        
     </div>

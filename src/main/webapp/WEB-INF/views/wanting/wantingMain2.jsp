@@ -11,6 +11,7 @@
 	<!-- CSS Files -->
 	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
 	    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="resources/css/bootstrap-custom.css" />
 	<link rel="stylesheet" href="resources/css/wantingMain.css" />
@@ -111,7 +112,6 @@
     </div>
 
     <div class="container funding-buttons g-0">
-    
 <%-- 		<input type="hidden" class="memberId" value="${ loginUser.memberId }"> --%>
 	  <input type="hidden" id="wantingNum" value="${ wanting.wantingNum }">
 	  <c:if test="${ empty loginUser }">
@@ -130,22 +130,9 @@
           <img src="resources/wanting/share.png"/>
           <span class="dips-count">원팅을 다른 사람에게 공유해보세요</span></button>
         </div>
-        
-        <%-- < 원팅 수정 버튼 >
-        <button class="btn" id="wanting-update-btn" onclick="location.href='${ contextPath }/updateWantingView.want?wantingNum=' + ${ wanting.wantingNum }">원팅수정 - 페이지 이동</button>
-        <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/requestUpdateWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅수정요청 - 다음페이지에</button>
-        <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/rejectUpdateWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅수정거절 - 다음페이지에</button>
- 		<button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/confirmUpdateWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅수정승인 - 다음페이지에</button>
-        < 원팅 삭제 버튼 >        
-        <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/requestDeleteWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅삭제 - 요청</button>
-        <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/rejectDeleteWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅삭제 - 거절</button>
-        <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/confirmDeleteWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅삭제 - 승인</button>
-        < 원팅 취소 버튼 >
-        <button class="btn" id="wanting-delete-btn" onclick="location.href='${ contextPath }/cancelWanting.want?wantingNum=' + ${ wanting.wantingNum }">원팅취소</button> --%>
-        
-        
       </div>
     </div>
+    
   </div>
   
   
@@ -172,7 +159,7 @@
 	                <p class="modal-wanting-title">${ wanting.wantingTitle }</p>
 	                <p class="modal-wanting-store">${ wanting.wantingShopName }</p>
 	                <div class="modal-wanting-status">
-	                  현재 <span class="modal-wanting-goal">100</span>명 중 <span class="modal-wanting-count">${ wanting.wantingCount + 1 }</span>명이 모였어요.
+	                  현재 <span class="modal-wanting-goal">100</span>명 중 <span class="modal-wanting-count">${ wanting.wantingCount }</span>명이 모였어요.
 	                  원팅 달성 시 알림이 갑니다.
 	                </div>
 	              </div>
@@ -288,55 +275,64 @@
 	  </div>
 	</div>
 	
-	
-	<!-- 원팅 자세히 알아보기 모달 -->
-	<div class="modal fade modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modal-about-wanting">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content rounded-4 shadow">
-	      <div class="modal-header p-5 pb-4 border-bottom-0">
-	        <!-- <h1 class="modal-title fs-5" >Modal title</h1> -->
-	        <h1 class="fw-bold mb-0 fs-2">원팅 제대로 알고 참여하자</h1>
+	<!--  원팅 작성 완료 window onload -->
+	<div class="modal fade" id="first-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
-	
-	      <div class="modal-body p-5 pt-0">
-	        <form class="">
-	          <div class="form-floating mb-3">
-	          	원팅은 원하는 펀딩을 소비자가 제안하는 것입니다.<br>
-	          	원팅의 달성목표를 달성하면 wantit에서 가게에 컨택을 합니다.
-	          	컨택이 성공하면 펀딩으로 만나보세요! 
-	          	
-	            <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
-	            <label for="floatingPassword">Password</label>
+	      <div class="modal-body">
+	        <div class="container-fluid g-0">
+	          <div class="row g-0">
+	            <div class="col-md-5">
+	              <img class="thumbnail" src="${ contextPath }/resources/wanting/${thumbnail.imageRename}"/>
+	            </div>
+	            <div class="col-md-7">
+	              <div class="modal-wanting-right">
+	                <h5>원팅 작성이 완료되었습니다.</h5>
+<%-- 	                <p class="modal-wanting-title">${ wanting.wantingTitle }</p> --%>
+	                <p class="modal-wanting-store">${ wanting.wantingShopName }</p>
+	                <div class="modal-wanting-status">
+	                  축하합니다! 원팅 달성 시 알림이 갑니다.
+	                </div>
+	              </div>
+	            </div>
 	          </div>
-	          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">확인</button>
-	          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
-	          <hr class="my-4">
-	          <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
-	          <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
-	            <svg class="bi me-1" width="16" height="16"><use xlink:href="#twitter"/></svg>
-	            Sign up with Twitter
-	          </button>
-	          <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
-	            <svg class="bi me-1" width="16" height="16"><use xlink:href="#facebook"/></svg>
-	            Sign up with Facebook
-	          </button>
-	          <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
-	            <svg class="bi me-1" width="16" height="16"><use xlink:href="#github"/></svg>
-	            Sign up with GitHub
-	          </button>
-	        </form>
+	        </div>
+	      </div>
+	      <div class="modal-footer modal-wanting-footer">
+	        <div class="container">
+	          <div class="row g-2">
+	            <div class="col-sm-4">
+	              <button type="button" class="modal-wanting-btn" 
+	              	onclick="location.href='${contextPath}/wantingList.want'">다른 원팅 둘러보기</button>
+	            </div>
+	            <div class="col-sm-4">
+	              <button type="button" class="modal-wanting-btn" 
+	              	onclick="location.href='${ contextPath }/myPageSupporterWanting.me'">내 원팅 목록보기</button>
+	            </div>
+	            <div class="col-sm-4">
+	              <button type="button" class="modal-wanting-btn" id="" data-bs-dismiss="modal">닫기</button>
+	            </div>
+	          </div>
+	        </div>
 	      </div>
 	    </div>
 	  </div>
-	</div>
-
+	</div>	
 
     </div>
   </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9d6a7c5e2b95f01e1fdfee7c815cc918&libraries=services"></script>
 <script>
+	// 페이지 들어올 떄 모달 띄우기
+	window.onload = function(){
+		alert('hi');
+		$("#first-modal").modal('show'); // 왜 여긴 안돼?
+	}
 
 	// 원팅 참여하기 ========================================
 	if(${ !empty loginUser }) {
@@ -347,14 +343,6 @@
 	    	console.log(wantingNum);
 			location.href = '${contextPath}/attendWanting.want?wantingNum='+ wantingNum;
 		});
-// 	    document.getElementById('wanting-send-btn').addEventListener('click',function(){
-// 	    	const wantingNum = parseInt(document.getElementById('wantingNum').value);
-// 	    	//const input = document.querySelectorAll('input');
-// 			//const memberId = input[0].value;
-// 			//const wantingNum = parseInt(input[0].value);
-// 			//location.href  = '${contextPath}/attendWanting.want?memberId=' + memberId +'wantingNum='+ wantingNum;
-// 			location.href = '${contextPath}/attendWanting.want?wantingNum='+ wantingNum;
-// 		});
 	}
 	
     // 원팅 가게 정보 지도 ========================================
@@ -457,18 +445,36 @@
   </script>
 
   <!-- confetti -->
-  <script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
   <script>
 	const jsConfetti = new JSConfetti()
 	function wowConfetti() {
 		jsConfetti.addConfetti({
 			emojis: ['🦄', '⚡️', '✨', '💫'],
 			confettiRadius: 40,
-			
 		});
 	}
 	//document.querySelector('.btn-funding').addEventListener('click', wowConfetti)
-  </script>
+  </script> -->
+  
+<!-- 빵빠레 스크립트 -->
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
+<script>
+	const jsConfetti = new JSConfetti()
+	window.onload = function() {
+		$("#first-modal").modal('show'); // 아니 왜 여기서 될까?
+		jsConfetti.addConfetti({
+			confettiRadius: 8,
+			confettiNumber: 600,
+		});
+	}
+	function wowConfetti() {
+		jsConfetti.addConfetti({
+			confettiNumber: 600,
+		});
+	}
+</script>
+  
   
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
