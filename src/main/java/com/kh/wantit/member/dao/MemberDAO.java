@@ -190,6 +190,16 @@ public class MemberDAO {
 	}
 
 
+	public int dontReadListCountsup(String id, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.dontReadListCountSup", id);
+	}
+
+
+	public int readUpdate(FundingMessage fm, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("memberMapper.readUpdate", fm);
+	}
+
+
 	
 
 

@@ -28,7 +28,7 @@
 </head>
 <body>
 	<div class="container mt-3" style="width: 700px; height: 300px;">
-		<img src="resources/myPageImage/메시지.png" width="60px">&nbsp;&nbsp;&nbsp;&nbsp;<h2 style="display: inline">쪽지함</h2>
+		<img src="resources/myPageImage/메시지.png" width="60px">&nbsp;&nbsp;&nbsp;&nbsp;<h2 style="display: inline">쪽지함</h2><span class="badge rounded-pill bg-danger">${ dontReadListCount }</span>
 		<br><br>
 		<div style="height: 450px">
 			
