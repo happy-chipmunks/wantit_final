@@ -340,7 +340,7 @@ public class FundingController {
 	
 	// 새소식 리스트
 	@RequestMapping("fundingNotice.fund")
-	public String fundingNotice(@RequestParam("bId") int bId, Model model, HttpSession session) {
+	public String fundingNotice(@RequestParam("bId") int bId, Model model, HttpSession session, @RequestParam(value = "page", required = false) Integer page) {
 		// System.out.println(bId);
 		String fundingCreator = fService.getFundingCreator(bId);
 		Member login = (Member)session.getAttribute("loginUser");
@@ -349,6 +349,13 @@ public class FundingController {
 			id = login.getMemberId();
 		}
 		
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = fService.getListCountN(bId);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 7);
 		
 		boolean ok = false;
 		 ArrayList<FundingDibs> dibs = fService.getDibs(bId);
@@ -362,7 +369,7 @@ public class FundingController {
 			 }
 		 }
 		
-		ArrayList<FundingNotice> fnList = fService.fundingNoticeList(bId);
+		ArrayList<FundingNotice> fnList = fService.fundingNoticeList(bId, pi);
 		int count = fService.fnListCount(bId);
 		
 		Funding f = fService.getCurrFunding(bId);
@@ -395,6 +402,8 @@ public class FundingController {
 			}
 			
 		Image ci = fService.getCreatorImage(writer);
+		
+		
 		 
 		model.addAttribute("count", count);
 		model.addAttribute("fnList", fnList);
@@ -413,6 +422,7 @@ public class FundingController {
 		model.addAttribute("totalSupCount", totalSupCount);
 		model.addAttribute("reviewCount", reviewList.size());
 		model.addAttribute("ci", ci);
+		model.addAttribute("pi", pi);
 		return "fundingNotice";
 	}
 	

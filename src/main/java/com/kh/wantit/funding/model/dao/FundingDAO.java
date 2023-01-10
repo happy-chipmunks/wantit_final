@@ -82,8 +82,10 @@ public class FundingDAO {
 		return sqlSession.insert("fundingMapper.insertFundingNotice", fn);
 	}
 
-	public ArrayList<FundingNotice> fundingNoticeList(int bId, SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("fundingMapper.fundingNoticeList", bId);
+	public ArrayList<FundingNotice> fundingNoticeList(int bId, SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("fundingMapper.fundingNoticeList", bId, rowBounds);
 	}
 
 	public int fnListCount(int bId, SqlSessionTemplate sqlSession) {
@@ -278,6 +280,10 @@ public class FundingDAO {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("fundingMapper.getDibsFundingList", userId, rowBounds);
+	}
+
+	public int getListCountN(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("fundingMapper.getListCountN", bId);
 	}
 
 

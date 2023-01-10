@@ -378,6 +378,12 @@
 		select * from funding join dibs using(funding_num) where dibs_id = #{userId}
 	</select>
 	
+	<select id="getListCountN" resultType="_int">
+		select count(*)
+		from funding_notice
+		where funding_num=#{bId}
+	</select>
+	
 	<resultMap type="Funding" id="fundingResultSet">
 		<id column="funding_num" property="fundingNum"/>
 		<result column="creator_num" property="creatorNum"/>

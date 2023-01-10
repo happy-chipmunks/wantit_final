@@ -47,7 +47,7 @@ public interface FundingService {
 
 	int insertFundingNotice(FundingNotice fn);
 
-	ArrayList<FundingNotice> fundingNoticeList(int bId);
+	ArrayList<FundingNotice> fundingNoticeList(int bId, PageInfo pi);
 
 	int fnListCount(int bId);
 
@@ -144,6 +144,8 @@ public interface FundingService {
 	int getDibsCount2(String userId);
 
 	ArrayList<Funding> getDibsFundingList(PageInfo pi, String userId);
+
+	int getListCountN(int bId);
 
 
 }
