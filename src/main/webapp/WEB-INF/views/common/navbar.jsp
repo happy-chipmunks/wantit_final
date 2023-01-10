@@ -232,14 +232,14 @@
 						</a>
 		
 						<!-- 알림 -------------------------->
-						<div class="dropdown">
+						<div class="dropdown-center">
 						<c:if test="${ !empty alarmList }">
-							<img src="resources/wanting/notification-y.png" style="width:35px; margin: 10px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
+							<img src="resources/wanting/notification-y.png" style="width:35px; margin: 10px;" class="dropdown-toggle "data-bs-toggle="dropdown" aria-expanded="false"/>
 						</c:if>
 						<c:if test="${ empty alarmList }">
 							<img src="resources/wanting/notification-n.png" style="width:35px; margin: 10px;" class="dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false"/>
 						</c:if>
-						  <ul class="dropdown-menu">
+						  <ul class="dropdown-menu dropdown-menu-end">
 						  	<c:if test="${ empty alarmList }">
 								<li><a class="dropdown-item" href="#">새 알람이 없습니다.</a></li>
 							</c:if>
@@ -254,13 +254,6 @@
 								<c:if test="${ a.alarmBoardCate == 0}">
 							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/myPageSupporterAlarm.me?alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li>
 								</c:if>
-<%-- 								<c:if test="${ a.alarmBoardCate == 1}"> --%>
-<%-- 							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/selectFunding.fund?wantingNum=${ a.alarmBoardId }'">${ a.alarmMsg }</a></li> --%>
-<%-- 								</c:if> --%>
-<%-- 								<c:if test="${ a.alarmBoardCate == 4}"> --%>
-<%-- 									<input type="hidden" id="wanting-alarmNum" value="${ a.alarmNum }"> --%>
-<%-- 							    	<li><a class="dropdown-item alarm-item" onclick="location.href='${ contextPath }/alarmSelectFunding.fund?wantingNum=${ a.alarmBoardId }&alarmNum=${ a.alarmNum }'">${ a.alarmMsg }</a></li> --%>
-<%-- 								</c:if> --%>
 						    </c:forEach>
 						    <li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" onclick="location.href='${ contextPath }/myPageSupporterAlarm.me'">더보기</a></li>

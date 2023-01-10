@@ -99,8 +99,8 @@ public class FundingServiceImpl implements FundingService{
 	}
 
 	@Override
-	public ArrayList<FundingNotice> fundingNoticeList(int bId) {
-		return fDAO.fundingNoticeList(bId, sqlSession);
+	public ArrayList<FundingNotice> fundingNoticeList(int bId, PageInfo pi) {
+		return fDAO.fundingNoticeList(bId, sqlSession, pi);
 	}
 
 	@Override
@@ -341,6 +341,11 @@ public class FundingServiceImpl implements FundingService{
 	@Override
 	public ArrayList<Funding> getDibsFundingList(PageInfo pi, String userId) {
 		return fDAO.getDibsFundingList(sqlSession, pi, userId);
+	}
+
+	@Override
+	public int getListCountN(int bId) {
+		return fDAO.getListCountN(sqlSession, bId);
 	}
 	
 	

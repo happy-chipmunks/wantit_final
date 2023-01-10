@@ -235,7 +235,7 @@ public class WantingController {
 	
 	// ==================== 원팅 상세보기 (알림 지우면서) ====================
 	@RequestMapping("selectWanting.want")
-	public String selectWanting(@RequestParam("wantingNum") int wantingNum, @RequestParam(value="alarmNum", required=false) Integer alarmNum, Model model, HttpSession session) {
+	public String selectWanting(@RequestParam("wantingNum") int wantingNum, @RequestParam(value="alarmNum", required=false) Integer alarmNum, Model model, HttpSession session, HttpServletRequest request) {
 		
 		// 알림에서 넘어오면 읽으면서 알림 지우기
 		if(alarmNum != null) {
@@ -264,8 +264,9 @@ public class WantingController {
 		// 작성자인지 확인하는 건 프론트에서
 		// 사용자가 원팅했는지 확인하기
 		boolean wantingYN = false;
+		String id = null;
 		if(session.getAttribute("loginUser") != null) {
-			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+			id = ((Member)session.getAttribute("loginUser")).getMemberId();
 			WantingAttend join = new WantingAttend(id, wantingNum);
 			//System.out.println(join);
 			int result = wService.getWantingYN(join);
@@ -286,6 +287,13 @@ public class WantingController {
 		}
 		//System.out.println("원팅 상세보기 이미지 : " + imageList);
 
+		// 알림 확인용
+		if(session.getAttribute("loginUser") != null) {
+			ArrayList<Alarm> alarmList = wService.selectAlarmList(id);
+			session.setAttribute("alarmList", alarmList);
+		}
+		
+		
 		if (w != null && imageList != null) {
 			model.addAttribute("wanting", w);
 			model.addAttribute("wantingYN", wantingYN);
@@ -300,7 +308,8 @@ public class WantingController {
 	
 	// ==================== 원팅 참여하기 ====================
 	@RequestMapping("attendWanting.want")
-	public String attendWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session, RedirectAttributes redirectAttributes) {
+	public String attendWanting(@RequestParam("wantingNum") int wantingNum, HttpSession session, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		
 		String id = ((Member)session.getAttribute("loginUser")).getMemberId();
 		WantingAttend join = new WantingAttend(id, wantingNum);
 		//System.out.println("원팅 참여한다면 이것 : " + join);
@@ -344,6 +353,12 @@ public class WantingController {
 		}
 		w.setWantingLevel(wantingLevel);
 		//System.out.println("원팅 참여 업데이트 : " + w);
+		
+		// 알림 확인용
+		if(session.getAttribute("loginUser") != null) {
+			ArrayList<Alarm> alarmList = wService.selectAlarmList(id);
+			session.setAttribute("alarmList", alarmList);
+		}
 		
 		int result3 = wService.updateWantingStatus(w);
 		System.out.println("원팅 참여 결과 : " + result1 + "/ 원팅 달성 시 알림 : " + result2 + "/ 원팅 달성 상태 삽입 : " + result3);

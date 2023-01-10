@@ -85,12 +85,12 @@
 	                        <a href="" class="wantng-supporter-list">
 	                            <span class="supporter-profile">
 			                        <c:forEach items="${ memberImageList }" var="i">
-			                        	<c:if test="${ m.memberId ne i.imageBoardId }">
-											<img style="border-radius: 20px" src="${contextPath}/resources/myPageImage/뉴프로필.png" width="50px" height="50px" />
-			                        	</c:if>
-										<c:if test="${ m.memberId.equals(i.imageBoardId) and i.imageLevel == 0}">
+			                        	<c:if test="${ m.memberId eq i.imageBoardId and i.imageLevel == 0}">
 											<img src="${ contextPath }/resources/member/${i.imageRename}">
 										</c:if>
+			                        	<c:if test="${ m.memberId ne i.imageBoardId and i.imageLevel == 0 }">
+											<img style="border-radius: 20px" src="${contextPath}/resources/myPageImage/뉴프로필.png" width="50px" height="50px" />
+			                        	</c:if>
 									</c:forEach>
 	                            </span>
 	                            <div class="wanting-supporter-content">

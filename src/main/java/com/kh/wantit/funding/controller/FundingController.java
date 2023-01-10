@@ -257,12 +257,18 @@ public class FundingController {
 	
 	// 펀딩 게시글 상세조회
 	@RequestMapping("selectFundingBoard.fund")
-	public ModelAndView selectFundingBoard(@RequestParam("bId") int bId, HttpSession session, ModelAndView mv,
+	public ModelAndView selectFundingBoard(@RequestParam("bId") int bId, HttpSession session, HttpServletRequest request, ModelAndView mv,
 			@RequestParam(value="writerNo", required=false) Integer creatorNum, @RequestParam(value="alarmNum", required=false) Integer alarmNum) {
 		
 		// 알림에서 넘어오면 읽으면서 알림 지우기
 		if(alarmNum != null) {
 			int result = wService.checkAlarm(alarmNum);
+		}
+		// 알림 확인용
+		if(session.getAttribute("loginUser") != null) {
+			String id = ((Member)session.getAttribute("loginUser")).getMemberId();
+			ArrayList<Alarm> alarmList = wService.selectAlarmList(id);
+			session.setAttribute("alarmList", alarmList);
 		}
 		
 		Member m = (Member)session.getAttribute("loginUser");
@@ -340,7 +346,7 @@ public class FundingController {
 	
 	// 새소식 리스트
 	@RequestMapping("fundingNotice.fund")
-	public String fundingNotice(@RequestParam("bId") int bId, Model model, HttpSession session) {
+	public String fundingNotice(@RequestParam("bId") int bId, Model model, HttpSession session, @RequestParam(value = "page", required = false) Integer page) {
 		// System.out.println(bId);
 		String fundingCreator = fService.getFundingCreator(bId);
 		Member login = (Member)session.getAttribute("loginUser");
@@ -349,6 +355,13 @@ public class FundingController {
 			id = login.getMemberId();
 		}
 		
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = fService.getListCountN(bId);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 7);
 		
 		boolean ok = false;
 		 ArrayList<FundingDibs> dibs = fService.getDibs(bId);
@@ -362,7 +375,7 @@ public class FundingController {
 			 }
 		 }
 		
-		ArrayList<FundingNotice> fnList = fService.fundingNoticeList(bId);
+		ArrayList<FundingNotice> fnList = fService.fundingNoticeList(bId, pi);
 		int count = fService.fnListCount(bId);
 		
 		Funding f = fService.getCurrFunding(bId);
@@ -395,6 +408,8 @@ public class FundingController {
 			}
 			
 		Image ci = fService.getCreatorImage(writer);
+		
+		
 		 
 		model.addAttribute("count", count);
 		model.addAttribute("fnList", fnList);
@@ -413,6 +428,7 @@ public class FundingController {
 		model.addAttribute("totalSupCount", totalSupCount);
 		model.addAttribute("reviewCount", reviewList.size());
 		model.addAttribute("ci", ci);
+		model.addAttribute("pi", pi);
 		return "fundingNotice";
 	}
 	

@@ -328,12 +328,6 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9d6a7c5e2b95f01e1fdfee7c815cc918&libraries=services"></script>
 <script>
-	// 페이지 들어올 떄 모달 띄우기
-	window.onload = function(){
-		alert('hi');
-		$("#first-modal").modal('show'); // 왜 여긴 안돼?
-	}
-
 	// 원팅 참여하기 ========================================
 	if(${ !empty loginUser }) {
 		const btn =  document.getElementById('wanting-close');
@@ -445,7 +439,7 @@
   </script>
 
   <!-- confetti -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
   <script>
 	const jsConfetti = new JSConfetti()
 	function wowConfetti() {
@@ -454,15 +448,15 @@
 			confettiRadius: 40,
 		});
 	}
-	//document.querySelector('.btn-funding').addEventListener('click', wowConfetti)
-  </script> -->
+	document.querySelector('.btn-funding').addEventListener('click', wowConfetti)
+  </script>
   
 <!-- 빵빠레 스크립트 -->
 <script src="https://cdn.jsdelivr.net/npm/js-confetti@0.8.0/dist/js-confetti.browser.js"></script>
 <script>
 	const jsConfetti = new JSConfetti()
 	window.onload = function() {
-		$("#first-modal").modal('show'); // 아니 왜 여기서 될까?
+		$("#first-modal").modal('show'); // 페이지 들어올 떄 모달 띄우기
 		jsConfetti.addConfetti({
 			confettiRadius: 8,
 			confettiNumber: 600,
