@@ -82,43 +82,35 @@
         </div>
         <!-- 후기 리스트 -->
         <div class="accordion accordion-flush" id="accordionFlushExample">
-        <c:forEach items="${ rv }" var="rv">
-        	<c:if test="${ rv.reviewStatus == 'Y' }"></c:if>
-<%--         	<c:forEach items="${ ps }" var="ps"> --%>
-	          <div class="accordion-item">
-	            <h2 class="accordion-header" id="flush-headingOne">
-	              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-	                <div class="review-list">
-	                  <strong>옵션 : </strong>
-	                  <c:forEach items="${ ps }" var="ps">
-<%-- 	                  	<c:forEach items="${ reviewerNick }" var="nick"> --%>
-<%-- 	                  	<c:if test="${ nick.memberNickname eq ps.buyerName }"> --%>
-		                  	<span class="review-option">
-		                  			${ ps.rewardBuyList }
-		                  	</span>
-		                  			<span class="review-nickname" >> ${ ps.nickName }</span>
-	<%-- 	                  			<input id="reviewerId" type="hidden" value="${ rv.reviewer }"> --%>
-<%--                   		</c:if> --%>
-<%-- 	                  </c:forEach> --%>
-	                 </c:forEach>
-	                  <p class="review-content">
-	                    ${ fn:substring(rv.reviewContent, 0, 10) }
-	                  </p>
-	                  <p class="review-date"><i class="bi bi-star-fill"></i> ${ rv.reviewRating }</p>
-	                  
-	                 </div>  
-	               </button>
-	            </h2>
-	            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-	              <div class="accordion-body review-content-detail">
-	                	${ rv.reviewContent }
-	                <button class="btn btn-sm" style="float: right; display: block;" data-bs-toggle="modal" data-bs-target=".report"><i id="reportIcon" class="bi bi-patch-exclamation-fill"></i>&nbsp;&nbsp;신고하기</button>
-	              </div>
-	            </div>
-	          </div>
+				<c:forEach begin="0" end="${ rv.size()-1 }" var="i" varStatus="status">
+			          <div class="accordion-item">
+			            <h2 class="accordion-header" id="flush-heading${ status.index + 1 }">
+			              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${ status.index + 1 }" aria-expanded="false" aria-controls="flush-collapse${ status.index + 1 }">
+			                <div class="review-list">
+			                  <strong>옵션 : </strong>
+				                  	<span class="review-option">
+				                  			${ ps[i].rewardBuyList }
+				                  	</span>
+				                  			<span class="review-nickname" >> ${ ps[i].nickName }</span>
+			                  <p class="review-content">
+			                    ${ fn:substring(rv[i].reviewContent, 0, 10) }
+			                  </p>
+			                  <p class="review-date"><i class="bi bi-star-fill"></i> ${ rv[i].reviewRating }</p>
+			                  
+			                 </div>  
+			               </button>
+			            </h2>
+			            <div id="flush-collapse${ status.index + 1 }" class="accordion-collapse collapse" aria-labelledby="flush-heading${ status.index + 1 }" data-bs-parent="#accordionFlushExample">
+			              <div class="accordion-body review-content-detail">
+			                	${ rv[i].reviewContent }
+			                <button class="btn btn-sm" style="float: right; display: block;" data-bs-toggle="modal" data-bs-target=".report"><i id="reportIcon" class="bi bi-patch-exclamation-fill"></i>&nbsp;&nbsp;신고하기</button>
+			              </div>
+			            </div>
+			          </div>
+	          
 	          
 	          <!-- 리뷰 신고하기 모달 -->
-				<form action="${ contextPath }/reportReview.fund?reviewNum=${rv.reviewNum}&reviewer=${rv.reviewer}" method="POST">
+				<form action="${ contextPath }/reportReview.fund?reviewNum=${rv[i].reviewNum}&reviewer=${rv[i].reviewer}" method="POST">
 					<div class="modal fade font report" id="report" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 					  <div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
@@ -148,8 +140,7 @@
 					  </div>
 					</div>
 				</form>
-<%--           </c:forEach> --%>
-         </c:forEach>
+				</c:forEach>
           
           
           <br><br><br><br><br><br><br><br>
