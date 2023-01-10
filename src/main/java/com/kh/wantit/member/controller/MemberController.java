@@ -186,7 +186,8 @@ public class MemberController {
 	@RequestMapping("/myPageSupporterPayList.me")
 	public String myPageSupporterPayList(@RequestParam(value = "page", required = false) Integer page,  
 																		HttpSession session, Model model) {
-		String userNickName = ((Member)session.getAttribute("loginUser")).getMemberNickname();
+		String userNickName = ((Member)session.getAttribute("loginUser")).getMemberName();
+		System.out.println(userNickName);
 		int currentPage = 1;
 		if(page != null) 
 			currentPage = page;
@@ -215,6 +216,9 @@ public class MemberController {
 			
 			payFundList.add(fund);
 		}
+		
+		System.out.println("===================" + payScheduleList);
+		System.out.println("===================" + payFundList);
 		
 		model.addAttribute("payScheduleList", payScheduleList);
 		model.addAttribute("payFundList", payFundList);
