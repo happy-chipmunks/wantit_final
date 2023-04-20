@@ -58,9 +58,7 @@ public class FundingController {
 	public String fundingList(Model model, @RequestParam(value="ing", required=false) Integer ing, @RequestParam(value="rank", required=false) Integer rank) {
 		ArrayList<Funding> fundingList = fService.fundingList();
 		ArrayList<Image> imageList = fService.fundingImageList();
-//		System.out.println(fundingList);
-//		System.out.println(ing);
-//		System.out.println(rank);
+		
 		ArrayList<Funding> ingRanking = new ArrayList<Funding>();
 		ArrayList<Funding> endLatest = new ArrayList<Funding>();
 		ArrayList<Funding> endRanking = new ArrayList<Funding>();
@@ -321,6 +319,7 @@ public class FundingController {
 				reviewAverage += r.getReviewRating();
 			}
 			reviewAverage = reviewAverage / reviewList.size();
+			reviewAverage = Math.round(reviewAverage*100)/100.0;
 			int totalAmount = 0;
 			int totalSupCount = 0;
 			for(Funding fund : fundingList) {
@@ -696,6 +695,7 @@ public class FundingController {
 		}
 	}
 	
+	//인기순 정렬
 	@RequestMapping("popular.fund")
 	public String popularList(Model model) {
 		ArrayList<Funding> popularList = fService.popularList();
@@ -707,6 +707,7 @@ public class FundingController {
 		return "ajaxFundingProceed";
 	}
 	
+	//오픈임박순, 찜하기순 정렬
 	@RequestMapping("sort.fund")
 	public String sortFundingComingSoon(@RequestParam("type") String sortType,
 																		@RequestParam("page") String page, Model model) {
@@ -723,21 +724,26 @@ public class FundingController {
 		}
 	}
 	
+	//카테고리 정렬
 	@RequestMapping("sortCate.fund")
 	public String sortCateFundingList(@RequestParam("cate") String cate, 
 																@RequestParam("page") String page, Model model) {
 		
 		ArrayList<Funding> sortCateList = fService.sortCateList(cate);
 		ArrayList<Image> imageList = fService.fundingImageList();
-		System.out.println("sortcateList : " + sortCateList);
 		
-		model.addAttribute("fundingList", sortCateList);
-		model.addAttribute("imageList", imageList);
-		
-		if(page.equals("proceed")) {
-			return "ajaxFundingProceed";
+		if(sortCateList.size() == 0) {
+			throw new FundingException("해당 카테고리에 해당하는 게시물 없음");
 		} else {
-			return "ajaxFundingComingSoon";
+			model.addAttribute("fundingList", sortCateList);
+			model.addAttribute("imageList", imageList);
+			
+			//진행중인 펀딩, 오픈예정 펀딩 판단 로직
+			if(page.equals("proceed")) {
+				return "ajaxFundingProceed";
+			} else {
+				return "ajaxFundingComingSoon";
+			}
 		}
 	}
 	
@@ -894,6 +900,8 @@ public class FundingController {
 				reviewAverage += r.getReviewRating();
 			}
 			reviewAverage = reviewAverage / reviewList.size();
+			reviewAverage = Math.round(reviewAverage*100)/100.0;
+			System.out.println(reviewAverage);
 			int totalAmount = 0;
 			int totalSupCount = 0;
 			for(Funding fund : fundingList) {

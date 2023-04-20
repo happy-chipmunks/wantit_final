@@ -159,14 +159,19 @@
 								<div  class="swTitle">최근 검색어</div>
 								<div class="recentWords">
 									<%
-									
+										//저장된 쿠키들 가져오기
 										Cookie[] cookies = request.getCookies();
 										if(cookies != null) {
-				
+											
+											//쿠키의 value를 가져오는데, 세션 유지위해 필요한 JSESSIONID 쿠키 제외하고
+											//나머지 쿠키들의 value들을 가져와 뷰에 뿌림
 											for(Cookie cookie : cookies) {
 										 		String ckName = cookie.getName();
+										 		
+										 		//쿠키 저장시 한글을 encoding하기 때문에 encoding된 문자열을 decode 해줌
 										 		String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
 										 		
+										 		//쿠키 값이 JSESSIONID인걸 제외한 나머지 쿠키들을 뷰에 뿌려줌
 												if(!ckName.equals("JSESSIONID")) {
 											
 									 %>
@@ -290,11 +295,13 @@
 				}
 			});
 			
+			/* 검색버튼을 눌렀을 때 검색값을 쿠키에 저장하는 함수 실행 */
 			const searchBtn = document.getElementById('searchBtn');
 			searchBtn.addEventListener('click', function() {
 				setSearchCookie();
 			});
 			
+			/* 검색할 단어 입력 후 엔터버튼을 눌렀을 때 쿠키에 저장하는 함수 실행 */
 			searchInput.addEventListener('keyup', function(event) {
 				if(event.keyCode === 13) {
 					setSearchCookie();
@@ -309,28 +316,41 @@
 				});
 			}
 			
-		
-			
+			/* 검색한 단어 쿠키값으로 저장하는 함수 */
 			function setSearchCookie() {
+				/* 검색한 단어 가져오고, 쿠키 저장후 controller 호출하기 위해 form도 가져옴 */
 				const searchInput = document.getElementById('searchInput');
 				const searchForm = document.getElementById('searchForm');
 				
 				const inputVal = searchInput.value;
+				
+				/* 쿠키 유지시간 설정하기 */
 				let todayDate = new Date();
+				
+				/* 유지기간은 24시간 */
 				todayDate.setDate(todayDate.getDate() + 1);
-				document.cookie = encodeURIComponent(inputVal) + "=" + encodeURIComponent(inputVal) + "; path=/wantit; expires" + todayDate.toGMTString() + ";";
+				
+				/* 쿠키는 name =value 형식으로 저장, 쿠키 접근범위 path로 설정, expires로 유지기간 설정 */
+				document.cookie = encodeURIComponent(inputVal) + "=" + encodeURIComponent(inputVal) 
+													+ "; path=/wantit; expires" + todayDate.toGMTString() + ";";
+													
+				/* controller 호출 */
 				searchForm.submit();
 				
 			}
 		
+			/* 뷰에 뿌려진 최근 검색어 삭제 */
 			const deleteSW = document.getElementsByClassName('deleteSW');
 			for(const i of deleteSW) {
 				i.addEventListener('click', function() {
+						/* 검색어 값 가져오기 */
 						const sWord = i.parentNode.querySelector('.sWord').innerText;
-						console.log(sWord);
+						
+						/* 저장되어 있는 쿠키의 유지기간을 과거로 설정하면 쿠키가 지워짐 */
 						document.cookie = sWord + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+						
+						/* 뷰에 있던 검색어 지우기 */
 						i.parentNode.remove();
-					
 				});
 			}
 			

@@ -72,7 +72,12 @@
         			<!--  펀딩예정인 것만 -->
         			<div class="col cardDecoration">
                 		<div class="card shadow-sm fundinglist">
-                 			 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></svg>
+                 			 <c:forEach items="${ imageList }" var="image">
+	                  					<c:if test="${ image.imageBoardId == fund.fundingNum }">
+	                  					
+		                  					<img alt="" src="${ contextPath }/resources/funding/${ image.imageRename }" width="100%" height="225">
+	                  					</c:if>
+	                  				</c:forEach>
       
                   			<div class="card-body">
                       			<p class="card-text">${ fund.fundingTitle }</p>
@@ -119,11 +124,13 @@
     		changeMoney();
     		changeProgressBar();
 
+    		//전체, 펀딩, 펀딩예정, 원팅 조회 각각에 대해 eventListener 작성
 			const liItem = document.getElementsByClassName('li-item');
 			const searchText = '${ searchText }';
 			const cate = '${ cate }';
 			for(const li of liItem) {
 				li.addEventListener('click', function() {
+					//li 클릭시 요소의 텍스트로 판단
 					switch(this.innerText) {
 						case '전체(펀딩, 펀딩예정)':
 							if(searchText != '') {
@@ -138,6 +145,8 @@
 								url : '${ contextPath }/searchFP.do',
 								data : {'searchText' : searchText, 'searchCate' : cate},
 								success : (data)=> {
+									//검색에 맞는 결과만 가져올 수 있도록 뷰를 수정하고
+									//진행상태와 펀딩액수를 변경
 									changeHtmlView(data);
 									changeMoney();
 						    		changeProgressBar();
@@ -181,19 +190,24 @@
 					}
 				});
 			}
+			//일반 숫자를 원화 형식으로 바꾸는 함수
 			function changeMoney() {
 				const fundingProceedMoney = document.getElementsByClassName('fundingProceedMoney');
 	    		for(const span of fundingProceedMoney) {
+	    			//액수를 저장해 innerText 초기화 후 원화로 바꿈
 	    			const before = parseInt(span.innerText);
 	    			span.innerText = " " + before.toLocaleString() + "원";
 	    		}
 			}
 			
+			//펀딩 달성된 퍼센테이지를 이용해 진행상황 바를 바꾸는 함수
     		function changeProgressBar() {
 	    		const progressBar = document.getElementsByClassName('progressBar');
 	    		const progressBarPercent = document.getElementsByClassName('progressBarPercent');
 	    		for(let i=0 ; i<progressBar.length ; i++) {
+	    			//달성률 가지고있는 문자열 가져와 퍼센트 문자만 제거해 숫자형식으로 변환
 					const percent = parseInt(progressBarPercent[i].value.substring(0, progressBarPercent[i].value.length-1));
+	    			//style 이용해 퍼센트만큼 css 변경, 기존 progressBar를 넘기면 안되기때문에 로직처리
 					if(percent >= 100) {
 		    			progressBar[i].style.width = "100%";
 					} else {
@@ -202,10 +216,16 @@
 	    		}
     		}
 			
+			//ajax 통신으로 서버호출시 다른 view를 리턴, view에서 원하는 데이터만 가져오는 함수
 			function changeHtmlView(data) {
-				var html = jQuery('<div>').html(data);
+				//view에서 처음 div요소 안에 해당하는 요소중 id가 BigArea인 요소만 가져옴
+				var html = $('<div>').html(data);
 				var contents = html.find("div#BigArea").html();
+				
+				//searchView에서 id가 targetArea인 요소 안에 가져온 내용들을 삽입
 				$("#targetArea").html(contents);
+				
+				//가져온 개수들로 view 초기화
 				const listSize = document.getElementById('listSize');
 				var searchListCount = document.getElementById('searchListCount');
 				

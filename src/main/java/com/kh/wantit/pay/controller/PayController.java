@@ -83,10 +83,12 @@ public class PayController {
 		String fundingTitle = pService.getFundingTitle(fundingNum);
 		Funding funding = pService.getFundingInfo(fundingNum);
 		Date fundingEnd = funding.getFundingEnd();
+		
 		model.addAttribute("rewardList", rewardList);
 		model.addAttribute("fundingTitle", fundingTitle);
 		model.addAttribute("fundingNum", fundingNum);
 		model.addAttribute("fundingEnd", fundingEnd);
+		
 		return "payView";
 	}
 	
@@ -94,57 +96,55 @@ public class PayController {
 		public String seeMyPaySchedule(@ModelAttribute("paySchedule") PaySchedule paySchedule, 
 																	@RequestParam("fundingTitle") String fundingTitle, Model model) {
 			
-		System.out.println("============" + paySchedule);
-		System.out.println("============" + fundingTitle);
 			model.addAttribute("fundingTitle", fundingTitle);
 			model.addAttribute("paySchedule", paySchedule);
+			
 		return "mpToPayReceiptView";
 		}
 	
 	
-	/*
-	 * 관리자 or 크리에이터 쪽 결제상태 최신화작업
-	 */
+	
+	// 관리자 or 크리에이터 쪽 결제상태 최신화작업
 	@RequestMapping("payStatusRenewal.pay")
-	public String payStatusRenewal(@RequestParam("fundingNum") int fundingNum, Model model,
-															HttpServletRequest req) {
+	public String payStatusRenewal(@RequestParam("fundingNum") int fundingNum, 
+																Model model, HttpServletRequest req) {
 		
+		//펀딩등록된 번호에 해당하는 merchant_uid값들을 가져옴
 		ArrayList<String> merchantUIdList = pService.getMerchantUId(fundingNum);
-		String[] merchant_uid = new String[merchantUIdList.size()];
-		for(int i=0 ; i<merchant_uid.length ; i++) {
-			merchant_uid[i] = merchantUIdList.get(i);
-		}
+		
+		//액세스 토큰 발급
 		String accessToken = getAccessToken();
 		
-		CloseableHttpClient client = HttpClientBuilder.create().build();
-		
+		//결제상태 가져오는 api는 get방식으로 호출하기 때문에 파라미터들을 나열하기 위한 작업
 		StringBuilder sb = new StringBuilder();
 		sb.append(RESTAPI_SEARCH_PAYLIST).append("?");
 		for(int i=0 ; i<merchantUIdList.size() ; i++) {
-			System.out.println(i);
 			if(i != 0 && i != merchantUIdList.size()) {
 				sb.append("&");
 			}
 			sb.append("merchant_uid[]=" + merchantUIdList.get(i));
-			System.out.println(sb.toString());
-			
 		}
+		
+		//요청 보낼시 띄어쓰기 처리
 		String replace = sb.toString().replaceAll(" ", "%20");
-		System.out.println(replace);
+		
+		//http 웹 통신 위해 client 생성, get 방식
+		CloseableHttpClient client = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(replace);
 		get.setHeader("Authorization", accessToken);
 		
+		//db에 paySchedule 데이터들을 업데이트하기 위한 list들
 		ArrayList<String> responseMerchantUId = new ArrayList<String>();
 		ArrayList<String> responseStatus = new ArrayList<String>();
+		
 		try {
-			
 			HttpResponse res = client.execute(get);
 			ObjectMapper mapper = new ObjectMapper();
 			String body = EntityUtils.toString(res.getEntity());
 			JsonNode rootNode = mapper.readTree(body);
 			JsonNode resNode = rootNode.get("response");
-			System.out.println(resNode);
 			
+			//반환된 body값 중 merchant_uid와 status 필드값들을 가져와서 각각 list에 넣음
 			for(int i=0 ; i<resNode.size() ; i++) {
 				responseMerchantUId.add(resNode.get(i).get("merchant_uid").asText());
 				responseStatus.add(resNode.get(i).get("status").asText());
@@ -161,89 +161,107 @@ public class PayController {
 			}
 		}
 		
+		//가져온 list들을 대상으로 하나씩 paySchedule 테이블에 들어있는 데이터들 중
+		//merchant_uid에 알맞은 데이터 중 status 칼럼을 업데이트
 		for(int i=0 ; i<responseMerchantUId.size() ; i++) {
 			Map<String, String> updateStatusMap = new HashMap<String, String>();
 			updateStatusMap.put("mUId", responseMerchantUId.get(i));
 			updateStatusMap.put("payStatus", responseStatus.get(i));
 			
-			System.out.println(updateStatusMap.toString());
-			
-			int updateStatus = pService.updatePayStatus(updateStatusMap);
+			pService.updatePayStatus(updateStatusMap);
 		
-			System.out.println("updateStatus : " + updateStatus);
-			
 		}
 		String referer = req.getHeader("Referer");
 		
-
 		return "redirect:" + referer;
 	}
 	
+	//예약된 결제건 취소
 	@RequestMapping("cancelPaySchedule.pay")
 	public String cancelPaySchedule(@RequestParam("customerUId") String customerUId, @RequestParam("fundingNum") int fundingNum,
-			@RequestParam("merchantUId") String merchantUId, @RequestParam("buyerName") String buyerName, 
-			@RequestParam("amount") int totalAmount, @RequestParam("rewardCount") int[] rewardCount, Model model, RedirectAttributes re) {
+															@RequestParam("merchantUId") String merchantUId, @RequestParam("buyerName") String buyerName, 
+															@RequestParam("amount") int totalAmount, @RequestParam("rewardCount") int[] rewardCount, 
+															Model model, RedirectAttributes re) {
 		
+		//예약결제 취소 요청위해 필요한 파라미터
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("customerUId", customerUId);
 		map.put("merchantUId", merchantUId);
 		map.put("buyerName", buyerName);
 		
-		System.out.println(map.toString());
 		
+		//db에 결제정보가 존재하는지 판단
 		int checkScheduled = pService.checkScheduled(map);
+		//액세스 토큰 필요하기 때문에 발급
 		String access_token = getAccessToken();
-		System.out.println(access_token);
-		System.out.println(checkScheduled);
 		
+		//결제정보가 존재할 때
 		if(checkScheduled == 1) {
+			//http 웹 통신 위해 client 생성, post 방식
 			CloseableHttpClient client = HttpClientBuilder.create().build();
 			HttpPost post = new HttpPost(RESTAPI_TRY_PAY_UNSCHEDULE);
-			post.setHeader("Authorization", access_token);
-			System.out.println(post.toString());
 			
+			//헤더에 액세스토큰 추가
+			post.setHeader("Authorization", access_token);
+			
+			//요청값 보낼 엔티티 생성
 			Map<String, String> entityMap = new HashMap<String, String>();
 			entityMap.put("customer_uid", customerUId);
 			entityMap.put("merchant_uid", merchantUId);
-			System.out.println(entityMap.toString());
 			
 			try {
+				//엔티티안에 한글이 포함되어있기 때문에, 엔티티 설정 시 UTF-8 지정
 				post.setEntity(new UrlEncodedFormEntity(convertParameter(entityMap), "UTF-8"));
 				HttpResponse res = client.execute(post);
+				
 				ObjectMapper mapper = new ObjectMapper();
 				String body = EntityUtils.toString(res.getEntity());
 				JsonNode rootNode = mapper.readTree(body);
+				
+				//요청 성공, 실패여부 판단
 				int resCode = rootNode.get("code").asInt();
 				String message = rootNode.get("message").asText();
-				System.out.println("message : " + message);
-				System.out.println("resCode : " + resCode);
+				
+				//결제취소에 실패한 경우
 				if(resCode != 0) {
 					throw new PayException(message);
 				} else {
+					//결제취소에 성공한 경우
 					JsonNode resNode = rootNode.get("response");
-					System.out.println("unscheduled resNode : " + resNode.toString());
+					
+					//반환값 중 schedule_status에 해당하는 문자열 값 가져옴
 					String schedule_status = resNode.get(0).get("schedule_status").asText();
-					System.out.println("schedule_status : " + schedule_status);
+					
+					//취소가 된 상태일 경우(다른 상태는 확인하지 못함)
 					if(schedule_status.equals("revoked")) {
+						
+						//db에 paySchedule 테이블에 현재 취소하는 건의 데이터중 status 칼럼값을 변경
 						Map<String, String> unscheduleMap = new HashMap<String, String>();
 						unscheduleMap.put("customer_uid", customerUId);
 						unscheduleMap.put("merchant_uid", merchantUId);
 						unscheduleMap.put("buyer_name", buyerName);
 						
-						int updateScheduleStatus = pService.updateScheduleStatus(unscheduleMap);
+						pService.updateScheduleStatus(unscheduleMap);
+						
+						//취소하였으니 펀딩중인 제품의 달성금액을 차감시켜야 함
+						//calculate값이 0이면 달성금액중 결제된 금액을 뺌
 						Map<String, Integer> updateCurrentMoneyMap = new HashMap<String, Integer>();
 						updateCurrentMoneyMap.put("fundingNum", fundingNum);
 						updateCurrentMoneyMap.put("totalAmount", totalAmount);
 						updateCurrentMoneyMap.put("calculate", 0);
 						pService.updateCurrentMoney(updateCurrentMoneyMap);
-						re.addAttribute("cancelPayScuccess", "cancelPayScuccess");
 						
+						//등록된 제품의 남아있는 재고 업데이트
+						//각 제품마다 구매한 만큼 다시 재고를 늘림
 						ArrayList<Reward> rewardList = pService.getRewardList(fundingNum);
 						for(int i=0 ; i<rewardList.size() ; i++) {
 							Reward r = rewardList.get(i);
 							r.setRewardSellCount(r.getRewardSellCount() - rewardCount[i]);
 							pService.rollBackSellCount(r);
 						}
+						
+						//메인 페이지로 돌아갈 때 알람창을 띄우기 위해 attribute 생성
+						re.addAttribute("cancelPayScuccess", "cancelPayScuccess");
 					}
 				}
 				
@@ -273,6 +291,7 @@ public class PayController {
 		return "../home";
 	}
 	
+	//결제 예약(토큰, 빌링키)
 	@RequestMapping("paySchedule.pay")
 	public String paySchedule(@RequestParam("rewardCount") int[] rewardCount, @RequestParam("rewardNum") int[] rewardNum,
 												@RequestParam("fundingTitle") String fundingTitle, @RequestParam("totalAmount") int totalAmount,
@@ -283,8 +302,10 @@ public class PayController {
 												@RequestParam("rewardExpectDate") Date[] rewardExpectDate,  @RequestParam("fundingNum") int fundingNum,
 												@RequestParam("rewardTitle") String[] rewardTitle, @RequestParam("fundingEnd") Date fundingEnd, Model model) {
 		
+		//db에 선택한 상품과 개수 들어가게 할 StringBuilder 생성
 		StringBuilder sb = new StringBuilder();
 		
+		//신용카드 형식으로 카드번호, 유효기간 조합, 배송지 상세주소 구분하기 위해 주소 재구성
 		String creditCardNumber = cardNum[0] + "-" +  cardNum[1] + "-" + cardNum[2] + "-" + cardNum[3];
 		String creditCardExpiry = "20" + cardExpiry[1] + "-" + cardExpiry[0];
 		String buyerFullAddress = buyerAddr[0] + " // " + buyerAddr[1];
@@ -295,19 +316,31 @@ public class PayController {
 		//아임포트 billing key 발급, customer_id 값 가져오기
 		Map<String, String> billingMap = getBillingKey(buyerName, creditCardNumber, creditCardExpiry, cardBirth, cardPwd, accessToken);
 		
+		//결제성공 뷰에 넘길 데이터 정의
 		PaySchedule ps = null;
+		
+		//db에 paySchedule 테이블에 들어갈 데이터 정의
 		Map<String, String> scheduleMap = new HashMap<String, String>();
+		
+		//빌링키 발급에 실패할 경우
 		if(billingMap.containsKey("responseMessage")) {
 			throw new PayException(billingMap.get("responseMessage"));
 			
+		//정상적으로 빌링키발급(customer_uid)에 성공할 경우
 		} else if(billingMap.containsKey("customer_uid")) {
 			
-			//아임포트 결제예약
+			//아임포트 결제예약 API 실행
 			scheduleMap = paySchedule(fundingTitle, fundingEnd, totalAmount, buyerName, buyerTel, buyerFullAddress, accessToken, billingMap.get("customer_uid"), fundingNum);
 			
+			//예약결제에 실패할 경우
 			if(scheduleMap.containsKey("message")) {
 				throw new PayException(scheduleMap.get("message"));
+				
+			//예약결제 성공할 경우
 			} else {
+				
+				//선택한 상품과 개수내용이 paySchedule에 들어감
+				//등록되어있는 상품의 재고 변경하기위해 상품번호와 팔린 갯수 얻어서
 				for(int i=0 ; i<rewardCount.length ; i++) {
 					if(rewardCount[i] != 0) {
 						Map<String, Integer> map = new HashMap<String, Integer>();
@@ -320,6 +353,7 @@ public class PayController {
 							sb.append(i+1 + ". " + rewardTitle[i] + "count=" + rewardCount[i]);
 						}
 						
+						//상품 재고 업데이트
 						pService.changeRewardSellCount(map);
 					}
 				}
@@ -327,17 +361,19 @@ public class PayController {
 				scheduleMap.put("card_name", billingMap.get("card_name"));
 				scheduleMap.put("card_number", billingMap.get("card_number"));
 				scheduleMap.put("fundingNum", String.valueOf(fundingNum));
+				//db에 예약한 결제 데이터 삽입
 				pService.insertPaySchedule(scheduleMap);
 				
 				ps = new PaySchedule(scheduleMap);
-				
 			}
 		}
 		
-		int totalCount = 0;
 		model.addAttribute("paySchedule", ps);
 		model.addAttribute("rewardTitles", rewardTitle);
 		model.addAttribute("totalAmount", totalAmount);
+		
+		//총 몇개 구매하였는지 구하기
+		int totalCount = 0;
 		for(int i=0 ; i<rewardCount.length; i++) {
 			totalCount += rewardCount[i];
 		}
@@ -371,7 +407,6 @@ public class PayController {
 			ObjectMapper mapper = new ObjectMapper();
 			String body = EntityUtils.toString(res.getEntity());
 			JsonNode rootNode = mapper.readTree(body);
-			System.out.println(rootNode.toString());
 
 			int resCode = rootNode.get("code").asInt();
 			if(resCode != 0) {
@@ -379,7 +414,6 @@ public class PayController {
 				throw new PayException(resMessage);
 			} else {
 				JsonNode resNode = rootNode.get("response");
-				System.out.println(resNode.toString());
 				String status = resNode.get("status").asText();
 				if(status.equals("paid")) {
 					Map<String, String> uMap = new HashMap<String, String>();
@@ -408,53 +442,57 @@ public class PayController {
 		
 	}
 
-	/*
-	 * 아임포트 결제예약
-	 */
+	//아임포트 결제예약
 	private Map<String, String> paySchedule(String fundingTitle, Date scheduleDate, int totalAmount, 
 																			String buyerName, String buyerTel, String buyerFullAddress, 
 																			String accessToken, String customer_uid, int fundingNum) {
-		String responseMessage = "";
 		
+		//예약결제 중 schedules FormData에 merchant_uid는 가맹점 주문번호
+		//중복된 값이 들어오면 안되기 때문에 oracle에서 만들어둔 sequence를 가져와 데이터 변환
 		String merchant_uid = "";
 		int merchantSeqeunce = pService.selectMerchantSequence();
 		merchant_uid = fundingTitle + "_" + merchantSeqeunce;
 		
-		LocalDate tempDate = LocalDate.now();
-		String dateTime = tempDate.toString();
 		
-//		long schedule_at = (scheduleDate.getTime() + 86400000) / 1000;
-		long schedule_at = (System.currentTimeMillis() + 120000)  / 1000;
-//		schedule_at += 3600;
+		//schedules FormData에 schedule_at 파라미터는 유닉스타임값을 보내야 하기 때문에 유닉스타임으로 변경
+		//결제될 시간은 펀딩 마감종료일 + 1시간
+		long schedule_at = (scheduleDate.getTime() + 86400000) / 1000 + 3600;
 		
-		System.out.println("schedule_date : " + scheduleDate.getTime());
-		System.out.println("schedule_at : " + schedule_at);
-		System.out.println("merchant_uid : " + merchant_uid);
-		
+		//http 웹 통신위해 client 생성, post 방식으로 API 호출
 		CloseableHttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(RESTAPI_TRY_PAY_SCHEDULE);
+		//받아둔 토큰값 헤더에 삽입
 		post.setHeader("Authorization", accessToken);
+		
+		//요청보낼 FormData 구성, 다른 API와 다르게 FormData 안에 FormData가 요청값으로 들어가기 때문에
+		//jsonArray로 전송해야 함
+		JSONArray jsonArray = new JSONArray();
 		
 		JSONObject json = new JSONObject();
 		json.put("customer_uid", customer_uid);
 		
-		JSONArray jsonArray = new JSONArray();
+		//FormData 중 scheuldes라는 FormData 요청값 필요하므로 해당 데이터만 담을 scheduleJson 객체 생성
 		JSONObject scheduleJson = new JSONObject();
-		scheduleJson.put("amount", totalAmount);
-		scheduleJson.put("schedule_at", schedule_at);
-		scheduleJson.put("currency", "KRW");
-		scheduleJson.put("merchant_uid", merchant_uid);
-		scheduleJson.put("name", fundingTitle);
-		scheduleJson.put("buyer_name", buyerName);
-		scheduleJson.put("buyer_tel", buyerTel);
-		scheduleJson.put("buyer_addr", buyerFullAddress);
+		scheduleJson.put("amount", totalAmount);						//구매 금액
+		scheduleJson.put("schedule_at", schedule_at);					//자동 결제될 시간
+		scheduleJson.put("currency", "KRW");								//화폐단위
+		scheduleJson.put("merchant_uid", merchant_uid);			//가맹점 주문번호
+		scheduleJson.put("name", fundingTitle);							//상품 게시물 제목
+		scheduleJson.put("buyer_name", buyerName);					//구매자 이름
+		scheduleJson.put("buyer_tel", buyerTel);							//구매자 번호
+		scheduleJson.put("buyer_addr", buyerFullAddress);			//구매자 배송지 주소
 		
+		//jsonArray안에 scheduleJson 담고 최종적으로 요청보낼 json객체에 담기
 		jsonArray.put(scheduleJson);
 		json.put("schedules", jsonArray);
 		
+		//응답값 담을 map객체 선언
 		Map<String, String> scheduleResultMap = new HashMap<String, String>();
 		
+		//실패시 응답메시지 담을 문자열 선언
+		String responseMessage = "";
 		try {
+			//list형식으로 보내지 않고 json형식으로 전송해야 하기 때문에 위에 만들어둔 json객체를 엔티티로 사용
 			post.setEntity(new StringEntity(json.toString(), ContentType.APPLICATION_JSON));
 			HttpResponse res = client.execute(post);
 			
@@ -463,17 +501,23 @@ public class PayController {
 			JsonNode rootNode = mapper.readTree(body);
 			JsonNode resNode = rootNode.get("response");
 			
+			//예약결제가 반환하는 body에는 객체가 배열형식으로 들어가있는 상태로 반환하기 때문에
+			//객체배열에서 객체값을 얻기위해 JsonNode 객체 생성
 			JsonNode resultResponseNode = null;
 			if (resNode != null) {
+				//응답 성공한 경우 resultResponseNode에 첫 인덱스 객체 가져옴
 				 resultResponseNode = resNode.get(0);
 			}
 			
 			if(rootNode.get("code").asInt() == 1 || rootNode.get("code").asInt() == -1) {
+				//예약결제가 실패한 경우 응답메세지 삽입
 				responseMessage = rootNode.get("message").asText();
 				scheduleResultMap.put("message", responseMessage);
 			} else {
+				//예약결제가 성공한 경우 가져온 객체에 필드이름에 따라 알맞은 key, value값을 scheduleResultMap에 추가
 				Iterator<String> iterator = resultResponseNode.fieldNames();
 				while(iterator.hasNext()) {
+					//iterator 사용해 가져온 key, value중 key값 기준으로 데이터 삽입
 					String nodeKey = iterator.next();
 					switch (nodeKey) {
 					case "customer_uid": scheduleResultMap.put("customer_uid", resultResponseNode.get(nodeKey).asText());
@@ -497,6 +541,9 @@ public class PayController {
 					default: break;
 					}
 				}
+			
+				//펀딩중인 제품의 달성금액을 업데이트
+				//calculate의 value가 1이면 달성금액에 현재 결제하고 있는 금액을 추가
 				Map<String, Integer> updateCurrentMoneyMap = new HashMap<String, Integer>();
 				updateCurrentMoneyMap.put("fundingNum", fundingNum);
 				updateCurrentMoneyMap.put("totalAmount", totalAmount);
@@ -517,43 +564,61 @@ public class PayController {
 		return scheduleResultMap;
 	}
 
-	/*
-	 * 아임포트 billing key 발급, customer_id 값 가져오기
-	 */
+	
+	 // 아임포트 billing key 발급, customer_uid 값 가져오기
+	 // 예약결제 이용시 등록된 customer_uid 빌링키가 있어야 해당하는 빌링키로 schedule 정보가 예약됨
 	private Map<String, String> getBillingKey(String buyerName, String creditCardNumber, String creditCardExpiry,
 																				String cardBirth, String cardPwd, String accessToken) {
-		String customerId = "";
+		
+		//빌링키 발급 실패시 담을 실패 메세지
 		String responseMessage = "";
+		
+		//빌링키 발급 성공시 담을 customer_uid와 카드정보, 구매자 이름
+		String response_customer_uid = "";
 		String cardNumber = "";
 		String cardName = "";
 		String reName = buyerName + "_";
-		CloseableHttpClient client = HttpClientBuilder.create().build();
+		
+		//결제수단 식별 중복불가한 고유번호이므로 중복되지 않게 날짜와 카드번호 마지막 4자리 조합
 		LocalDate tempDate = LocalDate.now();
 		String dateTime = tempDate.toString();
 		String creditCardLastNum = creditCardNumber.substring(creditCardNumber.length() - 4);
+		String request_customer_uid =  reName + dateTime + "_" + creditCardLastNum;
 		
-		HttpPost post = new HttpPost(RESTAPI_GET_BILLINGKEY + reName + dateTime + "_" + creditCardLastNum);
+		//http 웹 통신위해 client 생성, post 방식으로 API 호출
+		CloseableHttpClient client = HttpClientBuilder.create().build();
+		HttpPost post = new HttpPost(RESTAPI_GET_BILLINGKEY + request_customer_uid);
+		
+		//받아둔 토큰값 헤더에 삽입
 		post.setHeader("Authorization", accessToken);
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("pg", "inicis");
-		map.put("customer_uid", reName + dateTime + "_" + creditCardLastNum);
-		map.put("card_number", creditCardNumber);
-		map.put("expiry", creditCardExpiry);
-		map.put("birth", cardBirth);
-		map.put("pwd_2digit", cardPwd);
 		
+		//빌링키 발급에 필요한 FormData
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("pg", "inicis");																								// pg : 결제 가맹점
+		map.put("customer_uid",request_customer_uid);													// customer_uid : 결제 고유번호
+		map.put("card_number", creditCardNumber);														// card_number : 카드번호
+		map.put("expiry", creditCardExpiry);																		// expiry : 카드 유효기간
+		map.put("birth", cardBirth);																						// birth : 생년월일
+		map.put("pwd_2digit", cardPwd);																			// 카드 비밀번호 앞 2자리
+		
+		//rest api 요청후 반한값들 담기
 		try {
+			//convertParameter 함수 이용해 엔티티 전송
 			post.setEntity(new UrlEncodedFormEntity(convertParameter(map)));
 			HttpResponse res = client.execute(post);
+			
+			//HttpResponse로 요청 결과값 받아서 code값에 대한 로직처리
 			ObjectMapper mapper = new ObjectMapper();
 			String body = EntityUtils.toString(res.getEntity());
 			JsonNode rootNode = mapper.readTree(body);
 			JsonNode resNode = rootNode.get("response");
 			
+			//빌링키 발급에 실패한 경우
 			if(rootNode.get("code").asInt() == -1) {
 				responseMessage = rootNode.get("message").asText();
 			} else {
-				customerId = resNode.get("customer_uid").asText();
+			//빌링키 발급에 성공한 경우
+				response_customer_uid = resNode.get("customer_uid").asText();
 				cardName = resNode.get("card_name").asText();
 				cardNumber = resNode.get("card_number").asText();
 			}
@@ -569,32 +634,43 @@ public class PayController {
 			}
 		}
 		
+		//빌링키 발급 결과에 대한 map 생성
 		Map<String, String> resultMap = new HashMap<String, String>();
+		//발급 성공한 경우
 		if(responseMessage.equals("")) {
-			resultMap.put("customer_uid", customerId);
+			resultMap.put("customer_uid", response_customer_uid);
 			resultMap.put("card_name", cardName);
 			resultMap.put("card_number", cardNumber);
 		} else {
+		//발급 실패한 경우 
 			resultMap.put("responseMessage", responseMessage);
 		}
 
 		return resultMap;
 	}
 
-	/*
-	 *  아임포트 access token 발급
-	 */
+	
+	   //아임포트 API 이용하기 위한 access token 발급
 	private String getAccessToken() {
+		//리턴할 토큰 저장하기 위한 result 변수 설정
 		String result = "";
+		
+		//http 웹 통신 위해 client 생성, post 방식
 		CloseableHttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(RESTAPI_GET_TOKEN);
+		
+		//아임포트 REST API키와 secret키 map으로 생성
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("imp_key", IMP_KEY);
 		map.put("imp_secret", IMP_SECRET);
 		
+		//rest api 요청 후 반환값 담기
 		try {
+			//convertParameter 함수 이용해 엔티티 전송
 			post.setEntity(new UrlEncodedFormEntity(convertParameter(map)));
 			HttpResponse res = client.execute(post);
+			
+			//HttpResponse로 요청 결과값 받아서 body값 중 accest_token 키값 가져오기
 			ObjectMapper mapper = new ObjectMapper();
 			String body = EntityUtils.toString(res.getEntity());
 			JsonNode rootNode = mapper.readTree(body);
@@ -614,13 +690,14 @@ public class PayController {
 		return result;
 	}
 	
-	/*
-	 * REST API 송신 데이터 ENTITY작업
-	 */
+
+	 // REST API 송신 데이터 ENTITY작업
 	private List<NameValuePair> convertParameter(Map<String, String> map) {
+		//http 프로토콜 클라이언트로 서버에 데이터 전송위해 Name, Value를 가지고있는 list형식으로 변환
 		List<NameValuePair> paramList = new ArrayList<NameValuePair>();
 		
 		Set<Map.Entry<String, String>> entries = map.entrySet();
+		//map에 저장된 값들을 entrySet 이용하여 list에 추가
 		for(Map.Entry<String, String> entry : entries) {
 			paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
 		}

@@ -151,37 +151,49 @@ public class HomeController {
 		
 		return "common/searchView";
 	}
+	
+	//진행중인 펀딩 검색
 	@RequestMapping("searchFP.do")
 	public String searchFP(@RequestParam(value = "searchText", required = false) String searchText, 
 											@RequestParam(value = "searchCate", required = false) String cate, Model model) {
+		//검색결과에 해당하는 진행중인 펀딩만 담을 list 생성
 		ArrayList<Funding> fundingFPList = new ArrayList<Funding>();
 		
+		//db에서 검색결과에 해당하는 펀딩들을 가져올 list 생성
 		ArrayList<Funding> fundingList = new ArrayList<Funding>();
+		//펀딩제품들 이미지 가져오기
 		ArrayList<Image> imageList = fService.fundingImageList();
 		
+		//카테고리 또는 단어가 들어올 수 있으므로 map 생성
 		Map<String, String> searchMap = new HashMap<String, String>();
-		System.out.println("============================]" + searchText);
-		System.out.println("============================]" + cate);
+		
+		//검색단어로만 서칭한 경우
 		if(!searchText.equals("")) {
 			searchMap.put("cateOrContent", "content");
 			searchMap.put("searchText", searchText);
 			fundingList = fService.searchFundingList(searchMap);
+			
 			model.addAttribute("searchText", searchText);
+		//카테고리 분류로만 검색한 경우
 		} else if(cate != null) {
 			searchMap.put("cateOrContent", "cate");
 			searchMap.put("cate", cate);
 			fundingList = fService.searchFundingList(searchMap);
+			
 			model.addAttribute("cate", cate);
 		}
 		
+		//db에서 가져온 펀딩오픈 날짜들을 현재날짜와 비교
 		Date now = new Date();
 		for(Funding f : fundingList) {
+			//compareTo함수 사용하여 음수(시작날짜가 현재날짜보다 작을경우)일때만 model로 넘길 list에 담음
 			if(f.getFundingStart().compareTo(now) == -1) {
 				fundingFPList.add(f);
 			}
 		}
 		model.addAttribute("fundingList", fundingFPList);
 		model.addAttribute("imageList", imageList);
+		
 		return "common/searchAjaxProceed";
 	}
 	
@@ -198,11 +210,15 @@ public class HomeController {
 			searchMap.put("cateOrContent", "content");
 			searchMap.put("searchText", searchText);
 			fundingList = fService.searchFundingList(searchMap);
+			
 			model.addAttribute("searchText", searchText);
+			
 		} else if(cate != null) {
+			
 			searchMap.put("cateOrContent", "cate");
 			searchMap.put("cate", cate);
 			fundingList = fService.searchFundingList(searchMap);
+			
 			model.addAttribute("cate", cate);
 		}
 		

@@ -210,7 +210,6 @@
                 <span class="cateTitleOrAll">전체</span>
                 <ul class="sortList">
                     <li class="sortType">최신등록순</li>
-                    <li class="sortType">알람신청순</li>
                     <li class="sortType">찜하기순</li>
                     <li class="sortType" id="sortStartDate">오픈임박순</li>
                 </ul>

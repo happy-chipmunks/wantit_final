@@ -55,22 +55,22 @@
 	    <script type="text/javascript">
 	    window.onload=()=> {
 	    	
-	    	const fundingProceedMoney = document.getElementsByClassName('fundingProceedMoney');
-			for(const span of fundingProceedMoney) {
-				const before = parseInt(span.innerText);
-				span.innerText = " " + before.toLocaleString() + "원";
-			}
+// 	    	const fundingProceedMoney = document.getElementsByClassName('fundingProceedMoney');
+// 			for(const span of fundingProceedMoney) {
+// 				const before = parseInt(span.innerText);
+// 				span.innerText = " " + before.toLocaleString() + "원";
+// 			}
 		
-			const progressBar = document.getElementsByClassName('progressBar');
-			const progressBarPercent = document.getElementsByClassName('progressBarPercent');
-			for(let i=0 ; i<progressBar.length ; i++) {
-				const percent = parseInt(progressBarPercent[i].value.substring(0, progressBarPercent[i].value.length-1));
-				if(percent >= 100) {
-    				progressBar[i].style.width = "100%";
-				} else {
-					progressBar[i].style.width = percent + "%";
-				}
-			}
+// 			const progressBar = document.getElementsByClassName('progressBar');
+// 			const progressBarPercent = document.getElementsByClassName('progressBarPercent');
+// 			for(let i=0 ; i<progressBar.length ; i++) {
+// 				const percent = parseInt(progressBarPercent[i].value.substring(0, progressBarPercent[i].value.length-1));
+// 				if(percent >= 100) {
+//     				progressBar[i].style.width = "100%";
+// 				} else {
+// 					progressBar[i].style.width = percent + "%";
+// 				}
+// 			}
 	    }
 	    
 	    var boards = document.getElementsByClassName('cardDecoration');

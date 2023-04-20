@@ -182,52 +182,58 @@ public class MemberController {
 	}
 	
 	
-	
+	//참여한 펀딩 결제리스트
 	@RequestMapping("/myPageSupporterPayList.me")
 	public String myPageSupporterPayList(@RequestParam(value = "page", required = false) Integer page,  
 																		HttpSession session, Model model) {
+		//session에 로그인된 유저 닉네임 가져오기
 		String userNickName = ((Member)session.getAttribute("loginUser")).getMemberName();
-		System.out.println(userNickName);
+		
+		//페이징 처리
 		int currentPage = 1;
 		if(page != null) 
 			currentPage = page;
-		
 		int payListCount = pService.getPayListCount(userNickName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, payListCount, 5);
+		
+		//로그인한 유저 정보로 참여한 펀딩 리스트 가져오기
 		ArrayList<PaySchedule> payScheduleList = pService.selectPayList(pi, userNickName);
-		ArrayList<Funding> payFundList = new ArrayList<Funding>();
-		ArrayList<Image> imageList = fService.fundingImageList();
 		
-		ArrayList<Boolean> alreadyWriteReview = new ArrayList<Boolean>();
-		
-		
-		for(PaySchedule p : payScheduleList) {
-			Funding fund = fService.getFunding(Integer.parseInt(p.getFundingNum()), false);
+		if(payScheduleList.size() == 0) {
+			throw new MemberException("참여한 펀딩 없음");
+		} else {
+			//model로 넘길 참여한 펀딩리스트 생성
+			ArrayList<Funding> payFundList = new ArrayList<Funding>();
+			ArrayList<Image> imageList = fService.fundingImageList();
 			
-			Review r = new Review();
-			r.setReviewer(((Member)session.getAttribute("loginUser")).getMemberId());
-			r.setFundingNum(Integer.parseInt(p.getFundingNum()));
+			//리뷰 작성유무 판단
+			ArrayList<Boolean> alreadyWriteReview = new ArrayList<Boolean>();
+			for(PaySchedule p : payScheduleList) {
+				Funding fund = fService.getFunding(Integer.parseInt(p.getFundingNum()), false);
+				
+				//유저가 해당 펀딩에 대한 리뷰를 썼는지 체크
+				Review r = new Review();
+				r.setReviewer(((Member)session.getAttribute("loginUser")).getMemberId());
+				r.setFundingNum(Integer.parseInt(p.getFundingNum()));
+				
+				int checkExistReview = fService.checkExistReview(r);
+				if(checkExistReview == 1) 
+					alreadyWriteReview.add(true);
+				else 
+					alreadyWriteReview.add(false);
+				
+				payFundList.add(fund);
+			}
 			
-			int checkExistReview = fService.checkExistReview(r);
-			if(checkExistReview == 1) 
-				alreadyWriteReview.add(true);
-			 else 
-				alreadyWriteReview.add(false);
+			model.addAttribute("payScheduleList", payScheduleList);
+			model.addAttribute("payFundList", payFundList);
+			model.addAttribute("imageList", imageList);
+			model.addAttribute("alreadyWriteReviewList", alreadyWriteReview);
+			model.addAttribute("pi", pi);
 			
-			payFundList.add(fund);
+			
+			return "myPage_sup_payList";
 		}
-		
-		System.out.println("===================" + payScheduleList);
-		System.out.println("===================" + payFundList);
-		
-		model.addAttribute("payScheduleList", payScheduleList);
-		model.addAttribute("payFundList", payFundList);
-		model.addAttribute("imageList", imageList);
-		model.addAttribute("alreadyWriteReviewList", alreadyWriteReview);
-		model.addAttribute("pi", pi);
-		
-		
-		return "myPage_sup_payList";
 	}
 	@RequestMapping("reviewPage.me")
 	public String insertReview(@RequestParam("fundingNum") int fundingNum, @RequestParam("fundingTitle") String fundingTitle,
@@ -241,6 +247,7 @@ public class MemberController {
 		return "../review/writeReview";
 	}
 	
+	//리뷰 작성
 	@RequestMapping("insertReview.me")
 	public String insertReview(@RequestParam("fundingNum") int fundingNum, @RequestParam("reviewRating") double rating,
 													@RequestParam("reviewContent") String reviewContent, HttpSession session, 
@@ -254,16 +261,15 @@ public class MemberController {
 		review.setCreatorNum(creatorNum);
 		review.setReviewer(userId);
 		
-		System.out.println(review);
-		
+		//리뷰내용 db에 insert
 		int result = fService.insertReview(review);
 		
 		if(result > 0) {
 			model.addAttribute("msg", "리뷰가 작성되었습니다 !");
+			return "../review/insertReviewResult";
 		} else {
-			//에러처리
+			throw new MemberException("리뷰 작성 실패");
 		}
-		return "../review/insertReviewResult";
 	}
 	
 	

@@ -282,9 +282,7 @@
 	    		for(var board of boards){
 	    			board.addEventListener('click', function(){
 	    				const bId = this.querySelector('.bId').value;
-	    				console.log(bId);	// 선택한 펀딩 게시글 번호를 가지고 오는가
 	    				const writerNo = this.querySelector('.writer').value;
-	    				console.log(writerNo);	// 선택한 펀딩 게시글 작성자 번호를 가지고 오는가
 	    				
 	    				location.href='${contextPath}/selectFundingBoard.fund?bId=' + bId + '&writerNo=' + writerNo;
 	    			});
@@ -314,7 +312,6 @@
     		$.ajax({
     			url : '${contextPath}/popular.fund',
     			success : (data)=> {
-    				console.log(data);
     				changeHtmlView(data);
     				changeMoney();
     				changeProgressBar();
