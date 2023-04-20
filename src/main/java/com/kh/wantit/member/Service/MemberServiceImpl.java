@@ -62,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		HashMap<String, String> params = new  HashMap<String, String>();
 		params.put("to", "Phone");
-		params.put("from", "01072211074");
+		params.put("from", "전화번호");    //보내는사람 전화번호
 		params.put("type", "SMS");
 		params.put("text", "[WANTIT] WANTIT 회원 인증번호"+ "["+numStr+"]"+"를 입력해주세요.");
 		params.put("app_version", "test app 1.2");
