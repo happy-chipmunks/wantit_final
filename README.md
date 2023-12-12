@@ -61,10 +61,10 @@
     </tr>
     <tr>
       <td align="center">팀장<br/>Backend<br/>Frontend</td>
-      <td align="center">>Backend<br/>Frontend</td>
-      <td align="center">>Backend<br/>Frontend</td>
-      <td align="center">>Backend<br/>Frontend</td>
-      <td align="center">>Backend<br/>Frontend</td>
+      <td align="center">Backend<br/>Frontend</td>
+      <td align="center">Backend<br/>Frontend</td>
+      <td align="center">Backend<br/>Frontend</td>
+      <td align="center">Backend<br/>Frontend</td>
     </tr>
     
   </tbody>
