@@ -17,7 +17,7 @@
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/bd869fb7-7fc5-4963-957b-c19f12bd6c85">
 </div>
 
-<strong>메인</strong><br/>
+### 메인
 <p>현재 인기있는 펀딩/펀딩예정과 원팅의 간단한 정보들을 볼 수 있으며, 즉시 원팅 게시물 작성 가능</p>
 
 
