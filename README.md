@@ -13,9 +13,8 @@
 
 ## 프로젝트 핵심 기능
 <div style="display : flex;">
-  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/08ac81bc-b785-4d06-ae15-4571ee9bd3e6">
-<img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/18f7d059-256e-468c-9971-9a6931c9c005">
-
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/edaa1827-ffc5-412f-bdf1-6a4bb9982de4">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/bd869fb7-7fc5-4963-957b-c19f12bd6c85">
 </div>
 
 <strong>메인</strong><br/>
