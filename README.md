@@ -12,7 +12,7 @@
 <p></p>
 
 ## 프로젝트 핵심 기능
-<p>공사중...</p>
+<img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/adfe34dd-7ffe-4557-bb79-8ace2fecb077">
 
 
 ## ERD
