@@ -31,11 +31,14 @@
 
 
 <div stytle="diplay : flex;">
-  <img src="(https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/74de5a34-d873-463c-a5c8-7d1d054ab9a8">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/74de5a34-d873-463c-a5c8-7d1d054ab9a8">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/da32f876-216e-4e87-ae5e-948a220afb6a">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/ca724f82-5868-4d96-a337-a247bba50921">
+  
 </div>
 
-### 펀딩/펀딩예정 목록
-<p>펀딩/펀딩예정 상품들을 카테고리별로 볼 수 있고, 작성/인기/찜하기 순으로 정렬 가능</p>
+### 펀딩 상세
+<p>펀딩 제품, 판매자의 정보를 확인할 수 있으며, 찜하기, 공유하기, 판매자에게 문의 가능</p>
 
 
 
