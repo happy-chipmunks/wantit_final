@@ -31,9 +31,9 @@
 
 
 <div stytle="diplay : flex;">
-  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/74de5a34-d873-463c-a5c8-7d1d054ab9a8">
-  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/da32f876-216e-4e87-ae5e-948a220afb6a">
-  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/ca724f82-5868-4d96-a337-a247bba50921">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/1011597e-3546-4aa0-95f3-2b2b151326d7">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/80f06e15-2e98-492e-bdc9-aa65c2e81b87">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/c4346e48-15d4-4389-b437-9ae802b43103">
   
 </div>
 
