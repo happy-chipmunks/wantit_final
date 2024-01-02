@@ -67,12 +67,22 @@
 <p>판매할 상품의 정보와 펀딩 시작/종료일 작성, 상품의 리워드 정보 등록 가능</p><br/>
 
 <div stytle="diplay : flex;">
-  <img src="">
-  <img src="">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/ebe7f0c0-4374-4224-80bc-54d961ba0c7c">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/c9225b4e-1a8d-4827-b7a4-f3d2475ac16e">
 </div>
 
 ### 마이페이지/리뷰
-<p>사용자의 프로필 정보 수정</p><br/>
+<p>유저 정보 수정/탈퇴, 참여한 원팅/펀딩 확인 가능, 후원한 펀딩의 리뷰 작성 가능</p><br/>
+
+<div stytle="diplay : flex;">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/8297de55-8e0d-443a-bc91-e3598cb97519">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/5400b297-af98-40dd-a424-4d7c96a44e4e">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/0bc75b7f-ba27-42c4-8112-547c726d9077">
+</div>
+
+### 원팅 목록/원팅 등록
+<p>등록된 원팅들의 간단한 정보 확인할 수 있음</p>
+<p>원팅으로 상품화되길 원하는 제품의 정보 입력하여 게시글 작성</p>
 
 
 ## ERD
