@@ -18,8 +18,23 @@
 </div>
 
 ### 메인
-<p>현재 인기있는 펀딩/펀딩예정과 원팅의 간단한 정보들을 볼 수 있으며, 즉시 원팅 게시물 작성 가능</p>
+<p>현재 인기있는 펀딩/펀딩예정과 원팅의 간단한 정보들을 볼 수 있으며, 즉시 원팅 게시물 작성 가능</p><br/>
+<p>진행중인 이벤트들을 확인 가능</p>
 
+<div stytle="diplay : flex;">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/4d22a448-9838-412d-8bec-016c4ba1de9e">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/41aa9baf-9bd9-4fd6-9fcb-44af40e1763e">
+</div>
+
+### 펀딩/펀딩예정 목록
+<p>펀딩/펀딩예정 상품들을 카테고리별로 볼 수 있고, 작성/인기/찜하기 순으로 정렬 가능</p><br/>
+
+<div stytle="diplay : flex;">
+  <img src="(https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/74de5a34-d873-463c-a5c8-7d1d054ab9a8">
+</div>
+
+### 펀딩/펀딩예정 목록
+<p>펀딩/펀딩예정 상품들을 카테고리별로 볼 수 있고, 작성/인기/찜하기 순으로 정렬 가능</p>
 
 
 
