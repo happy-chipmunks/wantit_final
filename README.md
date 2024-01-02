@@ -29,7 +29,6 @@
 ### 펀딩/펀딩예정 목록
 <p>펀딩/펀딩예정 상품들을 카테고리별로 볼 수 있고, 작성/인기/찜하기/오픈임박순(펀딩예정) 순으로 정렬 가능</p><br/>
 
-
 <div stytle="diplay : flex;">
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/1011597e-3546-4aa0-95f3-2b2b151326d7">
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/80f06e15-2e98-492e-bdc9-aa65c2e81b87">
@@ -51,13 +50,29 @@
 
 
 <div stytle="diplay : flex;">
-  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/1bf75ad9-cad3-463b-8d2f-7fc510987fb6">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/f9d73865-16ff-469c-93ab-37bf32fa58b0">
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/3a7c76cb-8e3a-494d-a3aa-28f09e537b61">
 </div>
 
 ### 펀딩 결제예약
 <p>구매할 상품의 종류와 갯수 조절 가능, 카드 정보/구매자 정보 입력하여 결제예약 가능</p>
 <p>결제 성공 시 결제정보 확인 가능</p><br/>
+
+<div stytle="diplay : flex;">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/c7010ba4-f341-45fd-8aa2-baec2f2daf6f">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/8ba67f26-3352-4b47-a2a6-97b5381aa4da">
+</div>
+
+### 펀딩상품 등록
+<p>판매할 상품의 정보와 펀딩 시작/종료일 작성, 상품의 리워드 정보 등록 가능</p><br/>
+
+<div stytle="diplay : flex;">
+  <img src="">
+  <img src="">
+</div>
+
+### 마이페이지/리뷰
+<p>사용자의 프로필 정보 수정</p><br/>
 
 
 ## ERD
