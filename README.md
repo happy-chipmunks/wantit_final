@@ -34,6 +34,7 @@
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/c4346e48-15d4-4389-b437-9ae802b43103">
 </div>
 <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/56baf3ac-ffea-4440-a076-50722b6e42fd">
+
 ### 펀딩 상세
 <p>펀딩 제품, 판매자의 정보를 확인할 수 있으며, 찜하기, 공유하기, 판매자에게 문의 가능</p><br/>
 <p>찜한 펀딩예정 제품이 오픈했을 경우, 알람으로 확인 가능</p>
