@@ -12,20 +12,15 @@
 <p></p>
 
 ## 프로젝트 핵심 기능
-<table>
-  <tbody>
-    <tr>
-      <td>
-        <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/08ac81bc-b785-4d06-ae15-4571ee9bd3e6">
-        <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/18f7d059-256e-468c-9971-9a6931c9c005">
-      </td>
-      <td>
-        <strong>메인</strong><br/>
-        <p>현재 인기있는 펀딩/펀딩예정과 원팅의 간단한 정보들을 볼 수 있으며, 즉시 원팅 게시물 작성 가능</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div style="display : flex;">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/08ac81bc-b785-4d06-ae15-4571ee9bd3e6">
+<img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/18f7d059-256e-468c-9971-9a6931c9c005">
+
+</div>
+
+<strong>메인</strong><br/>
+<p>현재 인기있는 펀딩/펀딩예정과 원팅의 간단한 정보들을 볼 수 있으며, 즉시 원팅 게시물 작성 가능</p>
+
 
 
 
