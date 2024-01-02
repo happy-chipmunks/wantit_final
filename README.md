@@ -22,12 +22,13 @@
 <p>진행중인 이벤트들을 확인 가능</p>
 
 <div stytle="diplay : flex;">
-  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/4d22a448-9838-412d-8bec-016c4ba1de9e">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/1f4263f7-c083-4128-b8ee-b22ef8005745">
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/41aa9baf-9bd9-4fd6-9fcb-44af40e1763e">
 </div>
 
 ### 펀딩/펀딩예정 목록
-<p>펀딩/펀딩예정 상품들을 카테고리별로 볼 수 있고, 작성/인기/찜하기 순으로 정렬 가능</p><br/>
+<p>펀딩/펀딩예정 상품들을 카테고리별로 볼 수 있고, 작성/인기/찜하기/오픈임박순(펀딩예정) 순으로 정렬 가능</p><br/>
+
 
 <div stytle="diplay : flex;">
   <img src="(https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/74de5a34-d873-463c-a5c8-7d1d054ab9a8">
