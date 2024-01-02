@@ -19,6 +19,9 @@
         <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/08ac81bc-b785-4d06-ae15-4571ee9bd3e6">
         <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/18f7d059-256e-468c-9971-9a6931c9c005">
       </td>
+      <td>
+        <p>asd</p>
+      </td>
     </tr>
   </tbody>
 </table>
