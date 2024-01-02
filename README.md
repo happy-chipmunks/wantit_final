@@ -16,7 +16,6 @@
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/edaa1827-ffc5-412f-bdf1-6a4bb9982de4">
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/bd869fb7-7fc5-4963-957b-c19f12bd6c85">
 </div>
-
 ### 메인
 <p>현재 인기있는 펀딩/펀딩예정과 원팅의 간단한 정보들을 볼 수 있으며, 즉시 원팅 게시물 작성 가능</p><br/>
 <p>진행중인 이벤트들을 확인 가능</p>
@@ -25,7 +24,6 @@
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/1f4263f7-c083-4128-b8ee-b22ef8005745">
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/41aa9baf-9bd9-4fd6-9fcb-44af40e1763e">
 </div>
-
 ### 펀딩/펀딩예정 목록
 <p>펀딩/펀딩예정 상품들을 카테고리별로 볼 수 있고, 작성/인기/찜하기/오픈임박순(펀딩예정) 순으로 정렬 가능</p><br/>
 
@@ -34,12 +32,27 @@
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/1011597e-3546-4aa0-95f3-2b2b151326d7">
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/80f06e15-2e98-492e-bdc9-aa65c2e81b87">
   <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/c4346e48-15d4-4389-b437-9ae802b43103">
-  
 </div>
-
+<img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/56baf3ac-ffea-4440-a076-50722b6e42fd">
 ### 펀딩 상세
-<p>펀딩 제품, 판매자의 정보를 확인할 수 있으며, 찜하기, 공유하기, 판매자에게 문의 가능</p>
+<p>펀딩 제품, 판매자의 정보를 확인할 수 있으며, 찜하기, 공유하기, 판매자에게 문의 가능</p><br/>
+<p>찜한 펀딩예정 제품이 오픈했을 경우, 알람으로 확인 가능</p>
 
+<div stytle="diplay : flex;">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/fa9f6761-cee5-4594-8062-ad6f7adeef42">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/7795b5a2-c87a-4a7f-8199-181e45dd7e17">
+</div>
+### 검색
+<p>키워드 검색과 카테고리 검색이 가능하며, 최근 검색어들을 확인할 수 있음</p><br/>
+
+
+<div stytle="diplay : flex;">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/1bf75ad9-cad3-463b-8d2f-7fc510987fb6">
+  <img src="https://github.com/kdt-8-4/Weatherfit_Backend/assets/118866032/3a7c76cb-8e3a-494d-a3aa-28f09e537b61">
+</div>
+### 펀딩 결제예약
+<p>구매할 상품의 종류와 갯수 조절 가능, 카드 정보/구매자 정보 입력하여 결제예약 가능</p><br/>
+<p>결제 성공 시 결제정보 확인 가능</p><br/>
 
 
 ## ERD
